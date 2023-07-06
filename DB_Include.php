@@ -1,0 +1,20 @@
+<?PHP
+if (!session_id()) session_start();
+$_SESSION["ip"] = "10.10.9.65";
+
+//------------------------------------------
+$servername="localhost";
+$username="root";
+$password="admin";
+$dbname="newsandactivities";
+$conn = new mysqli($servername, $username, $password, $dbname);
+
+// เช็คว่าเชื่อมต่อฐานข้อมูลสำเร็จหรือไม่
+if ($conn->connect_error) {
+    die("การเชื่อมต่อฐานข้อมูลล้มเหลว: " . $conn->connect_error);
+}
+
+// ตั้งค่าภาษาให้เป็น utf8
+$conn->set_charset("utf8");
+// $conn->set_charset("utf8mb4");
+?>

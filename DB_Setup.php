@@ -1,0 +1,32 @@
+<?PHP
+    $sql = "SELECT * FROM newssetup";
+    $result = $conn->query($sql);
+
+    // ตรวจสอบผลลัพธ์
+    if ($result->num_rows > 0) {
+        // ดำเนินการกับข้อมูลที่ได้รับ
+        $row = $result->fetch_assoc();
+        if (isset($row["SU_DefaultImageNews"]) && $row["SU_DefaultImageNews"] !== '') {
+            $DefaultImageNews = $row["SU_DefaultImageNews"];
+        } else {
+            ReturnPage('กรุณากลับไป Setup ค่าเริ่มต้นเมื่อไม่มีภาพก่อน');
+        }
+        if (isset($row["SU_PathDefaultImageNews"]) && $row["SU_PathDefaultImageNews"] !== '') {
+            $PathFolderNews = $row["SU_PathDefaultImageNews"];
+        } else {
+            ReturnPage('กรุณากลับไป Setup ที่อยู่รูปภาพของข่าวก่อน');
+        }
+    } else {
+        ReturnPage('กรุณากลับไป Setup ก่อน');
+    }  
+    unset($sql);
+
+    function ReturnPage($TextMessage) {
+        $_SESSION['StatusTitle'] = "Error!";
+        $_SESSION['StatusMessage'] = $TextMessage;
+        $_SESSION['StatusAlert'] = "error";
+        header("Location: ".$_SESSION['PathPage']);
+        unset($_SESSION['PathPage']);
+        exit();
+      }
+?>
