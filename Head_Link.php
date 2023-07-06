@@ -33,6 +33,16 @@
     <link href="css/style.css" rel="stylesheet">
 
     <style>
+/* .dropdown-submenu .dropdown-menu {
+  position: static;
+  display: none;
+  margin-top: -1px;
+  margin-left: 100%;
+  min-width: 10rem;
+}
 
+.dropdown-submenu:hover .dropdown-menu {
+  display: block;
+} */
     </style>
 

@@ -175,4 +175,5 @@ table.dataTable td {
     </script>
 
 <?php include("Footer.php"); ?>
+<?php include("FirstFooter_Script.php"); ?>
 <?php include("Footer_Script.php"); ?>

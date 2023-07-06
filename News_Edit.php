@@ -48,10 +48,8 @@ if (isset($_GET['Send_IDNews']) && $_GET['Send_IDNews'] !== '') {
                                 $NA_Note = base64_decode($row["NA_Note"]);
                                 if ($NA_Note !== false) {
                                     $NA_Note;
-                                    echo 'AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA';
                                 } else {
                                     $NA_Note = $row["NA_Note"];
-                                    echo 'BBBBBBBBBBBBBBBBBBBBBBBBBBBB';
                                 }
                                 // $NA_Note = base64_decode($row["NA_Note"]);
                                 // $NA_Note = $row["NA_Note"];
@@ -117,9 +115,10 @@ if (isset($_GET['Send_IDNews']) && $_GET['Send_IDNews'] !== '') {
     <!-- Content -->
 
 <?php include("Footer.php"); ?>
-    <script src="https://momentjs.com/downloads/moment.min.js"></script>
+<?php include("FirstFooter_Script.php"); ?>
+    <!-- <script src="https://momentjs.com/downloads/moment.min.js"></script> -->
     <!-- JavaScript Libraries -->
-    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <!-- <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script> -->
     <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
 

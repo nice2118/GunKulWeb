@@ -49,7 +49,8 @@ body {
     font-size: 1rem;
     font-weight: 400;
     line-height: 1.5;
-    color: #9B9B9B;
+    /* color: #9B9B9B; */
+    color: #000000;
     background-color: #fff;
     -webkit-text-size-adjust: 100%;
     -webkit-tap-highlight-color: rgba(0, 0, 0, 0)
@@ -1995,15 +1996,15 @@ progress {
 
 .table {
     --bs-table-bg: rgba(0, 0, 0, 0);
-    --bs-table-striped-color: #9B9B9B;
+    --bs-table-striped-color: #6b6b6b;
     --bs-table-striped-bg: rgba(0, 0, 0, 0.05);
-    --bs-table-active-color: #9B9B9B;
+    --bs-table-active-color: #6b6b6b;
     --bs-table-active-bg: rgba(0, 0, 0, 0.1);
-    --bs-table-hover-color: #9B9B9B;
+    --bs-table-hover-color: #6b6b6b;
     --bs-table-hover-bg: rgba(0, 0, 0, 0.075);
     width: 100%;
     margin-bottom: 1rem;
-    color: #9B9B9B;
+    color: #6b6b6b;
     vertical-align: top;
     border-color: #dee2e6
 }
@@ -2342,8 +2343,8 @@ progress {
     padding: .375rem 0;
     margin-bottom: 0;
     line-height: 1.5;
-    color: #9B9B9B;
-    /* color: #000000; */
+    /* color: #9B9B9B; */
+    color: #000000;
     background-color: transparent;
     border: solid transparent;
     border-width: 1px 0
@@ -2432,7 +2433,8 @@ textarea.form-control-lg {
     font-size: 1rem;
     font-weight: 400;
     line-height: 1.5;
-    color: #9B9B9B;
+    /* color: #9B9B9B; */
+    color: #000000;
     background-color: #fff;
     background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23343a40' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M2 5l6 6 6-6'/%3e%3c/svg%3e");
     background-repeat: no-repeat;
@@ -2799,7 +2801,8 @@ textarea.form-control-lg {
     font-size: 1rem;
     font-weight: 400;
     line-height: 1.5;
-    color: #9B9B9B;
+    /* color: #9B9B9B; */
+    color: #000000;
     text-align: center;
     white-space: nowrap;
     background-color: #e9ecef;
@@ -3058,7 +3061,8 @@ textarea.form-control.is-invalid {
     display: inline-block;
     font-weight: 400;
     line-height: 1.5;
-    color: #9B9B9B;
+    /* color: #9B9B9B; */
+    color: #000000;
     text-align: center;
     vertical-align: middle;
     cursor: pointer;

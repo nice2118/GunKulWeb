@@ -36,9 +36,9 @@
                             $row = $result->fetch_assoc();
                             $decodedText = base64_decode($row["NA_Note"]);
                             if ($decodedText !== false) {
-                                echo $decodedText.'AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA';
+                                echo $decodedText;
                             } else {
-                                echo $row["NA_Note"].'BBBBBBBBBBBBBBBBBBBBBBBBBBBB';
+                                echo $row["NA_Note"];
                             }
                         }
                     ?>
@@ -50,4 +50,5 @@
     <!-- Content -->
 
 <?php include("Footer.php"); ?>
+<?php include("FirstFooter_Script.php"); ?>
 <?php include("Footer_Script.php"); ?>

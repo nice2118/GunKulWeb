@@ -77,23 +77,28 @@ include("DB_Setup.php");
                         <a class="small fw-medium" href="News_ShowDetail.php?Send_IDNews=<?= $row["NA_Code"];?>">อ่านเพิ่มเติม<i class="fa fa-arrow-right ms-2"></i></a>
                     </div>
                 </div>
-                <?php        
-                        }
-                    }
-                ?>
+
                 <div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-delay="0.1s">
                     <div class="service-item rounded overflow-hidden">
-                        <img class="img-fluid" src="img/img-600x400-1.jpg" alt="">
+                            <div class="position-relative h-100">
+                                <a href="<?= $PathFolderNews.$row['NA_Image'];?>" data-lightbox="portfolio"> 
+                                    <img class="img-fluid w-100" src="<?= $PathFolderNews.$row['NA_Image'];?>" style="height:275px;" alt="">
+                                </a>
+                            </div>
                         <div class="position-relative p-4 pt-0">
                             <div class="service-icon">
                                 <i class="fa fa-newspaper fa-3x"></i>
                             </div>
-                            <h4 class="mb-3">Solar Panels</h4>
-                            <p class="">Stet stet justo dolor sed duo. Ut clita sea sit ipsum diam lorem diam.</p>
-                            <a class="small fw-medium" href="">อ่านเพิ่มเติม<i class="fa fa-arrow-right ms-2"></i></a>
+                            <h4 class="mb-3"><?= $row['NA_Title'];?></h4>
+                            <p class=""><?= $row['NA_Description'];?></p>
+                            <a class="small fw-medium" href="News_ShowDetail.php?Send_IDNews=<?= $row["NA_Code"];?>">อ่านเพิ่มเติม<i class="fa fa-arrow-right ms-2"></i></a>
                         </div>
                     </div>
                 </div>
+                <?php        
+                        }
+                    }
+                ?>
                 <!-- <div class="col-lg-4 col-md-6 wow fadeInUp portfolio-item first" data-wow-delay="0.1s">
                     <div class="portfolio-img rounded overflow-hidden">
                         <img class="img-fluid w-100" src="img/3.png" style="height:275px;" alt="">
@@ -203,7 +208,8 @@ include("DB_Setup.php");
     </div>
     <!-- Content -->
     
-<?php include("Test.php"); ?>
+<?php include("Error/Test.php"); ?>
     
 <?php include("Footer.php"); ?>
+<?php include("FirstFooter_Script.php"); ?>
 <?php include("Footer_Script.php"); ?>

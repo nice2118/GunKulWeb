@@ -141,4 +141,5 @@ $_SESSION['PathPage'] = "News_ListAdmin.php";
     </script>
 
 <?php include("Footer.php"); ?>
+<?php include("FirstFooter_Script.php"); ?>
 <?php include("Footer_Script.php"); ?>
