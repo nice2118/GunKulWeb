@@ -25,8 +25,10 @@
         $_SESSION['StatusTitle'] = "Error!";
         $_SESSION['StatusMessage'] = $TextMessage;
         $_SESSION['StatusAlert'] = "error";
-        header("Location: ".$_SESSION['PathPage']);
-        unset($_SESSION['PathPage']);
+        if (isset($_SESSION['PathPage']) && $_SESSION['PathPage'] !== '') {
+            header("Location: ".$_SESSION['PathPage']);
+            unset($_SESSION['PathPage']);
+        }
         exit();
       }
 ?>

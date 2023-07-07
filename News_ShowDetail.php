@@ -7,8 +7,10 @@
         $_SESSION['StatusTitle'] = "Error!";
         $_SESSION['StatusMessage'] = 'ไม่พบเลขที่เอกสารนี้';
         $_SESSION['StatusAlert'] = "error";
-        header("Location: ".$_SESSION['PathPage']);
-        unset($_SESSION['PathPage']);
+        if (isset($_SESSION['PathPage']) && $_SESSION['PathPage'] !== '') {
+            header("Location: ".$_SESSION['PathPage']);
+            unset($_SESSION['PathPage']);
+        }
         exit();
       }
 ?>
@@ -27,24 +29,30 @@
         <div class="text-start mx-auto mb-2 wow fadeInUp" data-wow-delay="0.1s">
             <div class="row g-4">
                 <div class="col-12 wow fadeInUp" data-wow-delay="0.1s">
-                    <?php
-                        $sql = "SELECT * FROM `news` WHERE `news`.`NA_Code` = $t_id;";
-                        
-                        $result = $conn->query($sql);
-                        
-                        if ($result->num_rows > 0) {
-                            $row = $result->fetch_assoc();
-                            $decodedText = base64_decode($row["NA_Note"]);
-                            if ($decodedText !== false) {
-                                echo $decodedText;
-                            } else {
-                                echo $row["NA_Note"];
-                            }
-                        }
-                    ?>
+                    <div class="service-item rounded overflow-hidden">
+                    <!-- <div class="container-fluid bg-light2 overflow-hidden my-3 px-lg-0"> -->
+                        <div class="container quote px-lg-0">
+                            <div class="row g-0 mx-lg-0 py-5">
+                                <?php
+                                    $sql = "SELECT * FROM `Activities` WHERE `Activities`.`AT_Code` = $t_id;";
+                                    
+                                    $result = $conn->query($sql);
+                                    
+                                    if ($result->num_rows > 0) {
+                                        $row = $result->fetch_assoc();
+                                        $decodedText = base64_decode($row["AT_Note"]);
+                                        if ($decodedText !== false) {
+                                            echo $decodedText;
+                                        } else {
+                                            echo $row["AT_Note"];
+                                        }
+                                    }
+                                ?>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-            
         </div>
     </div>
     <!-- Content -->

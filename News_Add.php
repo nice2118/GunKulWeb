@@ -1,6 +1,7 @@
 <!-- PHP -->
 <?php 
 include("DB_Include.php"); 
+include("DB_Setup.php");
 $_SESSION['PathPage'] = "News_Add.php";
 ?>
 <?php include("Head_Link.php"); ?>
@@ -46,21 +47,7 @@ $_SESSION['PathPage'] = "News_Add.php";
                                     <div class="row g-0 mx-lg-0">
                                         <div class="col-lg-6 ps-lg-0 wow fadeIn" data-wow-delay="0.1s" style="max-height: 400px; max-width: 400px; min-height: 200px; min-width: 200px;">
                                             <div class="position-relative">
-                                                <?php
-                                                    $sql = "SELECT * FROM `newssetup`;";
-                                                    
-                                                    $result = $conn->query($sql);
-                                                    
-                                                    if ($result->num_rows > 0) {
-                                                        $row = $result->fetch_assoc();
-                                                        $SU_DefaultImageNews = $row["SU_DefaultImageNews"];
-                                                        $SU_PathDefaultImageNews = $row["SU_PathDefaultImageNews"];
-                                                    } else {
-                                                        $SU_DefaultImageNews = "";
-                                                        $SU_PathDefaultImageNews = "";
-                                                    }
-                                                ?>
-                                                <img id="previewImage" class="img-fluid rounded" src="<?= $SU_PathDefaultImageNews.$SU_DefaultImageNews; ?>" style="object-fit: cover;" alt="">
+                                                <img id="previewImage" class="img-fluid rounded" src="<?= $PathFolderNews.$DefaultImageNews; ?>" style="object-fit: cover;" alt="">
                                                 <!-- <img id="previewImage" class="position-absolute img-fluid" src="..." style="object-fit: cover;" alt=""> -->
                                             </div>
                                         </div>

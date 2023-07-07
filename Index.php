@@ -14,7 +14,7 @@ include("DB_Setup.php");
             </div>
 
             <?php
-                $sql = "SELECT * FROM `news` ORDER BY `news`.`NA_Date` DESC , `news`.`NA_Time` DESC LIMIT 1";
+                $sql = "SELECT * FROM `Activities` ORDER BY `Activities`.`AT_Date` DESC , `Activities`.`AT_Time` DESC LIMIT 1";
                 $result = $conn->query($sql);
 
                 if ($result->num_rows > 0) {
@@ -25,8 +25,8 @@ include("DB_Setup.php");
                     <div class="row g-0 mx-lg-0">
                         <div class="col-lg-6 ps-lg-0 wow fadeIn" data-wow-delay="0.1s" style="min-height: 400px;">
                             <div class="position-relative h-100">
-                                <a href="<?= $PathFolderNews.$row['NA_Image'];?>" data-lightbox="portfolio"> 
-                                <img class="position-absolute img-fluid w-100 h-100" src="<?= $PathFolderNews.$row['NA_Image'];?>"
+                                <a href="<?= $PathFolderNews.$row['AT_Image'];?>" data-lightbox="portfolio"> 
+                                <img class="position-absolute img-fluid w-100 h-100" src="<?= $PathFolderNews.$row['AT_Image'];?>"
                                     style="object-fit: cover;" alt="">
                                 </a>
                             </div>
@@ -35,9 +35,9 @@ include("DB_Setup.php");
                         <div class="col-lg-6 about-text py-5 wow fadeIn" data-wow-delay="0.5s">
                             <div class="p-lg-5 pe-lg-0">
                                 <h6 class="text-primary">NEWS</h6>
-                                <h3 class="mb-4"><?= $row['NA_Title'];?></h3>
-                                <p><?= $row['NA_Description'];?></p>
-                                <a href="News_ShowDetail.php?Send_IDNews=<?= $row["NA_Code"];?>" class="btn btn-primary rounded-pill py-3 px-5 mt-3">อ่านเพิ่มเติม</a>
+                                <h3 class="mb-4"><?= $row['AT_Title'];?></h3>
+                                <p><?= $row['AT_Description'];?></p>
+                                <a href="News_ShowDetail.php?Send_IDNews=<?= $row["AT_Code"];?>" class="btn btn-primary rounded-pill py-3 px-5 mt-3">อ่านเพิ่มเติม</a>
                             </div>
                         </div>
                     </div>
@@ -51,7 +51,7 @@ include("DB_Setup.php");
             <div class="row g-4">
                 <!-- Loop 6 -->
                 <?php
-                    $sql = "SELECT * FROM `news` ORDER BY `news`.`NA_Date` DESC , `news`.`NA_Time` DESC LIMIT 1,6";
+                    $sql = "SELECT * FROM `Activities` ORDER BY `Activities`.`AT_Date` DESC , `Activities`.`AT_Time` DESC LIMIT 1,6";
                     $result = $conn->query($sql);
 
                     if ($result->num_rows > 0) {
@@ -59,39 +59,23 @@ include("DB_Setup.php");
                         
                 ?>
                 <div class="col-lg-4 col-md-6 wow fadeInUp portfolio-item first" data-wow-delay="0.1s">
-                    <div class="portfolio-img rounded overflow-hidden">
-                        <img class="img-fluid w-100" src="<?= $PathFolderNews.$row['NA_Image'];?>" style="height:275px;" alt="">
-                        <div class="portfolio-btn">
-                            <a class="btn btn-lg-square btn-outline-light rounded-circle mx-1" href="<?= $PathFolderNews.$row['NA_Image'];?>"
-                                data-lightbox="portfolio"><i class="fa fa-eye"></i></a>
-                            <a class="btn btn-lg-square btn-outline-light rounded-circle mx-1" href="News_ShowDetail.php?Send_IDNews=<?= $row["NA_Code"];?>"><i
-                                    class="fa fa-link"></i></a>
-                        </div>
-                    </div>
-                    <div class="position-relative p-4 pt-0">
-                        <div class="service-icon">
-                            <i class="fa fa-newspaper fa-3x"></i>
-                        </div>
-                        <h4 class="mb-3"><?= $row['NA_Title'];?></h4>
-                        <p class=""><?= $row['NA_Description'];?></p>
-                        <a class="small fw-medium" href="News_ShowDetail.php?Send_IDNews=<?= $row["NA_Code"];?>">อ่านเพิ่มเติม<i class="fa fa-arrow-right ms-2"></i></a>
-                    </div>
-                </div>
-
-                <div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-delay="0.1s">
                     <div class="service-item rounded overflow-hidden">
-                            <div class="position-relative h-100">
-                                <a href="<?= $PathFolderNews.$row['NA_Image'];?>" data-lightbox="portfolio"> 
-                                    <img class="img-fluid w-100" src="<?= $PathFolderNews.$row['NA_Image'];?>" style="height:275px;" alt="">
-                                </a>
+                        <div class="portfolio-img rounded overflow-hidden">
+                            <img class="img-fluid w-100" src="<?= $PathFolderNews.$row['AT_Image'];?>" style="height:275px;" alt="">
+                            <div class="portfolio-btn">
+                                <a class="btn btn-lg-square btn-outline-light rounded-circle mx-1" href="<?= $PathFolderNews.$row['AT_Image'];?>"
+                                    data-lightbox="portfolio"><i class="fa fa-eye"></i></a>
+                                <a class="btn btn-lg-square btn-outline-light rounded-circle mx-1" href="News_ShowDetail.php?Send_IDNews=<?= $row["AT_Code"];?>"><i
+                                        class="fa fa-link"></i></a>
                             </div>
+                        </div>
                         <div class="position-relative p-4 pt-0">
                             <div class="service-icon">
                                 <i class="fa fa-newspaper fa-3x"></i>
                             </div>
-                            <h4 class="mb-3"><?= $row['NA_Title'];?></h4>
-                            <p class=""><?= $row['NA_Description'];?></p>
-                            <a class="small fw-medium" href="News_ShowDetail.php?Send_IDNews=<?= $row["NA_Code"];?>">อ่านเพิ่มเติม<i class="fa fa-arrow-right ms-2"></i></a>
+                            <h4 class="mb-3"><?= $row['AT_Title'];?></h4>
+                            <p class=""><?= $row['AT_Description'];?></p>
+                            <a class="small fw-medium" href="News_ShowDetail.php?Send_IDNews=<?= $row["AT_Code"];?>">อ่านเพิ่มเติม<i class="fa fa-arrow-right ms-2"></i></a>
                         </div>
                     </div>
                 </div>

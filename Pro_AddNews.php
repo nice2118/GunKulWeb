@@ -11,7 +11,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   $DateAddNewsFormatted = date('Y-m-d', strtotime(str_replace('/', '-', $DateAddNews)));
   $Title = $_POST['Title'];
   $Summary = $_POST['Summary'];
-  $Summernote = $_POST['summernote'];
+  $Summernote = base64_encode($_POST['summernote']);
+  // $Summernote = $_POST['summernote'];
 
   // เก็บข้อมูลไฟล์
   $file = $_FILES['image'];
@@ -30,7 +31,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if (in_array($fileType, $allowedExtensions)) {
       // ย้ายไฟล์ไปยังตำแหน่งที่ต้องการ (เช่นโฟลเดอร์ uploads)
-      $sql = "SELECT MAX(NA_Code) AS maxCode FROM news";
+      $sql = "SELECT MAX(AT_Code) AS maxCode FROM Activities";
       $result = $conn->query($sql);
 
       if ($result->num_rows > 0) {
@@ -59,14 +60,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       $_SESSION['StatusTitle'] = "Error!"; // รูปแบบไฟล์ไม่ถูกต้อง
       $_SESSION['StatusMessage'] = "Invalid file format.";
       $_SESSION['StatusAlert'] = "error";
-      header("Location: ".$_SESSION['PathPage']);
+      if (isset($_SESSION['PathPage']) && $_SESSION['PathPage'] !== '') {
+        header("Location: ".$_SESSION['PathPage']);
+        unset($_SESSION['PathPage']);
+    }
     }
   } else {
     // echo 'An error occurred while uploading the file.'; // เกิดข้อผิดพลาดในการอัปโหลดไฟล์
   }
 
   // ทำอย่างอื่นๆ เช่นบันทึกข้อมูลลงฐานข้อมูล
-  $sql = "INSERT INTO `news` (`NA_Code`, `NA_Date`, `NA_Time`, `NA_Title`, `NA_Description`, `NA_Note`, `NA_Image`, `NA_CreateDate`, `NA_ModifyDate`) VALUES (NULL, '$DateAddNewsFormatted', CURRENT_TIME(), '$Title', '$Summary', '$Summernote', '$newnFullNameImage', CURRENT_TIMESTAMP,CURRENT_TIMESTAMP)";
+  $sql = "INSERT INTO `Activities` (`AT_Code`, `AT_Entity No.`, `AT_Date`, `AT_Time`, `AT_Title`, `AT_Description`, `AT_Note`, `AT_Image`, `AT_CreateDate`, `AT_ModifyDate`) VALUES (NULL, 1, '$DateAddNewsFormatted', CURRENT_TIME(), '$Title', '$Summary', '$Summernote', '$newnFullNameImage', CURRENT_TIMESTAMP,CURRENT_TIMESTAMP)";
   // ดำเนินการ INSERT ข้อมูล
   if ($conn->query($sql) === true) {
     // $_SESSION['StatusMessage'] = 'กรุณากลับไป Setup ก่อน';
@@ -87,19 +91,28 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
               $_SESSION['StatusTitle'] = "Error!";
               $_SESSION['StatusMessage'] = "Unable to delete the file.";
               $_SESSION['StatusAlert'] = "error";
-              header("Location: ".$_SESSION['PathPage']);
+              if (isset($_SESSION['PathPage']) && $_SESSION['PathPage'] !== '') {
+                header("Location: ".$_SESSION['PathPage']);
+                unset($_SESSION['PathPage']);
+            }
           }
       } else {
           $_SESSION['StatusTitle'] = "Error!";
           $_SESSION['StatusMessage'] = "File not found.";
           $_SESSION['StatusAlert'] = "error";
-          header("Location: ".$_SESSION['PathPage']);
+          if (isset($_SESSION['PathPage']) && $_SESSION['PathPage'] !== '') {
+            header("Location: ".$_SESSION['PathPage']);
+            unset($_SESSION['PathPage']);
+        }
       }
   }
     $_SESSION['StatusTitle'] = "Error!";
     $_SESSION['StatusMessage'] = "Error: ".$conn->error;
     $_SESSION['StatusAlert'] = "error";
-    header("Location: ".$_SESSION['PathPage']);
+    if (isset($_SESSION['PathPage']) && $_SESSION['PathPage'] !== '') {
+      header("Location: ".$_SESSION['PathPage']);
+      unset($_SESSION['PathPage']);
+  }
   }
 
   // ปิดการเชื่อมต่อฐานข้อมูล

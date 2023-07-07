@@ -73,53 +73,28 @@
                 </div>
 
 
-<div class="nav-item dropdown">
-  <a href="#" class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">เมนูหลัก</a>
-  <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-    <a class="dropdown-item" href="#">เมนูหลัก 1</a>
-    <a class="dropdown-item" href="#">เมนูหลัก 2</a>
-    <div class="dropdown-divider"></div>
-    <div class="dropdown-submenu">
-      <a class="dropdown-item dropdown-toggle" href="#">เมนูซับย่อย 1</a>
-      <div class="dropdown-menu">
-        <a class="dropdown-item" href="#">เมนูซับย่อย 1.1</a>
-        <a class="dropdown-item" href="#">เมนูซับย่อย 1.2</a>
-        <div class="dropdown-submenu">
-          <a class="dropdown-item dropdown-toggle" href="#">เมนูซับย่อย 1.3</a>
-          <div class="dropdown-menu">
-            <a class="dropdown-item" href="#">เมนูซับย่อย 1.3.1</a>
-            <a class="dropdown-item" href="#">เมนูซับย่อย 1.3.2</a>
-          </div>
-        </div>
-      </div>
-    </div>
-    <a class="dropdown-item" href="#">เมนูหลัก 3</a>
-  </div>
-</div>
+                    <nav class="nav-item dropdown">
+                            <a href="" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Dropdown Right</a>
+                            <ul class="dropdown-menu">
+                                <nav><a href="" class="dropdown-item">DropdownItem 1</a></nav>
+                                <nav><a href="" class="dropdown-item">DropdownItem 2 &raquo;</a>
+                                    <ul class="dropdown-menu-submenu submenu multi-menu">
+                                        <nav><a href="" class="dropdown-item">SubmenuItem 1</a></nav>
+                                        <nav><a href="" class="dropdown-item">SubmenuItem 2</a></nav>
+                                        <nav><a href="" class="dropdown-item">SubmenuItem 3</a></nav>
+                                    </ul>
+                                </nav>
+                                <nav><a href="" class="dropdown-item">DropdownItem 1</a></nav>
+                                <nav><a href="" class="dropdown-item">DropdownItem 2 &raquo;</a>
+                                    <ul class="dropdown-menu-submenu submenu submenu-left">
+                                        <nav><a href="" class="dropdown-item">SubmenuItem 1</a></nav>
+                                        <nav><a href="" class="dropdown-item">SubmenuItem 2</a></nav>
+                                        <nav><a href="" class="dropdown-item">SubmenuItem 3</a></nav>
+                                    </ul>
+                                </nav>
+                            </ul>
+                        </nav>
 
-
-<div class="nav-item dropdown">
-  <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">เมนูหลัก</a>
-  <div class="dropdown-menu bg-light m-0">
-    <a href="https://www.gunkul.com/th/about-us/nature-of-business" class="dropdown-item" target="_blank">ข้อมูลบริษัท</a>
-    <!-- เมนูซับย่อย -->
-    <div class="dropdown-submenu">
-      <a href="#" class="dropdown-item dropdown-toggle">เมนูซับย่อย 1</a>
-      <div class="dropdown-menu bg-light m-0">
-        <a href="#" class="dropdown-item" target="_blank">เมนูซับย่อย 1.1</a>
-        <a href="#" class="dropdown-item" target="_blank">เมนูซับย่อย 1.2</a>
-      </div>
-    </div>
-    <!-- เมนูซับย่อยอื่น ๆ -->
-    <div class="dropdown-submenu">
-      <a href="#" class="dropdown-item dropdown-toggle">เมนูซับย่อย 2</a>
-      <div class="dropdown-menu bg-light m-0">
-        <a href="#" class="dropdown-item" target="_blank">เมนูซับย่อย 2.1</a>
-        <a href="#" class="dropdown-item" target="_blank">เมนูซับย่อย 2.2</a>
-      </div>
-    </div>
-  </div>
-</div>
 
 
 

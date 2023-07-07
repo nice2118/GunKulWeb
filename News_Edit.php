@@ -8,8 +8,10 @@ if (isset($_GET['Send_IDNews']) && $_GET['Send_IDNews'] !== '') {
     $_SESSION['StatusTitle'] = "Error!";
     $_SESSION['StatusMessage'] = 'ไม่พบเลขที่เอกสารนี้';
     $_SESSION['StatusAlert'] = "error";
-    header("Location: ".$_SESSION['PathPage']);
-    unset($_SESSION['PathPage']);
+    if (isset($_SESSION['PathPage']) && $_SESSION['PathPage'] !== '') {
+        header("Location: ".$_SESSION['PathPage']);
+        unset($_SESSION['PathPage']);
+    }
     exit();
 }
 ?>
@@ -36,31 +38,31 @@ if (isset($_GET['Send_IDNews']) && $_GET['Send_IDNews'] !== '') {
                 <div class="col-12 wow fadeInUp" data-wow-delay="0.1s">
                     <form action="Pro_EditNews.php" method="post" enctype="multipart/form-data">
                         <?php
-                            $sql = "SELECT * FROM `news` LEFT JOIN `newssetup`ON 1 = `newssetup`.`SU_Code` WHERE `news`.`NA_Code` = $t_id;";
+                            $sql = "SELECT * FROM `Activities` LEFT JOIN `newssetup`ON 1 = `newssetup`.`SU_Code` WHERE `Activities`.`AT_Code` = $t_id;";
                             
                             $result = $conn->query($sql);
                             
                             if ($result->num_rows > 0) {
                                 $row = $result->fetch_assoc();
-                                $NA_Date = $row["NA_Date"];
-                                $NA_Title = $row["NA_Title"];
-                                $NA_Description = $row["NA_Description"];
-                                $NA_Note = base64_decode($row["NA_Note"]);
-                                if ($NA_Note !== false) {
-                                    $NA_Note;
+                                $AT_Date = $row["AT_Date"];
+                                $AT_Title = $row["AT_Title"];
+                                $AT_Description = $row["AT_Description"];
+                                $AT_Note = base64_decode($row["AT_Note"]);
+                                if ($AT_Note !== false) {
+                                    $AT_Note;
                                 } else {
-                                    $NA_Note = $row["NA_Note"];
+                                    $AT_Note = $row["AT_Note"];
                                 }
-                                // $NA_Note = base64_decode($row["NA_Note"]);
-                                // $NA_Note = $row["NA_Note"];
-                                $NA_Image = $row["NA_Image"];
+                                // $AT_Note = base64_decode($row["AT_Note"]);
+                                // $AT_Note = $row["AT_Note"];
+                                $AT_Image = $row["AT_Image"];
                                 $SU_PathDefaultImageNews = $row["SU_PathDefaultImageNews"];
                             } else {
-                                $NA_Date = "";
-                                $NA_Title = "";
-                                $NA_Description = "";
-                                $NA_Note = "";
-                                $NA_Image = "";
+                                $AT_Date = "";
+                                $AT_Title = "";
+                                $AT_Description = "";
+                                $AT_Note = "";
+                                $AT_Image = "";
                                 $SU_PathDefaultImageNews = "";
                             }
                         ?>
@@ -68,15 +70,15 @@ if (isset($_GET['Send_IDNews']) && $_GET['Send_IDNews'] !== '') {
                             <input type="hidden" id="ID" name="ID" class="form-control border-1" value="<?= $t_id; ?>">
                             <div class="col-6 col-sm-3">
                                 <h6 class="text-primary">วันที่ลงข่าวและกิจกรรม</h6>
-                                <input type="Date" id="DateAddNews" name="DateAddNews" class="form-control border-1" value="<?= $NA_Date; ?>" placeholder="วันที่ลงข่าวและกิจกรรม" required>
+                                <input type="Date" id="DateAddNews" name="DateAddNews" class="form-control border-1" value="<?= $AT_Date; ?>" placeholder="วันที่ลงข่าวและกิจกรรม" required>
                             </div>
                             <div class="col-12 col-sm-9">
                                 <h6 class="text-primary">ชื่อเรื่อง</h6>
-                                <input type="text" id="title" name="Title" class="form-control border-1" value="<?php echo htmlspecialchars($NA_Title, ENT_QUOTES); ?>" placeholder="กรุณากรอกชื่อเรื่อง" required>
+                                <input type="text" id="title" name="Title" class="form-control border-1" value="<?php echo htmlspecialchars($AT_Title, ENT_QUOTES); ?>" placeholder="กรุณากรอกชื่อเรื่อง" required>
                             </div>
                             <div class="col-12">
                                 <h6 class="text-primary">เนื้อหาย่อ</h6>
-                                <input type="text" id="Summary" name="Summary" class="form-control border-1" value="<?php echo htmlspecialchars($NA_Description, ENT_QUOTES); ?>" placeholder="กรุณากรอกเนื้อหาย่อ" require>
+                                <input type="text" id="Summary" name="Summary" class="form-control border-1" value="<?php echo htmlspecialchars($AT_Description, ENT_QUOTES); ?>" placeholder="กรุณากรอกเนื้อหาย่อ" require>
                             </div>
                             <div class="col-12">
                                 <h6 class="text-primary">เนื้อหา</h6>
@@ -87,14 +89,14 @@ if (isset($_GET['Send_IDNews']) && $_GET['Send_IDNews'] !== '') {
                                     <div class="row g-0 mx-lg-0">
                                         <div class="col-lg-6 ps-lg-0 wow fadeIn" data-wow-delay="0.1s" style="max-height: 400px; max-width: 400px; min-height: 200px; min-width: 200px;">
                                             <div class="position-relative">
-                                                <img id="previewImage" class="img-fluid rounded" src="<?= $SU_PathDefaultImageNews.$NA_Image; ?>" style="object-fit: cover;" alt="">
+                                                <img id="previewImage" class="img-fluid rounded" src="<?= $SU_PathDefaultImageNews.$AT_Image; ?>" style="object-fit: cover;" alt="">
                                                 <!-- <img id="previewImage" class="position-absolute img-fluid" src="..." style="object-fit: cover;" alt=""> -->
                                             </div>
                                         </div>
                                         <div class="col-lg-6 quote-text py-0 wow fadeIn" data-wow-delay="0.5s">
                                             <div class="p-lg-5 pe-lg-0">
                                                 <h6 class="text-primary">เลือกไฟล์แสดงหน้าหลัก</h6><p class="mb-4 pb-2">สามารถเลือกได้เพียง 1 ภาพ</p>
-                                                <input type="hidden" id="fileNameInput" name="fileNameInput" value="<?= $NA_Image; ?>" readonly>
+                                                <input type="hidden" id="fileNameInput" name="fileNameInput" value="<?= $AT_Image; ?>" readonly>
                                                 <input type="file" class="form-control border-1" name="image" id="image" accept="image/*">
                                             </div>
                                         </div>
@@ -154,7 +156,7 @@ if (isset($_GET['Send_IDNews']) && $_GET['Send_IDNews'] !== '') {
             ],
             callbacks: {
                 onInit: function() {
-                $('#summernote').summernote('code', <?= json_encode($NA_Note); ?>);
+                $('#summernote').summernote('code', <?= json_encode($AT_Note); ?>);
                 }
             }
         });

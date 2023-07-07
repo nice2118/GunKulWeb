@@ -38,3 +38,16 @@
         });
     });
     </script>
+    <script>
+        document.querySelectorAll('.dropdown-menu .dropdown-submenu').forEach(function (dropdown) {
+            dropdown.addEventListener('mouseover', function () {
+            var dropdownMenu = this.querySelector('.dropdown-menu');
+            dropdownMenu.classList.add('show');
+            });
+
+            dropdown.addEventListener('mouseout', function () {
+            var dropdownMenu = this.querySelector('.dropdown-menu');
+            dropdownMenu.classList.remove('show');
+            });
+        });
+    </script>

@@ -31,23 +31,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $allowedExtensions = ['jpg', 'jpeg', 'png', 'gif'];
 
     if ($newnFullNameImage == $DefaultImageNews) {
-      $sql = "SELECT MAX(NA_Code) AS maxCode FROM news";
-      $result = $conn->query($sql);
-
-      if ($result->num_rows > 0) {
-          $row = $result->fetch_assoc();
-          $maxCode = $row['maxCode'];
-
-          if (!empty($maxCode)) {
-              $newnFullNameImage = $maxCode + 1;
-          } else {
-              $newnFullNameImage = 1;
-          }
-      } else {
-          $newnFullNameImage = 1;
-      }
+        $newnFullNameImage = $ID;
     } else {
-      if (!empty($newnFullNameImage)) {
+        if (!empty($newnFullNameImage)) {
         $filePath = $PathFolderNews . $newnFullNameImage;
   
         if (file_exists($filePath)) {
@@ -57,13 +43,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $_SESSION['StatusTitle'] = "Error!";
                 $_SESSION['StatusMessage'] = "Unable to delete the file.";
                 $_SESSION['StatusAlert'] = "error";
-                header("Location: ".$_SESSION['PathPage']);
+                if (isset($_SESSION['PathPage']) && $_SESSION['PathPage'] !== '') {
+                  header("Location: ".$_SESSION['PathPage']);
+                  unset($_SESSION['PathPage']);
+                }
             }
         } else {
             $_SESSION['StatusTitle'] = "Error!";
             $_SESSION['StatusMessage'] = "File not found.";
             $_SESSION['StatusAlert'] = "error";
-            header("Location: ".$_SESSION['PathPage']);
+            if (isset($_SESSION['PathPage']) && $_SESSION['PathPage'] !== '') {
+              header("Location: ".$_SESSION['PathPage']);
+              unset($_SESSION['PathPage']);
+            }
         }
       }
     }
@@ -84,7 +76,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       $_SESSION['StatusTitle'] = "Error!"; // รูปแบบไฟล์ไม่ถูกต้อง
       $_SESSION['StatusMessage'] = "Invalid file format.";
       $_SESSION['StatusAlert'] = "error";
-      header("Location: ".$_SESSION['PathPage']);
+      if (isset($_SESSION['PathPage']) && $_SESSION['PathPage'] !== '') {
+        header("Location: ".$_SESSION['PathPage']);
+        unset($_SESSION['PathPage']);
+      }
     }
   } else {
     // echo 'An error occurred while uploading the file.'; // เกิดข้อผิดพลาดในการอัปโหลดไฟล์
@@ -95,9 +90,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
   // ทำอย่างอื่นๆ เช่นบันทึกข้อมูลลงฐานข้อมูล
   if (!empty($newnFullNameImage) && $newnFullNameImage !== '') {
-    $sql = "UPDATE `news` SET `NA_Date` = '$DateAddNewsFormatted', `NA_Title` = '$Title', `NA_Description` = '$Summary', `NA_Note` = '$Summernote', `NA_Image` = '$newnFullNameImage', `NA_ModifyDate` = CURRENT_TIMESTAMP WHERE `news`.`NA_Code` = $ID;";
+    $sql = "UPDATE `Activities` SET `AT_Date` = '$DateAddNewsFormatted', `AT_Title` = '$Title', `AT_Description` = '$Summary', `AT_Note` = '$Summernote', `AT_Image` = '$newnFullNameImage', `AT_ModifyDate` = CURRENT_TIMESTAMP WHERE `Activities`.`AT_Code` = $ID;";
   } else {    
-    $sql = "UPDATE `news` SET `NA_Date` = '$DateAddNewsFormatted', `NA_Title` = '$Title', `NA_Description` = '$Summary', `NA_Note` = '$Summernote', `NA_ModifyDate` = CURRENT_TIMESTAMP WHERE `news`.`NA_Code` = $ID;";
+    $sql = "UPDATE `Activities` SET `AT_Date` = '$DateAddNewsFormatted', `AT_Title` = '$Title', `AT_Description` = '$Summary', `AT_Note` = '$Summernote', `AT_ModifyDate` = CURRENT_TIMESTAMP WHERE `Activities`.`AT_Code` = $ID;";
   }
   // ดำเนินการ INSERT ข้อมูล
   if ($conn->query($sql) === true) {
@@ -119,19 +114,28 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
               $_SESSION['StatusTitle'] = "Error!";
               $_SESSION['StatusMessage'] = "Unable to delete the file.";
               $_SESSION['StatusAlert'] = "error";
-              header("Location: ".$_SESSION['PathPage']);
+              if (isset($_SESSION['PathPage']) && $_SESSION['PathPage'] !== '') {
+                header("Location: ".$_SESSION['PathPage']);
+                unset($_SESSION['PathPage']);
+              }
           }
       } else {
           $_SESSION['StatusTitle'] = "Error!";
           $_SESSION['StatusMessage'] = "File not found.";
           $_SESSION['StatusAlert'] = "error";
-          header("Location: ".$_SESSION['PathPage']);
+          if (isset($_SESSION['PathPage']) && $_SESSION['PathPage'] !== '') {
+            header("Location: ".$_SESSION['PathPage']);
+            unset($_SESSION['PathPage']);
+          }
       }
     }
     $_SESSION['StatusTitle'] = "Error!";
     $_SESSION['StatusMessage'] = "Error: ".$conn->error;
     $_SESSION['StatusAlert'] = "error";
-    header("Location: ".$_SESSION['PathPage']);
+    if (isset($_SESSION['PathPage']) && $_SESSION['PathPage'] !== '') {
+      header("Location: ".$_SESSION['PathPage']);
+      unset($_SESSION['PathPage']);
+    }
   }
 
   // ปิดการเชื่อมต่อฐานข้อมูล

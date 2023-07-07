@@ -62,22 +62,22 @@ table.dataTable td {
                                     </thead>
                                     <tbody>
                                         <?php
-                                        $sql = "SELECT * FROM news LEFT JOIN user ON news.NA_UserCreate = User.US_Username ORDER BY `news`.`NA_Date` DESC , `news`.`NA_Time` DESC;";
+                                        $sql = "SELECT * FROM Activities LEFT JOIN user ON `Activities`.AT_UserCreate = User.US_Username ORDER BY `Activities`.`AT_Date` DESC , `Activities`.`AT_Time` DESC;";
                                         $result = $conn->query($sql);
                                         
                                         if ($result->num_rows > 0) {
                                             while ($row = $result->fetch_assoc()) {
                                         ?>
                                         <tr>
-                                            <td><?php echo $row['NA_Date']; ?></td>
+                                            <td><?php echo $row['AT_Date']; ?></td>
                                             <td>
                                                 <!-- <div class="col-5 text-truncate"> -->
-                                                    <?php echo $row["NA_Title"]; ?>
+                                                    <?php echo $row["AT_Title"]; ?>
                                                 <!-- </div> -->
                                             </td>
                                             <td>
                                                 <!-- <div class="col-10 text-truncate"> -->
-                                                    <?php echo $row["NA_Description"]; ?>
+                                                    <?php echo $row["AT_Description"]; ?>
                                                 <!-- </div> -->
                                                 <!-- <div class="progress progress-sm">
                                                     <div class="progress-bar bg-green" role="progressbar" aria-valuenow="35" aria-valuemin="0" aria-valuemax="100" style="width: 35%">
@@ -91,14 +91,14 @@ table.dataTable td {
                                                 <img class="img-fluid rounded-circle mx-1 mb-1" src="<?php echo "img/testimonial-1.jpg"; ?>" style="width: 40px; height: 40px;">
                                             </td>
                                             <td class="project-actions text-right">
-                                                <a class="btn btn-primary2 btn-sm" href="News_ShowDetail.php?Send_IDNews=<?= $row["NA_Code"];?>"><i class="fas fa-folder"></i></a>
+                                                <a class="btn btn-primary2 btn-sm" href="News_ShowDetail.php?Send_IDNews=<?= $row["AT_Code"];?>"><i class="fas fa-folder"></i></a>
         
-                                                <a class="btn btn-warning btn-sm" href="News_Edit.php?Send_IDNews=<?= urlencode($row["NA_Code"]); ?>&Send_Title=<?= urlencode($row["NA_Title"]); ?>"><i class="fas fa-pencil-alt"></i></a>
-                                                <a class="btn btn-danger btn-sm" onclick="deleteAlert(<?php echo $row["NA_Code"];?>, '<?php echo $row["NA_Title"];?>')"><i class="fas fa-trash"></i></a>
+                                                <a class="btn btn-warning btn-sm" href="News_Edit.php?Send_IDNews=<?= urlencode($row["AT_Code"]); ?>&Send_Title=<?= urlencode($row["AT_Title"]); ?>"><i class="fas fa-pencil-alt"></i></a>
+                                                <a class="btn btn-danger btn-sm" onclick="deleteAlert(<?php echo $row["AT_Code"];?>, '<?php echo $row["AT_Title"];?>')"><i class="fas fa-trash"></i></a>
                                             </td>
                                         </tr>
                                         <?php
-                                                $newnNameImage = $row["NA_Code"];
+                                                $newnNameImage = $row["AT_Code"];
                                             }
                                         }
                                         ?>

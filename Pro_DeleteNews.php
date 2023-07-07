@@ -7,13 +7,15 @@ if (isset($_GET['Send_IDNews']) && $_GET['Send_IDNews'] !== '') {
     $_SESSION['StatusTitle'] = "Error!";
     $_SESSION['StatusMessage'] = 'ไม่พบเลขที่เอกสารนี้';
     $_SESSION['StatusAlert'] = "error";
-    header("Location: ".$_SESSION['PathPage']);
-    unset($_SESSION['PathPage']);
+    if (isset($_SESSION['PathPage']) && $_SESSION['PathPage'] !== '') {
+      header("Location: ".$_SESSION['PathPage']);
+      unset($_SESSION['PathPage']);
+    }
     exit();
   }
 
 echo '<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>';
-$sql = "DELETE FROM `news` WHERE `news`.`NA_Code` = $t_id";
+$sql = "DELETE FROM `Activities` WHERE `Activities`.`AT_Code` = $t_id";
 if ($conn->query($sql) === true) {
   // $_SESSION['StatusMessage'] = 'กรุณากลับไป Setup ก่อน';
   //     header("Location: ".$_SESSION['PathPage']);

@@ -37,17 +37,17 @@ $_SESSION['PathPage'] = "News_ListAdmin.php";
                                     </thead>
                                     <tbody>
                                         <?php
-                                        $sql = "SELECT * FROM news LEFT JOIN user ON news.NA_UserCreate = User.US_Username ORDER BY `news`.`NA_Date` DESC , `news`.`NA_Time` DESC;";
+                                        $sql = "SELECT * FROM Activities LEFT JOIN user ON `Activities`.AT_UserCreate = User.US_Username ORDER BY `Activities`.`AT_Date` DESC , `Activities`.`AT_Time` DESC;";
                                         $result = $conn->query($sql);
                                         
                                         if ($result->num_rows > 0) {
                                             while ($row = $result->fetch_assoc()) {
                                         ?>
                                         <tr>
-                                            <td><?php echo $row['NA_Date']; ?></td>
-                                            <td><?php echo $row["NA_Title"]; ?></td>
+                                            <td><?php echo $row['AT_Date']; ?></td>
+                                            <td><?php echo $row["AT_Title"]; ?></td>
                                             <td class="project_progress">
-                                                <?php echo $row["NA_Description"]; ?>
+                                                <?php echo $row["AT_Description"]; ?>
                                                 <!-- <div class="progress progress-sm">
                                                     <div class="progress-bar bg-green" role="progressbar" aria-valuenow="35" aria-valuemin="0" aria-valuemax="100" style="width: 35%">
                                                     </div>
@@ -60,11 +60,11 @@ $_SESSION['PathPage'] = "News_ListAdmin.php";
                                                 <img class="img-fluid rounded-circle mx-1 mb-1" src="<?php echo "img/testimonial-1.jpg"; ?>" style="width: 40px; height: 40px;">
                                             </td>
                                             <td class="project-actions text-right">
-                                                <a class="btn btn-primary2 btn-sm" href="News_ShowDetail.php?Send_IDNews=<?= $row["NA_Code"];?>"><i class="fas fa-folder"></i></a>
+                                                <a class="btn btn-primary2 btn-sm" href="News_ShowDetail.php?Send_IDNews=<?= $row["AT_Code"];?>"><i class="fas fa-folder"></i></a>
                                             </td>
                                         </tr>
                                         <?php
-                                                $newnNameImage = $row["NA_Code"];
+                                                $newnNameImage = $row["AT_Code"];
                                             }
                                         }
                                         ?>
