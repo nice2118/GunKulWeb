@@ -378,12 +378,12 @@ select:disabled {
     display: none
 }
 
-button,
+/* button,
 [type="button"],
 [type="reset"],
 [type="submit"] {
     -webkit-appearance: button
-}
+} */
 
 button:not(:disabled),
 [type="button"]:not(:disabled),
@@ -443,7 +443,7 @@ legend+* {
 
 [type="search"] {
     outline-offset: -2px;
-    -webkit-appearance: textfield
+    /* -webkit-appearance: textfield */
 }
 
 ::-webkit-search-decoration {
@@ -2506,7 +2506,7 @@ textarea.form-control-lg {
     background-size: contain;
     border: 1px solid rgba(0, 0, 0, 0.25);
     appearance: none;
-    color-adjust: exact
+    accent-color: exact
 }
 
 .form-check-input[type="checkbox"] {

@@ -22,8 +22,14 @@
     <div class="container-xxl py-5">
         <div class="container">
             <div class="text-center mx-auto mb-2 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 600px;">
-                <h6 class="text-primary">Form News & Activities</h6>
-                <h1 class="mb-4">สร้างข่าวสารและกิจกรรม</h1>
+            <?php
+                $sql = "SELECT * FROM `Activities` LEFT JOIN `Category` ON `Activities`.`AT_Entity No.` = `Category`.`CG_Entity No.` WHERE `Activities`.`AT_Code` = $t_id;";     
+                $result = $conn->query($sql);        
+                if ($result->num_rows > 0) {
+                    $row = $result->fetch_assoc();
+            ?>
+                <h6 class="text-primary"><?= $row["CG_DescriptionEN"] ?></h6>
+                <h1 class="mb-4"><?= $row["CG_DescriptionTH"] ?></h1>
             </div>
         </div>
         <div class="text-start mx-auto mb-2 wow fadeInUp" data-wow-delay="0.1s">
@@ -34,12 +40,6 @@
                         <div class="container quote px-lg-0">
                             <div class="row g-0 mx-lg-0 py-5">
                                 <?php
-                                    $sql = "SELECT * FROM `Activities` WHERE `Activities`.`AT_Code` = $t_id;";
-                                    
-                                    $result = $conn->query($sql);
-                                    
-                                    if ($result->num_rows > 0) {
-                                        $row = $result->fetch_assoc();
                                         $decodedText = base64_decode($row["AT_Note"]);
                                         if ($decodedText !== false) {
                                             echo $decodedText;

@@ -40,35 +40,24 @@
     <!-- Topbar End -->
 
     <!-- Navbar Start -->
-    <nav class="navbar navbar-expand-lg bg-white navbar-light sticky-top p-0">
+    <nav id="main_nav" class="navbar navbar-expand-lg bg-white navbar-light sticky-top p-0">
         <a href="index.php" class="navbar-brand d-flex align-items-center border-end px-4 px-lg-5">
             <!-- <h2 class="m-0 text-primary">GUNKUL</h2> -->
-            <img class="img-fluid" src="img/GKE.png" style="width:250px;" />
+            <img class="img-fluid" src="img/GKE.png" style="width:200px;" />
         </a>
         <button type="button" class="navbar-toggler me-4" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
             <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="collapse navbar-collapse" id="navbarCollapse">
+     <!-- <div class="collapse navbar-collapse" id="navbarCollapse">
             <div class="navbar-nav ms-auto p-4 p-lg-0">
-                <div class="nav-item dropdown">
+                 <div class="nav-item dropdown">
                     <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">เมนูหลัก</a>
                     <div class="dropdown-menu bg-light m-0">
                         <a href="https://www.gunkul.com/th/about-us/nature-of-business" class="dropdown-item" target="_blank">ข้อมูลบริษัท</a>
                         <a href="https://www.gunkul.com/storage/about-us/20220701-gunkul-org-th.jpg" class="dropdown-item" target="_blank">โครงสร้างองค์กร</a>
                         <a href="https://www.gunkul.com/th/corporate-governance/policy-and-procedures" class="dropdown-item" target="_blank">นโยบายยริษัท</a>
                         <a href="https://www.gunkul.com/th/about-us/management/board-of-directors" class="dropdown-item" target="_blank">โครงสร้างการจัดการ</a>
-                        <!-- <a href="index.php" class="dropdown-item" target="_blank">ประกาศ</a>
-                        <a href="index.php" class="dropdown-item" target="_blank">คู่มือการปฏิบัติงาน</a>
-                        <a href="index.php" class="dropdown-item" target="_blank">คู่มือการทำงาน</a>
-                        <a href="index.php" class="dropdown-item" target="_blank">แบบฟอร์ม</a>
-                        <a href="index.php" class="dropdown-item" target="_blank">ข่าวและกิจกรรมบริษัท</a>
-                        <a href="index.php" class="dropdown-item" target="_blank">ความรู้ทั่วไป</a> -->
                         <a href="https://www.gunkul.com/th/investor-relations/ir-home" class="dropdown-item" target="_blank">นักลงทุนสัมพันธ์</a>
-                
-            
-                
-
-
                     </div>
                 </div>
 
@@ -77,7 +66,7 @@
                             <a href="" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Dropdown Right</a>
                             <ul class="dropdown-menu">
                                 <nav><a href="" class="dropdown-item">DropdownItem 1</a></nav>
-                                <nav><a href="" class="dropdown-item">DropdownItem 2 &raquo;</a>
+                                <nav><a href="" class="dropdown-item">DropdownItem 2 <i class="fa fa-angle-right"></i></a>
                                     <ul class="dropdown-menu-submenu submenu multi-menu">
                                         <nav><a href="" class="dropdown-item">SubmenuItem 1</a></nav>
                                         <nav><a href="" class="dropdown-item">SubmenuItem 2</a></nav>
@@ -85,7 +74,7 @@
                                     </ul>
                                 </nav>
                                 <nav><a href="" class="dropdown-item">DropdownItem 1</a></nav>
-                                <nav><a href="" class="dropdown-item">DropdownItem 2 &raquo;</a>
+                                <nav><a href="" class="dropdown-item"><i class="fa fa-angle-left "></i> DropdownItem 2</a>
                                     <ul class="dropdown-menu-submenu submenu submenu-left">
                                         <nav><a href="" class="dropdown-item">SubmenuItem 1</a></nav>
                                         <nav><a href="" class="dropdown-item">SubmenuItem 2</a></nav>
@@ -94,22 +83,6 @@
                                 </nav>
                             </ul>
                         </nav>
-
-
-
-
-
-
-                <!-- <div class="nav-item dropdown">
-                    <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">ฝ่าย/แผนกที่รับผิดชอบ</a>
-                    <div class="dropdown-menu bg-light m-0">
-                        <a href="index.php" class="dropdown-item">แผนกนักลงทุนสัมพันธ์และสื่อสารองค์กร</a>
-                        <a href="index.php" class="dropdown-item">แผนกสิ่งแวดล้อมและชุมชนสัมพันธ์</a>
-                        <a href="index.php" class="dropdown-item">ฝ่ายบัญชีและการเงิน</a>
-                        <a href="index.php" class="dropdown-item">ฝ่ายสารสนเทศ</a>
-                        <a href="index.php" class="dropdown-item">แผนกจัดซื้อ</a>
-                    </div>
-                </div> -->
                 <div class="nav-item dropdown">
                     <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">ข่าวสารและประชาสัมพันธ์</a>
                     <div class="dropdown-menu bg-light m-0">
@@ -133,21 +106,9 @@
                             <h5 class="dropdown-header">แผนกเงินเดือนและสวัสดิการ</h5>
                         </li>
                         <li><a href="#" class="dropdown-item">สวัสดิการพนักงาน</a></li>
-                        <!-- <li><a href="index.php" class="dropdown-item">We Care</a></li> -->
                         <li>
                             <hr class="dropdown-divider">
                         </li>
-                        <!-- <li>
-                            <h5 class="dropdown-header">แผนกแรงงานสัมพันธ์และธุรการ</h5>
-                        </li>
-                        <li><a href="index.php" class="dropdown-item">ข่าวสารแรงงานสัมพันธ์</a></li>
-                        <li>
-                            <hr class="dropdown-divider">
-                        </li>
-                        <a href="index.php" class="dropdown-item">HR Organization Chart</a>
-                        <li>
-                            <hr class="dropdown-divider">
-                        </li> -->
                         <li>
                             <h5 class="dropdown-header">วันหยุดประจำปี</h5>
                         </li>
@@ -159,7 +120,6 @@
                     </div>
                 </div>
 
-                <!-- <a href="index.php" class="nav-item nav-link">Mediatraining</a> -->
                 <div class="nav-item dropdown">
                     <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">แหล่งข้อมูล</a>
                     <div class="dropdown-menu bg-light m-0">
@@ -177,13 +137,6 @@
                         <a href="#" class="dropdown-item" target="_blank">e-learning</a>
                     </div>
                 </div>
-
-                <!-- <a href="index.php" class="dropdown-item" target="_blank">ประกาศ</a>
-                        <a href="index.php" class="dropdown-item" target="_blank">คู่มือการปฏิบัติงาน</a>
-                        <a href="index.php" class="dropdown-item" target="_blank">คู่มือการทำงาน</a>
-                        <a href="index.php" class="dropdown-item" target="_blank">แบบฟอร์ม</a>
-                        <a href="index.php" class="dropdown-item" target="_blank">ข่าวและกิจกรรมบริษัท</a>
-                        <a href="index.php" class="dropdown-item" target="_blank">ความรู้ทั่วไป</a> -->
                 <div class="nav-item dropdown">
                     <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">แผนที่บริษัท</a>
                     <div class="dropdown-menu bg-light m-0">
@@ -229,10 +182,132 @@
                     </div>
                 </div>
             </div>
-            <!-- <a href="index.php" class="btn btn-primary rounded-0 py-4 px-lg-5 d-none d-lg-block">คลังภาพ<i
-                    class="fa fa-arrow-right ms-3"></i></a> -->
             <a href="News_ListAdmin.php" class="btn btn-primary rounded-0 py-4 px-lg-5 d-none d-lg-block"><i
                     class="fa fa-arrow-right ms-3"></i></a>
-        </div>
+        </div> -->
+
+
+<!-- <div class="collapse navbar-collapse" id="navbarCollapse">
+    <div class="navbar-nav ms-auto p-4 p-lg-0"> -->
+        <ul>
+            <li>
+                <a href="" class="nav-link dropdown-toggle">เมนูหลัก</a>
+                <ul>
+                    <li><a href="https://www.gunkul.com/th/about-us/nature-of-business" target="_blank">ข้อมูลบริษัท</a></li>
+                    <li><a href="https://www.gunkul.com/storage/about-us/20220701-gunkul-org-th.jpg" target="_blank">โครงสร้างองค์กร</a></li>
+                    <li><a href="https://www.gunkul.com/th/corporate-governance/policy-and-procedures" target="_blank">นโยบายยริษัท</a></li>
+                    <li><a href="https://www.gunkul.com/th/about-us/management/board-of-directors" target="_blank">โครงสร้างการจัดการ</a></li>
+                    <li><a href="https://www.gunkul.com/th/investor-relations/ir-home" target="_blank">นักลงทุนสัมพันธ์</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="" class="nav-link dropdown-toggle">ข่าวสารและประชาสัมพันธ์</a>
+                <ul>
+                    <li><a href="#">ประกาศ</a></li>
+                    <li><a href="#">ข่าวและกิจกรรมบริษัท</a></li>
+                    <li><a href="#">กระทู้พูดคุย ชวนแชร์</a></li>
+                    <li></li>
+                </ul>
+            </li>
+            <li>
+                <a href="" class="nav-link dropdown-toggle">ข่าวสารและประชาสัมพันธ์</a>
+                <ul>
+                    <li><a href="#">ประกาศ</a></li>
+                    <li><a href="#">ข่าวและกิจกรรมบริษัท</a></li>
+                    <li><a href="#">กระทู้พูดคุย ชวนแชร์</a></li>
+                    <li></li>
+                </ul>
+            </li>
+            <li>
+                <a href="" class="nav-link dropdown-toggle">มุม HR</a>
+                <ul>
+                    <li>
+                        <a href="" class="nav-link dropdown-toggleLine">แผนกสรรหาว่าจ้างและฝึกอบรม</a>
+                        <ul>
+                            <li><a href="#">GKA Newcomer</a></li>
+                            <li><a href="#">ตำแหน่งงานว่างภายใน</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="" class="nav-link dropdown-toggleLine">แผนกเงินเดือนและสวัสดิการ</a>
+                        <ul>
+                            <li><a href="#">สวัสดิการพนักงาน</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="" class="nav-link dropdown-toggleLine">วันหยุดประจำปี</a>
+                        <ul>
+                            <li><a href="PDF\Holiday\2566\GKE_5_HQ.pdf" target="_blank">สำนักงานใหญ่ GKE</a></li>
+                            <li><a href="PDF\Holiday\2566\GKE_6_Site.pdf" target="_blank">ไซต์งานก่อสร้าง และ O&M GKE</a></li>
+                            <li><a href="PDF\Holiday\2566\GKAP.pdf" target="_blank">โรงงาน GKA & GKP</a</li>
+                            <li><a href="PDF\Holiday\2566\GPD_5_HQ.pdf" target="_blank">สำนักงานใหญ่ GPD</a></li>
+                            <li><a href="PDF\Holiday\2566\GPD_6_SITE.pdf" target="_blank">ไซต์งานก่อสร้าง GPD</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="" class="nav-link dropdown-toggle">แหล่งข้อมูล</a>
+                <ul>
+                    <li>
+                        <a href="" class="nav-link dropdown-toggleLine">ความรู้ทั่วไป</a>
+                        <ul>
+                            <li><a href="#" target="_blank">ERP Dynamics 365 F&O</a></li>
+                            <li><a href="#" target="_blank">ERP AX2012 R2, R3</a></li>
+                            <li><a href="https://youtu.be/Ok9enjSDvUU" target="_blank">e-Document (e-Doc)</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="#" target="_blank">คู่มือการปฏิบัติงาน</a></li>
+                    <li><a href="#" target="_blank">แบบฟอร์ม</a></li>
+                    <li><a href="#" target="_blank">e-learning</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="" class="nav-link dropdown-toggle">แผนที่บริษัท</a>
+                <ul>
+                    <li><a href="#" target="_blank">คู่มือการปฏิบัติงาน</a></li>
+                    <li><a href="#" target="_blank">แบบฟอร์ม</a></li>
+                    <li><a href="#" target="_blank">e-learning</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="" class="nav-link dropdown-toggle">แผนที่บริษัท</a>
+                <ul>
+                    <li><a href="https://www.gunkul.com/th/contact-us/head-office" target="_blank">GUNKUL</a></li>
+                    <li><a href="#" target="_blank">GKA & GKP</a></li>
+                    <li><a href="#" target="_blank">GPD</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="" class="nav-link dropdown-toggle">เบอร์ติดต่อภายใน</a>
+                <ul>
+                    <li><a href="PDF\TelephoneNumber\เบอร์โทรศัพท์ภายใน - GKE-090623.pdf" target="_blank">สำนักงานใหญ่ GKE</a></li>
+                    <li><a href="PDF\TelephoneNumber\เบอร์โทรศัพท์ภายใน - GKAP-190623.pdf" target="_blank">โรงงาน GKA & GKP</a></li>
+                    <li><a href="PDF\TelephoneNumber\เบอร์โทรศัพท์ภายใน - GPD-090623.pdf" target="_blank">สำนักงานใหญ่ GPD</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="" class="nav-link dropdown-toggle">เบอร์ติดต่อภายใน</a>
+                <ul>
+                    <li><a href="https://hrm.gunkul.net/LoginERS/login.aspx" target="_blank"><i class="fa fa-heartbeat text-primary"></i> ระบบลาและเงินเดือน</a></li>
+                    <li><a href="http://meetingroom.gunkul.com/login" target="_blank"><i class="fa fa-users text-primary"></i> จองห้องประชุม</a></li>
+                    <li><a href="https://edoc.gunkul.com/share/page" target="_blank"><i class="fa fa-cogs text-primary"></i> ระบบ e-Doc GKE</a></li>
+                    <li><a href="https://edocgka.gunkul.com/share/page" target="_blank"><i class="fa fa-cogs text-primary"></i> ระบบ e-Doc GKA, P</a></li>
+                    <li><a href="https://edoc.gpdpublic.com/share/page" target="_blank"><i class="fa fa-cogs text-primary"></i> ระบบ e-Doc GPD</a></li>
+                    <li><a href="https://edocjv.gunkul.com/share/page" target="_blank"><i class="fa fa-cogs text-primary"></i> ระบบ e-Doc JV</a></li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li><a href="https://edocdev.gunkul.com/share/page" target="_blank"><i class="fa fa-cogs text-primary"></i> ระบบ Dev e-Doc GKE</a></li>
+                    <li><a href="https://gkadev.gunkul.com/share/page" target="_blank"><i class="fa fa-cogs text-primary"></i> ระบบ Dev e-Doc GKA, P</a></li>
+                    <li><a href="https://10.10.9.183:8443/share/page" target="_blank"><i class="fa fa-cogs text-primary"></i> ระบบ Dev e-Doc GPD</a></li>
+                    <li><a href="https://http://10.10.9.166:8080/share/page" target="_blank"><i class="fa fa-cogs text-primary"></i> ระบบ Dev e-Doc JV</a></li>
+                </ul>
+            </li>
+        </ul>
+        <!-- <div class="btn-lg-square bg-primary rounded-circle"><i class=" fa fa-chevron-right text-white "></i></div> -->
+    <!-- </div> -->
+    <!-- <a href="News_ListAdmin.php" class="btn btn-primary rounded-0 py-4 px-lg-5 d-none d-lg-block"><i class="fa fa-arrow-right ms-3"></i></a> -->
+    <div style="margin-left: 100px;" class="btn-lg-square bg-primary rounded-circle"><i class=" fa fa-chevron-right text-white "></i></div>
+<!-- </div>  -->
+
     </nav>
     <!-- Navbar End -->
