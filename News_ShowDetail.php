@@ -29,7 +29,7 @@
                     $row = $result->fetch_assoc();
             ?>
                 <h6 class="text-primary"><?= $row["CG_DescriptionEN"] ?></h6>
-                <h1 class="mb-4"><?= $row["CG_DescriptionTH"] ?></h1>
+                <h2 class="mb-4"><?= $row["CG_DescriptionTH"] ?></h2>
             </div>
         </div>
         <div class="text-start mx-auto mb-2 wow fadeInUp" data-wow-delay="0.1s">

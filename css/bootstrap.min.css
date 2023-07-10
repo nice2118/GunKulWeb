@@ -3920,9 +3920,9 @@ fieldset:disabled .btn {
     color: #9B9B9B;
     text-align: left;
     list-style: none;
-    background-color: #fff;
+    background-color: #F6F7F8;
     background-clip: padding-box;
-    border: 1px solid rgba(0, 0, 0, 0.15);
+    border: none;
     border-radius: 8px
 }
 

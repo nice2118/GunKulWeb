@@ -1,0 +1,137 @@
+<?php
+include("DB_Include.php");
+echo '<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>';
+
+// เช็คว่ามีการส่งข้อมูลผ่านแบบ POST มาหรือไม่
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+  // เก็บข้อมูลจากฟอร์ม
+  $ID = $_POST['ID'];
+  $DefaultNameImageNews = $_POST['DefaultNameImageNews'];
+  $OldNameImageNews = $_POST['OldNameImageNews'];
+  $PathFolderNews = $_POST['PathFolderNews'];
+
+  // เก็บข้อมูลไฟล์
+  $file = $_FILES['image'];
+  $fileName = $file['name'];
+  $fileTmpName = $file['tmp_name'];
+  $fileSize = $file['size'];
+  $fileError = $file['error'];
+
+  $newnFullNameImage = $OldNameImageNews;
+
+  // echo "1".$ID."-----".$DefaultNameImageNews."=========".$OldNameImageNews."-------------------".$PathFolderNews;
+
+  // เช็คว่ามีข้อผิดพลาดในการอัปโหลดไฟล์หรือไม่
+  if ($fileError === UPLOAD_ERR_OK) {
+    // เช็คประเภทไฟล์
+    $fileType = strtolower(pathinfo($fileName, PATHINFO_EXTENSION));
+    $allowedExtensions = ['jpg', 'jpeg', 'png', 'gif'];
+
+        // ลบไฟล์เก่า
+      if (!empty($newnFullNameImage)) {
+        $filePath = $PathFolderNews . $newnFullNameImage;
+        if (file_exists($filePath)) {
+            if (unlink($filePath)) {
+                // echo 'File deleted successfully.';
+            } else {
+                $_SESSION['StatusTitle'] = "Error!";
+                $_SESSION['StatusMessage'] = "Unable to delete the file.";
+                $_SESSION['StatusAlert'] = "error";
+                if (isset($_SESSION['PathPage']) && $_SESSION['PathPage'] !== '') {
+                  header("Location: ".$_SESSION['PathPage']);
+                  unset($_SESSION['PathPage']);
+                }
+            }
+        } else {
+            $_SESSION['StatusTitle'] = "Error!";
+            $_SESSION['StatusMessage'] = "File not found.";
+            $_SESSION['StatusAlert'] = "error";
+            if (isset($_SESSION['PathPage']) && $_SESSION['PathPage'] !== '') {
+              header("Location: ".$_SESSION['PathPage']);
+              unset($_SESSION['PathPage']);
+            }
+        }
+      }
+
+    if (in_array($fileType, $allowedExtensions)) {
+      $EditNameImage = $DefaultNameImageNews;
+      
+      $newnFullNameImage = $EditNameImage.'.'.$fileType;
+      // ย้ายไฟล์ไปยังตำแหน่งที่ต้องการ (เช่นโฟลเดอร์ uploads)
+      $destination = $PathFolderNews . $newnFullNameImage;
+      if (!file_exists($PathFolderNews)) {
+        mkdir($PathFolderNews, 0777, true); // สร้างโฟลเดอร์ถ้ายังไม่มี
+      }
+      move_uploaded_file($fileTmpName, $destination);
+    } else {
+      $_SESSION['StatusTitle'] = "Error!"; // รูปแบบไฟล์ไม่ถูกต้อง
+      $_SESSION['StatusMessage'] = "Invalid file format.";
+      $_SESSION['StatusAlert'] = "error";
+      if (isset($_SESSION['PathPage']) && $_SESSION['PathPage'] !== '') {
+        header("Location: ".$_SESSION['PathPage']);
+        unset($_SESSION['PathPage']);
+      }
+    }
+  } else {
+    $newnFullNameImage = '';
+  }
+
+  // ทำอย่างอื่นๆ เช่นบันทึกข้อมูลลงฐานข้อมูล
+  if (!empty($newnFullNameImage) && $newnFullNameImage !== '') {
+    $sql = "UPDATE `newsandactivities`.`newssetup` SET `SU_DefaultImageNews` = '$newnFullNameImage',`SU_PathDefaultImageNews` = '$PathFolderNews' WHERE `newssetup`.`SU_Code` = $ID;";
+  } else {    
+    $sql = "UPDATE `newsandactivities`.`newssetup` SET `SU_PathDefaultImageNews` = '$PathFolderNews' WHERE `newssetup`.`SU_Code` = $ID;";
+  }
+  // ดำเนินการ INSERT ข้อมูล
+  if ($conn->query($sql) === true) {
+    // $_SESSION['StatusMessage'] = 'กรุณากลับไป Setup ก่อน';
+    //     header("Location: ".$_SESSION['PathPage']);
+    //     exit();
+    // echo '<script>swal("Success.");</script>';
+    $_SESSION['StatusTitle'] = "ดำเนินการเรียบร้อยแล้ว";
+    $_SESSION['StatusMessage'] = "ทำการอัพเดชเรียบร้อบแล้ว";
+    $_SESSION['StatusAlert'] = "success";
+  } else {
+    if (!empty($newnFullNameImage)) {
+      echo $conn->error;
+      $_SESSION['StatusTitle'] = "Error!";
+      $_SESSION['StatusMessage'] = "Error: ".$conn->error;
+      $_SESSION['StatusAlert'] = "error";
+      if (isset($_SESSION['PathPage']) && $_SESSION['PathPage'] !== '') {
+        header("Location: ".$_SESSION['PathPage']);
+        unset($_SESSION['PathPage']);
+      }
+      $filePath = $PathFolderNews . $newnFullNameImage;
+
+      if (file_exists($filePath)) {
+          if (unlink($filePath)) {
+              // echo 'File deleted successfully.';
+          } else {
+              $_SESSION['StatusTitle'] = "Error!";
+              $_SESSION['StatusMessage'] = "Unable to delete the file.";
+              $_SESSION['StatusAlert'] = "error";
+              if (isset($_SESSION['PathPage']) && $_SESSION['PathPage'] !== '') {
+                header("Location: ".$_SESSION['PathPage']);
+                unset($_SESSION['PathPage']);
+              }
+          }
+      } else {
+          $_SESSION['StatusTitle'] = "Error!";
+          $_SESSION['StatusMessage'] = "File not found.";
+          $_SESSION['StatusAlert'] = "error";
+          if (isset($_SESSION['PathPage']) && $_SESSION['PathPage'] !== '') {
+            header("Location: ".$_SESSION['PathPage']);
+            unset($_SESSION['PathPage']);
+          }
+      }
+    }
+  }
+
+  // ปิดการเชื่อมต่อฐานข้อมูล
+  $conn->close();
+
+  // ส่งข้อความตอบกลับหรือเปลี่ยนเส้นทางไปหน้าอื่นตามต้องการ
+   echo '<script> setTimeout(function() { window.location.href = "./AdminSetup.php"; }, 0); </script>';
+}
+?>
+

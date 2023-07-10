@@ -30,7 +30,7 @@ if (isset($_GET['Send_IDNews']) && $_GET['Send_IDNews'] !== '') {
         <div class="container">
             <div class="text-center mx-auto mb-2 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 600px;">
                 <h6 class="text-primary">Form News & Activities</h6>
-                <h1 class="mb-4">สร้างข่าวสารและกิจกรรม</h1>
+                <h2 class="mb-4">สร้างข่าวสารและกิจกรรม</h2>
             </div>
         </div>
         <div class="text-start mx-auto mb-2 wow fadeInUp" data-wow-delay="0.1s">

@@ -23,7 +23,7 @@ table.dataTable td {
         <div class="container">
             <div class="text-center mx-auto mb-2 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 600px;">
                 <h6 class="text-primary">News & Activities</h6>
-                <h1 class="mb-4">ข่าวสารและกิจกรรม</h1>
+                <h2 class="mb-4">ข่าวสารและกิจกรรม</h2>
             </div>
         </div>
         <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6">
@@ -124,6 +124,7 @@ table.dataTable td {
     </div>
     <!-- Content -->
 
+<?php include("Footer.php"); ?>
     <!-- sweetalert -->
     <script>
         // ปุ่ม Delete
@@ -153,7 +154,7 @@ table.dataTable td {
             .then((willDelete) => {
                 if (willDelete) {
                     // เมื่อกดตกลง ทำการเปลี่ยนหน้า
-                    window.location.replace(`Pro_DeleteNews.php?Send_IDNews=${NewsID}`);
+                    window.location.replace(`Pro_DeleteNews.php?Send_IDNews=${NewsID}&Send_Title=${NewsTitle}`);
                 } else {
                     // เมื่อกดยกเลิก ไม่ต้องทำอะไร
                 }
@@ -173,7 +174,5 @@ table.dataTable td {
             };
         <?php endif; ?>
     </script>
-
-<?php include("Footer.php"); ?>
 <?php include("FirstFooter_Script.php"); ?>
 <?php include("Footer_Script.php"); ?>

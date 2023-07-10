@@ -10,15 +10,21 @@ include("DB_Setup.php");
         <div class="container">
             <div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 600px;">
                 <h6 class="text-primary">News & Activities</h6>
-                <h1 class="mb-4">ข่าวสารและกิจกรรม</h1>
+                <h2 class="mb-4">ข่าวสารและกิจกรรม</h2>
             </div>
 
             <?php
-                $sql = "SELECT * FROM `Activities` ORDER BY `Activities`.`AT_Date` DESC , `Activities`.`AT_Time` DESC LIMIT 1";
+                $sql = "SELECT * FROM `Activities` ORDER BY `Activities`.`AT_Date` DESC , `Activities`.`AT_Time` DESC LIMIT 0,8";
                 $result = $conn->query($sql);
-
+                $isFirstRow = true;
+                $isTwoRow = false;
+                $isLastRow = false;
+                $counter = 0;
+                $row_count = $result->num_rows;
                 if ($result->num_rows > 0) {
-                    $row = $result->fetch_assoc();
+                    while ($row = $result->fetch_assoc()) {
+                        $counter++;
+                        if ($isFirstRow) {
             ?>
             <div class="container-fluid bg-light overflow-hidden my-5 px-lg-0">
                 <div class="container about px-lg-0">
@@ -43,21 +49,19 @@ include("DB_Setup.php");
                     </div>
                 </div>
             </div>
-            <?php        
-                }
+            <?php 
+                            $isFirstRow = false;
+                            $isTwoRow = true;
+                            } else {
+                                if ($counter !== $row_count) {
+                                    if ($isTwoRow) {
+                                        $isTwoRow = false;
             ?>
-            
-
             <div class="row g-4">
+            <?php
+                                    }
+            ?>
                 <!-- Loop 6 -->
-                <?php
-                    $sql = "SELECT * FROM `Activities` ORDER BY `Activities`.`AT_Date` DESC , `Activities`.`AT_Time` DESC LIMIT 1,6";
-                    $result = $conn->query($sql);
-
-                    if ($result->num_rows > 0) {
-                        while ($row = $result->fetch_assoc()) {
-                        
-                ?>
                 <div class="col-lg-4 col-md-6 wow fadeInUp portfolio-item first" data-wow-delay="0.1s">
                     <div class="service-item rounded overflow-hidden">
                         <div class="portfolio-img rounded overflow-hidden">
@@ -79,107 +83,10 @@ include("DB_Setup.php");
                         </div>
                     </div>
                 </div>
-                <?php        
-                        }
-                    }
-                ?>
-                <!-- <div class="col-lg-4 col-md-6 wow fadeInUp portfolio-item first" data-wow-delay="0.1s">
-                    <div class="portfolio-img rounded overflow-hidden">
-                        <img class="img-fluid w-100" src="img/3.png" style="height:275px;" alt="">
-                        <img class="img-fluid w-100 h-100" src="img/3.png" alt=""> 
-                        <div class="portfolio-btn">
-                            <a class="btn btn-lg-square btn-outline-light rounded-circle mx-1" href="img/3.png"
-                                data-lightbox="portfolio"><i class="fa fa-eye"></i></a>
-                            <a class="btn btn-lg-square btn-outline-light rounded-circle mx-1" href=""><i
-                                    class="fa fa-link"></i></a>
-                        </div>
-                    </div>
-                    <div class="position-relative p-4 pt-0">
-                        <div class="service-icon">
-                            <i class="fa fa-newspaper fa-3x"></i>
-                        </div>
-                        <h4 class="mb-3">Solar Panels</h4>
-                        <p class="">Stet stet justo dolor sed duo. Ut clita sea sit ipsum diam lorem diam.</p>
-                        <a class="small fw-medium" href="">อ่านเพิ่มเติม<i class="fa fa-arrow-right ms-2"></i></a>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 wow fadeInUp portfolio-item first" data-wow-delay="0.1s">
-                    <div class="portfolio-img rounded overflow-hidden">
-                        <img class="img-fluid w-100" src="img/8.jpg" style="height:275px;" alt="">
-                        <div class="portfolio-btn">
-                            <a class="btn btn-lg-square btn-outline-light rounded-circle mx-1" href="img/8.jpg"
-                                data-lightbox="portfolio"><i class="fa fa-eye"></i></a>
-                            <a class="btn btn-lg-square btn-outline-light rounded-circle mx-1" href=""><i
-                                    class="fa fa-link"></i></a>
-                        </div>
-                    </div>
-                    <div class="position-relative p-4 pt-0">
-                        <div class="service-icon">
-                            <i class="fa fa-newspaper fa-3x"></i>
-                        </div>
-                        <h4 class="mb-3">Solar Panels</h4>
-                        <p class="">Stet stet justo dolor sed duo. Ut clita sea sit ipsum diam lorem diam.</p>
-                        <a class="small fw-medium" href="">อ่านเพิ่มเติม<i class="fa fa-arrow-right ms-2"></i></a>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 wow fadeInUp portfolio-item first" data-wow-delay="0.1s">
-                    <div class="portfolio-img rounded overflow-hidden">
-                        <img class="img-fluid w-100" src="img/5.png" style="height:275px;" alt="">
-                        <div class="portfolio-btn">
-                            <a class="btn btn-lg-square btn-outline-light rounded-circle mx-1"
-                                href="img/5.png" data-lightbox="portfolio"><i class="fa fa-eye"></i></a>
-                            <a class="btn btn-lg-square btn-outline-light rounded-circle mx-1" href=""><i
-                                    class="fa fa-link"></i></a>
-                        </div>
-                    </div>
-                    <div class="position-relative p-4 pt-0">
-                        <div class="service-icon">
-                            <i class="fa fa-newspaper fa-3x"></i>
-                        </div>
-                        <h4 class="mb-3">Solar Panels</h4>
-                        <p class="">Stet stet justo dolor sed duo. Ut clita sea sit ipsum diam lorem diam.</p>
-                        <a class="small fw-medium" href="">อ่านเพิ่มเติม<i class="fa fa-arrow-right ms-2"></i></a>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 wow fadeInUp portfolio-item first" data-wow-delay="0.1s">
-                    <div class="portfolio-img rounded overflow-hidden">
-                        <img class="img-fluid w-100" src="img/6.png" style="height:275px;" alt="">
-                        <div class="portfolio-btn">
-                            <a class="btn btn-lg-square btn-outline-light rounded-circle mx-1" href="img/6.png"
-                                data-lightbox="portfolio"><i class="fa fa-eye"></i></a>
-                            <a class="btn btn-lg-square btn-outline-light rounded-circle mx-1" href=""><i
-                                    class="fa fa-link"></i></a>
-                        </div>
-                    </div>
-                    <div class="position-relative p-4 pt-0">
-                        <div class="service-icon">
-                            <i class="fa fa-newspaper fa-3x"></i>
-                        </div>
-                        <h4 class="mb-3">Solar Panels</h4>
-                        <p class="">Stet stet justo dolor sed duo. Ut clita sea sit ipsum diam lorem diam.</p>
-                        <a class="small fw-medium" href="">อ่านเพิ่มเติม<i class="fa fa-arrow-right ms-2"></i></a>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 wow fadeInUp portfolio-item first" data-wow-delay="0.1s">
-                    <div class="portfolio-img rounded overflow-hidden">
-                        <img class="img-fluid w-100" src="img/7.jpg" style="height:275px;" alt="">
-                        <div class="portfolio-btn">
-                            <a class="btn btn-lg-square btn-outline-light rounded-circle mx-1" href="img/7.jpg"
-                                data-lightbox="portfolio"><i class="fa fa-eye"></i></a>
-                            <a class="btn btn-lg-square btn-outline-light rounded-circle mx-1" href=""><i
-                                    class="fa fa-link"></i></a>
-                        </div>
-                    </div>
-                    <div class="position-relative p-4 pt-0">
-                        <div class="service-icon">
-                            <i class="fa fa-newspaper fa-3x"></i>
-                        </div>
-                        <h4 class="mb-3">Solar Panels</h4>
-                        <p class="">Stet stet justo dolor sed duo. Ut clita sea sit ipsum diam lorem diam.</p>
-                        <a class="small fw-medium" href="">อ่านเพิ่มเติม<i class="fa fa-arrow-right ms-2"></i></a>
-                    </div>
-                </div> -->
                 <!-- Loop 6 -->
+            <?php
+                                } else {
+            ?>
             </div>
             <div class="row g-1">
                 <div class="wow fadeInUp portfolio-item first" data-wow-delay="0.6s">
@@ -188,11 +95,17 @@ include("DB_Setup.php");
                     </div>
                 </div>
             </div>
+            <?php
+                                }     
+                            }
+                        }
+                    }
+            ?>
         </div>
     </div>
     <!-- Content -->
     
-<?php include("Error/Test.php"); ?>
+<?php // include("Error/Test.php"); ?>
     
 <?php include("Footer.php"); ?>
 <?php include("FirstFooter_Script.php"); ?>

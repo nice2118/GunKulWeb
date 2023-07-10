@@ -15,7 +15,7 @@ $_SESSION['PathPage'] = "News_ListAdmin.php";
         <div class="container">
             <div class="text-center mx-auto mb-2 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 600px;">
                 <h6 class="text-primary">News & Activities</h6>
-                <h1 class="mb-4">ข่าวสารและกิจกรรม</h1>
+                <h2 class="mb-4">ข่าวสารและกิจกรรม</h2>
             </div>
         </div>
         <div class="text-start mx-auto mb-2 wow fadeInUp" data-wow-delay="0.1s">
