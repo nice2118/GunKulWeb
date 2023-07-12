@@ -17,7 +17,22 @@
             ReturnPage('กรุณากลับไป Setup ที่อยู่รูปภาพของข่าวก่อน');
         }
     } else {
-        ReturnPage('กรุณากลับไป Setup ก่อน');
+        $sql = "INSERT INTO `newssetup` (`CG_Entity No.`,`CG_CreateDate`) VALUES (1, CURRENT_TIMESTAMP)";
+        if ($conn->query($sql) === true) {
+            if (isset($row["SU_DefaultImageNews"]) && $row["SU_DefaultImageNews"] !== '') {
+                $DefaultImageNews = $row["SU_DefaultImageNews"];
+            } else {
+                ReturnPage('กรุณากลับไป Setup ค่าเริ่มต้นเมื่อไม่มีภาพก่อน');
+            }
+            if (isset($row["SU_PathDefaultImageNews"]) && $row["SU_PathDefaultImageNews"] !== '') {
+                $PathFolderNews = $row["SU_PathDefaultImageNews"];
+            } else {
+                ReturnPage('กรุณากลับไป Setup ที่อยู่รูปภาพของข่าวก่อน');
+            }
+        } else {
+            ReturnPage('ไม่สามารถเพิ่มข้อมูลเบื่องต้นได้');
+        }
+        // ReturnPage('กรุณากลับไป Setup ก่อน');
     }  
     unset($sql);
 

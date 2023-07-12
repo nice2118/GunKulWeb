@@ -2,9 +2,9 @@
 include("DB_Include.php");
 include("DB_Setup.php");
 ?>
-<?php include("Head_Link.php"); ?>
-<?php include("Head.php"); ?>
-<?php include("Carousel.php"); ?>
+<?php  include("Ma_Head_Link.php"); ?>
+<?php  include("Ma_Head.php"); ?>
+<?php  include("Ma_Carousel.php"); ?>
     <!-- Content -->
     <div class="container-xxl py-5">
         <div class="container">
@@ -43,7 +43,7 @@ include("DB_Setup.php");
                                 <h6 class="text-primary">NEWS</h6>
                                 <h3 class="mb-4"><?= $row['AT_Title'];?></h3>
                                 <p><?= $row['AT_Description'];?></p>
-                                <a href="News_ShowDetail.php?Send_IDNews=<?= $row["AT_Code"];?>" class="btn btn-primary rounded-pill py-3 px-5 mt-3">อ่านเพิ่มเติม</a>
+                                <a href="Ui_ShowDetail.php?Send_IDNews=<?= $row["AT_Code"];?>" class="btn btn-primary rounded-pill py-3 px-5 mt-3">อ่านเพิ่มเติม</a>
                             </div>
                         </div>
                     </div>
@@ -69,7 +69,7 @@ include("DB_Setup.php");
                             <div class="portfolio-btn">
                                 <a class="btn btn-lg-square btn-outline-light rounded-circle mx-1" href="<?= $PathFolderNews.$row['AT_Image'];?>"
                                     data-lightbox="portfolio"><i class="fa fa-eye"></i></a>
-                                <a class="btn btn-lg-square btn-outline-light rounded-circle mx-1" href="News_ShowDetail.php?Send_IDNews=<?= $row["AT_Code"];?>"><i
+                                <a class="btn btn-lg-square btn-outline-light rounded-circle mx-1" href="Ui_ShowDetail.php?Send_IDNews=<?= $row["AT_Code"];?>"><i
                                         class="fa fa-link"></i></a>
                             </div>
                         </div>
@@ -79,7 +79,7 @@ include("DB_Setup.php");
                             </div>
                             <h4 class="mb-3"><?= $row['AT_Title'];?></h4>
                             <p class=""><?= $row['AT_Description'];?></p>
-                            <a class="small fw-medium" href="News_ShowDetail.php?Send_IDNews=<?= $row["AT_Code"];?>">อ่านเพิ่มเติม<i class="fa fa-arrow-right ms-2"></i></a>
+                            <a class="small fw-medium" href="Ui_ShowDetail.php?Send_IDNews=<?= $row["AT_Code"];?>">อ่านเพิ่มเติม<i class="fa fa-arrow-right ms-2"></i></a>
                         </div>
                     </div>
                 </div>
@@ -91,7 +91,7 @@ include("DB_Setup.php");
             <div class="row g-1">
                 <div class="wow fadeInUp portfolio-item first" data-wow-delay="0.6s">
                     <div align="right">
-                        <a class="small fw-medium" href="News_List.php">ข่าวสารและกิจกรรมทั้งหมด<i class="fa fa-arrow-right ms-2"></i></a>
+                        <a class="small fw-medium" href="Ui_List.php?Send_Category=1">ข่าวสารและกิจกรรมทั้งหมด<i class="fa fa-arrow-right ms-2"></i></a>  
                     </div>
                 </div>
             </div>
@@ -107,6 +107,6 @@ include("DB_Setup.php");
     
 <?php // include("Error/Test.php"); ?>
     
-<?php include("Footer.php"); ?>
-<?php include("FirstFooter_Script.php"); ?>
-<?php include("Footer_Script.php"); ?>
+<?php include("Ma_Footer.php"); ?>
+<?php include("Ma_FirstFooter_Script.php"); ?>
+<?php include("Ma_Footer_Script.php"); ?>

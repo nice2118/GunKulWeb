@@ -1,21 +1,37 @@
 <?php 
 include("DB_Include.php"); 
-$_SESSION['PathPage'] = "News_ListAdmin.php";
+$_SESSION['PathPage'] = "Ui_ListAdmin.php";
+if (isset($_GET['Send_Category']) && $_GET['Send_Category'] !== '') {
+    $Category_id = $_GET['Send_Category'];
+} else {
+    $Category_id = 1;
+}
 ?>
-<?php include("Head_Link.php"); ?>
+
+<?php include("Fn_RecursiveCategory.php"); ?>
+<?php include("Ma_Head_Link.php"); ?>
 <!-- Icon Font Stylesheet -->
 <!-- <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.2.0/css/bootstrap.min.css" rel="stylesheet"> -->
 <link href="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap5.min.css" rel="stylesheet">
 
-<?php include("Head.php"); ?>
-<?php include("Carousel.php"); ?>
+<?php include("Ma_Head.php"); ?>
+<?php include("Ma_Carousel.php"); ?>
 
     <!-- Content -->
     <div class="container-xxl py-5">
         <div class="container">
             <div class="text-center mx-auto mb-2 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 600px;">
-                <h6 class="text-primary">News & Activities</h6>
-                <h2 class="mb-4">ข่าวสารและกิจกรรม</h2>
+                <?php
+                    $sql = "SELECT * FROM `Category` WHERE `Category`.`CG_Entity No.` = $Category_id;";
+                    $result = $conn->query($sql);
+                    if ($result->num_rows > 0) {
+                        $row = $result->fetch_assoc();
+                        $DescriptionTH = $row["CG_DescriptionTH"];
+                        $DescriptionEN = $row["CG_DescriptionEN"];
+                    }
+                ?>
+                <h6 class="small text-primary mb-0 mt-0"><?= $DescriptionEN ?></h6>
+                <h2 class="mb-0 mt-0"><?= $DescriptionTH ?></h2>
             </div>
         </div>
         <div class="text-start mx-auto mb-2 wow fadeInUp" data-wow-delay="0.1s">
@@ -37,7 +53,8 @@ $_SESSION['PathPage'] = "News_ListAdmin.php";
                                     </thead>
                                     <tbody>
                                         <?php
-                                        $sql = "SELECT * FROM Activities LEFT JOIN user ON `Activities`.AT_UserCreate = User.US_Username ORDER BY `Activities`.`AT_Date` DESC , `Activities`.`AT_Time` DESC;";
+                                        $SelectFilterCategoryEntityNo = SearchCategory($Category_id);
+                                        $sql = "SELECT * FROM Activities LEFT JOIN user ON `Activities`.AT_UserCreate = User.US_Username WHERE (`Activities`.`AT_Entity No.` IN ($SelectFilterCategoryEntityNo)) ORDER BY `Activities`.`AT_Date` DESC , `Activities`.`AT_Time` DESC;";
                                         $result = $conn->query($sql);
                                         
                                         if ($result->num_rows > 0) {
@@ -60,7 +77,7 @@ $_SESSION['PathPage'] = "News_ListAdmin.php";
                                                 <img class="img-fluid rounded-circle mx-1 mb-1" src="<?php echo "img/testimonial-1.jpg"; ?>" style="width: 40px; height: 40px;">
                                             </td>
                                             <td class="project-actions text-right">
-                                                <a class="btn btn-primary2 btn-sm" href="News_ShowDetail.php?Send_IDNews=<?= $row["AT_Code"];?>"><i class="fas fa-folder"></i></a>
+                                                <a class="btn btn-primary2 btn-sm" href="Ui_ShowDetail.php?Send_IDNews=<?= $row["AT_Code"];?>"><i class="fas fa-folder"></i></a>
                                             </td>
                                         </tr>
                                         <?php
@@ -140,6 +157,6 @@ $_SESSION['PathPage'] = "News_ListAdmin.php";
         <?php endif; ?>
     </script>
 
-<?php include("Footer.php"); ?>
-<?php include("FirstFooter_Script.php"); ?>
-<?php include("Footer_Script.php"); ?>
+<?php include("Ma_Footer.php"); ?>
+<?php include("Ma_FirstFooter_Script.php"); ?>
+<?php include("Ma_Footer_Script.php"); ?>

@@ -42,14 +42,14 @@
     <!-- Navbar Start -->
     <!-- <nav id="main_nav" class="navbar navbar-expand-lg bg-white navbar-light sticky-top p-0"> -->
     <nav class="navbar navbar-expand-lg bg-white navbar-light sticky-top p-0">
-        <a href="index.php" class="navbar-brand d-flex align-items-center border-end px-4 px-lg-5">
+        <a href="Index.php" class="navbar-brand d-flex align-items-center border-end px-4 px-lg-5">
             <!-- <h2 class="m-0 text-primary">GUNKUL</h2> -->
             <img class="img-fluid" src="img/GKE.png" style="width:200px;" />
         </a>
         <button type="button" class="navbar-toggler me-4" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
             <span class="navbar-toggler-icon"></span>
         </button>
-     <div class="collapse navbar-collapse" id="navbarCollapse">
+        <div class="collapse navbar-collapse" id="navbarCollapse">
             <div class="navbar-nav ms-auto p-4 p-lg-0">
                  <div class="nav-item dropdown">
                     <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">เมนูหลัก</a>
@@ -59,6 +59,22 @@
                         <a href="https://www.gunkul.com/th/corporate-governance/policy-and-procedures" class="dropdown-item" target="_blank">นโยบายยริษัท</a>
                         <a href="https://www.gunkul.com/th/about-us/management/board-of-directors" class="dropdown-item" target="_blank">โครงสร้างการจัดการ</a>
                         <a href="https://www.gunkul.com/th/investor-relations/ir-home" class="dropdown-item" target="_blank">นักลงทุนสัมพันธ์</a>
+                        <nav>
+                            <a href="" class="dropdown-item"> รายการ <i class="fa fa-angle-right"></i></a>
+                            <ul class="dropdown-menu-submenu submenu multi-menu">
+                            <?php
+                                $sql = "SELECT * FROM `Category` WHERE `Category`.`CG_Entity Relation No.` = 0;";
+                                $result = $conn->query($sql);
+                                if ($result->num_rows > 0) {
+                                    while ($row = $result->fetch_assoc()) {
+                            ?>
+                                <li><a href="Ui_ShowPage.php?Send_Category=<?= $row["CG_Entity No."] ?>" class="dropdown-item"><?= $row["CG_DescriptionTH"] ?></a></li>
+                            <?php
+                                    }
+                                }
+                            ?>
+                            </ul>
+                        </nav>
                     </div>
                 </div>
                 <div class="nav-item dropdown">
@@ -167,14 +183,18 @@
                         <nav>
                             <a href="" class="dropdown-item"><i class="fa fa-angle-left "></i>  จัดการ</a>
                             <ul class="dropdown-menu-submenu submenu submenu-left">
-                                <li><a href="News_ListAdmin.php" target="_blank" class="dropdown-item">จัดการข่าวและกิจกรรม</a></li>
-                                <li><a href="AdminSetup.php" target="_blank" class="dropdown-item">Setup</a></li>
+                                <li><a href="Ui_ListAdmin.php?Send_Category=1" class="dropdown-item">จัดการข่าวและกิจกรรม</a></li>
+                                <li><a href="Ui_ListAdmin.php?Send_Category=2" class="dropdown-item">จัดการทักษะทางสังคมที่</a></li>
+                                <li><a href="Ui_ListAdmin.php?Send_Category=3" class="dropdown-item">จัดการทักษะสายอาชีพ</a></li>
+                                <li><a href="Ui_ListAdmin.php?Send_Category=4" class="dropdown-item">จัดการ การแบ่งปันความรู้</a></li>
                             </ul>
                         </nav>
+                        <a href="Ui_AdminSetup.php" class="dropdown-item">Setup</a>
+                        <a href="Ui_Activity.php" class="dropdown-item">Activity</a>
                     </div>
                 </div>
             </div>
-            <a href="News_ListAdmin.php" class="btn btn-primary rounded-0 py-4 px-lg-5 d-none d-lg-block"><i
+            <a href="" class="btn btn-primary rounded-0 py-4 px-lg-5 d-none d-lg-block">คลังภาพ<i
                     class="fa fa-arrow-right ms-3"></i></a>
         </div>
 
@@ -297,7 +317,7 @@
         </ul> -->
         <!-- <div class="btn-lg-square bg-primary rounded-circle"><i class=" fa fa-chevron-right text-white "></i></div> -->
     <!-- </div> -->
-    <!-- <a href="News_ListAdmin.php" class="btn btn-primary rounded-0 py-4 px-lg-5 d-none d-lg-block"><i class="fa fa-arrow-right ms-3"></i></a> -->
+    <!-- <a href="Ui_ListAdmin.php" class="btn btn-primary rounded-0 py-4 px-lg-5 d-none d-lg-block"><i class="fa fa-arrow-right ms-3"></i></a> -->
     <!-- <div style="margin-left: 100px;" class="btn-lg-square bg-primary rounded-circle"><i class=" fa fa-chevron-right text-white "></i></div> -->
 <!-- </div>  -->
 

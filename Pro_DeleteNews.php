@@ -3,6 +3,7 @@ include("DB_Include.php");
 if (isset($_GET['Send_IDNews']) && $_GET['Send_IDNews'] !== '') {
     $t_id = $_GET['Send_IDNews'];
     $t_Title = $_GET['Send_Title'];
+    $CategoryID = $_GET['Send_Category'];
   } else {
     $_SESSION['StatusTitle'] = "Error!";
     $_SESSION['StatusMessage'] = 'ไม่พบเลขที่เอกสารนี้';
@@ -28,6 +29,6 @@ if ($conn->query($sql) === true) {
   $_SESSION['StatusMessage'] = "Cannot be deleted = ".$t_id;
   $_SESSION['StatusAlert'] = "error";
 }
-echo '<script> setTimeout(function() { window.location.href = "./News_ListAdmin.php"; }, 0); </script>';
+echo '<script> setTimeout(function() { window.location.href = "./Ui_ListAdmin.php?Send_Category=' . $CategoryID . '"; }, 0); </script>';
 ?>
 

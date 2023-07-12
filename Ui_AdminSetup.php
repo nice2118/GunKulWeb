@@ -3,15 +3,15 @@ include("DB_Include.php");
 $_SESSION['PathPage'] = "AdminSetup.php";
 ?>
 
-<?php include("Head_Link.php"); ?>
+<?php include("Ma_Head_Link.php"); ?>
 <link href="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap5.min.css" rel="stylesheet">
 <style>
   #image {
     display: none;
   }
 </style>
-<?php include("Head.php"); ?>
-<?php include("Carousel.php"); ?>
+<?php include("Ma_Head.php"); ?>
+<?php include("Ma_Carousel.php"); ?>
 <?PHP
     $sql = "SELECT * FROM newssetup";
     $result = $conn->query($sql);
@@ -21,7 +21,15 @@ $_SESSION['PathPage'] = "AdminSetup.php";
         $CodeSetup = $row["SU_Code"];
         $DefaultImageNews = $row["SU_DefaultImageNews"];
         $PathFolderNews = $row["SU_PathDefaultImageNews"];
-    } 
+    } else {
+        unset($sql);
+        $sql = "INSERT INTO `newssetup` (`CG_Entity No.`,`CG_CreateDate`) VALUES (1, CURRENT_TIMESTAMP)";
+        if ($conn->query($sql) === true) {
+            $CodeSetup = 1;
+            $DefaultImageNews = "";
+            $PathFolderNews = "";
+        }
+    }
     unset($sql);
 ?>
 
@@ -131,7 +139,7 @@ $_SESSION['PathPage'] = "AdminSetup.php";
     </div>
     <!-- Content -->
 
-<?php include("Footer.php"); ?>
+<?php include("Ma_Footer.php"); ?>
     <script>
         document.getElementById('image').addEventListener('change', function (e) {
             var file = e.target.files[0];
@@ -163,5 +171,5 @@ $_SESSION['PathPage'] = "AdminSetup.php";
     </script>
     <script src="js/jquery.min.js"></script>
     <script src="js/adminlte.min.js"></script>
-<?php //include("FirstFooter_Script.php"); ?>
-<?php include("Footer_Script.php"); ?>
+<?php //include("Ma_FirstFooter_Script.php"); ?>
+<?php include("Ma_Footer_Script.php"); ?>

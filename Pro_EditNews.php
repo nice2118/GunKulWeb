@@ -8,6 +8,8 @@ echo '<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   // เก็บข้อมูลจากฟอร์ม
   $ID = $_POST['ID'];
+  $CategoryBegin_id = $_POST['CategoryBegin_id'];
+  $CategoryID = $_POST['Send_Category'];
   $DateAddNews = $_POST['DateAddNews'];
   $DateAddNewsFormatted = date('Y-m-d', strtotime(str_replace('/', '-', $DateAddNews)));
   $Title = $_POST['Title'];
@@ -90,9 +92,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
   // ทำอย่างอื่นๆ เช่นบันทึกข้อมูลลงฐานข้อมูล
   if (!empty($newnFullNameImage) && $newnFullNameImage !== '') {
-    $sql = "UPDATE `Activities` SET `AT_Date` = '$DateAddNewsFormatted', `AT_Title` = '$Title', `AT_Description` = '$Summary', `AT_Note` = '$Summernote', `AT_Image` = '$newnFullNameImage', `AT_ModifyDate` = CURRENT_TIMESTAMP WHERE `Activities`.`AT_Code` = $ID;";
+    $sql = "UPDATE `Activities` SET `AT_Entity No.` = $CategoryID, `AT_Date` = '$DateAddNewsFormatted', `AT_Title` = '$Title', `AT_Description` = '$Summary', `AT_Note` = '$Summernote', `AT_Image` = '$newnFullNameImage', `AT_ModifyDate` = CURRENT_TIMESTAMP WHERE `Activities`.`AT_Code` = $ID;";
   } else {    
-    $sql = "UPDATE `Activities` SET `AT_Date` = '$DateAddNewsFormatted', `AT_Title` = '$Title', `AT_Description` = '$Summary', `AT_Note` = '$Summernote', `AT_ModifyDate` = CURRENT_TIMESTAMP WHERE `Activities`.`AT_Code` = $ID;";
+    $sql = "UPDATE `Activities` SET `AT_Entity No.` = $CategoryID, `AT_Date` = '$DateAddNewsFormatted', `AT_Title` = '$Title', `AT_Description` = '$Summary', `AT_Note` = '$Summernote', `AT_ModifyDate` = CURRENT_TIMESTAMP WHERE `Activities`.`AT_Code` = $ID;";
   }
   // ดำเนินการ INSERT ข้อมูล
   if ($conn->query($sql) === true) {
@@ -143,8 +145,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 
   // ส่งข้อความตอบกลับหรือเปลี่ยนเส้นทางไปหน้าอื่นตามต้องการ
-  // echo "<meta http-equiv=\"refresh\" content=\"0; url=./News_ListAdmin.php\">";
-  echo '<script> setTimeout(function() { window.location.href = "./News_ListAdmin.php"; }, 0); </script>';
+  // echo "<meta http-equiv=\"refresh\" content=\"0; url=./Ui_ListAdmin.php\">";
+  echo '<script> setTimeout(function() { window.location.href = "./Ui_ListAdmin.php?Send_Category=' . $CategoryBegin_id . '"; }, 0); </script>';
 }
 ?>
 

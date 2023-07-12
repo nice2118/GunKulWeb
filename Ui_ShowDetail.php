@@ -14,9 +14,9 @@
         exit();
       }
 ?>
-<?php include("Head_Link.php"); ?>
-<?php include("Head.php"); ?>
-<?php include("Carousel.php"); ?>
+<?php include("Ma_Head_Link.php"); ?>
+<?php include("Ma_Head.php"); ?>
+<?php include("Ma_Carousel.php"); ?>
 
     <!-- Content -->
     <div class="container-xxl py-5">
@@ -57,6 +57,6 @@
     </div>
     <!-- Content -->
 
-<?php include("Footer.php"); ?>
-<?php include("FirstFooter_Script.php"); ?>
-<?php include("Footer_Script.php"); ?>
+<?php include("Ma_Footer.php"); ?>
+<?php include("Ma_FirstFooter_Script.php"); ?>
+<?php include("Ma_Footer_Script.php"); ?>

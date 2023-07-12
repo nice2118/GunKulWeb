@@ -2,23 +2,45 @@
 <?php 
 include("DB_Include.php"); 
 include("DB_Setup.php");
-$_SESSION['PathPage'] = "News_Add.php";
+$_SESSION['PathPage'] = "Ui_Add.php";
+if (isset($_GET['Send_Category']) && $_GET['Send_Category'] !== '') {
+    $Send_Category = $_GET['Send_Category'];
+} else {
+    $_SESSION['StatusTitle'] = "Error!";
+    $_SESSION['StatusMessage'] = 'ไม่มีหมวดหมู่';
+    $_SESSION['StatusAlert'] = "error";
+    if (isset($_SESSION['PathPage']) && $_SESSION['PathPage'] !== '') {
+        header("Location: ".$_SESSION['PathPage']);
+        unset($_SESSION['PathPage']);
+    }
+    exit();
+}
 ?>
-<?php include("Head_Link.php"); ?>
+<?php include("Fn_RecursiveCategory.php"); ?>
+<?php include("Ma_Head_Link.php"); ?>
 <!-- Icon Font Stylesheet -->
 <!-- <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.2.0/css/bootstrap.min.css" rel="stylesheet"> -->
 <!-- dataTables Stylesheet -->
 <link href="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap5.min.css" rel="stylesheet">
 
-<?php include("Head.php"); ?>
-<?php include("Carousel.php"); ?>
+<?php include("Ma_Head.php"); ?>
+<?php include("Ma_Carousel.php"); ?>
 
     <!-- Content -->
     <div class="container-xxl py-5">
         <div class="container">
             <div class="text-center mx-auto mb-2 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 600px;">
-                <h6 class="text-primary">Form News & Activities</h6>
-                <h2 class="mb-4">สร้างข่าวสารและกิจกรรม</h2>
+                <?php
+                    $sql = "SELECT * FROM `Category` WHERE `Category`.`CG_Entity No.` = $Send_Category;";
+                    $result = $conn->query($sql);
+                    if ($result->num_rows > 0) {
+                        $row = $result->fetch_assoc();
+                        $DescriptionTH = $row["CG_DescriptionTH"];
+                        $DescriptionEN = $row["CG_DescriptionEN"];
+                    }
+                ?>
+                <h6 class="small text-primary mb-0 mt-0"><?= $DescriptionEN ?></h6>
+                <h2 class="mb-0 mt-0"><?= $DescriptionTH ?></h2>
             </div>
         </div>
         <div class="text-start mx-auto mb-2 wow fadeInUp" data-wow-delay="0.1s">
@@ -26,11 +48,32 @@ $_SESSION['PathPage'] = "News_Add.php";
                 <div class="col-12 wow fadeInUp" data-wow-delay="0.1s">
                     <form action="Pro_AddNews.php" method="post" enctype="multipart/form-data">
                         <div class="row g-3">
+                            <input type="hidden" id="CategoryBegin_id" name="CategoryBegin_id" class="form-control border-1" value="<?= $Send_Category; ?>">
                             <div class="col-6 col-sm-3">
                                 <h6 class="text-primary">วันที่ลงข่าวและกิจกรรม</h6>
                                 <input type="Date" id="DateAddNews" name="DateAddNews" class="form-control border-1" onload="getDate()" placeholder="วันที่ลงข่าวและกิจกรรม" required>
                             </div>
-                            <div class="col-12 col-sm-9">
+
+                            <div class="col-12 col-sm-3">
+                                <h6 class="text-primary">หมวดหมู่</h6>
+                                <select class="form-select border-1" id="Send_Category" name="Send_Category">
+                                <?php
+                                    $SelectFilterCategoryEntityNo = SearchCategorySub($Send_Category);
+                                    $sql = "SELECT * FROM `category` WHERE (`CG_Entity No.` IN ($SelectFilterCategoryEntityNo));";
+                                    $result = $conn->query($sql);
+                                    if ($result->num_rows > 0) {
+                                        while ($row = $result->fetch_assoc()) {
+                                ?>
+                                    <option value="<?= $row["CG_Entity No."] ?>"><?= $row["CG_DescriptionTH"] ?></option>
+                                <?php
+                                        }
+                                    }
+                                ?>
+                                </select>
+                            </div>
+                            <div class="col-12 col-sm-6">
+                            <!-- <div class="col-12 col-sm-9"> -->
+
                                 <h6 class="text-primary">ชื่อเรื่อง</h6>
                                 <input type="text" id="title" name="Title" class="form-control border-1" placeholder="กรุณากรอกชื่อเรื่อง" required>
                             </div>
@@ -73,8 +116,8 @@ $_SESSION['PathPage'] = "News_Add.php";
     </div>
     <!-- Content -->
 
-<?php include("Footer.php"); ?>
-<?php include("FirstFooter_Script.php"); ?>
+<?php include("Ma_Footer.php"); ?>
+<?php include("Ma_FirstFooter_Script.php"); ?>
     <!-- <script src="https://momentjs.com/downloads/moment.min.js"></script> -->
     <!-- JavaScript Libraries -->
     <!-- <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script> -->
@@ -131,4 +174,4 @@ $_SESSION['PathPage'] = "News_Add.php";
             };
         <?php endif; ?>
     </script>
-<?php include("Footer_Script.php"); ?>
+<?php include("Ma_Footer_Script.php"); ?>

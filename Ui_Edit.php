@@ -1,9 +1,10 @@
 <!-- PHP -->
 <?php 
 include("DB_Include.php"); 
-$_SESSION['PathPage'] = "News_Edit.php";
+$_SESSION['PathPage'] = "Ui_Edit.php";
 if (isset($_GET['Send_IDNews']) && $_GET['Send_IDNews'] !== '') {
     $t_id = $_GET['Send_IDNews'];
+    $Category_id = $_GET['Send_Category'];
 } else {
     $_SESSION['StatusTitle'] = "Error!";
     $_SESSION['StatusMessage'] = 'ไม่พบเลขที่เอกสารนี้';
@@ -16,63 +17,94 @@ if (isset($_GET['Send_IDNews']) && $_GET['Send_IDNews'] !== '') {
 }
 ?>
 
-<?php include("Head_Link.php"); ?>
+<?php include("Fn_RecursiveCategory.php"); ?>
+<?php include("Ma_Head_Link.php"); ?>
 <!-- Icon Font Stylesheet -->
 <!-- <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.2.0/css/bootstrap.min.css" rel="stylesheet"> -->
 <!-- dataTables Stylesheet -->
 <link href="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap5.min.css" rel="stylesheet">
 
-<?php include("Head.php"); ?>
-<?php include("Carousel.php"); ?>
+<?php include("Ma_Head.php"); ?>
+<?php include("Ma_Carousel.php"); ?>
+<?php
+    $sql = "SELECT * FROM `Activities` LEFT JOIN `newssetup`ON 1 = `newssetup`.`SU_Code` LEFT JOIN `category` ON `Activities`.`AT_Entity No.` = `category`.`CG_Entity No.` WHERE `Activities`.`AT_Code` = $t_id;";
+        
+    $result = $conn->query($sql);
+    
+    if ($result->num_rows > 0) {
+        $row = $result->fetch_assoc();
+        $AT_Date = $row["AT_Date"];
+        $AT_Title = $row["AT_Title"];
+        $AT_Description = $row["AT_Description"];
+        $AT_Note = base64_decode($row["AT_Note"]);
+        if ($AT_Note !== false) {
+            $AT_Note;
+        } else {
+            $AT_Note = $row["AT_Note"];
+        }
+        $AT_Image = $row["AT_Image"];
+        $SU_PathDefaultImageNews = $row["SU_PathDefaultImageNews"];
+        $CategoryID = $row["CG_Entity No."];
+    } else {
+        $AT_Date = "";
+        $AT_Title = "";
+        $AT_Description = "";
+        $AT_Note = "";
+        $AT_Image = "";
+        $SU_PathDefaultImageNews = "";
+        $CategoryID = 0;
+    }
+?>
 
     <!-- Content -->
     <div class="container-xxl py-5">
         <div class="container">
             <div class="text-center mx-auto mb-2 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 600px;">
-                <h6 class="text-primary">Form News & Activities</h6>
-                <h2 class="mb-4">สร้างข่าวสารและกิจกรรม</h2>
+                <?php
+                    $sql = "SELECT * FROM `Category` WHERE `Category`.`CG_Entity No.` = $Category_id;";
+                    $result = $conn->query($sql);
+                    if ($result->num_rows > 0) {
+                        $row = $result->fetch_assoc();
+                        $DescriptionTH = $row["CG_DescriptionTH"];
+                        $DescriptionEN = $row["CG_DescriptionEN"];
+                    }
+                ?>
+                <h6 class="text-primary">Form <?= $DescriptionEN ?></h6>
+                <h2 class="mb-4">สร้าง<?= $DescriptionTH ?></h2>
             </div>
         </div>
         <div class="text-start mx-auto mb-2 wow fadeInUp" data-wow-delay="0.1s">
             <div class="row g-4">
                 <div class="col-12 wow fadeInUp" data-wow-delay="0.1s">
                     <form action="Pro_EditNews.php" method="post" enctype="multipart/form-data">
-                        <?php
-                            $sql = "SELECT * FROM `Activities` LEFT JOIN `newssetup`ON 1 = `newssetup`.`SU_Code` WHERE `Activities`.`AT_Code` = $t_id;";
-                            
-                            $result = $conn->query($sql);
-                            
-                            if ($result->num_rows > 0) {
-                                $row = $result->fetch_assoc();
-                                $AT_Date = $row["AT_Date"];
-                                $AT_Title = $row["AT_Title"];
-                                $AT_Description = $row["AT_Description"];
-                                $AT_Note = base64_decode($row["AT_Note"]);
-                                if ($AT_Note !== false) {
-                                    $AT_Note;
-                                } else {
-                                    $AT_Note = $row["AT_Note"];
-                                }
-                                // $AT_Note = base64_decode($row["AT_Note"]);
-                                // $AT_Note = $row["AT_Note"];
-                                $AT_Image = $row["AT_Image"];
-                                $SU_PathDefaultImageNews = $row["SU_PathDefaultImageNews"];
-                            } else {
-                                $AT_Date = "";
-                                $AT_Title = "";
-                                $AT_Description = "";
-                                $AT_Note = "";
-                                $AT_Image = "";
-                                $SU_PathDefaultImageNews = "";
-                            }
-                        ?>
                         <div class="row g-3">
                             <input type="hidden" id="ID" name="ID" class="form-control border-1" value="<?= $t_id; ?>">
+                            <input type="hidden" id="CategoryBegin_id" name="CategoryBegin_id" class="form-control border-1" value="<?= $Category_id; ?>">
                             <div class="col-6 col-sm-3">
                                 <h6 class="text-primary">วันที่ลงข่าวและกิจกรรม</h6>
                                 <input type="Date" id="DateAddNews" name="DateAddNews" class="form-control border-1" value="<?= $AT_Date; ?>" placeholder="วันที่ลงข่าวและกิจกรรม" required>
                             </div>
-                            <div class="col-12 col-sm-9">
+                            <div class="col-12 col-sm-3">
+                                <h6 class="text-primary">หัวข้อย่อย</h6>
+                                <select class="form-select border-1" id="Send_Category" name="Send_Category">
+                                    <?php
+                                        $SelectFilterCategoryEntityNo = SearchCategorySub($Category_id);
+                                        echo $SelectFilterCategoryEntityNo;
+                                        $sql = "SELECT * FROM `category` WHERE (`CG_Entity No.` IN ($SelectFilterCategoryEntityNo));";
+                                        $result = $conn->query($sql);
+                                        if ($result->num_rows > 0) {
+                                            while ($row = $result->fetch_assoc()) {
+                                                $selected = ($row["CG_Entity No."] == $CategoryID) ? 'selected' : '';
+                                    ?>
+                                        <option value="<?= $row["CG_Entity No."] ?>" <?= $selected ?>><?= $row["CG_DescriptionTH"] ?></option>
+                                    <?php
+                                            }
+                                        }
+                                    ?>
+                                </select>
+                            </div>
+                            <div class="col-12 col-sm-6">
+                            <!-- <div class="col-12 col-sm-9"> -->
                                 <h6 class="text-primary">ชื่อเรื่อง</h6>
                                 <input type="text" id="title" name="Title" class="form-control border-1" value="<?php echo htmlspecialchars($AT_Title, ENT_QUOTES); ?>" placeholder="กรุณากรอกชื่อเรื่อง" required>
                             </div>
@@ -116,8 +148,8 @@ if (isset($_GET['Send_IDNews']) && $_GET['Send_IDNews'] !== '') {
     </div>
     <!-- Content -->
 
-<?php include("Footer.php"); ?>
-<?php include("FirstFooter_Script.php"); ?>
+<?php include("Ma_Footer.php"); ?>
+<?php include("Ma_FirstFooter_Script.php"); ?>
     <!-- <script src="https://momentjs.com/downloads/moment.min.js"></script> -->
     <!-- JavaScript Libraries -->
     <!-- <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script> -->
@@ -173,4 +205,4 @@ if (isset($_GET['Send_IDNews']) && $_GET['Send_IDNews'] !== '') {
             };
         <?php endif; ?>
     </script>
-<?php include("Footer_Script.php"); ?>
+<?php include("Ma_Footer_Script.php"); ?>
