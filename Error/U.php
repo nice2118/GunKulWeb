@@ -27,6 +27,17 @@
       object-fit: cover;
     }
 
+    .image-preview video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.3s ease;
+    }
+
+    .image-preview:hover video {
+      transform: scale(1.1);
+    }
+
     .delete-image-btn {
       position: absolute;
       top: 50%;
@@ -49,6 +60,20 @@
     .add-image-btn, .delete-all-btn {
       margin-top: 10px;
     }
+
+    .loading-text {
+      display: none;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-weight: bold;
+      color: #333;
+    }
+
+    .image-preview.loading .loading-text {
+      display: block;
+    }
   </style>
 </head>
 <body>
@@ -59,7 +84,6 @@
     <button class="btn btn-primary add-image-btn">Add Images</button>
     <button class="btn btn-danger delete-all-btn">Delete All</button>
   </div>
-
   <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"></script>
   <script>
     // Add event listener to the "Add Images" button
@@ -81,15 +105,43 @@
         // Create image preview
         const imagePreview = document.createElement('div');
         imagePreview.classList.add('image-preview');
+        imagePreview.classList.add('loading');
+
+        // Create loading text
+        const loadingText = document.createElement('p');
+        loadingText.classList.add('loading-text');
+        loadingText.textContent = 'Loading...';
+
+        // Append loading text to the preview container
+        imagePreview.appendChild(loadingText);
 
         reader.onload = (e) => {
           // Set image source as the selected file
           const image = document.createElement('img');
-          image.src = e.target.result;
-          image.alt = file.name;
+          const video = document.createElement('video');
 
-          // Append the image to the preview container
-          imagePreview.appendChild(image);
+          if (file.type.startsWith('image/')) {
+            // For image files, use the file itself as the source
+            image.src = e.target.result;
+            image.alt = file.name;
+
+            // Append the image to the preview container
+            imagePreview.appendChild(image);
+          } else if (file.type.startsWith('video/')) {
+            // For video files, create a video element and set the source
+            video.src = e.target.result;
+            video.alt = file.name;
+            video.controls = true;
+            video.muted = true;
+
+            // Append the video to the preview container
+            imagePreview.appendChild(video);
+
+            // Add event listener to play the video when it's loaded
+            video.addEventListener('loadeddata', () => {
+              video.play();
+            });
+          }
 
           // Create delete button
           const deleteButton = document.createElement('button');
@@ -105,9 +157,15 @@
 
           // Append the image preview to the image container
           imageContainer.appendChild(imagePreview);
+
+          // Remove the loading class
+          imagePreview.classList.remove('loading');
         };
 
         reader.readAsDataURL(file);
+
+        // Append the image preview to the image container
+        imageContainer.appendChild(imagePreview);
       }
     });
 
