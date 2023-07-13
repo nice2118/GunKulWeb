@@ -1,8 +1,13 @@
 <!-- PHP -->
 <?php 
     include("DB_Include.php");
+    include("DB_Setup.php");
     if (isset($_GET['Send_Category']) && $_GET['Send_Category'] !== '') {
         $Category_id = $_GET['Send_Category'];
+        $Multiplier = $_GET['Multiplier'];
+        $Maxbox = 24 * $Multiplier;     // 24 มาจากแสดงเริ่มต้น
+        $countSql = 0;
+        $_SESSION['PathPage'] = "Ui_ShowPage.php?Send_Category=$Category_id&Multiplier=$Multiplier";
       } else {
         $_SESSION['StatusTitle'] = "Error!";
         $_SESSION['StatusMessage'] = 'ไม่พบหมวดหมู่เอกสารนี้';
@@ -14,6 +19,7 @@
         exit();
       }
 ?>
+<?php include("Fn_RecursiveCategory.php"); ?>
 <?php include("Ma_Head_Link.php"); ?>
 <?php include("Ma_Head.php"); ?>
 <?php include("Ma_Carousel.php"); ?>
@@ -40,111 +46,66 @@
             <div class="col-12 text-center">
                 <ul class="list-inline mb-5" id="portfolio-flters">
                     <li class="mx-2 active" data-filter="*">All</li>
-                    <li class="mx-2" data-filter=".first">Solar Panels</li>
-                    <li class="mx-2" data-filter=".second">Wind Turbines</li>
-                    <li class="mx-2" data-filter=".third">Hydropower Plants</li>
+                    <?php
+                        $SelectFilterCategoryEntityNo = SearchCategorySub($Category_id);
+                        $sql = "SELECT * FROM `category` WHERE (`CG_Entity No.` IN ($SelectFilterCategoryEntityNo));";
+                        $result = $conn->query($sql);
+                        if ($result->num_rows > 0) {
+                            while ($row = $result->fetch_assoc()) {
+                    ?>
+                    <li class="mx-2" data-filter=".<?= $row["CG_Entity No."] ?>"><?= $row["CG_DescriptionTH"] ?></li>
+                    <?php
+                            }
+                        }
+                    ?>
                 </ul>
             </div>
         </div>
         <div class="row g-4 portfolio-container wow fadeInUp" data-wow-delay="0.5s">
-            <div class="col-lg-4 col-md-6 portfolio-item first">
+        <?php
+            $SelectFilterCategoryEntityNoTotal = SearchCategory($Category_id);
+            $sql = "SELECT * FROM `Activities` LEFT JOIN user ON `Activities`.AT_UserCreate = User.US_Username WHERE (`Activities`.`AT_Entity No.` IN ($SelectFilterCategoryEntityNoTotal)) ORDER BY `Activities`.`AT_Date` DESC, `Activities`.`AT_Time`";
+            $result = $conn->query($sql);
+            $countSql = $result->num_rows;
+            
+            $sql .= " LIMIT 0, $Maxbox;";
+            $result = $conn->query($sql);
+            if ($result->num_rows > 0) {
+                while ($row = $result->fetch_assoc()) {
+        ?>
+            <div class="col-lg-4 col-md-6 portfolio-item <?= SearchCategoryReturnNotBegin($row['AT_Entity No.']) ?>" style="min-height: 400px;">
                 <div class="portfolio-img rounded overflow-hidden">
-                    <img class="img-fluid" src="img/img-600x400-6.jpg" alt="">
+                    <img class="img-fluid w-100" src="<?= $PathFolderNews.$row['AT_Image'];?>" style="height:275px;" alt="">
                     <div class="portfolio-btn">
                         <a class="btn btn-lg-square btn-outline-light rounded-circle mx-1"
-                            href="img/img-600x400-6.jpg" data-lightbox="portfolio"><i class="fa fa-eye"></i></a>
-                        <a class="btn btn-lg-square btn-outline-light rounded-circle mx-1" href=""><i
+                            href="<?= $PathFolderNews.$row['AT_Image'];?>" data-lightbox="portfolio"><i class="fa fa-eye"></i></a>
+                        <a class="btn btn-lg-square btn-outline-light rounded-circle mx-1" href="Ui_ShowDetail.php?Send_IDNews=<?= $row["AT_Code"];?>"><i
                                 class="fa fa-link"></i></a>
                     </div>
                 </div>
                 <div class="pt-3">
-                    <p class="text-primary mb-0">Solar Panels</p>
+                    <p class="text-primary mb-0"><?= $row['AT_Title'];?></p>
                     <hr class="text-primary w-25 my-2">
-                    <h5 class="lh-base">We Are pioneers of solar & renewable energy industry</h5>
+                    <h5 class="lh-base"><?= $row['AT_Description'];?></h5>
                 </div>
             </div>
-            <div class="col-lg-4 col-md-6 portfolio-item second">
-                <div class="portfolio-img rounded overflow-hidden">
-                    <img class="img-fluid" src="img/img-600x400-5.jpg" alt="">
-                    <div class="portfolio-btn">
-                        <a class="btn btn-lg-square btn-outline-light rounded-circle mx-1"
-                            href="img/img-600x400-5.jpg" data-lightbox="portfolio"><i class="fa fa-eye"></i></a>
-                        <a class="btn btn-lg-square btn-outline-light rounded-circle mx-1" href=""><i
-                                class="fa fa-link"></i></a>
-                    </div>
-                </div>
-                <div class="pt-3">
-                    <p class="text-primary mb-0">Wind Turbines</p>
-                    <hr class="text-primary w-25 my-2">
-                    <h5 class="lh-base">We Are pioneers of solar & renewable energy industry</h5>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-6 portfolio-item third">
-                <div class="portfolio-img rounded overflow-hidden">
-                    <img class="img-fluid" src="img/img-600x400-4.jpg" alt="">
-                    <div class="portfolio-btn">
-                        <a class="btn btn-lg-square btn-outline-light rounded-circle mx-1"
-                            href="img/img-600x400-4.jpg" data-lightbox="portfolio"><i class="fa fa-eye"></i></a>
-                        <a class="btn btn-lg-square btn-outline-light rounded-circle mx-1" href=""><i
-                                class="fa fa-link"></i></a>
-                    </div>
-                </div>
-                <div class="pt-3">
-                    <p class="text-primary mb-0">Hydropower Plants</p>
-                    <hr class="text-primary w-25 my-2">
-                    <h5 class="lh-base">We Are pioneers of solar & renewable energy industry</h5>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-6 portfolio-item first">
-                <div class="portfolio-img rounded overflow-hidden">
-                    <img class="img-fluid" src="img/img-600x400-3.jpg" alt="">
-                    <div class="portfolio-btn">
-                        <a class="btn btn-lg-square btn-outline-light rounded-circle mx-1"
-                            href="img/img-600x400-3.jpg" data-lightbox="portfolio"><i class="fa fa-eye"></i></a>
-                        <a class="btn btn-lg-square btn-outline-light rounded-circle mx-1" href=""><i
-                                class="fa fa-link"></i></a>
-                    </div>
-                </div>
-                <div class="pt-3">
-                    <p class="text-primary mb-0">Solar Panels</p>
-                    <hr class="text-primary w-25 my-2">
-                    <h5 class="lh-base">We Are pioneers of solar & renewable energy industry</h5>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-6 portfolio-item second">
-                <div class="portfolio-img rounded overflow-hidden">
-                    <img class="img-fluid" src="img/img-600x400-2.jpg" alt="">
-                    <div class="portfolio-btn">
-                        <a class="btn btn-lg-square btn-outline-light rounded-circle mx-1"
-                            href="img/img-600x400-2.jpg" data-lightbox="portfolio"><i class="fa fa-eye"></i></a>
-                        <a class="btn btn-lg-square btn-outline-light rounded-circle mx-1" href=""><i
-                                class="fa fa-link"></i></a>
-                    </div>
-                </div>
-                <div class="pt-3">
-                    <p class="text-primary mb-0">Wind Turbines</p>
-                    <hr class="text-primary w-25 my-2">
-                    <h5 class="lh-base">We Are pioneers of solar & renewable energy industry</h5>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-6 portfolio-item third">
-                <div class="portfolio-img rounded overflow-hidden">
-                    <img class="img-fluid" src="img/img-600x400-1.jpg" alt="">
-                    <div class="portfolio-btn">
-                        <a class="btn btn-lg-square btn-outline-light rounded-circle mx-1"
-                            href="img/img-600x400-1.jpg" data-lightbox="portfolio"><i class="fa fa-eye"></i></a>
-                        <a class="btn btn-lg-square btn-outline-light rounded-circle mx-1" href=""><i
-                                class="fa fa-link"></i></a>
-                    </div>
-                </div>
-                <div class="pt-3">
-                    <p class="text-primary mb-0">Hydropower Plants</p>
-                    <hr class="text-primary w-25 my-2">
-                    <h5 class="lh-base">We Are pioneers of solar & renewable energy industry</h5>
-                </div>
-            </div>
+        <?php
+                }
+            }
+        ?>
         </div>
         <!-- Projects End -->
+        <?php
+            if ($countSql > $Maxbox) {        
+        ?>
+        <div class="container">
+            <div class="text-center mx-auto mb-2 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 600px;">
+                <a href="Ui_ShowPage.php?Send_Category=<?= $Category_id ?>&Multiplier=<?= $Multiplier + 1 ?>" class="btn btn-primary rounded-pill py-3 px-5 mt-3">แสดงเพิ่มเติม</a>
+            </div>
+        </div>
+        <?php
+            }
+        ?>
     </div>
     <!-- Content -->
 

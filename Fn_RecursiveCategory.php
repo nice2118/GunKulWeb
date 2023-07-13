@@ -1,5 +1,8 @@
 <?php
-function SearchCategory($GroupCategory) {
+//      3
+//   5     6
+//        8  9
+function SearchCategory($GroupCategory) {   //3,5,6,8,9
     global $conn;
     $SelectCategory = '';
     $sql = "SELECT `CG_Entity No.` FROM `Category` WHERE `CG_Entity Relation No.` = $GroupCategory";
@@ -25,7 +28,7 @@ function SearchCategory($GroupCategory) {
     return $SelectCategory;
 }
 
-function SearchCategorySub($GroupCategory) {
+function SearchCategorySub($GroupCategory) {    //5,8,9
     global $conn;
     $SelectCategory = '';
     
@@ -51,5 +54,66 @@ function SearchCategorySub($GroupCategory) {
     }
     return $SelectCategory;
 }
+
+function SearchCategoryReturn($GroupCategory) {  // Send 9  = 9 6 3
+    global $conn;
+    $SelectCategory = '';
+
+    $sql = "SELECT `CG_Entity Relation No.` FROM `Category` WHERE `CG_Entity No.` = $GroupCategory";
+    $result = $conn->query($sql);
+
+    if ($result && $result->num_rows > 0) {
+        while ($row = $result->fetch_assoc()) {
+            $Temp = SearchCategoryReturn($row["CG_Entity Relation No."], $conn);
+            if ($Temp != '') {
+                if ($SelectCategory == '') {
+                    $SelectCategory .= $Temp;
+                } else {
+                    $SelectCategory .= ' ' . $Temp;
+                }
+            }
+        }
+        $SelectCategory = $GroupCategory . ' ' . $SelectCategory;
+    } else {
+        $SelectCategory = $GroupCategory;
+    }
+
+    if ($SelectCategory == '0') {
+        $SelectCategory = '';
+    }
+
+    return $SelectCategory;
+}
+
+function SearchCategoryReturnNotBegin($GroupCategory) {  // Send 9  = 9 6
+    global $conn;
+    $SelectCategory = '';
+
+    $sql = "SELECT `CG_Entity Relation No.` FROM `Category` WHERE `CG_Entity No.` = $GroupCategory AND `CG_Entity Relation No.` != 0";
+    $result = $conn->query($sql);
+
+    if ($result && $result->num_rows > 0) {
+        while ($row = $result->fetch_assoc()) {
+            $Temp = SearchCategoryReturnNotBegin($row["CG_Entity Relation No."], $conn);
+            if ($Temp != '') {
+                if ($SelectCategory == '') {
+                    $SelectCategory .= $Temp;
+                } else {
+                    $SelectCategory .= ' ' . $Temp;
+                }
+            }
+        }
+        $SelectCategory = $GroupCategory . ' ' . $SelectCategory;
+    } else {
+        // $SelectCategory = $GroupCategory;
+    }
+
+    if ($SelectCategory == '0') {
+        $SelectCategory = '';
+    }
+
+    return $SelectCategory;
+}
+
 
 ?>

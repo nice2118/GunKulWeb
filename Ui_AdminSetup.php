@@ -75,7 +75,25 @@ $_SESSION['PathPage'] = "AdminSetup.php";
                                                                     if (isset($DefaultImageNews) && $DefaultImageNews !== '') {
                                                                         $PathDefaultImage = $PathFolderNews . $DefaultImageNews;
                                                                     } else {
-                                                                        $PathDefaultImage = 'Default/DefaultImage.png';
+                                                                        $folderPath = 'Default/DefaultImage/';
+                                                                        $files = scandir($folderPath);
+                                                                        $imageFiles = array_diff($files, array('.', '..'));
+                                                                        $latestImage = '';
+                                                                        $latestTimestamp = 0;
+                                                                        foreach ($imageFiles as $imageFile) {
+                                                                            $filePath = $folderPath . $imageFile;
+                                                                            $timestamp = filemtime($filePath);
+
+                                                                            if ($timestamp > $latestTimestamp) {
+                                                                                $latestTimestamp = $timestamp;
+                                                                                $latestImage = $imageFile;
+                                                                            }
+                                                                        }
+                                                                        if (!empty($latestImage)) {
+                                                                            $PathDefaultImage = $folderPath . $latestImage;
+                                                                        } else {
+                                                                            echo "ไม่พบภาพในโฟลเดอร์";
+                                                                        }
                                                                     }
                                                                     ?>
                                                                     <img id="previewImage" class="img-fluid rounded" src="<?= $PathDefaultImage ?>" alt="">
@@ -86,7 +104,6 @@ $_SESSION['PathPage'] = "AdminSetup.php";
                                                     </div>
                                                 </div>
                                             </div>
-
                                         </div>
                                         <div class="form-group">
                                             <label for="PathFolderNews">ที่เก็บที่อยู่รูปข่าว</label>
@@ -98,7 +115,7 @@ $_SESSION['PathPage'] = "AdminSetup.php";
                                 <!-- /.card -->
                                 </div>
                                 <div class="col-md-6">
-                                    <div class="card card-secondary">
+                                    <div class="card card-secondary collapsed-card">
                                         <div class="card-header">
                                             <h3 class="card-title">มีไว้ก่อน</h3>
 
