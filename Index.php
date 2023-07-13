@@ -14,7 +14,7 @@ include("DB_Setup.php");
             </div>
 
             <?php
-                $sql = "SELECT * FROM `Activities` ORDER BY `Activities`.`AT_Date` DESC , `Activities`.`AT_Time` DESC LIMIT 0,8";
+                $sql = "SELECT * FROM `Activities` WHERE `Activities`.`AT_Entity No.` = 1 ORDER BY `Activities`.`AT_Date` DESC , `Activities`.`AT_Time` DESC LIMIT 0,8";
                 $result = $conn->query($sql);
                 $isFirstRow = true;
                 $isTwoRow = false;

@@ -92,7 +92,7 @@
                             <a href="" class="dropdown-item">แผนกสรรหาว่าจ้างและฝึกอบรม  <i class="fa fa-angle-right"></i></a>
                             <ul class="dropdown-menu-submenu submenu multi-menu">
                                 <li><a href="#" class="dropdown-item">GKA Newcomer ***</a></li>
-                                <li><a href="#" class="dropdown-item">ตำแหน่งงานว่างภายใน ***</a></li>
+                                <li><a href="https://www.gunkul.com/th/careers/available-positions" class="dropdown-item">ตำแหน่งงานว่างภายใน</a></li>
                             </ul>
                         </nav>
                         <nav>
@@ -194,8 +194,7 @@
                     </div>
                 </div>
             </div>
-            <a href="" class="btn btn-primary rounded-0 py-4 px-lg-5 d-none d-lg-block">คลังภาพ<i
-                    class="fa fa-arrow-right ms-3"></i></a>
+            <a href="" class="btn btn-white rounded-0 py-4 px-lg-3 d-none d-lg-block"><i class="fa fa-archive ms-auto fs-5"></i></a>
         </div>
 
 
