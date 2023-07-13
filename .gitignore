@@ -129,9 +129,3 @@ dist
 .yarn/install-state.gz
 .pnp.*
 
-/img/*.*
-PDF/Holiday/2566/*/
-PDF/ResetPassword/*/
-PDF/TelephoneNumber/*/
-*.*
-Default/*/*
