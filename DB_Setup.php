@@ -1,5 +1,5 @@
 <?PHP
-    $sql = "SELECT * FROM newssetup";
+    $sql = "SELECT * FROM Setup";
     $result = $conn->query($sql);
 
     // ตรวจสอบผลลัพธ์
@@ -17,7 +17,7 @@
             ReturnPage('กรุณากลับไป Setup ที่อยู่รูปภาพของข่าวก่อน');
         }
     } else {
-        $sql = "INSERT INTO `newssetup` (`CG_Entity No.`,`CG_CreateDate`) VALUES (1, CURRENT_TIMESTAMP)";
+        $sql = "INSERT INTO `Setup` (`CG_Entity No.`,`CG_CreateDate`) VALUES (1, CURRENT_TIMESTAMP)";
         if ($conn->query($sql) === true) {
             if (isset($row["SU_DefaultImageNews"]) && $row["SU_DefaultImageNews"] !== '') {
                 $DefaultImageNews = $row["SU_DefaultImageNews"];

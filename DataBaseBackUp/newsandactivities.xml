@@ -43,8 +43,8 @@
                   PRIMARY KEY (`CG_Entity No.`)
                 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
             </pma:table>
-            <pma:table name="newssetup">
-                CREATE TABLE `newssetup` (
+            <pma:table name="Setup">
+                CREATE TABLE `Setup` (
                   `SU_Code` int(11) NOT NULL AUTO_INCREMENT,
                   `SU_DefaultImageNews` varchar(255) DEFAULT NULL,
                   `SU_PathDefaultImageNews` varchar(255) NOT NULL,
@@ -54,7 +54,7 @@
                 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
             </pma:table>
             <pma:trigger name="set_SU_ModifyDate">
-                CREATE TRIGGER `set_SU_ModifyDate` BEFORE UPDATE ON `newssetup`
+                CREATE TRIGGER `set_SU_ModifyDate` BEFORE UPDATE ON `Setup`
                  FOR EACH ROW BEGIN
                   SET NEW.SU_ModifyDate = CURRENT_TIMESTAMP;
                 END
@@ -490,8 +490,8 @@
             <column name="CG_CreateDate">2023-07-07 13:25:06</column>
             <column name="CG_ModifyDate">2023-07-07 13:25:06</column>
         </table>
-        <!-- Table newssetup -->
-        <table name="newssetup">
+        <!-- Table Setup -->
+        <table name="Setup">
             <column name="SU_Code">1</column>
             <column name="SU_DefaultImageNews">0.png</column>
             <column name="SU_PathDefaultImageNews">img/UploadAddNews/</column>

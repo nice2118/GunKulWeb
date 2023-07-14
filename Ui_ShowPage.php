@@ -45,16 +45,20 @@
         <div class="row mt-n2 wow fadeInUp" data-wow-delay="0.3s">
             <div class="col-12 text-center">
                 <ul class="list-inline mb-5" id="portfolio-flters">
+                    <?php
+                        $SelectFilterCategoryEntityNo = SearchCategorySubNotHeader($Category_id);
+                        if (!empty($SelectFilterCategoryEntityNo)) {
+                    ?>
                     <li class="mx-2 active" data-filter="*">All</li>
                     <?php
-                        $SelectFilterCategoryEntityNo = SearchCategorySub($Category_id);
-                        $sql = "SELECT * FROM `category` WHERE (`CG_Entity No.` IN ($SelectFilterCategoryEntityNo));";
-                        $result = $conn->query($sql);
-                        if ($result->num_rows > 0) {
-                            while ($row = $result->fetch_assoc()) {
+                            $sql = "SELECT * FROM `category` WHERE (`CG_Entity No.` IN ($SelectFilterCategoryEntityNo));";
+                            $result = $conn->query($sql);
+                            if ($result->num_rows > 0) {
+                                while ($row = $result->fetch_assoc()) {
                     ?>
                     <li class="mx-2" data-filter=".<?= $row["CG_Entity No."] ?>"><?= $row["CG_DescriptionTH"] ?></li>
                     <?php
+                                }
                             }
                         }
                     ?>

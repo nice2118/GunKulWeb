@@ -108,10 +108,10 @@ INSERT INTO `category` (`CG_Entity No.`, `CG_Name`, `CG_DescriptionTH`, `CG_Desc
 -- --------------------------------------------------------
 
 --
--- Table structure for table `newssetup`
+-- Table structure for table `Setup`
 --
 
-CREATE TABLE IF NOT EXISTS `newssetup` (
+CREATE TABLE IF NOT EXISTS `Setup` (
   `SU_Code` int(11) NOT NULL AUTO_INCREMENT,
   `SU_DefaultImageNews` varchar(255) DEFAULT NULL,
   `SU_PathDefaultImageNews` varchar(255) NOT NULL,
@@ -121,18 +121,18 @@ CREATE TABLE IF NOT EXISTS `newssetup` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
 
 --
--- Dumping data for table `newssetup`
+-- Dumping data for table `Setup`
 --
 
-INSERT INTO `newssetup` (`SU_Code`, `SU_DefaultImageNews`, `SU_PathDefaultImageNews`, `SU_CreateDate`, `SU_ModifyDate`) VALUES
+INSERT INTO `Setup` (`SU_Code`, `SU_DefaultImageNews`, `SU_PathDefaultImageNews`, `SU_CreateDate`, `SU_ModifyDate`) VALUES
 (1, '0.png', 'img/UploadAddNews/', '2023-06-22 04:40:33', '2023-07-07 09:30:03');
 
 --
--- Triggers `newssetup`
+-- Triggers `Setup`
 --
 DROP TRIGGER IF EXISTS `set_SU_ModifyDate`;
 DELIMITER //
-CREATE TRIGGER `set_SU_ModifyDate` BEFORE UPDATE ON `newssetup`
+CREATE TRIGGER `set_SU_ModifyDate` BEFORE UPDATE ON `Setup`
  FOR EACH ROW BEGIN
   SET NEW.SU_ModifyDate = CURRENT_TIMESTAMP;
 END

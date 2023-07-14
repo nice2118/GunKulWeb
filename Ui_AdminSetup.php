@@ -13,7 +13,7 @@ $_SESSION['PathPage'] = "AdminSetup.php";
 <?php include("Ma_Head.php"); ?>
 <?php include("Ma_Carousel.php"); ?>
 <?PHP
-    $sql = "SELECT * FROM newssetup";
+    $sql = "SELECT * FROM Setup";
     $result = $conn->query($sql);
 
     if ($result->num_rows > 0) {
@@ -23,7 +23,7 @@ $_SESSION['PathPage'] = "AdminSetup.php";
         $PathFolderNews = $row["SU_PathDefaultImageNews"];
     } else {
         unset($sql);
-        $sql = "INSERT INTO `newssetup` (`CG_Entity No.`,`CG_CreateDate`) VALUES (1, CURRENT_TIMESTAMP)";
+        $sql = "INSERT INTO `Setup` (`CG_Entity No.`,`CG_CreateDate`) VALUES (1, CURRENT_TIMESTAMP)";
         if ($conn->query($sql) === true) {
             $CodeSetup = 1;
             $DefaultImageNews = "";

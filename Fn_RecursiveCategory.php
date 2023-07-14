@@ -55,6 +55,33 @@ function SearchCategorySub($GroupCategory) {    //5,8,9
     return $SelectCategory;
 }
 
+function SearchCategorySubNotHeader($GroupCategory) {    //5,8,9
+    global $conn;
+    $SelectCategory = '';
+    
+    $sql = "SELECT `CG_Entity No.` FROM `Category` WHERE `CG_Entity Relation No.` = $GroupCategory";
+    $result = $conn->query($sql);
+    
+    if ($result && $result->num_rows > 0) {
+        while ($row = $result->fetch_assoc()) {
+            unset($Temp);
+            $Temp = SearchCategorySub($row["CG_Entity No."]);
+            if ($SelectCategory == '') {
+                $SelectCategory = $Temp;
+            } else {
+                $SelectCategory .= ',' . $Temp;
+            }
+        } 
+    } else {
+        if ($SelectCategory == '') {
+            // $SelectCategory = $GroupCategory;
+        } else {
+            $SelectCategory .= ',' . $GroupCategory;
+        }
+    }
+    return $SelectCategory;
+}
+
 function SearchCategoryReturn($GroupCategory) {  // Send 9  = 9 6 3
     global $conn;
     $SelectCategory = '';

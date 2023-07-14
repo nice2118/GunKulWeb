@@ -27,7 +27,7 @@ if (isset($_GET['Send_IDNews']) && $_GET['Send_IDNews'] !== '') {
 <?php include("Ma_Head.php"); ?>
 <?php include("Ma_Carousel.php"); ?>
 <?php
-    $sql = "SELECT * FROM `Activities` LEFT JOIN `newssetup`ON 1 = `newssetup`.`SU_Code` LEFT JOIN `category` ON `Activities`.`AT_Entity No.` = `category`.`CG_Entity No.` WHERE `Activities`.`AT_Code` = $t_id;";
+    $sql = "SELECT * FROM `Activities` LEFT JOIN `Setup`ON 1 = `Setup`.`SU_Code` LEFT JOIN `category` ON `Activities`.`AT_Entity No.` = `category`.`CG_Entity No.` WHERE `Activities`.`AT_Code` = $t_id;";
         
     $result = $conn->query($sql);
     

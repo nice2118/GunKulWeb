@@ -38,6 +38,10 @@
       transform: scale(1.1);
     }
 
+    .image-preview:hover img {
+      transform: scale(1.1);
+    }
+
     .delete-image-btn {
       position: absolute;
       top: 50%;
@@ -80,26 +84,25 @@
   <div class="container">
     <h1 class="mt-5">Upload Images</h1>
     <div class="image-container"></div>
-    <input type="file" class="image-input" accept="image/*, video/*" style="display: none;" multiple>
+    <input type="file" class="Image-Gallery" accept="image/*, video/*" style="display: none;" multiple>
     <button class="btn btn-primary add-image-btn">Add Images</button>
     <button class="btn btn-danger delete-all-btn">Delete All</button>
   </div>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"></script>
   <script>
     // Add event listener to the "Add Images" button
     const addImageBtn = document.querySelector('.add-image-btn');
-    const imageInput = document.querySelector('.image-input');
+    const imageGallery = document.querySelector('.Image-Gallery');
     const imageContainer = document.querySelector('.image-container');
     const deleteAllBtn = document.querySelector('.delete-all-btn');
 
     addImageBtn.addEventListener('click', () => {
-      imageInput.click();
+      imageGallery.click();
     });
 
     // Handle image selection
-    imageInput.addEventListener('change', () => {
+    imageGallery.addEventListener('change', () => {
       // Loop through selected files
-      for (const file of imageInput.files) {
+      for (const file of imageGallery.files) {
         const reader = new FileReader();
 
         // Create image preview
@@ -133,6 +136,7 @@
             video.alt = file.name;
             video.controls = true;
             video.muted = true;
+            video.loop = true;
 
             // Append the video to the preview container
             imagePreview.appendChild(video);

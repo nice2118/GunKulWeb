@@ -1,4 +1,7 @@
 <!-- PHP -->
+<?php 
+include("DB_Include.php");
+?>
 <?php include("Ma_Head_Link.php"); ?>
 <?php include("Ma_Head.php"); ?>
 <?php include("Ma_Carousel.php"); ?>
@@ -15,7 +18,6 @@
             <div class="row g-4">
                 <div class="col-12 wow fadeInUp" data-wow-delay="0.1s">
                     <div class="service-item rounded overflow-hidden">
-                    <!-- <div class="container-fluid bg-light2 overflow-hidden my-3 px-lg-0"> -->
                         <div class="container quote px-lg-0">
                             <div class="row g-0 mx-lg-0 py-5">
                                 <iframe style="max-width:100%" src="https://wordwall.net/th/embed/620534d5e58a47b7939eb484a22c7505?themeId=52&templateId=2&fontStackId=0" width="500" height="800" frameborder="0" allowfullscreen></iframe>

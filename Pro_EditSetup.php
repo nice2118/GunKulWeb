@@ -78,9 +78,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
   // ทำอย่างอื่นๆ เช่นบันทึกข้อมูลลงฐานข้อมูล
   if (!empty($newnFullNameImage) && $newnFullNameImage !== '') {
-    $sql = "UPDATE `newsandactivities`.`newssetup` SET `SU_DefaultImageNews` = '$newnFullNameImage',`SU_PathDefaultImageNews` = '$PathFolderNews' WHERE `newssetup`.`SU_Code` = $ID;";
+    $sql = "UPDATE `newsandactivities`.`Setup` SET `SU_DefaultImageNews` = '$newnFullNameImage',`SU_PathDefaultImageNews` = '$PathFolderNews' WHERE `Setup`.`SU_Code` = $ID;";
   } else {    
-    $sql = "UPDATE `newsandactivities`.`newssetup` SET `SU_PathDefaultImageNews` = '$PathFolderNews' WHERE `newssetup`.`SU_Code` = $ID;";
+    $sql = "UPDATE `newsandactivities`.`Setup` SET `SU_PathDefaultImageNews` = '$PathFolderNews' WHERE `Setup`.`SU_Code` = $ID;";
   }
   // ดำเนินการ INSERT ข้อมูล
   if ($conn->query($sql) === true) {
