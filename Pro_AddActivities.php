@@ -82,6 +82,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $_SESSION['StatusTitle'] = "ดำเนินการเรียบร้อยแล้ว";
     $_SESSION['StatusMessage'] = "ทำการบันทึกในหัวข้อ ".$Title." เรียบร้อบแล้ว";
     $_SESSION['StatusAlert'] = "success";
+
+
   } else {
     if (!empty($newnFullNameImage)) {
       $filePath = $PathFolderNews . $newnFullNameImage;
@@ -122,6 +124,54 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
   // ส่งข้อความตอบกลับหรือเปลี่ยนเส้นทางไปหน้าอื่นตามต้องการ
   // echo "<meta http-equiv=\"refresh\" content=\"0; url=./Ui_ListAdmin.php\">";
-  echo '<script> setTimeout(function() { window.location.href = "./Ui_ListAdmin.php?Send_Category=' . $CategoryBegin_id . '"; }, 0); </script>';
+  // echo '<script> setTimeout(function() { window.location.href = "./Ui_ListAdmin.php?Send_Category=' . $CategoryBegin_id . '"; }, 0); </script>';
+}
+
+// ฟังก์ชันเพิ่มรูปลงGallery
+function generateGallery($row) {
+  global $conn;
+  // เช็คว่ามีไฟล์ถูกส่งมาหรือไม่
+  if (isset($_FILES['ImageGallery']['name'])) {
+    $fileCount = count($_FILES['ImageGallery']['name']);
+
+    // วนลูปเพื่ออัปโหลดและเพิ่มข้อมูลลงในฐานข้อมูล
+    for ($i = 0; $i < $fileCount; $i++) {
+      $fileName = $_FILES['ImageGallery']['name'][$i];
+      $fileTmp = $_FILES['ImageGallery']['tmp_name'][$i];
+      $fileType = $_FILES['ImageGallery']['type'][$i];
+      
+      // สร้างชื่อไฟล์ใหม่
+      $newFileName = generateNewFileName($fileName);
+      $destination = 'img/UploadAddGallery/' . $newFileName;
+      
+      // บันทึกไฟล์
+      move_uploaded_file($fileTmp, $destination);
+      
+      // เพิ่มข้อมูลลงในฐานข้อมูล
+      $db = new mysqli('localhost', 'username', 'password', 'database');
+      $query = "INSERT INTO Gallery (file_name, file_type) VALUES ('$newFileName', '$fileType')";
+      $db->query($query);
+      $db->close();
+    }
+    echo 'อัปโหลดไฟล์เรียบร้อยแล้ว';
+  } else {
+    echo 'ไม่พบไฟล์ที่ถูกส่งมา';
+  }
+}
+
+// ฟังก์ชันสร้างชื่อไฟล์ใหม่โดยใช้ Primary Key
+function generateNewFileName($fileName) {
+  global $conn;
+  $query = 'SELECT MAX(id) AS max_id FROM Gallery';
+  $result = $conn->query($query);
+  if ($result->num_rows > 0) {
+    $row = $result->fetch_assoc();
+    $maxId = $row['max_id'];
+  } else {
+    $maxId = 0;
+  } 
+  $newFileName = $maxId + 1 . '.' . pathinfo($fileName, PATHINFO_EXTENSION);
+  $db->close();
+  return $newFileName;
 }
 ?>
