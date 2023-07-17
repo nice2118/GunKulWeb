@@ -170,7 +170,7 @@ table.dataTable td {
             .then((willDelete) => {
                 if (willDelete) {
                     // เมื่อกดตกลง ทำการเปลี่ยนหน้า
-                    window.location.replace(`Pro_DeleteNews.php?Send_IDNews=${NewsID}&Send_Title=${NewsTitle}&Send_Category=${CategoryId}`);
+                    window.location.replace(`Pro_DeleteActivities.php?Send_IDNews=${NewsID}&Send_Title=${NewsTitle}&Send_Category=${CategoryId}`);
                 } else {
                     // เมื่อกดยกเลิก ไม่ต้องทำอะไร
                 }

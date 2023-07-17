@@ -109,44 +109,6 @@ if (isset($_GET['Send_Category']) && $_GET['Send_Category'] !== '') {
 
     <!-- sweetalert -->
     <script>
-        // ปุ่ม Delete
-        function deleteAlert(NewsID, NewsTitle) {
-            swal({
-                title: "คุณต้องการที่จะลบหรือไม่?",
-                text: `${NewsTitle}\nเมื่อกดลบไปแล้วข่าวและกิจกรรมนี้จะไม่สามารถนำข้อมูลกลับมาได้!`,
-                icon: "warning",
-                buttons: {
-                    cancel: {
-                        text: "ยกเลิก",
-                        value: false,
-                        visible: true,
-                        className: "",
-                        closeModal: true,
-                    },
-                    confirm: {
-                        text: "ลบ",
-                        value: true,
-                        visible: true,
-                        className: "",
-                        closeModal: true,
-                    },
-                },
-                dangerMode: true,
-            })
-            .then((willDelete) => {
-                if (willDelete) {
-                    // เมื่อกดตกลง ทำการเปลี่ยนหน้า
-                    window.location.replace(`Pro_DeleteNews.php?Send_IDNews=${NewsID}`);
-                } else {
-                    // เมื่อกดยกเลิก ไม่ต้องทำอะไร
-                }
-            })
-            .catch((error) => {
-                // เกิดข้อผิดพลาดในกรณีที่ไม่สามารถแสดงกล่อง SweetAlert ได้
-                console.error("Error displaying SweetAlert:", error);
-            });
-        }
-        
             // ตรวจสอบว่ามีข้อความใน Session หรือไม่
         <?php if (isset($_SESSION['StatusMessage'])) : ?>
             // แสดงข้อความแจ้งเตือนเมื่อโหลดหน้า

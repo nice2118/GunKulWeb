@@ -76,7 +76,7 @@ if (isset($_GET['Send_IDNews']) && $_GET['Send_IDNews'] !== '') {
         <div class="text-start mx-auto mb-2 wow fadeInUp" data-wow-delay="0.1s">
             <div class="row g-4">
                 <div class="col-12 wow fadeInUp" data-wow-delay="0.1s">
-                    <form action="Pro_EditNews.php" method="post" enctype="multipart/form-data">
+                    <form action="Pro_EditActivities.php" method="post" enctype="multipart/form-data">
                         <div class="row g-3">
                             <input type="hidden" id="ID" name="ID" class="form-control border-1" value="<?= $t_id; ?>">
                             <input type="hidden" id="CategoryBegin_id" name="CategoryBegin_id" class="form-control border-1" value="<?= $Category_id; ?>">
@@ -116,27 +116,54 @@ if (isset($_GET['Send_IDNews']) && $_GET['Send_IDNews'] !== '') {
                                 <h6 class="text-primary">เนื้อหา</h6>
                                 <textarea class="form-control border-1" name="summernote" id="summernote"></textarea>
                             </div>
-                            <div class="container-fluid bg-light overflow-hidden my-3 px-lg-0">
-                                <div class="container quote px-lg-0">
-                                    <div class="row g-0 mx-lg-0">
-                                        <div class="col-lg-6 ps-lg-0 wow fadeIn" data-wow-delay="0.1s" style="max-height: 400px; max-width: 400px; min-height: 200px; min-width: 200px;">
-                                            <div class="position-relative">
-                                                <img id="previewImage" class="img-fluid rounded" src="<?= $SU_PathDefaultImageNews.$AT_Image; ?>" style="object-fit: cover;" alt="">
-                                                <!-- <img id="previewImage" class="position-absolute img-fluid" src="..." style="object-fit: cover;" alt=""> -->
+                            <div class="col-12">
+                                <div class="container-fluid bg-light overflow-hidden my-3 px-lg-0">
+                                    <div class="container quote px-lg-0">
+                                        <div class="row g-0 mx-lg-0">
+                                            <div class="col-lg-6 ps-lg-0 wow fadeIn" data-wow-delay="0.1s" style="max-height: 400px; max-width: 400px; min-height: 200px; min-width: 200px;">
+                                                <div class="position-relative">
+                                                    <img id="previewImage" class="img-fluid rounded" src="<?= $SU_PathDefaultImageNews.$AT_Image; ?>" style="object-fit: cover;" alt="">
+                                                    <!-- <img id="previewImage" class="position-absolute img-fluid" src="..." style="object-fit: cover;" alt=""> -->
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-6 quote-text py-0 wow fadeIn" data-wow-delay="0.5s">
+                                                <div class="p-lg-5 pe-lg-0">
+                                                    <h6 class="text-primary">เลือกไฟล์แสดงหน้าหลัก</h6><p class="mb-4 pb-2">สามารถเลือกได้เพียง 1 ภาพ</p>
+                                                    <input type="hidden" id="fileNameInput" name="fileNameInput" value="<?= $AT_Image; ?>" readonly>
+                                                    <input type="file" class="form-control border-1" name="image" id="image" accept="image/*">
+                                                </div>
                                             </div>
                                         </div>
-                                        <div class="col-lg-6 quote-text py-0 wow fadeIn" data-wow-delay="0.5s">
-                                            <div class="p-lg-5 pe-lg-0">
-                                                <h6 class="text-primary">เลือกไฟล์แสดงหน้าหลัก</h6><p class="mb-4 pb-2">สามารถเลือกได้เพียง 1 ภาพ</p>
-                                                <input type="hidden" id="fileNameInput" name="fileNameInput" value="<?= $AT_Image; ?>" readonly>
-                                                <input type="file" class="form-control border-1" name="image" id="image" accept="image/*">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="card card-primary collapsed-card">
+                                    <div class="card-header">
+                                        <h3 class="card-title text-white">แกลลอรี่</h3>
+
+                                        <div class="card-tools">
+                                            <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+                                            <i class="fas fa-plus"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="form-group">
+                                            <div class="image-container"></div>
+                                            <input type="file" class="Image-Gallery" accept="image/*, video/*" style="display: none;" multiple>
+                                        </div>
+                                        <div class="row">
+                                            <div class="text-center col-12 text-center text-md-end">
+                                                <button type="button" class="btn btn-danger rounded-pill py-2 px-3 delete-all-btn text-end my-3">ลบรูปทั้งหมด</button>
+                                                <button type="button" class="btn btn-primary rounded-pill py-2 px-3 add-image-btn text-end my-3">เลือกรูปภาพ</button>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="text-center col-12">
-                                <button class="btn btn-danger rounded-pill py-2 px-5" type="reset">รีเซ็ต</button>
+                                <!-- <button class="btn btn-danger rounded-pill py-2 px-5" type="reset">รีเซ็ต</button> -->
                                 <button class="btn btn-primary rounded-pill py-2 px-5" type="submit">บันทึก</button>
                             </div>
                         </div>
@@ -205,4 +232,99 @@ if (isset($_GET['Send_IDNews']) && $_GET['Send_IDNews'] !== '') {
             };
         <?php endif; ?>
     </script>
+    <script>
+        // Add event listener to the "Add Images" button
+        const addImageBtn = document.querySelector('.add-image-btn');
+        const imageGallery = document.querySelector('.Image-Gallery');
+        const imageContainer = document.querySelector('.image-container');
+        const deleteAllBtn = document.querySelector('.delete-all-btn');
+
+        addImageBtn.addEventListener('click', () => {
+        imageGallery.click();
+        });
+
+        // Handle image selection
+        imageGallery.addEventListener('change', () => {
+        // Loop through selected files
+            for (const file of imageGallery.files) {
+                const reader = new FileReader();
+
+                // Create image preview
+                const imagePreview = document.createElement('div');
+                imagePreview.classList.add('image-preview');
+                imagePreview.classList.add('loading');
+
+                // Create loading text
+                const loadingText = document.createElement('div');
+                loadingText.classList.add('d-flex', 'justify-content-center', 'align-items-center', 'text-primary', 'my-4');
+                loadingText.innerHTML = '<div class="spinner-border" role="status"><span class="visually-hidden">Loading...</span></div>';
+
+                // Append loading text to the preview container
+                imagePreview.appendChild(loadingText);
+
+                reader.onload = (e) => {
+                    // Set image source as the selected file
+                    const image = document.createElement('img');
+                    const video = document.createElement('video');
+
+                    if (file.type.startsWith('image/')) {
+                        // For image files, use the file itself as the source
+                        image.src = e.target.result;
+                        image.alt = file.name;
+
+                        // Append the image to the preview container
+                        imagePreview.appendChild(image);
+                    } else if (file.type.startsWith('video/')) {
+                        // For video files, create a video element and set the source
+                        video.src = e.target.result;
+                        video.alt = file.name;
+                        video.controls = true;
+                        video.muted = true;
+                        video.loop = true;
+
+                        // Append the video to the preview container
+                        imagePreview.appendChild(video);
+
+                        // Add event listener to play the video when it's loaded
+                        video.addEventListener('loadeddata', () => {
+                            video.play();
+                        });
+                    }
+
+                    // Create delete button
+                    const deleteButton = document.createElement('button');
+                    deleteButton.classList.add('delete-image-btn', 'fa', 'fa-times');
+
+                    // Add event listener to the delete button
+                    deleteButton.addEventListener('click', () => {
+                        imagePreview.remove();
+                    });
+
+                    // Append the delete button to the preview container
+                    imagePreview.appendChild(deleteButton);
+
+                    // Append the image preview to the image container
+                    imageContainer.appendChild(imagePreview);
+
+                    // Remove loading text when loading is complete
+                imagePreview.removeChild(loadingText);
+                };
+
+                reader.readAsDataURL(file);
+
+                // Append the image preview to the image container
+                imageContainer.appendChild(imagePreview);
+            }
+        });
+
+        // Handle delete all button
+        deleteAllBtn.addEventListener('click', () => {
+        const imagePreviews = imageContainer.querySelectorAll('.image-preview');
+            imagePreviews.forEach((imagePreview) => {
+                imagePreview.remove();
+            });
+        });
+    </script>
+    <script src="js/jquery.min.js"></script>
+    <script src="js/adminlte.min.js"></script>
 <?php include("Ma_Footer_Script.php"); ?>

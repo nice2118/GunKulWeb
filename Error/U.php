@@ -3,7 +3,7 @@
 <head>
   <title>Upload Images</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> -->
   <style>
     .image-container {
       display: flex;
@@ -84,9 +84,12 @@
   <div class="container">
     <h1 class="mt-5">Upload Images</h1>
     <div class="image-container"></div>
-    <input type="file" class="Image-Gallery" accept="image/*, video/*" style="display: none;" multiple>
-    <button class="btn btn-primary add-image-btn">Add Images</button>
-    <button class="btn btn-danger delete-all-btn">Delete All</button>
+    <form action="Pro_Test.php" method="post" enctype="multipart/form-data">
+      <input type="file" class="Image-Gallery" name="GalleryImage" accept="image/*, video/*" style="display: none;" multiple>
+      <button class="btn btn-primary add-image-btn" type="button">Add Images</button>
+      <button class="btn btn-danger delete-all-btn" type="button">Delete All</button>
+      <button class="btn btn-primary rounded-pill py-2 px-5" type="submit">Send</button>
+    </form>
   </div>
   <script>
     // Add event listener to the "Add Images" button
@@ -149,7 +152,7 @@
 
           // Create delete button
           const deleteButton = document.createElement('button');
-          deleteButton.classList.add('delete-image-btn', 'fa', 'fa-close');
+          deleteButton.classList.add('delete-image-btn', 'fa', 'fa-times');
 
           // Add event listener to the delete button
           deleteButton.addEventListener('click', () => {

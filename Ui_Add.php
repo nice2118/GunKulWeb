@@ -46,7 +46,9 @@ if (isset($_GET['Send_Category']) && $_GET['Send_Category'] !== '') {
         <div class="text-start mx-auto mb-2 wow fadeInUp" data-wow-delay="0.1s">
             <div class="row g-4">
                 <div class="col-12 wow fadeInUp" data-wow-delay="0.1s">
-                    <form action="Pro_AddNews.php" method="post" enctype="multipart/form-data">
+                    <!-- <form action="Pro_AddActivities.php" method="post" enctype="multipart/form-data"> -->
+                    <!-- <form action="Pro_Test.php" method="post" enctype="multipart/form-data"> -->
+                    <form action="Pro_Test2.php" method="post" enctype="multipart/form-data">
                         <div class="row g-3">
                             <input type="hidden" id="CategoryBegin_id" name="CategoryBegin_id" class="form-control border-1" value="<?= $Send_Category; ?>">
                             <div class="col-6 col-sm-3">
@@ -85,27 +87,55 @@ if (isset($_GET['Send_Category']) && $_GET['Send_Category'] !== '') {
                                 <h6 class="text-primary">เนื้อหา</h6>
                                 <textarea class="form-control border-1" name="summernote" id="summernote"></textarea>
                             </div>
-                            <div class="container-fluid bg-light overflow-hidden my-3 px-lg-0">
-                                <div class="container quote px-lg-0">
-                                    <div class="row g-0 mx-lg-0">
-                                        <div class="col-lg-6 ps-lg-0 wow fadeIn" data-wow-delay="0.1s" style="max-height: 400px; max-width: 400px; min-height: 200px; min-width: 200px;">
-                                            <div class="position-relative">
-                                                <img id="previewImage" class="img-fluid rounded" src="<?= $PathFolderNews.$DefaultImageNews; ?>" style="object-fit: cover;" alt="">
-                                                <!-- <img id="previewImage" class="position-absolute img-fluid" src="..." style="object-fit: cover;" alt=""> -->
+                            <div class="col-12">
+                                <div class="container-fluid bg-light overflow-hidden my-3 px-lg-0">
+                                    <div class="container quote px-lg-0">
+                                        <div class="row g-0 mx-lg-0">
+                                            <div class="col-lg-6 ps-lg-0 wow fadeIn" data-wow-delay="0.1s" style="max-height: 400px; max-width: 400px; min-height: 200px; min-width: 200px;">
+                                                <div class="position-relative">
+                                                    <img id="previewImage" class="img-fluid rounded" src="<?= $PathFolderNews.$DefaultImageNews; ?>" style="object-fit: cover;" alt="">
+                                                    <!-- <img id="previewImage" class="position-absolute img-fluid" src="..." style="object-fit: cover;" alt=""> -->
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-6 quote-text py-0 wow fadeIn" data-wow-delay="0.5s">
+                                                <div class="p-lg-5 pe-lg-0">
+                                                    <h6 class="text-primary">เลือกไฟล์แสดงหน้าหลัก</h6><p class="mb-4 pb-2">สามารถเลือกได้เพียง 1 ภาพ</p>
+                                                    <input type="file" class="form-control border-1" name="image" id="image" accept="image/*">
+                                                </div>
                                             </div>
                                         </div>
-                                        <div class="col-lg-6 quote-text py-0 wow fadeIn" data-wow-delay="0.5s">
-                                            <div class="p-lg-5 pe-lg-0">
-                                                <h6 class="text-primary">เลือกไฟล์แสดงหน้าหลัก</h6><p class="mb-4 pb-2">สามารถเลือกได้เพียง 1 ภาพ</p>
-                                                <input type="file" class="form-control border-1" name="image" id="image" accept="image/*">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="card card-primary collapsed-card">
+                                    <div class="card-header">
+                                        <h3 class="card-title text-white">แกลลอรี่</h3>
+
+                                        <div class="card-tools">
+                                            <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+                                            <i class="fas fa-plus"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="form-group">
+                                            <div class="image-container"></div>
+                                            <!-- <input type="file" class="Image-Gallery" accept="image/*, video/*" name="GalleryImage" id="GalleryImage" style="display: none;" multiple> -->
+                                            <input type="file" class="Image-Gallery" name="files[]" accept="image/*" multiple>
+                                        </div>
+                                        <div class="row">
+                                            <div class="text-center col-12 text-center text-md-end">
+                                                <button type="button" class="btn btn-danger rounded-pill py-2 px-3 delete-all-btn text-end my-3">ลบรูปทั้งหมด</button>
+                                                <button type="button" class="btn btn-primary rounded-pill py-2 px-3 add-image-btn text-end my-3">เลือกรูปภาพ</button>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="text-center col-12">
-                                <button class="btn btn-danger rounded-pill py-2 px-5" type="reset">รีเซ็ต</button>
-                                <button class="btn btn-primary rounded-pill py-2 px-5" type="submit">บันทึก</button>
+                                <!-- <button class="btn btn-danger rounded-pill py-2 px-5" type="reset">รีเซ็ต</button> -->
+                                <button class="btn btn-primary rounded-pill py-2 px-5" name="buttonsubmit" id="buttonsubmit2" type="submit">บันทึก</button>
                             </div>
                         </div>
                     </form>
@@ -123,6 +153,7 @@ if (isset($_GET['Send_Category']) && $_GET['Send_Category'] !== '') {
     <!-- <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script> -->
     <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
 
     <!-- Summernote -->
     <script>
@@ -174,4 +205,160 @@ if (isset($_GET['Send_Category']) && $_GET['Send_Category'] !== '') {
             };
         <?php endif; ?>
     </script>
+    <script>
+        // Add event listener to the "Add Images" button
+        const addImageBtn = document.querySelector('.add-image-btn');
+        const imageGallery = document.querySelector('.Image-Gallery');
+        const imageContainer = document.querySelector('.image-container');
+        const deleteAllBtn = document.querySelector('.delete-all-btn');
+
+        addImageBtn.addEventListener('click', () => {
+        imageGallery.click();
+        });
+
+        // Handle image selection
+        imageGallery.addEventListener('change', () => {
+        // Loop through selected files
+            for (const file of imageGallery.files) {
+                const reader = new FileReader();
+
+                // Create image preview
+                const imagePreview = document.createElement('div');
+                imagePreview.classList.add('image-preview');
+                imagePreview.classList.add('loading');
+
+                // Create loading text
+                const loadingText = document.createElement('div');
+                loadingText.classList.add('d-flex', 'justify-content-center', 'align-items-center', 'text-primary', 'my-4');
+                loadingText.innerHTML = '<div class="spinner-border" role="status"><span class="visually-hidden">Loading...</span></div>';
+
+                // Append loading text to the preview container
+                imagePreview.appendChild(loadingText);
+
+                reader.onload = (e) => {
+                    // Set image source as the selected file
+                    const image = document.createElement('img');
+                    const video = document.createElement('video');
+
+                    if (file.type.startsWith('image/')) {
+                        // For image files, use the file itself as the source
+                        image.src = e.target.result;
+                        image.alt = file.name;
+
+                        // Append the image to the preview container
+                        imagePreview.appendChild(image);
+                    } else if (file.type.startsWith('video/')) {
+                        // For video files, create a video element and set the source
+                        video.src = e.target.result;
+                        video.alt = file.name;
+                        video.controls = true;
+                        video.muted = true;
+                        video.loop = true;
+
+                        // Append the video to the preview container
+                        imagePreview.appendChild(video);
+
+                        // Add event listener to play the video when it's loaded
+                        video.addEventListener('loadeddata', () => {
+                            video.play();
+                        });
+                    }
+
+                    // Create delete button
+                    const deleteButton = document.createElement('button');
+                    deleteButton.classList.add('delete-image-btn', 'fa', 'fa-times');
+
+                    // Add event listener to the delete button
+                    deleteButton.addEventListener('click', () => {
+                        imagePreview.remove();
+                    });
+
+                    // Append the delete button to the preview container
+                    imagePreview.appendChild(deleteButton);
+
+                    // Append the image preview to the image container
+                    imageContainer.appendChild(imagePreview);
+
+                    // Remove loading text when loading is complete
+                imagePreview.removeChild(loadingText);
+                };
+
+                reader.readAsDataURL(file);
+
+                // Append the image preview to the image container
+                imageContainer.appendChild(imagePreview);
+            }
+        });
+
+        // Handle delete all button
+        deleteAllBtn.addEventListener('click', () => {
+        const imagePreviews = imageContainer.querySelectorAll('.image-preview');
+            imagePreviews.forEach((imagePreview) => {
+                imagePreview.remove();
+            });
+        });
+    </script>
+
+    <script>
+ $('#buttonsubmit').click(function(){
+  var error_images = '';
+  var form_data = new FormData();
+  var files = $('#multiple_files')[0].files;
+  if(files.length > 10)
+  {
+   error_images += 'You can not select more than 10 files';
+  }
+  else
+  {
+   for(var i=0; i<files.length; i++)
+   {
+    var name = document.getElementById("multiple_files").files[i].name;
+    var ext = name.split('.').pop().toLowerCase();
+    if(jQuery.inArray(ext, ['gif','png','jpg','jpeg']) == -1) 
+    {
+     error_images += '<p>Invalid '+i+' File</p>';
+    }
+    var oFReader = new FileReader();
+    oFReader.readAsDataURL(document.getElementById("multiple_files").files[i]);
+    var f = document.getElementById("multiple_files").files[i];
+    var fsize = f.size||f.fileSize;
+    if(fsize > 2000000)
+    {
+     error_images += '<p>' + i + ' File Size is very big</p>';
+    }
+    else
+    {
+     form_data.append("file[]", document.getElementById('multiple_files').files[i]);
+    }
+   }
+  }
+  if(error_images == '')
+  {
+   $.ajax({
+    url:"Pro_Test.php",
+    method:"POST",
+    data: form_data,
+    contentType: false,
+    cache: false,
+    processData: false,
+    beforeSend:function(){
+     $('#error_multiple_files').html('<br /><label class="text-primary">Uploading...</label>');
+    },   
+    success:function(data)
+    {
+     $('#error_multiple_files').html('<br /><label class="text-success">Uploaded</label>');
+     load_image_data();
+    }
+   });
+  }
+  else
+  {
+   $('#multiple_files').val('');
+   $('#error_multiple_files').html("<span class='text-danger'>"+error_images+"</span>");
+   return false;
+  }
+ });  
+    </script>
+    <script src="js/jquery.min.js"></script>
+    <script src="js/adminlte.min.js"></script>
 <?php include("Ma_Footer_Script.php"); ?>
