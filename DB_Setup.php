@@ -1,6 +1,26 @@
 <?PHP
     $DefaultImageNews = '';
     $PathFolderNews = '';
+    $PathFolderGallery = '';
+
+    function handleSetupData($row) {
+        global $DefaultImageNews, $PathFolderNews, $PathFolderGallery;
+        if (isset($row["SU_DefaultImageNews"]) && $row["SU_DefaultImageNews"] !== '') {
+            $DefaultImageNews = $row["SU_DefaultImageNews"];
+        } else {
+            ReturnPage('กรุณากลับไป Setup ค่าเริ่มต้นเมื่อไม่มีภาพก่อน');
+        }
+        if (isset($row["SU_PathDefaultImageNews"]) && $row["SU_PathDefaultImageNews"] !== '') {
+            $PathFolderNews = $row["SU_PathDefaultImageNews"];
+        } else {
+            ReturnPage('กรุณากลับไป Setup ที่อยู่รูปภาพของข่าวก่อน');
+        }
+        if (isset($row["SU_PathDefaultImageGallery"]) && $row["SU_PathDefaultImageGallery"] !== '') {
+            $PathFolderGallery = $row["SU_PathDefaultImageGallery"];
+        } else {
+            ReturnPage('กรุณากลับไป Setup ที่อยู่รูปภาพของข่าวก่อน');
+        }
+    }
 
     $sql = "SELECT * FROM Setup";
     $result = $conn->query($sql);
@@ -31,23 +51,4 @@
         }
         exit();
       }
-
-    function handleSetupData($row) {
-        global $DefaultImageNews, $PathFolderNews;
-        if (isset($row["SU_DefaultImageNews"]) && $row["SU_DefaultImageNews"] !== '') {
-            $DefaultImageNews = $row["SU_DefaultImageNews"];
-        } else {
-            ReturnPage('กรุณากลับไป Setup ค่าเริ่มต้นเมื่อไม่มีภาพก่อน');
-        }
-        if (isset($row["SU_PathDefaultImageNews"]) && $row["SU_PathDefaultImageNews"] !== '') {
-            $PathFolderNews = $row["SU_PathDefaultImageNews"];
-        } else {
-            ReturnPage('กรุณากลับไป Setup ที่อยู่รูปภาพของข่าวก่อน');
-        }
-        if (isset($row["SU_PathDefaultImageGallery"]) && $row["SU_PathDefaultImageGallery"] !== '') {
-            $PathFolderGallery = $row["SU_PathDefaultImageGallery"];
-        } else {
-            ReturnPage('กรุณากลับไป Setup ที่อยู่รูปภาพของข่าวก่อน');
-        }
-    }
 ?>

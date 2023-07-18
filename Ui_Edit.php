@@ -42,7 +42,11 @@ if (isset($_GET['Send_IDNews']) && $_GET['Send_IDNews'] !== '') {
         } else {
             $AT_Note = $row["AT_Note"];
         }
-        $AT_Image = $row["AT_Image"];
+        if ($row["AT_Image"] !== '') {
+            $AT_Image = $row["AT_Image"];
+        } else {
+            $AT_Image = $row["SU_PathDefaultImageNews"];
+        }
         $SU_PathDefaultImageNews = $row["SU_PathDefaultImageNews"];
         $CategoryID = $row["CG_Entity No."];
     } else {

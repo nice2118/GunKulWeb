@@ -1,6 +1,7 @@
 <!-- PHP -->
 <?php 
     include("DB_Include.php");
+    include("DB_Setup.php");
     if (isset($_GET['Send_IDNews']) && $_GET['Send_IDNews'] !== '') {
         $t_id = $_GET['Send_IDNews'];
       } else {
@@ -40,18 +41,86 @@
                         <div class="container quote px-lg-0">
                             <div class="row g-0 mx-lg-0 py-5">
                                 <?php
-                                        $decodedText = base64_decode($row["AT_Note"]);
-                                        if ($decodedText !== false) {
-                                            echo $decodedText;
-                                        } else {
-                                            echo $row["AT_Note"];
-                                        }
-                                    }
+                    $decodedText = base64_decode($row["AT_Note"]);
+                    if ($decodedText !== false) {
+                        echo $decodedText;
+                    } else {
+                        echo $row["AT_Note"];
+                    }
+                }
                                 ?>
                             </div>
                         </div>
                     </div>
                 </div>
+                <?php
+                    $sql = "SELECT * FROM `gallery` WHERE `gallery`.`GR_Activities Code` = '$t_id' ORDER BY `gallery`.`GR_CreateDate` DESC";
+                    // $sql = "SELECT * FROM `gallery` ORDER BY `gallery`.`GR_CreateDate` DESC";
+                    $result = $conn->query($sql);
+                    if ($result->num_rows > 0) {
+                ?>
+                <div class="col-md-12">
+                    <!-- <div class="card card-primary collapsed-card"> -->
+                    <div class="card card-primary">
+                        <div class="card-header">
+                            <h3 class="card-title text-white">แกลลอรี่</h3>
+
+                            <div class="card-tools">
+                                <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+                                <i class="fas fa-plus"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="form-group row g-4">
+                            <?php
+                            while ($row = $result->fetch_assoc()) {
+                            ?>
+                                <div class="col-lg-2 col-md-2 portfolio-item">
+                                    <div class="portfolio-img rounded overflow-hidden">
+                                        <?php if (strpos($row["GR_Name"], '.mp4') !== false || strpos($row["GR_Name"], '.avi') !== false || strpos($row["GR_Name"], '.wmv') !== false): ?>
+                                            <!-- ถ้าเป็นไฟล์วิดีโอ (.mp4) -->
+                                            <video class="img-fluid img-size w-100" style="height: 150px;" autoplay muted>
+                                                <source src="<?= $PathFolderGallery . $row["GR_Name"] ?>" type="video/mp4">
+                                            </video>
+                                            <div class="portfolio-btn">
+                                                <button class="btn btn-lg-square btn-outline-light rounded-circle mx-1" data-bs-toggle="modal" data-bs-target="#videoModal"><i class="fas fa-eye"></i></button>
+                                            </div>
+                                            <!-- Modal -->
+                                            <div class="modal fade" id="videoModal" tabindex="-1" aria-labelledby="videoModalLabel" aria-hidden="true">
+                                                <div class="modal-dialog modal-dialog-centered modal-xl">
+                                                    <div class="modal-content">
+                                                        <div class="modal-body">
+                                                            <div class="embed-responsive embed-responsive-16by9">
+                                                                <div class="embed-responsive-item">
+                                                                    <div class="video-container text-center">
+                                                                        <iframe src="<?= $PathFolderGallery . $row["GR_Name"] ?>" allowfullscreen autoplay></iframe>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        <?php else: ?>
+                                            <!-- ถ้าเป็นไฟล์รูปภาพ -->
+                                            <img class="img-fluid img-size w-100" src="<?= $PathFolderGallery . $row["GR_Name"] ?>" style="height: 150px;" alt="">
+                                            <div class="portfolio-btn">
+                                                <a class="btn btn-lg-square btn-outline-light rounded-circle mx-1" href="<?= $PathFolderGallery.$row["GR_Name"];?>" data-lightbox="portfolio"><i class="fa fa-eye"></i></a>
+                                            </div>
+                                        <?php endif; ?>
+                                    </div>
+                                </div>
+                            <?php
+                            }
+                            ?>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <?php
+                    }
+                ?>
             </div>
         </div>
     </div>
@@ -59,4 +128,6 @@
 
 <?php include("Ma_Footer.php"); ?>
 <?php include("Ma_FirstFooter_Script.php"); ?>
+<script src="js/jquery.min.js"></script>
+<script src="js/adminlte.min.js"></script>
 <?php include("Ma_Footer_Script.php"); ?>

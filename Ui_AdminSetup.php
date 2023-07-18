@@ -21,6 +21,7 @@ $_SESSION['PathPage'] = "AdminSetup.php";
         $CodeSetup = $row["SU_Code"];
         $DefaultImageNews = $row["SU_DefaultImageNews"];
         $PathFolderNews = $row["SU_PathDefaultImageNews"];
+        $PathFolderGallery = $row["SU_PathDefaultImageGallery"];
     } else {
         unset($sql);
         $sql = "INSERT INTO `Setup` (`CG_Entity No.`,`CG_CreateDate`) VALUES (1, CURRENT_TIMESTAMP)";
@@ -28,6 +29,7 @@ $_SESSION['PathPage'] = "AdminSetup.php";
             $CodeSetup = 1;
             $DefaultImageNews = "";
             $PathFolderNews = "";
+            $PathFolderGallery = "";
         }
     }
     unset($sql);
@@ -49,7 +51,7 @@ $_SESSION['PathPage'] = "AdminSetup.php";
                             <div class="col-md-6">
                                     <div class="card card-primary">
                                     <div class="card-header">
-                                        <h3 class="card-title">ข่าวสารและกิจกรรม</h3>
+                                        <h3 class="card-title text-white">ข่าวสารและกิจกรรม</h3>
 
                                         <div class="card-tools">
                                             <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
@@ -67,9 +69,9 @@ $_SESSION['PathPage'] = "AdminSetup.php";
                                                         <div class="col-lg-4 ps-lg-0 wow fadeIn" data-wow-delay="0.1s" style="max-height: 200px; max-width: 200px; min-height: 100px; min-width: 100px;">
                                                             <div class="position-relative">
                                                                 <input type="file" class="form-control border-1" name="image" id="image" accept="image/*">
-                                                                <input type="hidden" id="ID" name="ID" value="<?= $CodeSetup ?>" class="form-control">
-                                                                <input type="hidden" id="DefaultNameImageNews" name="DefaultNameImageNews" value="0" class="form-control">
-                                                                <input type="hidden" id="OldNameImageNews" name="OldNameImageNews" value="<?= $DefaultImageNews ?>" class="form-control">
+                                                                <input type="hidden" name="ID" value="<?= $CodeSetup ?>" class="form-control">
+                                                                <input type="hidden" name="DefaultNameImageNews" value="0" class="form-control">
+                                                                <input type="hidden" name="OldNameImageNews" value="<?= $DefaultImageNews ?>" class="form-control">
                                                                 <label for="image" style="cursor: pointer;">
                                                                     <?php
                                                                     if (isset($DefaultImageNews) && $DefaultImageNews !== '') {
@@ -107,7 +109,11 @@ $_SESSION['PathPage'] = "AdminSetup.php";
                                         </div>
                                         <div class="form-group">
                                             <label for="PathFolderNews">ที่เก็บที่อยู่รูปข่าว</label>
-                                            <input type="text" id="PathFolderNews" name="PathFolderNews" value="<?= $PathFolderNews; ?>" class="form-control">
+                                            <input type="text" name="PathFolderNews" value="<?= $PathFolderNews; ?>" class="form-control">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="PathFolderNews">ที่เก็บแกลลอรี่</label>
+                                            <input type="text" name="PathFolderGallery" value="<?= $PathFolderGallery; ?>" class="form-control">
                                         </div>
                                     </div>
                                     <!-- /.card-body -->
@@ -117,7 +123,7 @@ $_SESSION['PathPage'] = "AdminSetup.php";
                                 <div class="col-md-6">
                                     <div class="card card-secondary collapsed-card">
                                         <div class="card-header">
-                                            <h3 class="card-title">มีไว้ก่อน</h3>
+                                            <h3 class="card-title text-white">มีไว้ก่อน</h3>
 
                                             <div class="card-tools">
                                                 <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">

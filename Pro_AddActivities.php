@@ -1,3 +1,11 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>GUNKUL Engineering (GUNKUL)</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="" name="keywords">
+    <meta content="" name="description">
 <?php
 include("DB_Include.php");
 include("DB_Setup.php");
@@ -79,11 +87,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     //     header("Location: ".$_SESSION['PathPage']);
     //     exit();
     // echo '<script>swal("Success.");</script>';
+    $lastInsertID = $conn->insert_id;
+    echo $lastInsertID;
     $_SESSION['StatusTitle'] = "ดำเนินการเรียบร้อยแล้ว";
     $_SESSION['StatusMessage'] = "ทำการบันทึกในหัวข้อ ".$Title." เรียบร้อบแล้ว";
     $_SESSION['StatusAlert'] = "success";
-
-
+    generateGallery($_FILES['ImageGallery'],$lastInsertID);
   } else {
     if (!empty($newnFullNameImage)) {
       $filePath = $PathFolderNews . $newnFullNameImage;
@@ -124,21 +133,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
   // ส่งข้อความตอบกลับหรือเปลี่ยนเส้นทางไปหน้าอื่นตามต้องการ
   // echo "<meta http-equiv=\"refresh\" content=\"0; url=./Ui_ListAdmin.php\">";
-  // echo '<script> setTimeout(function() { window.location.href = "./Ui_ListAdmin.php?Send_Category=' . $CategoryBegin_id . '"; }, 0); </script>';
+  echo '<script> setTimeout(function() { window.location.href = "./Ui_ListAdmin.php?Send_Category=' . $CategoryBegin_id . '"; }, 0); </script>';
 }
 
 // ฟังก์ชันเพิ่มรูปลงGallery
-function generateGallery($row) {
+function generateGallery($fileArray,$idActivities) {
   global $conn;
+  
   // เช็คว่ามีไฟล์ถูกส่งมาหรือไม่
-  if (isset($_FILES['ImageGallery']['name'])) {
-    $fileCount = count($_FILES['ImageGallery']['name']);
+  if (isset($fileArray['name'])) {
+    $fileCount = count($fileArray['name']);
 
     // วนลูปเพื่ออัปโหลดและเพิ่มข้อมูลลงในฐานข้อมูล
     for ($i = 0; $i < $fileCount; $i++) {
-      $fileName = $_FILES['ImageGallery']['name'][$i];
-      $fileTmp = $_FILES['ImageGallery']['tmp_name'][$i];
-      $fileType = $_FILES['ImageGallery']['type'][$i];
+      $fileName = $fileArray['name'][$i];
+      $fileTmp = $fileArray['tmp_name'][$i];
+      $fileType = $fileArray['type'][$i];
       
       // สร้างชื่อไฟล์ใหม่
       $newFileName = generateNewFileName($fileName);
@@ -148,10 +158,10 @@ function generateGallery($row) {
       move_uploaded_file($fileTmp, $destination);
       
       // เพิ่มข้อมูลลงในฐานข้อมูล
-      $db = new mysqli('localhost', 'username', 'password', 'database');
-      $query = "INSERT INTO Gallery (file_name, file_type) VALUES ('$newFileName', '$fileType')";
-      $db->query($query);
-      $db->close();
+      $query = "INSERT INTO `newsandactivities`.`gallery` (`GR_Entity No.`, `GR_Activities Code`, `GR_Name`, `GR_CreateDate`, `GR_ModifyDate`) VALUES (NULL, '$idActivities', '$newFileName', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)";
+      if ($conn->query($query) !== true) {
+        echo "Error: " . $query . "<br>" . $conn->error;
+      }
     }
     echo 'อัปโหลดไฟล์เรียบร้อยแล้ว';
   } else {
@@ -162,7 +172,7 @@ function generateGallery($row) {
 // ฟังก์ชันสร้างชื่อไฟล์ใหม่โดยใช้ Primary Key
 function generateNewFileName($fileName) {
   global $conn;
-  $query = 'SELECT MAX(id) AS max_id FROM Gallery';
+  $query = 'SELECT MAX(`GR_Entity No.`) AS max_id FROM Gallery';
   $result = $conn->query($query);
   if ($result->num_rows > 0) {
     $row = $result->fetch_assoc();
@@ -171,7 +181,9 @@ function generateNewFileName($fileName) {
     $maxId = 0;
   } 
   $newFileName = $maxId + 1 . '.' . pathinfo($fileName, PATHINFO_EXTENSION);
-  $db->close();
+  $result->close();
   return $newFileName;
 }
 ?>
+</head>
+</html>

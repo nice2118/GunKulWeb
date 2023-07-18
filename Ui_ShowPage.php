@@ -76,13 +76,18 @@
             $result = $conn->query($sql);
             if ($result->num_rows > 0) {
                 while ($row = $result->fetch_assoc()) {
+                    if ($row["AT_Image"] !== '') {
+                        $AT_Image = $row["AT_Image"];
+                    } else {
+                        $AT_Image = $DefaultImageNews;
+                    }
         ?>
             <div class="col-lg-4 col-md-6 portfolio-item <?= SearchCategoryReturnNotBegin($row['AT_Entity No.']) ?>" style="min-height: 400px;">
                 <div class="portfolio-img rounded overflow-hidden">
-                    <img class="img-fluid w-100" src="<?= $PathFolderNews.$row['AT_Image'];?>" style="height:275px;" alt="">
+                    <img class="img-fluid w-100" src="<?= $PathFolderNews.$AT_Image;?>" style="height:275px;" alt="">
                     <div class="portfolio-btn">
                         <a class="btn btn-lg-square btn-outline-light rounded-circle mx-1"
-                            href="<?= $PathFolderNews.$row['AT_Image'];?>" data-lightbox="portfolio"><i class="fa fa-eye"></i></a>
+                            href="<?= $PathFolderNews.$AT_Image;?>" data-lightbox="portfolio"><i class="fa fa-eye"></i></a>
                         <a class="btn btn-lg-square btn-outline-light rounded-circle mx-1" href="Ui_ShowDetail.php?Send_IDNews=<?= $row["AT_Code"];?>"><i
                                 class="fa fa-link"></i></a>
                     </div>

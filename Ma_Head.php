@@ -183,10 +183,17 @@
                         <nav>
                             <a href="" class="dropdown-item"><i class="fa fa-angle-left "></i>  จัดการ</a>
                             <ul class="dropdown-menu-submenu submenu submenu-left">
-                                <li><a href="Ui_ListAdmin.php?Send_Category=1" class="dropdown-item">จัดการข่าวและกิจกรรม</a></li>
-                                <li><a href="Ui_ListAdmin.php?Send_Category=2" class="dropdown-item">จัดการทักษะทางสังคมที่</a></li>
-                                <li><a href="Ui_ListAdmin.php?Send_Category=3" class="dropdown-item">จัดการทักษะสายอาชีพ</a></li>
-                                <li><a href="Ui_ListAdmin.php?Send_Category=4" class="dropdown-item">จัดการ การแบ่งปันความรู้</a></li>
+                            <?php
+                                $sql = "SELECT * FROM `Category` WHERE `Category`.`CG_Entity Relation No.` = 0;";
+                                $result = $conn->query($sql);
+                                if ($result->num_rows > 0) {
+                                    while ($row = $result->fetch_assoc()) {
+                            ?>
+                                <li><a href="Ui_ListAdmin.php?Send_Category=<?= $row["CG_Entity No."] ?>" class="dropdown-item"><?= $row["CG_DescriptionTH"] ?></a></li>
+                            <?php
+                                    }
+                                }
+                            ?>
                             </ul>
                         </nav>
                         <a href="Ui_AdminSetup.php" class="dropdown-item">Setup</a>

@@ -23,6 +23,11 @@ include("DB_Setup.php");
                 $row_count = $result->num_rows;
                 if ($result->num_rows > 0) {
                     while ($row = $result->fetch_assoc()) {
+                        if ($row["AT_Image"] !== '') {
+                            $AT_Image = $row["AT_Image"];
+                        } else {
+                            $AT_Image = $DefaultImageNews;
+                        }
                         $counter++;
                         if ($isFirstRow) {
             ?>
@@ -31,8 +36,8 @@ include("DB_Setup.php");
                     <div class="row g-0 mx-lg-0">
                         <div class="col-lg-6 ps-lg-0 wow fadeIn" data-wow-delay="0.1s" style="min-height: 400px;">
                             <div class="position-relative h-100">
-                                <a href="<?= $PathFolderNews.$row['AT_Image'];?>" data-lightbox="portfolio"> 
-                                <img class="position-absolute img-fluid w-100 h-100" src="<?= $PathFolderNews.$row['AT_Image'];?>"
+                                <a href="<?= $PathFolderNews.$AT_Image;?>" data-lightbox="portfolio"> 
+                                <img class="position-absolute img-fluid w-100 h-100" src="<?= $PathFolderNews.$AT_Image;?>"
                                     style="object-fit: cover;" alt="">
                                 </a>
                             </div>
@@ -65,9 +70,9 @@ include("DB_Setup.php");
                 <div class="col-lg-4 col-md-6 wow fadeInUp portfolio-item first" data-wow-delay="0.1s">
                     <div class="service-item rounded overflow-hidden">
                         <div class="portfolio-img rounded overflow-hidden">
-                            <img class="img-fluid w-100" src="<?= $PathFolderNews.$row['AT_Image'];?>" style="height:275px;" alt="">
+                            <img class="img-fluid w-100" src="<?= $PathFolderNews.$AT_Image;?>" style="height:275px;" alt="">
                             <div class="portfolio-btn">
-                                <a class="btn btn-lg-square btn-outline-light rounded-circle mx-1" href="<?= $PathFolderNews.$row['AT_Image'];?>"
+                                <a class="btn btn-lg-square btn-outline-light rounded-circle mx-1" href="<?= $PathFolderNews.$AT_Image;?>"
                                     data-lightbox="portfolio"><i class="fa fa-eye"></i></a>
                                 <a class="btn btn-lg-square btn-outline-light rounded-circle mx-1" href="Ui_ShowDetail.php?Send_IDNews=<?= $row["AT_Code"];?>"><i
                                         class="fa fa-link"></i></a>
