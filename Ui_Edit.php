@@ -142,7 +142,8 @@ if (isset($_GET['Send_IDNews']) && $_GET['Send_IDNews'] !== '') {
                                 </div>
                             </div>
                             <div class="col-md-12">
-                                <div class="card card-primary collapsed-card">
+                                <!-- <div class="card card-primary collapsed-card"> -->
+                                <div class="card card-primary">
                                     <div class="card-header">
                                         <h3 class="card-title text-white">แกลลอรี่</h3>
 
@@ -328,6 +329,63 @@ if (isset($_GET['Send_IDNews']) && $_GET['Send_IDNews'] !== '') {
                 imagePreview.remove();
             });
         });
+        
+// Retrieve image data from the database and display as images
+function displayImagesFromDatabase() {
+  // Replace the code below with your actual code to fetch image data from the database
+  const imageData = [
+    {
+      name: 'image1.jpg',
+      type: 'image/jpeg',
+      source: 'img/2.jpg',
+    },
+    {
+      name: 'image2.png',
+      type: 'image/png',
+      source: 'img/1.png',
+    },
+    // Add more image data as needed
+  ];
+
+  imageData.forEach((data) => {
+    const { name, type, source } = data;
+
+    const imagePreview = document.createElement('div');
+    imagePreview.classList.add('image-preview');
+
+    const image = document.createElement('img');
+    const video = document.createElement('video');
+
+    if (type.startsWith('image/')) {
+      image.src = source;
+      image.alt = name;
+      imagePreview.appendChild(image);
+    } else if (type.startsWith('video/')) {
+      video.src = source;
+      video.alt = name;
+      video.controls = true;
+      video.muted = true;
+      video.loop = true;
+      imagePreview.appendChild(video);
+
+      video.addEventListener('loadeddata', () => {
+        video.play();
+      });
+    }
+
+    const deleteButton = document.createElement('button');
+    deleteButton.classList.add('delete-image-btn', 'fa', 'fa-times');
+    deleteButton.addEventListener('click', () => {
+      imagePreview.remove();
+    });
+    imagePreview.appendChild(deleteButton);
+
+    imageContainer.appendChild(imagePreview);
+  });
+}
+
+// Call the function to display images from the database
+displayImagesFromDatabase();
     </script>
     <script src="js/jquery.min.js"></script>
     <script src="js/adminlte.min.js"></script>

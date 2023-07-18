@@ -60,8 +60,8 @@
                     if ($result->num_rows > 0) {
                 ?>
                 <div class="col-md-12">
-                    <!-- <div class="card card-primary collapsed-card"> -->
-                    <div class="card card-primary">
+                    <div class="card card-primary collapsed-card">
+                    <!-- <div class="card card-primary"> -->
                         <div class="card-header">
                             <h3 class="card-title text-white">แกลลอรี่</h3>
 
