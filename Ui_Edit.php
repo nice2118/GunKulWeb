@@ -1,6 +1,7 @@
 <!-- PHP -->
 <?php 
 include("DB_Include.php"); 
+include("DB_Setup.php");
 $_SESSION['PathPage'] = "Ui_Edit.php";
 if (isset($_GET['Send_IDNews']) && $_GET['Send_IDNews'] !== '') {
     $t_id = $_GET['Send_IDNews'];
@@ -237,121 +238,44 @@ if (isset($_GET['Send_IDNews']) && $_GET['Send_IDNews'] !== '') {
             };
         <?php endif; ?>
     </script>
-    <script>
-        // Add event listener to the "Add Images" button
-        const addImageBtn = document.querySelector('.add-image-btn');
-        const imageGallery = document.querySelector('.Image-Gallery');
-        const imageContainer = document.querySelector('.image-container');
-        const deleteAllBtn = document.querySelector('.delete-all-btn');
+<?php include("Ma_ScriptGallery.php"); ?>
+<?php
+// สร้างคำสั่ง SQL สำหรับดึงข้อมูลจากฐานข้อมูล (เปลี่ยนตามโครงสร้างฐานข้อมูลของคุณ)
+$sql = "SELECT `GR_Entity No.` AS `name`, CONCAT(
+    CASE
+        WHEN SUBSTRING_INDEX(`GR_Name`, '.', -1) IN ('jpg', 'jpeg', 'png', 'gif') THEN 'image/'
+        WHEN SUBSTRING_INDEX(`GR_Name`, '.', -1) IN ('mp4', 'avi', 'mov') THEN 'video/'
+        ELSE ''
+    END,
+    SUBSTRING_INDEX(`GR_Name`, '.', -1)
+) AS `type`, CONCAT('$PathFolderGallery', `GR_Name`) AS `source` FROM `Gallery` WHERE `Gallery`.`GR_Activities Code` = $t_id";
 
-        addImageBtn.addEventListener('click', () => {
-        imageGallery.click();
-        });
+$result = $conn->query($sql);
+$imageData = array();
 
-        // Handle image selection
-        imageGallery.addEventListener('change', () => {
-        // Loop through selected files
-            for (const file of imageGallery.files) {
-                const reader = new FileReader();
+// วน loop เพื่อดึงข้อมูลและเก็บลงในตัวแปร $imageData
+if ($result->num_rows > 0) {
+    while ($row = $result->fetch_assoc()) {
+        $imageData[] = $row;
+    }
+}
 
-                // Create image preview
-                const imagePreview = document.createElement('div');
-                imagePreview.classList.add('image-preview');
-                imagePreview.classList.add('loading');
+// ปิดการเชื่อมต่อฐานข้อมูล
+$conn->close();
 
-                // Create loading text
-                const loadingText = document.createElement('div');
-                loadingText.classList.add('d-flex', 'justify-content-center', 'align-items-center', 'text-primary', 'my-4');
-                loadingText.innerHTML = '<div class="spinner-border" role="status"><span class="visually-hidden">Loading...</span></div>';
-
-                // Append loading text to the preview container
-                imagePreview.appendChild(loadingText);
-
-                reader.onload = (e) => {
-                    // Set image source as the selected file
-                    const image = document.createElement('img');
-                    const video = document.createElement('video');
-
-                    if (file.type.startsWith('image/')) {
-                        // For image files, use the file itself as the source
-                        image.src = e.target.result;
-                        image.alt = file.name;
-
-                        // Append the image to the preview container
-                        imagePreview.appendChild(image);
-                    } else if (file.type.startsWith('video/')) {
-                        // For video files, create a video element and set the source
-                        video.src = e.target.result;
-                        video.alt = file.name;
-                        video.controls = true;
-                        video.muted = true;
-                        video.loop = true;
-
-                        // Append the video to the preview container
-                        imagePreview.appendChild(video);
-
-                        // Add event listener to play the video when it's loaded
-                        video.addEventListener('loadeddata', () => {
-                            video.play();
-                        });
-                    }
-
-                    // Create delete button
-                    const deleteButton = document.createElement('button');
-                    deleteButton.classList.add('delete-image-btn', 'fa', 'fa-times');
-
-                    // Add event listener to the delete button
-                    deleteButton.addEventListener('click', () => {
-                        imagePreview.remove();
-                    });
-
-                    // Append the delete button to the preview container
-                    imagePreview.appendChild(deleteButton);
-
-                    // Append the image preview to the image container
-                    imageContainer.appendChild(imagePreview);
-
-                    // Remove loading text when loading is complete
-                imagePreview.removeChild(loadingText);
-                };
-
-                reader.readAsDataURL(file);
-
-                // Append the image preview to the image container
-                imageContainer.appendChild(imagePreview);
-            }
-        });
-
-        // Handle delete all button
-        deleteAllBtn.addEventListener('click', () => {
-        const imagePreviews = imageContainer.querySelectorAll('.image-preview');
-            imagePreviews.forEach((imagePreview) => {
-                imagePreview.remove();
-            });
-        });
-        
+// แปลงข้อมูลในรูปแบบ JSON
+$jsonData = json_encode($imageData);
+?>
+<script>
 // Retrieve image data from the database and display as images
 function displayImagesFromDatabase() {
-  // Replace the code below with your actual code to fetch image data from the database
-  const imageData = [
-    {
-      name: 'image1.jpg',
-      type: 'image/jpeg',
-      source: 'img/2.jpg',
-    },
-    {
-      name: 'image2.png',
-      type: 'image/png',
-      source: 'img/1.png',
-    },
-    // Add more image data as needed
-  ];
-
+  var imageData = <?= $jsonData;?>;
+//   console.log(imageData);
   imageData.forEach((data) => {
     const { name, type, source } = data;
 
     const imagePreview = document.createElement('div');
-    imagePreview.classList.add('image-preview');
+    imagePreview.classList.add('image-preview2');
 
     const image = document.createElement('img');
     const video = document.createElement('video');
@@ -373,11 +297,41 @@ function displayImagesFromDatabase() {
       });
     }
 
+    // Create delete button
     const deleteButton = document.createElement('button');
     deleteButton.classList.add('delete-image-btn', 'fa', 'fa-times');
+    deleteButton.setAttribute('type', 'button');
+
+    // Add event listener to the delete button
     deleteButton.addEventListener('click', () => {
-      imagePreview.remove();
+    swal({
+        title: "คุณต้องการที่จะลบหรือไม่?",
+        text: "เมื่อกดลบรูปภาพแล้วจะไม่สามารถกู้คืนได้",
+        icon: "warning",
+        buttons: {
+        cancel: "ยกเลิก",
+        confirm: "ลบ",
+        },
+        dangerMode: true,
+        }).then((willDelete) => {
+            if (willDelete) {
+                // ส่งคำร้องขอ AJAX ไปยังไฟล์ PHP เพื่อลบข้อมูลในฐานข้อมูล
+                const xhr = new XMLHttpRequest();
+                xhr.open("POST", "Pro_DeleteGallery.php", true);
+                xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+                xhr.onreadystatechange = function () {
+                    if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
+                    // กระบวนการที่คุณต้องการทำหลังจากลบข้อมูลสำเร็จ
+                    // เช่น รีเฟรชหน้าเว็บ โหลดข้อมูลใหม่ เป็นต้น
+                    }
+                };
+                xhr.send("imageID=" + name);
+                imagePreview.remove();
+            }
+        });
     });
+
+    // Append the delete button to the preview container
     imagePreview.appendChild(deleteButton);
 
     imageContainer.appendChild(imagePreview);

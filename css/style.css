@@ -5536,7 +5536,8 @@ html.maximized-card {
     flex-wrap: wrap;
   }
 
-  .image-preview {
+  .image-preview,
+  .image-preview2 {
     position: relative;
     width: 100px;
     height: 100px;
@@ -5546,28 +5547,32 @@ html.maximized-card {
     overflow: hidden;
     cursor: pointer;
   }
-
-  .image-preview img {
+  
+  .image-preview img,
+  .image-preview2 img {
     width: 100%;
     height: 100%;
     object-fit: cover;
   }
-
-  .image-preview:hover img {
+  
+  .image-preview:hover img,
+  .image-preview2:hover img {
     transform: scale(1.1);
   }
-
-  .image-preview video {
+  
+  .image-preview video,
+  .image-preview2 video {
     width: 100%;
     height: 100%;
     object-fit: cover;
     transition: transform 0.3s ease;
   }
-
-  .image-preview:hover video {
+  
+  .image-preview:hover video,
+  .image-preview2:hover video {
     transform: scale(1.1);
   }
-
+  
   .delete-image-btn {
     position: absolute;
     top: 50%;
@@ -5582,15 +5587,12 @@ html.maximized-card {
     cursor: pointer;
     display: none;
   }
-
-  .image-preview:hover .delete-image-btn {
+  
+  .image-preview:hover .delete-image-btn,
+  .image-preview2:hover .delete-image-btn {
     display: block;
   }
-
-  .add-image-btn, .delete-all-btn {
-    margin-top: 10px;
-  }
-
+  
   .loading-text {
     display: none;
     position: absolute;
@@ -5600,7 +5602,8 @@ html.maximized-card {
     font-weight: bold;
     color: #333;
   }
-
-  .image-preview.loading .loading-text {
+  
+  .image-preview.loading .loading-text,
+  .image-preview2.loading .loading-text {
     display: block;
   }

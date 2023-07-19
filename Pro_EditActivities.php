@@ -1,6 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>GUNKUL Engineering (GUNKUL)</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="" name="keywords">
+    <meta content="" name="description">
 <?php
 include("DB_Include.php");
 include("DB_Setup.php");
+include("Fn_AddGallery.php");
 
 echo '<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>';
 
@@ -105,6 +114,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $_SESSION['StatusTitle'] = "ดำเนินการเรียบร้อยแล้ว";
     $_SESSION['StatusMessage'] = "ทำการแก้เอกสารให้หัวข้อ ".$Title." เรียบร้อบแล้ว";
     $_SESSION['StatusAlert'] = "success";
+    generateGallery($_FILES['ImageGallery'],$ID);
   } else {
     if (!empty($newnFullNameImage)) {
       $filePath = $PathFolderNews . $newnFullNameImage;
@@ -149,4 +159,5 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   echo '<script> setTimeout(function() { window.location.href = "./Ui_ListAdmin.php?Send_Category=' . $CategoryBegin_id . '"; }, 0); </script>';
 }
 ?>
-
+</head>
+</html>

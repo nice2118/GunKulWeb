@@ -2,9 +2,10 @@
 <?php 
     include("DB_Include.php");
     include("DB_Setup.php");
-    if (isset($_GET['Send_Category']) && $_GET['Send_Category'] !== '') {
-        $Category_id = $_GET['Send_Category'];
-        $Multiplier = $_GET['Multiplier'];
+    if (isset($_REQUEST['Send_Category']) && $_REQUEST['Send_Category'] !== '') {
+        $Category_id = $_REQUEST['Send_Category'];
+        $Multiplier = $_REQUEST['Multiplier'];
+        $Search = $_REQUEST['Search'];
         $Maxbox = 24 * $Multiplier;     // 24 มาจากแสดงเริ่มต้น
         $countSql = 0;
         $_SESSION['PathPage'] = "Ui_ShowPage.php?Send_Category=$Category_id&Multiplier=$Multiplier";
@@ -27,6 +28,24 @@
     <!-- Content -->
     <div class="container-xxl py-5">
         <div class="container">
+            <div class="row">
+                <div class="col-md-6 text-center text-md-start mb-3 mb-md-0"></div>
+                <div class="col-md-6 text-center text-md-end">
+                    <div class="wow fadeInUp" data-wow-delay="0.1s">
+                        <form action="Ui_ShowPage.php" method="post" enctype="multipart/form-data">
+                            <div class="row g-3">
+                                <div class="col-4 col-sm-6"></div>
+                                <div class="col-8 col-sm-6 d-flex">
+                                    <button type="submit" class="btn btn-white py-1 px-lg-1 me-1"><i class="fa fa-search fs-5"></i></button>
+                                    <input type="text" class="form-control border-0" name="Search" placeholder="ค้นหาชื่อ...">
+                                </div>
+                                <input type="hidden" name="Send_Category" value="<?= $Category_id ?>">
+                                <input type="hidden" name="Multiplier" value="100">
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
             <div class="text-center mx-auto mb-2 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 600px;">
             <?php
                 $sql = "SELECT * FROM `Category` WHERE `Category`.`CG_Entity No.` = $Category_id;";
@@ -68,7 +87,12 @@
         <div class="row g-4 portfolio-container wow fadeInUp" data-wow-delay="0.5s">
         <?php
             $SelectFilterCategoryEntityNoTotal = SearchCategory($Category_id);
-            $sql = "SELECT * FROM `Activities` LEFT JOIN user ON `Activities`.AT_UserCreate = User.US_Username WHERE (`Activities`.`AT_Entity No.` IN ($SelectFilterCategoryEntityNoTotal)) ORDER BY `Activities`.`AT_Date` DESC, `Activities`.`AT_Time`";
+            $sql = "SELECT * FROM `Activities` 
+            LEFT JOIN user ON `Activities`.AT_UserCreate = User.US_Username 
+            LEFT JOIN `Category` ON `Activities`.`AT_Entity No.` = `Category`.`CG_Entity No.` 
+            WHERE (`Activities`.`AT_Entity No.` IN ($SelectFilterCategoryEntityNoTotal)) 
+            AND (`Activities`.`AT_Title` LIKE '%$Search%') -- เพิ่มเงื่อนไขการค้นหาใน AT_Title
+            ORDER BY `Activities`.`AT_Date` DESC, `Activities`.`AT_Time` DESC";
             $result = $conn->query($sql);
             $countSql = $result->num_rows;
             
@@ -82,20 +106,22 @@
                         $AT_Image = $DefaultImageNews;
                     }
         ?>
-            <div class="col-lg-4 col-md-6 portfolio-item <?= SearchCategoryReturnNotBegin($row['AT_Entity No.']) ?>" style="min-height: 400px;">
-                <div class="portfolio-img rounded overflow-hidden">
-                    <img class="img-fluid w-100" src="<?= $PathFolderNews.$AT_Image;?>" style="height:275px;" alt="">
-                    <div class="portfolio-btn">
-                        <a class="btn btn-lg-square btn-outline-light rounded-circle mx-1"
-                            href="<?= $PathFolderNews.$AT_Image;?>" data-lightbox="portfolio"><i class="fa fa-eye"></i></a>
-                        <a class="btn btn-lg-square btn-outline-light rounded-circle mx-1" href="Ui_ShowDetail.php?Send_IDNews=<?= $row["AT_Code"];?>"><i
-                                class="fa fa-link"></i></a>
+            <div id="portfolio-container" class="row">
+                <div class="col-lg-3 col-md-4 portfolio-item <?= SearchCategoryReturnNotBegin($row['AT_Entity No.']) ?>" style="min-height: 400px;">
+                    <div class="portfolio-img rounded overflow-hidden">
+                        <img class="img-fluid w-100" src="<?= $PathFolderNews.$AT_Image;?>" style="height:275px;" alt="">
+                        <div class="portfolio-btn">
+                            <a class="btn btn-lg-square btn-outline-light rounded-circle mx-1"
+                                href="<?= $PathFolderNews.$AT_Image;?>" data-lightbox="portfolio"><i class="fa fa-eye"></i></a>
+                            <a class="btn btn-lg-square btn-outline-light rounded-circle mx-1" href="Ui_ShowDetail.php?Send_IDNews=<?= $row["AT_Code"];?>"><i
+                                    class="fa fa-link"></i></a>
+                        </div>
                     </div>
-                </div>
-                <div class="pt-3">
-                    <p class="text-primary mb-0"><?= $row['AT_Title'];?></p>
-                    <hr class="text-primary w-25 my-2">
-                    <h5 class="lh-base"><?= $row['AT_Description'];?></h5>
+                    <div class="pt-3">
+                        <p class="text-primary mb-0"><?= $row['CG_DescriptionTH'];?></p>
+                        <hr class="text-primary w-25 my-2">
+                        <h5 class="lh-base"><?= $row['AT_Title'];?></h5>
+                    </div>
                 </div>
             </div>
         <?php
@@ -109,7 +135,7 @@
         ?>
         <div class="container">
             <div class="text-center mx-auto mb-2 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 600px;">
-                <a href="Ui_ShowPage.php?Send_Category=<?= $Category_id ?>&Multiplier=<?= $Multiplier + 1 ?>" class="btn btn-primary rounded-pill py-3 px-5 mt-3">แสดงเพิ่มเติม</a>
+                <a href="Ui_ShowPage.php?Send_Category=<?= $Category_id ?>&Multiplier=<?= $Multiplier + 1 ?>&Search=" class="btn btn-primary rounded-pill py-3 px-5 mt-3">แสดงเพิ่มเติม</a>
             </div>
         </div>
         <?php

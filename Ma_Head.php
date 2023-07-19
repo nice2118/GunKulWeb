@@ -68,7 +68,7 @@
                                 if ($result->num_rows > 0) {
                                     while ($row = $result->fetch_assoc()) {
                             ?>
-                                <li><a href="Ui_ShowPage.php?Send_Category=<?= $row["CG_Entity No."] ?>&Multiplier=1" class="dropdown-item"><?= $row["CG_DescriptionTH"] ?></a></li>
+                                <li><a href="Ui_ShowPage.php?Send_Category=<?= $row["CG_Entity No."] ?>&Multiplier=1&Search=" class="dropdown-item"><?= $row["CG_DescriptionTH"] ?></a></li>
                             <?php
                                     }
                                 }

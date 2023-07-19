@@ -121,4 +121,5 @@ if (isset($_GET['Send_Category']) && $_GET['Send_Category'] !== '') {
 
 <?php include("Ma_Footer.php"); ?>
 <?php include("Ma_FirstFooter_Script.php"); ?>
+<?php include("Ma_ScriptDatatable.php"); ?>
 <?php include("Ma_Footer_Script.php"); ?>

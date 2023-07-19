@@ -191,4 +191,5 @@ table.dataTable td {
         <?php endif; ?>
     </script>
 <?php include("Ma_FirstFooter_Script.php"); ?>
+<?php include("Ma_ScriptDatatable.php"); ?>
 <?php include("Ma_Footer_Script.php"); ?>
