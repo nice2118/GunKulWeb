@@ -194,5 +194,4 @@ $_SESSION['PathPage'] = "AdminSetup.php";
     </script>
     <script src="js/jquery.min.js"></script>
     <script src="js/adminlte.min.js"></script>
-<?php //include("Ma_FirstFooter_Script.php"); ?>
 <?php include("Ma_Footer_Script.php"); ?>
