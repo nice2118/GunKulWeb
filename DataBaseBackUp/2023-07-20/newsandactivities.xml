@@ -5,7 +5,7 @@
 - http://www.phpmyadmin.net
 -
 - Host: 127.0.0.1
-- Generation Time: Jul 07, 2023 at 01:59 PM
+- Generation Time: Jul 20, 2023 at 12:40 PM
 - Server version: 5.5.27
 - PHP Version: 5.4.7
 -->
@@ -30,35 +30,56 @@
                   `AT_CreateDate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
                   `AT_ModifyDate` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
                   PRIMARY KEY (`AT_Code`)
-                ) ENGINE=InnoDB AUTO_INCREMENT=45 DEFAULT CHARSET=utf8;
+                ) ENGINE=InnoDB AUTO_INCREMENT=85 DEFAULT CHARSET=utf8;
             </pma:table>
             <pma:table name="category">
                 CREATE TABLE `category` (
                   `CG_Entity No.` int(11) NOT NULL AUTO_INCREMENT,
+                  `CG_Entity Relation No.` int(11) NOT NULL,
                   `CG_Name` varchar(255) NOT NULL,
                   `CG_DescriptionTH` varchar(255) NOT NULL,
                   `CG_DescriptionEN` varchar(255) NOT NULL,
                   `CG_CreateDate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
                   `CG_ModifyDate` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
                   PRIMARY KEY (`CG_Entity No.`)
-                ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+                ) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
             </pma:table>
-            <pma:table name="Setup">
-                CREATE TABLE `Setup` (
+            <pma:table name="gallery">
+                CREATE TABLE `gallery` (
+                  `GR_Entity No.` int(11) NOT NULL AUTO_INCREMENT,
+                  `GR_Activities Code` int(11) NOT NULL,
+                  `GR_Name` varchar(255) NOT NULL,
+                  `GR_CreateDate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+                  `GR_ModifyDate` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+                  PRIMARY KEY (`GR_Entity No.`)
+                ) ENGINE=InnoDB AUTO_INCREMENT=68 DEFAULT CHARSET=utf8;
+            </pma:table>
+            <pma:table name="setup">
+                CREATE TABLE `setup` (
                   `SU_Code` int(11) NOT NULL AUTO_INCREMENT,
                   `SU_DefaultImageNews` varchar(255) DEFAULT NULL,
                   `SU_PathDefaultImageNews` varchar(255) NOT NULL,
+                  `SU_PathDefaultImageGallery` varchar(255) NOT NULL,
                   `SU_CreateDate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
                   `SU_ModifyDate` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
                   PRIMARY KEY (`SU_Code`)
                 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
             </pma:table>
             <pma:trigger name="set_SU_ModifyDate">
-                CREATE TRIGGER `set_SU_ModifyDate` BEFORE UPDATE ON `Setup`
+                CREATE TRIGGER `set_SU_ModifyDate` BEFORE UPDATE ON `setup`
                  FOR EACH ROW BEGIN
                   SET NEW.SU_ModifyDate = CURRENT_TIMESTAMP;
                 END
             </pma:trigger>
+            <pma:table name="setupgames">
+                CREATE TABLE `setupgames` (
+                  `GA_Code` int(11) NOT NULL AUTO_INCREMENT,
+                  `GA_Iframe` varchar(500) NOT NULL,
+                  `GA_CreateDate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+                  `GA_ModifyDate` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+                  PRIMARY KEY (`GA_Code`)
+                ) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
+            </pma:table>
             <pma:table name="user">
                 CREATE TABLE `user` (
                   `US_Username` varchar(255) NOT NULL,
@@ -78,71 +99,6 @@
     -->
     <database name="newsandactivities">
         <!-- Table activities -->
-        <table name="activities">
-            <column name="AT_Code">3</column>
-            <column name="AT_Entity_No.">1</column>
-            <column name="AT_Date">2023-06-14</column>
-            <column name="AT_Time">00:00:00</column>
-            <column name="AT_Title">อกหอหก</column>
-            <column name="AT_Description">อกอหกอกห</column>
-            <column name="AT_Note">กอหอกห</column>
-            <column name="AT_Image">ดกหดกห</column>
-            <column name="AT_UserCreate">aaa</column>
-            <column name="AT_CreateDate">2023-06-22 14:38:34</column>
-            <column name="AT_ModifyDate">0000-00-00 00:00:00</column>
-        </table>
-        <table name="activities">
-            <column name="AT_Code">6</column>
-            <column name="AT_Entity_No.">1</column>
-            <column name="AT_Date">2023-06-22</column>
-            <column name="AT_Time">14:41:23</column>
-            <column name="AT_Title">hgfhgf</column>
-            <column name="AT_Description">hgfhfghf</column>
-            <column name="AT_Note">&lt;p&gt;hgfhfghgfhf&lt;/p&gt;</column>
-            <column name="AT_Image"></column>
-            <column name="AT_UserCreate">aaa</column>
-            <column name="AT_CreateDate">2023-06-22 14:41:23</column>
-            <column name="AT_ModifyDate">2023-06-22 14:41:23</column>
-        </table>
-        <table name="activities">
-            <column name="AT_Code">7</column>
-            <column name="AT_Entity_No.">1</column>
-            <column name="AT_Date">2023-06-22</column>
-            <column name="AT_Time">15:17:23</column>
-            <column name="AT_Title">hgfhgf</column>
-            <column name="AT_Description">hgfhfghf</column>
-            <column name="AT_Note">&lt;p&gt;545456456&lt;/p&gt;</column>
-            <column name="AT_Image">0.png</column>
-            <column name="AT_UserCreate">aaa</column>
-            <column name="AT_CreateDate">2023-06-22 15:17:23</column>
-            <column name="AT_ModifyDate">2023-06-22 15:17:23</column>
-        </table>
-        <table name="activities">
-            <column name="AT_Code">9</column>
-            <column name="AT_Entity_No.">1</column>
-            <column name="AT_Date">2023-06-22</column>
-            <column name="AT_Time">15:47:46</column>
-            <column name="AT_Title">sssssdss</column>
-            <column name="AT_Description">dsdsdsdsdsd</column>
-            <column name="AT_Note">&lt;p&gt;dsdsdsdsdsdsdsdsdsds&lt;/p&gt;</column>
-            <column name="AT_Image">0.png</column>
-            <column name="AT_UserCreate">aaa</column>
-            <column name="AT_CreateDate">2023-06-22 15:47:46</column>
-            <column name="AT_ModifyDate">2023-06-22 15:47:46</column>
-        </table>
-        <table name="activities">
-            <column name="AT_Code">10</column>
-            <column name="AT_Entity_No.">1</column>
-            <column name="AT_Date">2023-06-22</column>
-            <column name="AT_Time">15:48:34</column>
-            <column name="AT_Title">hgjjkhk</column>
-            <column name="AT_Description">gkgj</column>
-            <column name="AT_Note">&lt;p&gt;kghjkghkj&lt;/p&gt;</column>
-            <column name="AT_Image">0.png</column>
-            <column name="AT_UserCreate">aaa</column>
-            <column name="AT_CreateDate">2023-06-22 15:48:34</column>
-            <column name="AT_ModifyDate">2023-06-22 15:48:34</column>
-        </table>
         <table name="activities">
             <column name="AT_Code">11</column>
             <column name="AT_Entity_No.">1</column>
@@ -164,7 +120,7 @@
             <column name="AT_Title">bbb</column>
             <column name="AT_Description">bbbb</column>
             <column name="AT_Note">&lt;p class=&quot;noid&quot; style=&quot;box-sizing: inherit; margin-right: 0px; margin-bottom: 1.2em; margin-left: 0px; padding: 0px; border: 0px; color: rgb(17, 17, 17); font-family: Kanit, sans-serif;&quot;&gt;เราอยากพัฒนาตนเอง… แต่เลือกดูซีรีส์มากกว่าอ่านหนังสือ&lt;br style=&quot;box-☕????</column>
-            <column name="AT_Image">0.png</column>
+            <column name="AT_Image"></column>
             <column name="AT_UserCreate"></column>
             <column name="AT_CreateDate">2023-06-23 17:47:38</column>
             <column name="AT_ModifyDate">2023-06-23 17:47:38</column>
@@ -177,7 +133,7 @@
             <column name="AT_Title">ccccc</column>
             <column name="AT_Description">cccc</column>
             <column name="AT_Note">&lt;p class=&quot;noid&quot; style=&quot;box-sizing: inherit; margin-right: 0px; margin-bottom: 1.2em; margin-left: 0px; padding: 0px; border: 0px; color: rgb(17, 17, 17); font-family: Kanit, sans-serif;&quot;&gt;เราอยากพัฒนาตนเอง… แต่เลือกดูซีรีส์มากกว่าอ่านหนังสือ&lt;br style=&quot;box-</column>
-            <column name="AT_Image">0.png</column>
+            <column name="AT_Image"></column>
             <column name="AT_UserCreate"></column>
             <column name="AT_CreateDate">2023-06-23 17:49:04</column>
             <column name="AT_ModifyDate">2023-06-23 17:49:04</column>
@@ -190,7 +146,7 @@
             <column name="AT_Title">หฟกหฟก</column>
             <column name="AT_Description">หฟกหฟก</column>
             <column name="AT_Note">&lt;p&gt;ฟหกหฟกหฟกหฟ&lt;/p&gt;</column>
-            <column name="AT_Image">0.png</column>
+            <column name="AT_Image"></column>
             <column name="AT_UserCreate"></column>
             <column name="AT_CreateDate">2023-07-04 09:05:41</column>
             <column name="AT_ModifyDate">2023-07-04 09:05:41</column>
@@ -229,7 +185,7 @@
             <column name="AT_Title">bg</column>
             <column name="AT_Description">hgfhgf</column>
             <column name="AT_Note">&lt;p&gt;hgfhgfhfg&lt;/p&gt;</column>
-            <column name="AT_Image">0.png</column>
+            <column name="AT_Image"></column>
             <column name="AT_UserCreate"></column>
             <column name="AT_CreateDate">2023-07-04 11:55:41</column>
             <column name="AT_ModifyDate">2023-07-04 11:55:41</column>
@@ -255,7 +211,7 @@
             <column name="AT_Title">dsadsada</column>
             <column name="AT_Description">sadasdas</column>
             <column name="AT_Note">&lt;p&gt;sadsadad&lt;/p&gt;</column>
-            <column name="AT_Image">0.png</column>
+            <column name="AT_Image"></column>
             <column name="AT_UserCreate"></column>
             <column name="AT_CreateDate">2023-07-04 11:58:41</column>
             <column name="AT_ModifyDate">2023-07-04 11:58:41</column>
@@ -268,7 +224,7 @@
             <column name="AT_Title">fdsf</column>
             <column name="AT_Description">sdfsd</column>
             <column name="AT_Note">&lt;p&gt;fdsfsd&lt;/p&gt;</column>
-            <column name="AT_Image">0.png</column>
+            <column name="AT_Image"></column>
             <column name="AT_UserCreate"></column>
             <column name="AT_CreateDate">2023-07-04 11:59:22</column>
             <column name="AT_ModifyDate">2023-07-04 11:59:22</column>
@@ -281,7 +237,7 @@
             <column name="AT_Title">gfdsgsd</column>
             <column name="AT_Description">sfgs</column>
             <column name="AT_Note">&lt;p&gt;gfdagfag&lt;/p&gt;</column>
-            <column name="AT_Image">0.png</column>
+            <column name="AT_Image"></column>
             <column name="AT_UserCreate"></column>
             <column name="AT_CreateDate">2023-07-04 12:00:32</column>
             <column name="AT_ModifyDate">2023-07-04 12:00:32</column>
@@ -294,7 +250,7 @@
             <column name="AT_Title">aaaa</column>
             <column name="AT_Description">aaaa</column>
             <column name="AT_Note">&lt;p&gt;aaaaaaa&lt;/p&gt;</column>
-            <column name="AT_Image">0.png</column>
+            <column name="AT_Image"></column>
             <column name="AT_UserCreate"></column>
             <column name="AT_CreateDate">2023-07-04 12:01:20</column>
             <column name="AT_ModifyDate">2023-07-04 12:01:20</column>
@@ -307,7 +263,7 @@
             <column name="AT_Title">gfff</column>
             <column name="AT_Description">ffff</column>
             <column name="AT_Note">&lt;p&gt;fff&lt;/p&gt;</column>
-            <column name="AT_Image">0.png</column>
+            <column name="AT_Image"></column>
             <column name="AT_UserCreate"></column>
             <column name="AT_CreateDate">2023-07-04 12:03:02</column>
             <column name="AT_ModifyDate">2023-07-04 12:03:02</column>
@@ -320,7 +276,7 @@
             <column name="AT_Title">ddd</column>
             <column name="AT_Description">ddd</column>
             <column name="AT_Note">&lt;p&gt;dddd&lt;/p&gt;</column>
-            <column name="AT_Image">0.png</column>
+            <column name="AT_Image"></column>
             <column name="AT_UserCreate"></column>
             <column name="AT_CreateDate">2023-07-04 12:03:35</column>
             <column name="AT_ModifyDate">2023-07-04 12:03:35</column>
@@ -333,7 +289,7 @@
             <column name="AT_Title">aaaaa</column>
             <column name="AT_Description">aaaaa</column>
             <column name="AT_Note">&lt;p&gt;&lt;img src=&quot;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAiMAAAC1CAYAAACNiv/GAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAGdiSURBVHhe7Z0HnKTnXd9/0/v2fr0XnbosS7ItW+4YGzs2BgtjbAMJJE4IEBJDIJVAAiQmkJAPoZkAsR13Y2NbsozVu07lTnenq3u3e7u3</column>
-            <column name="AT_Image">0.png</column>
+            <column name="AT_Image"></column>
             <column name="AT_UserCreate"></column>
             <column name="AT_CreateDate">2023-07-04 14:19:48</column>
             <column name="AT_ModifyDate">2023-07-04 14:19:48</column>
@@ -359,7 +315,7 @@
             <column name="AT_Title">999</column>
             <column name="AT_Description">999</column>
             <column name="AT_Note">&lt;p&gt;&lt;br&gt;&lt;/p&gt;</column>
-            <column name="AT_Image">0.png</column>
+            <column name="AT_Image"></column>
             <column name="AT_UserCreate"></column>
             <column name="AT_CreateDate">2023-07-04 16:44:35</column>
             <column name="AT_ModifyDate">2023-07-04 16:44:35</column>
@@ -456,47 +412,1075 @@
             <column name="AT_ModifyDate">2023-07-07 14:13:10</column>
         </table>
         <table name="activities">
-            <column name="AT_Code">43</column>
-            <column name="AT_Entity_No.">1</column>
-            <column name="AT_Date">2023-07-07</column>
-            <column name="AT_Time">16:23:48</column>
-            <column name="AT_Title">hhhh</column>
-            <column name="AT_Description">hhh</column>
-            <column name="AT_Note"></column>
-            <column name="AT_Image">43.jpg</column>
-            <column name="AT_UserCreate"></column>
-            <column name="AT_CreateDate">2023-07-07 16:23:48</column>
-            <column name="AT_ModifyDate">2023-07-07 16:23:48</column>
-        </table>
-        <table name="activities">
             <column name="AT_Code">44</column>
             <column name="AT_Entity_No.">1</column>
             <column name="AT_Date">2023-07-07</column>
             <column name="AT_Time">17:28:18</column>
-            <column name="AT_Title">aaaa</column>
-            <column name="AT_Description">aaaa</column>
-            <column name="AT_Note">PHA+YWFhYWFhYTwvcD4=</column>
+            <column name="AT_Title">aaaab</column>
+            <column name="AT_Description">aaaab</column>
+            <column name="AT_Note">PHA+YWFhYWFhYWI8L3A+</column>
             <column name="AT_Image">44.jpg</column>
             <column name="AT_UserCreate"></column>
             <column name="AT_CreateDate">2023-07-07 17:28:18</column>
-            <column name="AT_ModifyDate">2023-07-07 17:28:18</column>
+            <column name="AT_ModifyDate">2023-07-11 10:40:07</column>
+        </table>
+        <table name="activities">
+            <column name="AT_Code">45</column>
+            <column name="AT_Entity_No.">1</column>
+            <column name="AT_Date">2023-07-11</column>
+            <column name="AT_Time">09:46:48</column>
+            <column name="AT_Title">Test001ข่าวสารและกิจกรรม</column>
+            <column name="AT_Description">ข่าวสารและกิจกรรม</column>
+            <column name="AT_Note">PHA+4LiC4LmI4Liy4Lin4Liq4Liy4Lij4LmB4Lil4Liw4LiB4Li04LiI4LiB4Lij4Lij4Lih4LiC4LmI4Liy4Lin4Liq4Liy4Lij4LmB4Lil4Liw4LiB4Li04LiI4LiB4Lij4Lij4Lih4LiC4LmI4Liy4Lin4Liq4Liy4Lij4LmB4Lil4Liw4LiB4Li04LiI4LiB4Lij4Lij4Lih4LiC4LmI4Liy4Lin4Liq4Liy4Lij4LmB4Lil4Liw4LiB4Li04LiI4LiB4Lij4Lij4Lih4LiC4LmI4Liy4Lin4Liq4Liy4Lij4LmB4Lil4Liw4LiB4Li04LiI4LiB4Lij4Lij4Lih4LiC4LmI4Liy4Lin4Liq4Liy4Lij4LmB4Lil4Liw4LiB4Li04LiI4LiB4Lij4Lij4Lih4LiC4LmI4Liy4Lin4Liq4Liy4Lij4LmB4Lil4Liw4LiB4Li04LiI4LiB4Lij4Lij4Lih4LiC4LmI4Liy4Lin4Liq4Liy4Lij4LmB4Lil4Liw4LiB4Li04LiI4LiB4Lij4Lij4Lih4LiC4LmI4Liy4Lin4Liq4Liy4Lij4LmB4Lil4Liw4LiB4Li04LiI4LiB4Lij4Lij4Lih4LiC4LmI4Liy4Lin4Liq4Liy4Lij4LmB4Lil4Liw4LiB4Li04LiI4LiB4Lij4Lij4Lih4LiC4LmI4Liy4Lin4Liq4Liy4Lij4LmB4Lil4Liw4LiB4Li04LiI4LiB4Lij4Lij4Lih4LiC4LmI4Liy4Lin4Liq4Liy4Lij4LmB4Lil4Liw4LiB4Li04LiI4LiB4Lij4Lij4Lih4LiC4LmI4Liy4Lin4Liq4Liy4Lij4LmB4Lil4Liw4LiB4Li04LiI4LiB4Lij4Lij4Lih4LiC4LmI4Liy4Lin4Liq4Liy4Lij4LmB4Lil4Liw4LiB4Li04LiI4LiB4Lij4Lij4Lih4LiC4LmI4Liy4Lin4Liq4Liy4Lij4LmB4Lil4Liw4LiB4Li04LiI4LiB4Lij4Lij4Lih4LiC4LmI4Liy4Lin4Liq4Liy4Lij4LmB4Lil4Liw4LiB4Li04LiI4LiB4Lij4Lij4Lih4LiC4LmI4Liy4Lin4Liq4Liy4Lij4LmB4Lil4Liw4LiB4Li04LiI4LiB4Lij4Lij4Lih4LiC4LmI4Liy4Lin4Liq4Liy4Lij4LmB4Lil4Liw4LiB4Li04LiI4LiB4Lij4Lij4Lih4LiC4LmI4Liy4Lin4Liq4Liy4Lij4LmB4Lil4Liw4LiB4Li04LiI4LiB4Lij4Lij4Lih4LiC4LmI4Liy4Lin4Liq4Liy4Lij4LmB4Lil4Liw4LiB4Li04LiI4LiB4Lij4Lij4Lih4LiC4LmI4Liy4Lin4Liq4Liy4Lij4LmB4Lil4Liw4LiB4Li04LiI4LiB4Lij4Lij4Lih4LiC4LmI4Liy4Lin4Liq4Liy4Lij4LmB4Lil4Liw4LiB4Li04LiI4LiB4Lij4Lij4Lih4LiC4LmI4Liy4Lin4Liq4Liy4Lij4LmB4Lil4Liw4LiB4Li04LiI4LiB4Lij4Lij4Lih4LiC4LmI4Liy4Lin4Liq4Liy4Lij4LmB4Lil4Liw4LiB4Li04LiI4LiB4Lij4Lij4Lih4LiC4LmI4Liy4Lin4Liq4Liy4Lij4LmB4Lil4Liw4LiB4Li04LiI4LiB4Lij4Lij4Lih4LiC4LmI4Liy4Lin4Liq4Liy4Lij4LmB4Lil4Liw4LiB4Li04LiI4LiB4Lij4Lij4Lih4LiC4LmI4Liy4Lin4Liq4Liy4Lij4LmB4Lil4Liw4LiB4Li04LiI4LiB4Lij4Lij4Lih4LiC4LmI4Liy4Lin4Liq4Liy4Lij4LmB4Lil4Liw4LiB4Li04LiI4LiB4Lij4Lij4Lih4LiC4LmI4Liy4Lin4Liq4Liy4Lij4LmB4Lil4Liw4LiB4Li04LiI4LiB4Lij4Lij4Lih4LiC4LmI4Liy4Lin4Liq4Liy4Lij4LmB4Lil4Liw4LiB4Li04LiI4LiB4Lij4Lij4Lih4LiC4LmI4Liy4Lin4Liq4Liy4Lij4LmB4Lil4Liw4LiB4Li04LiI4LiB4Lij4Lij4Lih4LiC4LmI4Liy4Lin4Liq4Liy4Lij4LmB4Lil4Liw4LiB4Li04LiI4LiB4Lij4Lij4Lih4LiC4LmI4Liy4Lin4Liq4Liy4Lij4LmB4Lil4Liw4LiB4Li04LiI4LiB4Lij4Lij4Lih4LiC4LmI4Liy4Lin4Liq4Liy4Lij4LmB4Lil4Liw4LiB4Li04LiI4LiB4Lij4Lij4Lih4LiC4LmI4Liy4Lin4Liq4Liy4Lij4LmB4Lil4Liw4LiB4Li04LiI4LiB4Lij4Lij4Lih4LiC4LmI4Liy4Lin4Liq4Liy4Lij4LmB4Lil4Liw4LiB4Li04LiI4LiB4Lij4Lij4Lih4LiC4LmI4Liy4Lin4Liq4Liy4Lij4LmB4Lil4Liw4LiB4Li04LiI4LiB4Lij4Lij4Lih4LiC4LmI4Liy4Lin4Liq4Liy4Lij4LmB4Lil4Liw4LiB4Li04LiI4LiB4Lij4Lij4Lih4LiC4LmI4Liy4Lin4Liq4Liy4Lij4LmB4Lil4Liw4LiB4Li04LiI4LiB4Lij4Lij4Lih4LiC4LmI4Liy4Lin4Liq4Liy4Lij4LmB4Lil4Liw4LiB4Li04LiI4LiB4Lij4Lij4Lih4LiC4LmI4Liy4Lin4Liq4Liy4Lij4LmB4Lil4Liw4LiB4Li04LiI4LiB4Lij4Lij4Lih4LiC4LmI4Liy4Lin4Liq4Liy4Lij4LmB4Lil4Liw4LiB4Li04LiI4LiB4Lij4Lij4Lih4LiC4LmI4Liy4Lin4Liq4Liy4Lij4LmB4Lil4Liw4LiB4Li04LiI4LiB4Lij4Lij4Lih4LiC4LmI4Liy4Lin4Liq4Liy4Lij4LmB4Lil4Liw4LiB4Li04LiI4LiB4Lij4Lij4Lih4LiC4LmI4Liy4Lin4Liq4Liy4Lij4LmB4Lil4Liw4LiB4Li04LiI4LiB4Lij4Lij4Lih4LiC4LmI4Liy4Lin4Liq4Liy4Lij4LmB4Lil4Liw4LiB4Li04LiI4LiB4Lij4Lij4Lih4LiC4LmI4Liy4Lin4Liq4Liy4Lij4LmB4Lil4Liw4LiB4Li04LiI4LiB4Lij4Lij4Lih4LiC4LmI4Liy4Lin4Liq4Liy4Lij4LmB4Lil4Liw4LiB4Li04LiI4LiB4Lij4Lij4Lih4LiC4LmI4Liy4Lin4Liq4Liy4Lij4LmB4Lil4Liw4LiB4Li04LiI4LiB4Lij4Lij4Lih4LiC4LmI4Liy4Lin4Liq4Liy4Lij4LmB4Lil4Liw4LiB4Li04LiI4LiB4Lij4Lij4Lih4LiC4LmI4Liy4Lin4Liq4Liy4Lij4LmB4Lil4Liw4LiB4Li04LiI4LiB4Lij4Lij4Lih4LiC4LmI4Liy4Lin4Liq4Liy4Lij4LmB4Lil4Liw4LiB4Li04LiI4LiB4Lij4Lij4Lih4LiC4LmI4Liy4Lin4Liq4Liy4Lij4LmB4Lil4Liw4LiB4Li04LiI4LiB4Lij4Lij4Lih4LiC4LmI4Liy4Lin4Liq4Liy4Lij4LmB4Lil4Liw4LiB4Li04LiI4LiB4Lij4Lij4Lih4LiC4LmI4Liy4Lin4Liq4Liy4Lij4LmB4Lil4Liw4LiB4Li04LiI4LiB4Lij4Lij4Lih4LiC4LmI4Liy4Lin4Liq4Liy4Lij4LmB4Lil4Liw4LiB4Li04LiI4LiB4Lij4Lij4Lih4LiC4LmI4Liy4Lin4Liq4Liy4Lij4LmB4Lil4Liw4LiB4Li04LiI4LiB4Lij4Lij4Lih4LiC4LmI4Liy4Lin4Liq4Liy4Lij4LmB4Lil4Liw4LiB4Li04LiI4LiB4Lij4Lij4Lih4LiC4LmI4Liy4Lin4Liq4Liy4Lij4LmB4Lil4Liw4LiB4Li04LiI4LiB4Lij4Lij4Lih4LiC4LmI4Liy4Lin4Liq4Liy4Lij4LmB4Lil4Liw4LiB4Li04LiI4LiB4Lij4Lij4Lih4LiC4LmI4Liy4Lin4Liq4Liy4Lij4LmB4Lil4Liw4LiB4Li04LiI4LiB4Lij4Lij4Lih4LiC4LmI4Liy4Lin4Liq4Liy4Lij4LmB4Lil4Liw4LiB4Li04LiI4LiB4Lij4Lij4Lih4LiC4LmI4Liy4Lin4Liq4Liy4Lij4LmB4Lil4Liw4LiB4Li04LiI4LiB4Lij4Lij4Lih4LiC4LmI4Liy4Lin4Liq4Liy4Lij4LmB4Lil4Liw4LiB4Li04LiI4LiB4Lij4Lij4Lih4LiC4LmI4Liy4Lin4Liq4Liy4Lij4LmB4Lil4Liw4LiB4Li04LiI4LiB4Lij4Lij4Lih4LiC4LmI4Liy4Lin4Liq4Liy4Lij4LmB4Lil4Liw4LiB4Li04LiI4LiB4Lij4Lij4Lih4LiC4LmI4Liy4Lin4Liq4Liy4Lij4LmB4Lil4Liw4LiB4Li04LiI4LiB4Lij4Lij4Lih4LiC4LmI4Liy4Lin4Liq4Liy4Lij4LmB4Lil4Liw4LiB4Li04LiI4LiB4Lij4Lij4Lih4LiC4LmI4Liy4Lin4Liq4Liy4Lij4LmB4Lil4Liw4LiB4Li04LiI4LiB4Lij4Lij4Lih4LiC4LmI4Liy4Lin4Liq4Liy4Lij4LmB4Lil4Liw4LiB4Li04LiI4LiB4Lij4Lij4Lih4LiC4LmI4Liy4Lin4Liq4Liy4Lij4LmB4Lil4Liw4LiB4Li04LiI4LiB4Lij4Lij4Lih4LiC4LmI4Liy4Lin4Liq4Liy4Lij4LmB4Lil4Liw4LiB4Li04LiI4LiB4Lij4Lij4Lih4LiC4LmI4Liy4Lin4Liq4Liy4Lij4LmB4Lil4Liw4LiB4Li04LiI4LiB4Lij4Lij4Lih4LiC4LmI4Liy4Lin4Liq4Liy4Lij4LmB4Lil4Liw4LiB4Li04LiI4LiB4Lij4Lij4Lih4LiC4LmI4Liy4Lin4Liq4Liy4Lij4LmB4Lil4Liw4LiB4Li04LiI4LiB4Lij4Lij4Lih4LiC4LmI4Liy4Lin4Liq4Liy4Lij4LmB4Lil4Liw4LiB4Li04LiI4LiB4Lij4Lij4Lih4LiC4LmI4Liy4Lin4Liq4Liy4Lij4LmB4Lil4Liw4LiB4Li04LiI4LiB4Lij4Lij4Lih4LiC4LmI4Liy4Lin4Liq4Liy4Lij4LmB4Lil4Liw4LiB4Li04LiI4LiB4Lij4Lij4Lih4LiC4LmI4Liy4Lin4Liq4Liy4Lij4LmB4Lil4Liw4LiB4Li04LiI4LiB4Lij4Lij4Lih4LiC4LmI4Liy4Lin4Liq4Liy4Lij4LmB4Lil4Liw4LiB4Li04LiI4LiB4Lij4Lij4Lih4LiC4LmI4Liy4Lin4Liq4Liy4Lij4LmB4Lil4Liw4LiB4Li04LiI4LiB4Lij4Lij4Lih4LiC4LmI4Liy4Lin4Liq4Liy4Lij4LmB4Lil4Liw4LiB4Li04LiI4LiB4Lij4Lij4Lih4LiC4LmI4Liy4Lin4Liq4Liy4Lij4LmB4Lil4Liw4LiB4Li04LiI4LiB4Lij4Lij4Lih4LiC4LmI4Liy4Lin4Liq4Liy4Lij4LmB4Lil4Liw4LiB4Li04LiI4LiB4Lij4Lij4Lih4LiC4LmI4Liy4Lin4Liq4Liy4Lij4LmB4Lil4Liw4LiB4Li04LiI4LiB4Lij4Lij4Lih4LiC4LmI4Liy4Lin4Liq4Liy4Lij4LmB4Lil4Liw4LiB4Li04LiI4LiB4Lij4Lij4Lih4LiC4LmI4Liy4Lin4Liq4Liy4Lij4LmB4Lil4Liw4LiB4Li04LiI4LiB4Lij4Lij4Lih4LiC4LmI4Liy4Lin4Liq4Liy4Lij4LmB4Lil4Liw4LiB4Li04LiI4LiB4Lij4Lij4Lih4LiC4LmI4Liy4Lin4Liq4Liy4Lij4LmB4Lil4Liw4LiB4Li04LiI4LiB4Lij4Lij4Lih4LiC4LmI4Liy4Lin4Liq4Liy4Lij4LmB4Lil4Liw4LiB4Li04LiI4LiB4Lij4Lij4Lih4LiC4LmI4Liy4Lin4Liq4Liy4Lij4LmB4Lil4Liw4LiB4Li04LiI4LiB4Lij4Lij4Lih4LiC4LmI4Liy4Lin4Liq4Liy4Lij4LmB4Lil4Liw4LiB4Li04LiI4LiB4Lij4Lij4Lih4LiC4LmI4Liy4Lin4Liq4Liy4Lij4LmB4Lil4Liw4LiB4Li04LiI4LiB4Lij4Lij4Lih4LiC4LmI4Liy4Lin4Liq4Liy4Lij4LmB4Lil4Liw4LiB4Li04LiI4LiB4Lij4Lij4Lih4LiC4LmI4Liy4Lin4Liq4Liy4Lij4LmB4Lil4Liw4LiB4Li04LiI4LiB4Lij4Lij4Lih4LiC4LmI4Liy4Lin4Liq4Liy4Lij4LmB4Lil4Liw4LiB4Li04LiI4LiB4Lij4Lij4Lih4LiC4LmI4Liy4Lin4Liq4Liy4Lij4LmB4Lil4Liw4LiB4Li04LiI4LiB4Lij4Lij4Lih4LiC4LmI4Liy4Lin4Liq4Liy4Lij4LmB4Lil4Liw4LiB4Li04LiI4LiB4Lij4Lij4Lih4LiC4LmI4Liy4Lin4Liq4Liy4Lij4LmB4Lil4Liw4LiB4Li04LiI4LiB4Lij4Lij4Lih4LiC4LmI4Liy4Lin4Liq4Liy4Lij4LmB4Lil4Liw4LiB4Li04LiI4LiB4Lij4Lij4Lih4LiC4LmI4Liy4Lin4Liq4Liy4Lij4LmB4Lil4Liw4LiB4Li04LiI4LiB4Lij4Lij4Lih4LiC4LmI4Liy4Lin4Liq4Liy4Lij4LmB4Lil4Liw4LiB4Li04LiI4LiB4Lij4Lij4Lih4LiC4LmI4Liy4Lin4Liq4Liy4Lij4LmB4Lil4Liw4LiB4Li04LiI4LiB4Lij4Lij4Lih4LiC4LmI4Liy4Lin4Liq4Liy4Lij4LmB4Lil4Liw4LiB4Li04LiI4LiB4Lij4Lij4Lih4LiC4LmI4Liy4Lin4Liq4Liy4Lij4LmB4Lil4Liw4LiB4Li04LiI4LiB4Lij4Lij4Lih4LiC4LmI4Liy4Lin4Liq4Liy4Lij4LmB4Lil4Liw4LiB4Li04LiI4LiB4Lij4Lij4Lih4LiC4LmI4Liy4Lin4Liq4Liy4Lij4LmB4Lil4Liw4LiB4Li04LiI4LiB4Lij4Lij4Lih4LiC4LmI4Liy4Lin4Liq4Liy4Lij4LmB4Lil4Liw4LiB4Li04LiI4LiB4Lij4Lij4Lih4LiC4LmI4Liy4Lin4Liq4Liy4Lij4LmB4Lil4Liw4LiB4Li04LiI4LiB4Lij4Lij4Lih4LiC4LmI4Liy4Lin4Liq4Liy4Lij4LmB4Lil4Liw4LiB4Li04LiI4LiB4Lij4Lij4Lih4LiC4LmI4Liy4Lin4Liq4Liy4Lij4LmB4Lil4Liw4LiB4Li04LiI4LiB4Lij4Lij4Lih4LiC4LmI4Liy4Lin4Liq4Liy4Lij4LmB4Lil4Liw4LiB4Li04LiI4LiB4Lij4Lij4Lih4LiC4LmI4Liy4Lin4Liq4Liy4Lij4LmB4Lil4Liw4LiB4Li04LiI4LiB4Lij4Lij4Lih4LiC4LmI4Liy4Lin4Liq4Liy4Lij4LmB4Lil4Liw4LiB4Li04LiI4LiB4Lij4Lij4Lih4LiC4LmI4Liy4Lin4Liq4Liy4Lij4LmB4Lil4Liw4LiB4Li04LiI4LiB4Lij4Lij4Lih4LiC4LmI4Liy4Lin4Liq4Liy4Lij4LmB4Lil4Liw4LiB4Li04LiI4LiB4Lij4Lij4Lih4LiC4LmI4Liy4Lin4Liq4Liy4Lij4LmB4Lil4Liw4LiB4Li04LiI4LiB4Lij4Lij4Lih4LiC4LmI4Liy4Lin4Liq4Liy4Lij4LmB4Lil4Liw4LiB4Li04LiI4LiB4Lij4Lij4Lih4LiC4LmI4Liy4Lin4Liq4Liy4Lij4LmB4Lil4Liw4LiB4Li04LiI4LiB4Lij4Lij4Lih4LiC4LmI4Liy4Lin4Liq4Liy4Lij4LmB4Lil4Liw4LiB4Li04LiI4LiB4Lij4Lij4Lih4LiC4LmI4Liy4Lin4Liq4Liy4Lij4LmB4Lil4Liw4LiB4Li04LiI4LiB4Lij4Lij4Lih4LiC4LmI4Liy4Lin4Liq4Liy4Lij4LmB4Lil4Liw4LiB4Li04LiI4LiB4Lij4Lij4Lih4LiC4LmI4Liy4Lin4Liq4Liy4Lij4LmB4Lil4Liw4LiB4Li04LiI4LiB4Lij4Lij4Lih4LiC4LmI4Liy4Lin4Liq4Liy4Lij4LmB4Lil4Liw4LiB4Li04LiI4LiB4Lij4Lij4Lih4LiC4LmI4Liy4Lin4Liq4Liy4Lij4LmB4Lil4Liw4LiB4Li04LiI4LiB4Lij4Lij4Lih4LiC4LmI4Liy4Lin4Liq4Liy4Lij4LmB4Lil4Liw4LiB4Li04LiI4LiB4Lij4Lij4Lih4LiC4LmI4Liy4Lin4Liq4Liy4Lij4LmB4Lil4Liw4LiB4Li04LiI4LiB4Lij4Lij4Lih4LiC4LmI4Liy4Lin4Liq4Liy4Lij4LmB4Lil4Liw4LiB4Li04LiI4LiB4Lij4Lij4Lih4LiC4LmI4Liy4Lin4Liq4Liy4Lij4LmB4Lil4Liw4LiB4Li04LiI4LiB4Lij4Lij4Lih4LiC4LmI4Liy4Lin4Liq4Liy4Lij4LmB4Lil4Liw4LiB4Li04LiI4LiB4Lij4Lij4Lih4LiC4LmI4Liy4Lin4Liq4Liy4Lij4LmB4Lil4Liw4LiB4Li04LiI4LiB4Lij4Lij4Lih4LiC4LmI4Liy4Lin4Liq4Liy4Lij4LmB4Lil4Liw4LiB4Li04LiI4LiB4Lij4Lij4Lih4LiC4LmI4Liy4Lin4Liq4Liy4Lij4LmB4Lil4Liw4LiB4Li04LiI4LiB4Lij4Lij4Lih4LiC4LmI4Liy4Lin4Liq4Liy4Lij4LmB4Lil4Liw4LiB4Li04LiI4LiB4Lij4Lij4Lih4LiC4LmI4Liy4Lin4Liq4Liy4Lij4LmB4Lil4Liw4LiB4Li04LiI4LiB4Lij4Lij4Lih4LiC4LmI4Liy4Lin4Liq4Liy4Lij4LmB4Lil4Liw4LiB4Li04LiI4LiB4Lij4Lij4Lih4LiC4LmI4Liy4Lin4Liq4Liy4Lij4LmB4Lil4Liw4LiB4Li04LiI4LiB4Lij4Lij4Lih4LiC4LmI4Liy4Lin4Liq4Liy4Lij4LmB4Lil4Liw4LiB4Li04LiI4LiB4Lij4Lij4Lih4LiC4LmI4Liy4Lin4Liq4Liy4Lij4LmB4Lil4Liw4LiB4Li04LiI4LiB4Lij4Lij4Lih4LiC4LmI4Liy4Lin4Liq4Liy4Lij4LmB4Lil4Liw4LiB4Li04LiI4LiB4Lij4Lij4Lih4LiC4LmI4Liy4Lin4Liq4Liy4Lij4LmB4Lil4Liw4LiB4Li04LiI4LiB4Lij4Lij4Lih4LiC4LmI4Liy4Lin4Liq4Liy4Lij4LmB4Lil4Liw4LiB4Li04LiI4LiB4Lij4Lij4Lih4LiC4LmI4Liy4Lin4Liq4Liy4Lij4LmB4Lil4Liw4LiB4Li04LiI4LiB4Lij4Lij4Lih4LiC4LmI4Liy4Lin4Liq4Liy4Lij4LmB4Lil4Liw4LiB4Li04LiI4LiB4Lij4Lij4Lih4LiC4LmI4Liy4Lin4Liq4Liy4Lij4LmB4Lil4Liw4LiB4Li04LiI4LiB4Lij4Lij4Lih4LiC4LmI4Liy4Lin4Liq4Liy4Lij4LmB4Lil4Liw4LiB4Li04LiI4LiB4Lij4Lij4Lih4LiC4LmI4Liy4Lin4Liq4Liy4Lij4LmB4Lil4Liw4LiB4Li04LiI4LiB4Lij4Lij4Lih4LiC4LmI4Liy4Lin4Liq4Liy4Lij4LmB4Lil4Liw4LiB4Li04LiI4LiB4Lij4Lij4Lih4LiC4LmI4Liy4Lin4Liq4Liy4Lij4LmB4Lil4Liw4LiB4Li04LiI4LiB4Lij4Lij4Lih4LiC4LmI4Liy4Lin4Liq4Liy4Lij4LmB4Lil4Liw4LiB4Li04LiI4LiB4Lij4Lij4Lih4LiC4LmI4Liy4Lin4Liq4Liy4Lij4LmB4Lil4Liw4LiB4Li04LiI4LiB4Lij4Lij4Lih4LiC4LmI4Liy4Lin4Liq4Liy4Lij4LmB4Lil4Liw4LiB4Li04LiI4LiB4Lij4Lij4Lih4LiC4LmI4Liy4Lin4Liq4Liy4Lij4LmB4Lil4Liw4LiB4Li04LiI4LiB4Lij4Lij4Lih4LiC4LmI4Liy4Lin4Liq4Liy4Lij4LmB4Lil4Liw4LiB4Li04LiI4LiB4Lij4Lij4Lih4LiC4LmI4Liy4Lin4Liq4Liy4Lij4LmB4Lil4Liw4LiB4Li04LiI4LiB4Lij4Lij4Lih4LiC4LmI4Liy4Lin4Liq4Liy4Lij4LmB4Lil4Liw4LiB4Li04LiI4LiB4Lij4Lij4Lih4LiC4LmI4Liy4Lin4Liq4Liy4Lij4LmB4Lil4Liw4LiB4Li04LiI4LiB4Lij4Lij4Lih4LiC4LmI4Liy4Lin4Liq4Liy4Lij4LmB4Lil4Liw4LiB4Li04LiI4LiB4Lij4Lij4Lih4LiC4LmI4Liy4Lin4Liq4Liy4Lij4LmB4Lil4Liw4LiB4Li04LiI4LiB4Lij4Lij4Lih4LiC4LmI4Liy4Lin4Liq4Liy4Lij4LmB4Lil4Liw4LiB4Li04LiI4LiB4Lij4Lij4Lih4LiC4LmI4Liy4Lin4Liq4Liy4Lij4LmB4Lil4Liw4LiB4Li04LiI4LiB4Lij4Lij4Lih4LiC4LmI4Liy4Lin4Liq4Liy4Lij4LmB4Lil4Liw4LiB4Li04LiI4LiB4Lij4Lij4Lih4LiC4LmI4Liy4Lin4Liq4Liy4Lij4LmB4Lil4Liw4LiB4Li04LiI4LiB4Lij4Lij4Lih4LiC4LmI4Liy4Lin4Liq4Liy4Lij4LmB4Lil4Liw4LiB4Li04LiI4LiB4Lij4Lij4Lih4LiC4LmI4Liy4Lin4Liq4Liy4Lij4LmB4Lil4Liw4LiB4Li04LiI4LiB4Lij4Lij4Lih4LiC4LmI4Liy4Lin4Liq4Liy4Lij4LmB4Lil4Liw4LiB4Li04LiI4LiB4Lij4Lij4Lih4LiC4LmI4Liy4Lin4Liq4Liy4Lij4LmB4Lil4Liw4LiB4Li04LiI4LiB4Lij4Lij4Lih4LiC4LmI4Liy4Lin4Liq4Liy4Lij4LmB4Lil4Liw4LiB4Li04LiI4LiB4Lij4Lij4Lih4LiC4LmI4Liy4Lin4Liq4Liy4Lij4LmB4Lil4Liw4LiB4Li04LiI4LiB4Lij4Lij4Lih4LiC4LmI4Liy4Lin4Liq4Liy4Lij4LmB4Lil4Liw4LiB4Li04LiI4LiB4Lij4Lij4Lih4LiC4LmI4Liy4Lin4Liq4Liy4Lij4LmB4Lil4Liw4LiB4Li04LiI4LiB4Lij4Lij4Lih4LiC4LmI4Liy4Lin4Liq4Liy4Lij4LmB4Lil4Liw4LiB4Li04LiI4LiB4Lij4Lij4Lih4LiC4LmI4Liy4Lin4Liq4Liy4Lij4LmB4Lil4Liw4LiB4Li04LiI4LiB4Lij4Lij4Lih4LiC4LmI4Liy4Lin4Liq4Liy4Lij4LmB4Lil4Liw4LiB4Li04LiI4LiB4Lij4Lij4Lih4LiC4LmI4Liy4Lin4Liq4Liy4Lij4LmB4Lil4Liw4LiB4Li04LiI4LiB4Lij4Lij4Lih4LiC4LmI4Liy4Lin4Liq4Liy4Lij4LmB4Lil4Liw4LiB4Li04LiI4LiB4Lij4Lij4Lih4LiC4LmI4Liy4Lin4Liq4Liy4Lij4LmB4Lil4Liw4LiB4Li04LiI4LiB4Lij4Lij4Lih4LiC4LmI4Liy4Lin4Liq4Liy4Lij4LmB4Lil4Liw4LiB4Li04LiI4LiB4Lij4Lij4Lih4LiC4LmI4Liy4Lin4Liq4Liy4Lij4LmB4Lil4Liw4LiB4Li04LiI4LiB4Lij4Lij4Lih4LiC4LmI4Liy4Lin4Liq4Liy4Lij4LmB4Lil4Liw4LiB4Li04LiI4LiB4Lij4Lij4Lih4LiC4LmI4Liy4Lin4Liq4Liy4Lij4LmB4Lil4Liw4LiB4Li04LiI4LiB4Lij4Lij4Lih4LiC4LmI4Liy4Lin4Liq4Liy4Lij4LmB4Lil4Liw4LiB4Li04LiI4LiB4Lij4Lij4Lih4LiC4LmI4Liy4Lin4Liq4Liy4Lij4LmB4Lil4Liw4LiB4Li04LiI4LiB4Lij4Lij4Lih4LiC4LmI4Liy4Lin4Liq4Liy4Lij4LmB4Lil4Liw4LiB4Li04LiI4LiB4Lij4Lij4Lih4LiC4LmI4Liy4Lin4Liq4Liy4Lij4LmB4Lil4Liw4LiB4Li04LiI4LiB4Lij4Lij4Lih4LiC4LmI4Liy4Lin4Liq4Liy4Lij4LmB4Lil4Liw4LiB4Li04LiI4LiB4Lij4Lij4Lih4LiC4LmI4Liy4Lin4Liq4Liy4Lij4LmB4Lil4Liw4LiB4Li04LiI4LiB4Lij4Lij4Lih4LiC4LmI4Liy4Lin4Liq4Liy4Lij4LmB4Lil4Liw4LiB4Li04LiI4LiB4Lij4Lij4Lih4LiC4LmI4Liy4Lin4Liq4Liy4Lij4LmB4Lil4Liw4LiB4Li04LiI4LiB4Lij4Lij4Lih4LiC4LmI4Liy4Lin4Liq4Liy4Lij4LmB4Lil4Liw4LiB4Li04LiI4LiB4Lij4Lij4Lih4LiC4LmI4Liy4Lin4Liq4Liy4Lij4LmB4Lil4Liw4LiB4Li04LiI4LiB4Lij4Lij4Lih4LiC4LmI4Liy4Lin4Liq4Liy4Lij4LmB4Lil4Liw4LiB4Li04LiI4LiB4Lij4Lij4Lih4LiC4LmI4Liy4Lin4Liq4Liy4Lij4LmB4Lil4Liw4LiB4Li04LiI4LiB4Lij4Lij4Lih4LiC4LmI4Liy4Lin4Liq4Liy4Lij4LmB4Lil4Liw4LiB4Li04LiI4LiB4Lij4Lij4Lih4LiC4LmI4Liy4Lin4Liq4Liy4Lij4LmB4Lil4Liw4LiB4Li04LiI4LiB4Lij4Lij4Lih4LiC4LmI4Liy4Lin4Liq4Liy4Lij4LmB4Lil4Liw4LiB4Li04LiI4LiB4Lij4Lij4Lih4LiC4LmI4Liy4Lin4Liq4Liy4Lij4LmB4Lil4Liw4LiB4Li04LiI4LiB4Lij4Lij4Lih4LiC4LmI4Liy4Lin4Liq4Liy4Lij4LmB4Lil4Liw4LiB4Li04LiI4LiB4Lij4Lij4Lih4LiC4LmI4Liy4Lin4Liq4Liy4Lij4LmB4Lil4Liw4LiB4Li04LiI4LiB4Lij4Lij4Lih4LiC4LmI4Liy4Lin4Liq4Liy4Lij4LmB4Lil4Liw4LiB4Li04LiI4LiB4Lij4Lij4Lih4LiC4LmI4Liy4Lin4Liq4Liy4Lij4LmB4Lil4Liw4LiB4Li04LiI4LiB4Lij4Lij4Lih4LiC4LmI4Liy4Lin4Liq4Liy4Lij4LmB4Lil4Liw4LiB4Li04LiI4LiB4Lij4Lij4Lih4LiC4LmI4Liy4Lin4Liq4Liy4Lij4LmB4Lil4Liw4LiB4Li04LiI4LiB4Lij4Lij4Lih4LiC4LmI4Liy4Lin4Liq4Liy4Lij4LmB4Lil4Liw4LiB4Li04LiI4LiB4Lij4Lij4Lih4LiC4LmI4Liy4Lin4Liq4Liy4Lij4LmB4Lil4Liw4LiB4Li04LiI4LiB4Lij4Lij4Lih4LiC4LmI4Liy4Lin4Liq4Liy4Lij4LmB4Lil4Liw4LiB4Li04LiI4LiB4Lij4Lij4Lih4LiC4LmI4Liy4Lin4Liq4Liy4Lij4LmB4Lil4Liw4LiB4Li04LiI4LiB4Lij4Lij4Lih4LiC4LmI4Liy4Lin4Liq4Liy4Lij4LmB4Lil4Liw4LiB4Li04LiI4LiB4Lij4Lij4Lih4LiC4LmI4Liy4Lin4Liq4Liy4Lij4LmB4Lil4Liw4LiB4Li04LiI4LiB4Lij4Lij4Lih4LiC4LmI4Liy4Lin4Liq4Liy4Lij4LmB4Lil4Liw4LiB4Li04LiI4LiB4Lij4Lij4Lih4LiC4LmI4Liy4Lin4Liq4Liy4Lij4LmB4Lil4Liw4LiB4Li04LiI4LiB4Lij4Lij4Lih4LiC4LmI4Liy4Lin4Liq4Liy4Lij4LmB4Lil4Liw4LiB4Li04LiI4LiB4Lij4Lij4Lih4LiC4LmI4Liy4Lin4Liq4Liy4Lij4LmB4Lil4Liw4LiB4Li04LiI4LiB4Lij4Lij4Lih4LiC4LmI4Liy4Lin4Liq4Liy4Lij4LmB4Lil4Liw4LiB4Li04LiI4LiB4Lij4Lij4Lih4LiC4LmI4Liy4Lin4Liq4Liy4Lij4LmB4Lil4Liw4LiB4Li04LiI4LiB4Lij4Lij4Lih4LiC4LmI4Liy4Lin4Liq4Liy4Lij4LmB4Lil4Liw4LiB4Li04LiI4LiB4Lij4Lij4Lih4LiC4LmI4Liy4Lin4Liq4Liy4Lij4LmB4Lil4Liw4LiB4Li04LiI4LiB4Lij4Lij4Lih4LiC4LmI4Liy4Lin4Liq4Liy4Lij4LmB4Lil4Liw4LiB4Li04LiI4LiB4Lij4Lij4Lih4LiC4LmI4Liy4Lin4Liq4Liy4Lij4LmB4Lil4Liw4LiB4Li04LiI4LiB4Lij4Lij4Lih4LiC4LmI4Liy4Lin4Liq4Liy4Lij4LmB4Lil4Liw4LiB4Li04LiI4LiB4Lij4Lij4Lih4LiC4LmI4Liy4Lin4Liq4Liy4Lij4LmB4Lil4Liw4LiB4Li04LiI4LiB4Lij4Lij4Lih4LiC4LmI4Liy4Lin4Liq4Liy4Lij4LmB4Lil4Liw4LiB4Li04LiI4LiB4Lij4Lij4Lih4LiC4LmI4Liy4Lin4Liq4Liy4Lij4LmB4Lil4Liw4LiB4Li04LiI4LiB4Lij4Lij4Lih4LiC4LmI4Liy4Lin4Liq4Liy4Lij4LmB4Lil4Liw4LiB4Li04LiI4LiB4Lij4Lij4Lih4LiC4LmI4Liy4Lin4Liq4Liy4Lij4LmB4Lil4Liw4LiB4Li04LiI4LiB4Lij4Lij4Lih4LiC4LmI4Liy4Lin4Liq4Liy4Lij4LmB4Lil4Liw4LiB4Li04LiI4LiB4Lij4Lij4Lih4LiC4LmI4Liy4Lin4Liq4Liy4Lij4LmB4Lil4Liw4LiB4Li04LiI4LiB4Lij4Lij4Lih4LiC4LmI4Liy4Lin4Liq4Liy4Lij4LmB4Lil4Liw4LiB4Li04LiI4LiB4Lij4Lij4Lih4LiC4LmI4Liy4Lin4Liq4Liy4Lij4LmB4Lil4Liw4LiB4Li04LiI4LiB4Lij4Lij4Lih4LiC4LmI4Liy4Lin4Liq4Liy4Lij4LmB4Lil4Liw4LiB4Li04LiI4LiB4Lij4Lij4Lih4LiC4LmI4Liy4Lin4Liq4Liy4Lij4LmB4Lil4Liw4LiB4Li04LiI4LiB4Lij4Lij4Lih4LiC4LmI4Liy4Lin4Liq4Liy4Lij4LmB4Lil4Liw4LiB4Li04LiI4LiB4Lij4Lij4Lih4LiC4LmI4Liy4Lin4Liq4Liy4Lij4LmB4Lil4Liw4LiB4Li04LiI4LiB4Lij4Lij4LihPC9wPg==</column>
+            <column name="AT_Image">45.jpg</column>
+            <column name="AT_UserCreate"></column>
+            <column name="AT_CreateDate">2023-07-11 09:46:48</column>
+            <column name="AT_ModifyDate">2023-07-11 09:46:48</column>
+        </table>
+        <table name="activities">
+            <column name="AT_Code">46</column>
+            <column name="AT_Entity_No.">2</column>
+            <column name="AT_Date">2023-07-11</column>
+            <column name="AT_Time">10:19:22</column>
+            <column name="AT_Title">Test001-Edit</column>
+            <column name="AT_Description">ทักษะทางสังคมที่ใช้เพื่อปฏิสัมพันธ์-Edit</column>
+            <column name="AT_Note">PGgyIGNsYXNzPSJtYi0wIG10LTAiIHN0eWxlPSJ0ZXh0LWFsaWduOiBjZW50ZXI7Ij7guJfguLHguIHguKnguLDguJfguLLguIfguKrguLHguIfguITguKHguJfguLXguYjguYPguIrguYnguYDguJ7guLfguYjguK3guJvguI/guLTguKrguLHguKHguJ7guLHguJnguJjguYzguJfguLHguIHguKnguLDguJfguLLguIfguKrguLHguIfguITguKHguJfguLXguYjguYPguIrguYnguYDguJ7guLfguYjguK3guJvguI/guLTguKrguLHguKHguJ7guLHguJnguJjguYzguJfguLHguIHguKnguLDguJfguLLguIfguKrguLHguIfguITguKHguJfguLXguYjguYPguIrguYnguYDguJ7guLfguYjguK3guJvguI/guLTguKrguLHguKHguJ7guLHguJnguJjguYzguJfguLHguIHguKnguLDguJfguLLguIfguKrguLHguIfguITguKHguJfguLXguYjguYPguIrguYnguYDguJ7guLfguYjguK3guJvguI/guLTguKrguLHguKHguJ7guLHguJnguJjguYzguJfguLHguIHguKnguLDguJfguLLguIfguKrguLHguIfguITguKHguJfguLXguYjguYPguIrguYnguYDguJ7guLfguYjguK3guJvguI/guLTguKrguLHguKHguJ7guLHguJnguJjguYzguJfguLHguIHguKnguLDguJfguLLguIfguKrguLHguIfguITguKHguJfguLXguYjguYPguIrguYnguYDguJ7guLfguYjguK3guJvguI/guLTguKrguLHguKHguJ7guLHguJnguJjguYzguJfguLHguIHguKnguLDguJfguLLguIfguKrguLHguIfguITguKHguJfguLXguYjguYPguIrguYnguYDguJ7guLfguYjguK3guJvguI/guLTguKrguLHguKHguJ7guLHguJnguJjguYzguJfguLHguIHguKnguLDguJfguLLguIfguKrguLHguIfguITguKHguJfguLXguYjguYPguIrguYnguYDguJ7guLfguYjguK3guJvguI/guLTguKrguLHguKHguJ7guLHguJnguJjguYzguJfguLHguIHguKnguLDguJfguLLguIfguKrguLHguIfguITguKHguJfguLXguYjguYPguIrguYnguYDguJ7guLfguYjguK3guJvguI/guLTguKrguLHguKHguJ7guLHguJnguJjguYzguJfguLHguIHguKnguLDguJfguLLguIfguKrguLHguIfguITguKHguJfguLXguYjguYPguIrguYnguYDguJ7guLfguYjguK3guJvguI/guLTguKrguLHguKHguJ7guLHguJnguJjguYzguJfguLHguIHguKnguLDguJfguLLguIfguKrguLHguIfguITguKHguJfguLXguYjguYPguIrguYnguYDguJ7guLfguYjguK3guJvguI/guLTguKrguLHguKHguJ7guLHguJnguJjguYzguJfguLHguIHguKnguLDguJfguLLguIfguKrguLHguIfguITguKHguJfguLXguYjguYPguIrguYnguYDguJ7guLfguYjguK3guJvguI/guLTguKrguLHguKHguJ7guLHguJnguJjguYzguJfguLHguIHguKnguLDguJfguLLguIfguKrguLHguIfguITguKHguJfguLXguYjguYPguIrguYnguYDguJ7guLfguYjguK3guJvguI/guLTguKrguLHguKHguJ7guLHguJnguJjguYzguJfguLHguIHguKnguLDguJfguLLguIfguKrguLHguIfguITguKHguJfguLXguYjguYPguIrguYnguYDguJ7guLfguYjguK3guJvguI/guLTguKrguLHguKHguJ7guLHguJnguJjguYzguJfguLHguIHguKnguLDguJfguLLguIfguKrguLHguIfguITguKHguJfguLXguYjguYPguIrguYnguYDguJ7guLfguYjguK3guJvguI/guLTguKrguLHguKHguJ7guLHguJnguJjguYzguJfguLHguIHguKnguLDguJfguLLguIfguKrguLHguIfguITguKHguJfguLXguYjguYPguIrguYnguYDguJ7guLfguYjguK3guJvguI/guLTguKrguLHguKHguJ7guLHguJnguJjguYzguJfguLHguIHguKnguLDguJfguLLguIfguKrguLHguIfguITguKHguJfguLXguYjguYPguIrguYnguYDguJ7guLfguYjguK3guJvguI/guLTguKrguLHguKHguJ7guLHguJnguJjguYzguJfguLHguIHguKnguLDguJfguLLguIfguKrguLHguIfguITguKHguJfguLXguYjguYPguIrguYnguYDguJ7guLfguYjguK3guJvguI/guLTguKrguLHguKHguJ7guLHguJnguJjguYzguJfguLHguIHguKnguLDguJfguLLguIfguKrguLHguIfguITguKHguJfguLXguYjguYPguIrguYnguYDguJ7guLfguYjguK3guJvguI/guLTguKrguLHguKHguJ7guLHguJnguJjguYzguJfguLHguIHguKnguLDguJfguLLguIfguKrguLHguIfguITguKHguJfguLXguYjguYPguIrguYnguYDguJ7guLfguYjguK3guJvguI/guLTguKrguLHguKHguJ7guLHguJnguJjguYzguJfguLHguIHguKnguLDguJfguLLguIfguKrguLHguIfguITguKHguJfguLXguYjguYPguIrguYnguYDguJ7guLfguYjguK3guJvguI/guLTguKrguLHguKHguJ7guLHguJnguJjguYzguJfguLHguIHguKnguLDguJfguLLguIfguKrguLHguIfguITguKHguJfguLXguYjguYPguIrguYnguYDguJ7guLfguYjguK3guJvguI/guLTguKrguLHguKHguJ7guLHguJnguJjguYzguJfguLHguIHguKnguLDguJfguLLguIfguKrguLHguIfguITguKHguJfguLXguYjguYPguIrguYnguYDguJ7guLfguYjguK3guJvguI/guLTguKrguLHguKHguJ7guLHguJnguJjguYzguJfguLHguIHguKnguLDguJfguLLguIfguKrguLHguIfguITguKHguJfguLXguYjguYPguIrguYnguYDguJ7guLfguYjguK3guJvguI/guLTguKrguLHguKHguJ7guLHguJnguJjguYzguJfguLHguIHguKnguLDguJfguLLguIfguKrguLHguIfguITguKHguJfguLXguYjguYPguIrguYnguYDguJ7guLfguYjguK3guJvguI/guLTguKrguLHguKHguJ7guLHguJnguJjguYzguJfguLHguIHguKnguLDguJfguLLguIfguKrguLHguIfguITguKHguJfguLXguYjguYPguIrguYnguYDguJ7guLfguYjguK3guJvguI/guLTguKrguLHguKHguJ7guLHguJnguJjguYzguJfguLHguIHguKnguLDguJfguLLguIfguKrguLHguIfguITguKHguJfguLXguYjguYPguIrguYnguYDguJ7guLfguYjguK3guJvguI/guLTguKrguLHguKHguJ7guLHguJnguJjguYzguJfguLHguIHguKnguLDguJfguLLguIfguKrguLHguIfguITguKHguJfguLXguYjguYPguIrguYnguYDguJ7guLfguYjguK3guJvguI/guLTguKrguLHguKHguJ7guLHguJnguJjguYw8L2gyPg==</column>
+            <column name="AT_Image">46.png</column>
+            <column name="AT_UserCreate"></column>
+            <column name="AT_CreateDate">2023-07-11 10:19:22</column>
+            <column name="AT_ModifyDate">2023-07-11 10:42:28</column>
+        </table>
+        <table name="activities">
+            <column name="AT_Code">47</column>
+            <column name="AT_Entity_No.">1</column>
+            <column name="AT_Date">2023-07-11</column>
+            <column name="AT_Time">10:35:18</column>
+            <column name="AT_Title">Tset002</column>
+            <column name="AT_Description">สร้างข่าวสารและกิจกรรม</column>
+            <column name="AT_Note">PGgyIGNsYXNzPSJtYi0wIG10LTAiIHN0eWxlPSJ0ZXh0LWFsaWduOiBjZW50ZXI7Ij7guKrguKPguYnguLLguIfguILguYjguLLguKfguKrguLLguKPguYHguKXguLDguIHguLTguIjguIHguKPguKPguKHguKrguKPguYnguLLguIfguILguYjguLLguKfguKrguLLguKPguYHguKXguLDguIHguLTguIjguIHguKPguKPguKHguKrguKPguYnguLLguIfguILguYjguLLguKfguKrguLLguKPguYHguKXguLDguIHguLTguIjguIHguKPguKPguKHguKrguKPguYnguLLguIfguILguYjguLLguKfguKrguLLguKPguYHguKXguLDguIHguLTguIjguIHguKPguKPguKHguKrguKPguYnguLLguIfguILguYjguLLguKfguKrguLLguKPguYHguKXguLDguIHguLTguIjguIHguKPguKPguKHguKrguKPguYnguLLguIfguILguYjguLLguKfguKrguLLguKPguYHguKXguLDguIHguLTguIjguIHguKPguKPguKHguKrguKPguYnguLLguIfguILguYjguLLguKfguKrguLLguKPguYHguKXguLDguIHguLTguIjguIHguKPguKPguKHguKrguKPguYnguLLguIfguILguYjguLLguKfguKrguLLguKPguYHguKXguLDguIHguLTguIjguIHguKPguKPguKHguKrguKPguYnguLLguIfguILguYjguLLguKfguKrguLLguKPguYHguKXguLDguIHguLTguIjguIHguKPguKPguKHguKrguKPguYnguLLguIfguILguYjguLLguKfguKrguLLguKPguYHguKXguLDguIHguLTguIjguIHguKPguKPguKHguKrguKPguYnguLLguIfguILguYjguLLguKfguKrguLLguKPguYHguKXguLDguIHguLTguIjguIHguKPguKPguKHguKrguKPguYnguLLguIfguILguYjguLLguKfguKrguLLguKPguYHguKXguLDguIHguLTguIjguIHguKPguKPguKE8L2gyPg==</column>
+            <column name="AT_Image">47.jpg</column>
+            <column name="AT_UserCreate"></column>
+            <column name="AT_CreateDate">2023-07-11 10:35:18</column>
+            <column name="AT_ModifyDate">2023-07-11 10:35:18</column>
+        </table>
+        <table name="activities">
+            <column name="AT_Code">49</column>
+            <column name="AT_Entity_No.">5</column>
+            <column name="AT_Date">2023-07-12</column>
+            <column name="AT_Time">13:05:00</column>
+            <column name="AT_Title">A-1</column>
+            <column name="AT_Description">A-1</column>
+            <column name="AT_Note">PHA+QS0xPC9wPg==</column>
+            <column name="AT_Image">48.jpg</column>
+            <column name="AT_UserCreate"></column>
+            <column name="AT_CreateDate">2023-07-12 13:05:00</column>
+            <column name="AT_ModifyDate">2023-07-12 13:41:59</column>
+        </table>
+        <table name="activities">
+            <column name="AT_Code">50</column>
+            <column name="AT_Entity_No.">9</column>
+            <column name="AT_Date">2023-07-12</column>
+            <column name="AT_Time">13:42:40</column>
+            <column name="AT_Title">C-2</column>
+            <column name="AT_Description">C-2</column>
+            <column name="AT_Note">PHA+Qy0yPC9wPg==</column>
+            <column name="AT_Image">50.png</column>
+            <column name="AT_UserCreate"></column>
+            <column name="AT_CreateDate">2023-07-12 13:42:40</column>
+            <column name="AT_ModifyDate">2023-07-12 13:44:18</column>
+        </table>
+        <table name="activities">
+            <column name="AT_Code">51</column>
+            <column name="AT_Entity_No.">5</column>
+            <column name="AT_Date">2023-07-12</column>
+            <column name="AT_Time">13:44:48</column>
+            <column name="AT_Title">A-2</column>
+            <column name="AT_Description">A-2</column>
+            <column name="AT_Note">PHA+QS0yPC9wPg==</column>
+            <column name="AT_Image">51.jpg</column>
+            <column name="AT_UserCreate"></column>
+            <column name="AT_CreateDate">2023-07-12 13:44:48</column>
+            <column name="AT_ModifyDate">2023-07-12 13:44:48</column>
+        </table>
+        <table name="activities">
+            <column name="AT_Code">52</column>
+            <column name="AT_Entity_No.">8</column>
+            <column name="AT_Date">2023-07-12</column>
+            <column name="AT_Time">13:47:47</column>
+            <column name="AT_Title">B1</column>
+            <column name="AT_Description">B1</column>
+            <column name="AT_Note">PHA+QjE8L3A+</column>
+            <column name="AT_Image">52.jpg</column>
+            <column name="AT_UserCreate"></column>
+            <column name="AT_CreateDate">2023-07-12 13:47:47</column>
+            <column name="AT_ModifyDate">2023-07-12 13:47:47</column>
+        </table>
+        <table name="activities">
+            <column name="AT_Code">53</column>
+            <column name="AT_Entity_No.">8</column>
+            <column name="AT_Date">2023-07-12</column>
+            <column name="AT_Time">13:49:08</column>
+            <column name="AT_Title">B0</column>
+            <column name="AT_Description">B0</column>
+            <column name="AT_Note">PHA+QjA8L3A+</column>
+            <column name="AT_Image">53.jpg</column>
+            <column name="AT_UserCreate"></column>
+            <column name="AT_CreateDate">2023-07-12 13:49:08</column>
+            <column name="AT_ModifyDate">2023-07-12 13:49:08</column>
+        </table>
+        <table name="activities">
+            <column name="AT_Code">54</column>
+            <column name="AT_Entity_No.">8</column>
+            <column name="AT_Date">2023-07-12</column>
+            <column name="AT_Time">13:52:30</column>
+            <column name="AT_Title">B2</column>
+            <column name="AT_Description">B2</column>
+            <column name="AT_Note">PHA+QjI8L3A+</column>
+            <column name="AT_Image">54.jpg</column>
+            <column name="AT_UserCreate"></column>
+            <column name="AT_CreateDate">2023-07-12 13:52:30</column>
+            <column name="AT_ModifyDate">2023-07-12 13:54:29</column>
+        </table>
+        <table name="activities">
+            <column name="AT_Code">55</column>
+            <column name="AT_Entity_No.">9</column>
+            <column name="AT_Date">2023-07-12</column>
+            <column name="AT_Time">13:55:05</column>
+            <column name="AT_Title">C-1</column>
+            <column name="AT_Description">C-1</column>
+            <column name="AT_Note">PHA+Qy0xPC9wPg==</column>
+            <column name="AT_Image">55.jpg</column>
+            <column name="AT_UserCreate"></column>
+            <column name="AT_CreateDate">2023-07-12 13:55:05</column>
+            <column name="AT_ModifyDate">2023-07-13 09:32:30</column>
+        </table>
+        <table name="activities">
+            <column name="AT_Code">56</column>
+            <column name="AT_Entity_No.">4</column>
+            <column name="AT_Date">2023-07-14</column>
+            <column name="AT_Time">09:35:57</column>
+            <column name="AT_Title">การแบ่งปันความรู้</column>
+            <column name="AT_Description">Test การแบ่งปันความรู้</column>
+            <column name="AT_Note">PGgyIGNsYXNzPSJtYi0wIG10LTAiIHN0eWxlPSJ0ZXh0LWFsaWduOiBjZW50ZXI7Ij48YSBocmVmPSJodHRwczovL3d3dy5za2lsbGxhbmUuY29tL2NvdXJzZXMvbWljcm9zb2Z0LWV4Y2VsIiB0YXJnZXQ9Il9ibGFuayI+4LiB4Liy4Lij4LmB4Lia4LmI4LiH4Lib4Lix4LiZ4LiE4Lin4Liy4Lih4Lij4Li54LmJPC9hPjwvaDI+</column>
+            <column name="AT_Image">56.jpg</column>
+            <column name="AT_UserCreate"></column>
+            <column name="AT_CreateDate">2023-07-14 09:35:57</column>
+            <column name="AT_ModifyDate">2023-07-14 09:35:57</column>
+        </table>
+        <table name="activities">
+            <column name="AT_Code">57</column>
+            <column name="AT_Entity_No.">5</column>
+            <column name="AT_Date">2023-07-14</column>
+            <column name="AT_Time">10:11:25</column>
+            <column name="AT_Title">ทักษะหรือความสามารถในแต่ละสายอาชีพ</column>
+            <column name="AT_Description">ทักษะหรือความสามารถในแต่ละสายอาชีพ</column>
+            <column name="AT_Note">PGRpdiBjbGFzcz0iY29udGFpbmVyIiBzdHlsZT0id2lkdGg6IDEyOTZweDsgcGFkZGluZy1yaWdodDogdmFyKC0tYnMtZ3V0dGVyLXgsIC43NXJlbSk7IHBhZGRpbmctbGVmdDogdmFyKC0tYnMtZ3V0dGVyLXgsIC43NXJlbSk7IGZvbnQtZmFtaWx5OiAmcXVvdDtPcGVuIFNhbnMmcXVvdDssIHNhbnMtc2VyaWY7Ij48ZGl2IGNsYXNzPSJ0ZXh0LWNlbnRlciBteC1hdXRvIG1iLTIgd293IGZhZGVJblVwIiBkYXRhLXdvdy1kZWxheT0iMC4xcyIgc3R5bGU9Im1heC13aWR0aDogNjAwcHg7IHZpc2liaWxpdHk6IHZpc2libGU7IGFuaW1hdGlvbi1kZWxheTogMC4xczsiPjxoMiBjbGFzcz0ibWItMCBtdC0wIj7guJfguLHguIHguKnguLDguKvguKPguLfguK3guITguKfguLLguKHguKrguLLguKHguLLguKPguJbguYPguJnguYHguJXguYjguKXguLDguKrguLLguKLguK3guLLguIrguLXguJ48L2gyPjwvZGl2PjwvZGl2PjxkaXYgY2xhc3M9InRleHQtc3RhcnQgbXgtYXV0byBtYi0yIHdvdyBmYWRlSW5VcCIgZGF0YS13b3ctZGVsYXk9IjAuMXMiIHN0eWxlPSJmb250LWZhbWlseTogJnF1b3Q7T3BlbiBTYW5zJnF1b3Q7LCBzYW5zLXNlcmlmOyB2aXNpYmlsaXR5OiB2aXNpYmxlOyBhbmltYXRpb24tZGVsYXk6IDAuMXM7Ij48ZGl2IGNsYXNzPSJyb3cgZy00IiBzdHlsZT0iLS1icy1ndXR0ZXIteDogMS41cmVtOyAtLWJzLWd1dHRlci15OiAxLjVyZW07IG1hcmdpbi10b3A6IGNhbGModmFyKC0tYnMtZ3V0dGVyLXkpICogLTEpOyBtYXJnaW4tcmlnaHQ6IGNhbGModmFyKC0tYnMtZ3V0dGVyLXgpIC8gLTIpOyBtYXJnaW4tbGVmdDogY2FsYyh2YXIoLS1icy1ndXR0ZXIteCkgLyAtMik7Ij48ZGl2IGNsYXNzPSJjb2wtMTIgd293IGZhZGVJblVwIiBkYXRhLXdvdy1kZWxheT0iMC4xcyIgc3R5bGU9IndpZHRoOiAxMzIwcHg7IHBhZGRpbmctcmlnaHQ6IGNhbGModmFyKC0tYnMtZ3V0dGVyLXgpIC8gMik7IHBhZGRpbmctbGVmdDogY2FsYyh2YXIoLS1icy1ndXR0ZXIteCkgLyAyKTsgbWFyZ2luLXRvcDogdmFyKC0tYnMtZ3V0dGVyLXkpOyB2aXNpYmlsaXR5OiB2aXNpYmxlOyBhbmltYXRpb24tZGVsYXk6IDAuMXM7Ij48Zm9ybSBhY3Rpb249Imh0dHA6Ly8xMC4xMC45LjY1L3Rlc3R3ZWIvUHJvX0FkZE5ld3MucGhwIiBtZXRob2Q9InBvc3QiIGVuY3R5cGU9Im11bHRpcGFydC9mb3JtLWRhdGEiPjxkaXYgY2xhc3M9InJvdyBnLTMiIHN0eWxlPSItLWJzLWd1dHRlci14OiAxcmVtOyAtLWJzLWd1dHRlci15OiAxcmVtOyBtYXJnaW4tdG9wOiBjYWxjKHZhcigtLWJzLWd1dHRlci15KSAqIC0xKTsgbWFyZ2luLXJpZ2h0OiBjYWxjKHZhcigtLWJzLWd1dHRlci14KSAvIC0yKTsgbWFyZ2luLWxlZnQ6IGNhbGModmFyKC0tYnMtZ3V0dGVyLXgpIC8gLTIpOyI+PGRpdiBjbGFzcz0iY29sLTYgY29sLXNtLTMiIHN0eWxlPSJ3aWR0aDogMzI4cHg7IHBhZGRpbmctcmlnaHQ6IGNhbGModmFyKC0tYnMtZ3V0dGVyLXgpIC8gMik7IHBhZGRpbmctbGVmdDogY2FsYyh2YXIoLS1icy1ndXR0ZXIteCkgLyAyKTsgbWFyZ2luLXRvcDogdmFyKC0tYnMtZ3V0dGVyLXkpOyI+PC9kaXY+PC9kaXY+PC9mb3JtPjwvZGl2PjwvZGl2PjwvZGl2PjxwIHN0eWxlPSJ0ZXh0LWFsaWduOiBjZW50ZXI7ICI+PGlmcmFtZSBmcmFtZWJvcmRlcj0iMCIgc3JjPSIvL3d3dy55b3V0dWJlLmNvbS9lbWJlZC9NU21wTzg1MDV3WT9zdGFydD0xMDIiIHdpZHRoPSI2NDAiIGhlaWdodD0iMzYwIiBjbGFzcz0ibm90ZS12aWRlby1jbGlwIj48L2lmcmFtZT48YnI+PC9wPg==</column>
+            <column name="AT_Image"></column>
+            <column name="AT_UserCreate"></column>
+            <column name="AT_CreateDate">2023-07-14 10:11:25</column>
+            <column name="AT_ModifyDate">2023-07-14 10:11:25</column>
+        </table>
+        <table name="activities">
+            <column name="AT_Code">58</column>
+            <column name="AT_Entity_No.">1</column>
+            <column name="AT_Date">2023-07-18</column>
+            <column name="AT_Time">13:27:05</column>
+            <column name="AT_Title">112</column>
+            <column name="AT_Description">112</column>
+            <column name="AT_Note">PHA+MTEyPC9wPg==</column>
+            <column name="AT_Image">0.png</column>
+            <column name="AT_UserCreate"></column>
+            <column name="AT_CreateDate">2023-07-18 13:27:05</column>
+            <column name="AT_ModifyDate">2023-07-18 13:27:05</column>
+        </table>
+        <table name="activities">
+            <column name="AT_Code">59</column>
+            <column name="AT_Entity_No.">1</column>
+            <column name="AT_Date">2023-07-18</column>
+            <column name="AT_Time">13:34:28</column>
+            <column name="AT_Title">112</column>
+            <column name="AT_Description">112</column>
+            <column name="AT_Note">PHA+MjIyMjwvcD4=</column>
+            <column name="AT_Image">0.png</column>
+            <column name="AT_UserCreate"></column>
+            <column name="AT_CreateDate">2023-07-18 13:34:28</column>
+            <column name="AT_ModifyDate">2023-07-18 13:34:28</column>
+        </table>
+        <table name="activities">
+            <column name="AT_Code">60</column>
+            <column name="AT_Entity_No.">1</column>
+            <column name="AT_Date">2023-07-18</column>
+            <column name="AT_Time">13:36:43</column>
+            <column name="AT_Title">112</column>
+            <column name="AT_Description">112</column>
+            <column name="AT_Note">PHA+MjIyMjwvcD4=</column>
+            <column name="AT_Image">0.png</column>
+            <column name="AT_UserCreate"></column>
+            <column name="AT_CreateDate">2023-07-18 13:36:43</column>
+            <column name="AT_ModifyDate">2023-07-18 13:36:43</column>
+        </table>
+        <table name="activities">
+            <column name="AT_Code">61</column>
+            <column name="AT_Entity_No.">1</column>
+            <column name="AT_Date">2023-07-18</column>
+            <column name="AT_Time">13:37:44</column>
+            <column name="AT_Title">112</column>
+            <column name="AT_Description">112</column>
+            <column name="AT_Note">PHA+MjIyMjwvcD4=</column>
+            <column name="AT_Image">0.png</column>
+            <column name="AT_UserCreate"></column>
+            <column name="AT_CreateDate">2023-07-18 13:37:44</column>
+            <column name="AT_ModifyDate">2023-07-18 13:37:44</column>
+        </table>
+        <table name="activities">
+            <column name="AT_Code">62</column>
+            <column name="AT_Entity_No.">1</column>
+            <column name="AT_Date">2023-07-18</column>
+            <column name="AT_Time">13:38:38</column>
+            <column name="AT_Title">112</column>
+            <column name="AT_Description">112</column>
+            <column name="AT_Note">PHA+MjIyMjwvcD4=</column>
+            <column name="AT_Image">0.png</column>
+            <column name="AT_UserCreate"></column>
+            <column name="AT_CreateDate">2023-07-18 13:38:38</column>
+            <column name="AT_ModifyDate">2023-07-18 17:16:11</column>
+        </table>
+        <table name="activities">
+            <column name="AT_Code">63</column>
+            <column name="AT_Entity_No.">1</column>
+            <column name="AT_Date">2023-07-19</column>
+            <column name="AT_Time">09:57:37</column>
+            <column name="AT_Title">5</column>
+            <column name="AT_Description">5</column>
+            <column name="AT_Note">PHA+NTwvcD4=</column>
+            <column name="AT_Image">63.png</column>
+            <column name="AT_UserCreate"></column>
+            <column name="AT_CreateDate">2023-07-19 09:57:37</column>
+            <column name="AT_ModifyDate">2023-07-19 09:57:37</column>
+        </table>
+        <table name="activities">
+            <column name="AT_Code">64</column>
+            <column name="AT_Entity_No.">1</column>
+            <column name="AT_Date">2023-07-19</column>
+            <column name="AT_Time">10:04:26</column>
+            <column name="AT_Title">6</column>
+            <column name="AT_Description">6</column>
+            <column name="AT_Note">PHA+NjwvcD4=</column>
+            <column name="AT_Image">64.png</column>
+            <column name="AT_UserCreate"></column>
+            <column name="AT_CreateDate">2023-07-19 10:04:26</column>
+            <column name="AT_ModifyDate">2023-07-19 10:04:26</column>
+        </table>
+        <table name="activities">
+            <column name="AT_Code">65</column>
+            <column name="AT_Entity_No.">1</column>
+            <column name="AT_Date">2023-07-19</column>
+            <column name="AT_Time">10:06:52</column>
+            <column name="AT_Title">7</column>
+            <column name="AT_Description">7</column>
+            <column name="AT_Note">PHA+NzwvcD4=</column>
+            <column name="AT_Image">65.png</column>
+            <column name="AT_UserCreate"></column>
+            <column name="AT_CreateDate">2023-07-19 10:06:52</column>
+            <column name="AT_ModifyDate">2023-07-19 10:06:52</column>
+        </table>
+        <table name="activities">
+            <column name="AT_Code">66</column>
+            <column name="AT_Entity_No.">1</column>
+            <column name="AT_Date">2023-07-19</column>
+            <column name="AT_Time">10:18:16</column>
+            <column name="AT_Title">1</column>
+            <column name="AT_Description">1</column>
+            <column name="AT_Note">PHA+MTwvcD4=</column>
+            <column name="AT_Image">0.png</column>
+            <column name="AT_UserCreate"></column>
+            <column name="AT_CreateDate">2023-07-19 10:18:16</column>
+            <column name="AT_ModifyDate">2023-07-19 10:18:16</column>
+        </table>
+        <table name="activities">
+            <column name="AT_Code">67</column>
+            <column name="AT_Entity_No.">1</column>
+            <column name="AT_Date">2023-07-19</column>
+            <column name="AT_Time">10:44:29</column>
+            <column name="AT_Title">333</column>
+            <column name="AT_Description">33</column>
+            <column name="AT_Note">PHA+MzMzPC9wPg==</column>
+            <column name="AT_Image">0.png</column>
+            <column name="AT_UserCreate"></column>
+            <column name="AT_CreateDate">2023-07-19 10:44:29</column>
+            <column name="AT_ModifyDate">2023-07-19 10:44:29</column>
+        </table>
+        <table name="activities">
+            <column name="AT_Code">68</column>
+            <column name="AT_Entity_No.">1</column>
+            <column name="AT_Date">2023-07-19</column>
+            <column name="AT_Time">11:18:53</column>
+            <column name="AT_Title">44</column>
+            <column name="AT_Description">44</column>
+            <column name="AT_Note">PHA+NDQ8L3A+</column>
+            <column name="AT_Image">68.png</column>
+            <column name="AT_UserCreate"></column>
+            <column name="AT_CreateDate">2023-07-19 11:18:53</column>
+            <column name="AT_ModifyDate">2023-07-19 11:47:50</column>
+        </table>
+        <table name="activities">
+            <column name="AT_Code">69</column>
+            <column name="AT_Entity_No.">1</column>
+            <column name="AT_Date">2023-07-19</column>
+            <column name="AT_Time">11:28:38</column>
+            <column name="AT_Title">5</column>
+            <column name="AT_Description">5</column>
+            <column name="AT_Note">PHA+NTwvcD4=</column>
+            <column name="AT_Image">69.jpg</column>
+            <column name="AT_UserCreate"></column>
+            <column name="AT_CreateDate">2023-07-19 11:28:38</column>
+            <column name="AT_ModifyDate">2023-07-19 11:40:47</column>
+        </table>
+        <table name="activities">
+            <column name="AT_Code">72</column>
+            <column name="AT_Entity_No.">1</column>
+            <column name="AT_Date">2023-07-20</column>
+            <column name="AT_Time">12:49:00</column>
+            <column name="AT_Title">s</column>
+            <column name="AT_Description">s</column>
+            <column name="AT_Note">PHA+czwvcD4=</column>
+            <column name="AT_Image">0.png</column>
+            <column name="AT_UserCreate"></column>
+            <column name="AT_CreateDate">2023-07-20 12:49:00</column>
+            <column name="AT_ModifyDate">2023-07-20 12:49:00</column>
+        </table>
+        <table name="activities">
+            <column name="AT_Code">73</column>
+            <column name="AT_Entity_No.">1</column>
+            <column name="AT_Date">2023-07-20</column>
+            <column name="AT_Time">12:49:24</column>
+            <column name="AT_Title">s</column>
+            <column name="AT_Description">s</column>
+            <column name="AT_Note">PHA+czwvcD4=</column>
+            <column name="AT_Image">0.png</column>
+            <column name="AT_UserCreate"></column>
+            <column name="AT_CreateDate">2023-07-20 12:49:24</column>
+            <column name="AT_ModifyDate">2023-07-20 12:49:24</column>
+        </table>
+        <table name="activities">
+            <column name="AT_Code">74</column>
+            <column name="AT_Entity_No.">1</column>
+            <column name="AT_Date">2023-07-20</column>
+            <column name="AT_Time">12:49:40</column>
+            <column name="AT_Title">s</column>
+            <column name="AT_Description">s</column>
+            <column name="AT_Note">PHA+czwvcD4=</column>
+            <column name="AT_Image">0.png</column>
+            <column name="AT_UserCreate"></column>
+            <column name="AT_CreateDate">2023-07-20 12:49:40</column>
+            <column name="AT_ModifyDate">2023-07-20 12:49:40</column>
+        </table>
+        <table name="activities">
+            <column name="AT_Code">75</column>
+            <column name="AT_Entity_No.">1</column>
+            <column name="AT_Date">2023-07-20</column>
+            <column name="AT_Time">12:51:24</column>
+            <column name="AT_Title">5</column>
+            <column name="AT_Description">5</column>
+            <column name="AT_Note">PHA+NTwvcD4=</column>
+            <column name="AT_Image">0.png</column>
+            <column name="AT_UserCreate"></column>
+            <column name="AT_CreateDate">2023-07-20 12:51:24</column>
+            <column name="AT_ModifyDate">2023-07-20 12:51:24</column>
+        </table>
+        <table name="activities">
+            <column name="AT_Code">76</column>
+            <column name="AT_Entity_No.">1</column>
+            <column name="AT_Date">2023-07-20</column>
+            <column name="AT_Time">12:51:44</column>
+            <column name="AT_Title">5</column>
+            <column name="AT_Description">5</column>
+            <column name="AT_Note">PHA+NTwvcD4=</column>
+            <column name="AT_Image">0.png</column>
+            <column name="AT_UserCreate"></column>
+            <column name="AT_CreateDate">2023-07-20 12:51:44</column>
+            <column name="AT_ModifyDate">2023-07-20 12:51:44</column>
+        </table>
+        <table name="activities">
+            <column name="AT_Code">77</column>
+            <column name="AT_Entity_No.">1</column>
+            <column name="AT_Date">2023-07-20</column>
+            <column name="AT_Time">12:52:27</column>
+            <column name="AT_Title">a</column>
+            <column name="AT_Description">a</column>
+            <column name="AT_Note">PHA+YTwvcD4=</column>
+            <column name="AT_Image">0.png</column>
+            <column name="AT_UserCreate"></column>
+            <column name="AT_CreateDate">2023-07-20 12:52:27</column>
+            <column name="AT_ModifyDate">2023-07-20 12:52:27</column>
+        </table>
+        <table name="activities">
+            <column name="AT_Code">78</column>
+            <column name="AT_Entity_No.">1</column>
+            <column name="AT_Date">2023-07-20</column>
+            <column name="AT_Time">12:52:45</column>
+            <column name="AT_Title">a</column>
+            <column name="AT_Description">a</column>
+            <column name="AT_Note">PHA+YTwvcD4=</column>
+            <column name="AT_Image">0.png</column>
+            <column name="AT_UserCreate"></column>
+            <column name="AT_CreateDate">2023-07-20 12:52:45</column>
+            <column name="AT_ModifyDate">2023-07-20 12:52:45</column>
+        </table>
+        <table name="activities">
+            <column name="AT_Code">79</column>
+            <column name="AT_Entity_No.">1</column>
+            <column name="AT_Date">2023-07-20</column>
+            <column name="AT_Time">12:53:33</column>
+            <column name="AT_Title">9</column>
+            <column name="AT_Description">9</column>
+            <column name="AT_Note">PHA+OTwvcD4=</column>
+            <column name="AT_Image">0.png</column>
+            <column name="AT_UserCreate"></column>
+            <column name="AT_CreateDate">2023-07-20 12:53:33</column>
+            <column name="AT_ModifyDate">2023-07-20 12:53:33</column>
+        </table>
+        <table name="activities">
+            <column name="AT_Code">80</column>
+            <column name="AT_Entity_No.">1</column>
+            <column name="AT_Date">2023-07-20</column>
+            <column name="AT_Time">12:53:46</column>
+            <column name="AT_Title">9</column>
+            <column name="AT_Description">9</column>
+            <column name="AT_Note">PHA+OTwvcD4=</column>
+            <column name="AT_Image">0.png</column>
+            <column name="AT_UserCreate"></column>
+            <column name="AT_CreateDate">2023-07-20 12:53:46</column>
+            <column name="AT_ModifyDate">2023-07-20 12:53:46</column>
+        </table>
+        <table name="activities">
+            <column name="AT_Code">81</column>
+            <column name="AT_Entity_No.">1</column>
+            <column name="AT_Date">2023-07-20</column>
+            <column name="AT_Time">12:56:43</column>
+            <column name="AT_Title">6</column>
+            <column name="AT_Description">6</column>
+            <column name="AT_Note">PHA+NjwvcD4=</column>
+            <column name="AT_Image">0.png</column>
+            <column name="AT_UserCreate"></column>
+            <column name="AT_CreateDate">2023-07-20 12:56:43</column>
+            <column name="AT_ModifyDate">2023-07-20 12:56:43</column>
+        </table>
+        <table name="activities">
+            <column name="AT_Code">82</column>
+            <column name="AT_Entity_No.">1</column>
+            <column name="AT_Date">2023-07-20</column>
+            <column name="AT_Time">12:56:57</column>
+            <column name="AT_Title">6</column>
+            <column name="AT_Description">6</column>
+            <column name="AT_Note">PHA+NjwvcD4=</column>
+            <column name="AT_Image">0.png</column>
+            <column name="AT_UserCreate"></column>
+            <column name="AT_CreateDate">2023-07-20 12:56:57</column>
+            <column name="AT_ModifyDate">2023-07-20 12:56:57</column>
+        </table>
+        <table name="activities">
+            <column name="AT_Code">83</column>
+            <column name="AT_Entity_No.">1</column>
+            <column name="AT_Date">2023-07-20</column>
+            <column name="AT_Time">12:59:42</column>
+            <column name="AT_Title">4</column>
+            <column name="AT_Description">4</column>
+            <column name="AT_Note">PHA+NDwvcD4=</column>
+            <column name="AT_Image">0.png</column>
+            <column name="AT_UserCreate"></column>
+            <column name="AT_CreateDate">2023-07-20 12:59:42</column>
+            <column name="AT_ModifyDate">2023-07-20 12:59:42</column>
+        </table>
+        <table name="activities">
+            <column name="AT_Code">84</column>
+            <column name="AT_Entity_No.">1</column>
+            <column name="AT_Date">2023-07-20</column>
+            <column name="AT_Time">12:59:57</column>
+            <column name="AT_Title">4</column>
+            <column name="AT_Description">4</column>
+            <column name="AT_Note">PHA+NDwvcD4=</column>
+            <column name="AT_Image">0.png</column>
+            <column name="AT_UserCreate"></column>
+            <column name="AT_CreateDate">2023-07-20 12:59:57</column>
+            <column name="AT_ModifyDate">2023-07-20 12:59:57</column>
         </table>
         <!-- Table category -->
         <table name="category">
             <column name="CG_Entity_No.">1</column>
+            <column name="CG_Entity_Relation_No.">0</column>
             <column name="CG_Name">News</column>
             <column name="CG_DescriptionTH">สร้างข่าวสารและกิจกรรม</column>
             <column name="CG_DescriptionEN">Form News &amp; Activities</column>
             <column name="CG_CreateDate">2023-07-07 13:25:06</column>
             <column name="CG_ModifyDate">2023-07-07 13:25:06</column>
         </table>
-        <!-- Table Setup -->
-        <table name="Setup">
+        <table name="category">
+            <column name="CG_Entity_No.">2</column>
+            <column name="CG_Entity_Relation_No.">0</column>
+            <column name="CG_Name">Soft Skills</column>
+            <column name="CG_DescriptionTH">ทักษะทางสังคมที่ใช้เพื่อปฏิสัมพันธ์</column>
+            <column name="CG_DescriptionEN">Soft Skills</column>
+            <column name="CG_CreateDate">2023-07-10 17:29:50</column>
+            <column name="CG_ModifyDate">2023-07-11 00:00:00</column>
+        </table>
+        <table name="category">
+            <column name="CG_Entity_No.">3</column>
+            <column name="CG_Entity_Relation_No.">0</column>
+            <column name="CG_Name">Hard Skills</column>
+            <column name="CG_DescriptionTH">ทักษะหรือความสามารถในแต่ละสายอาชีพ</column>
+            <column name="CG_DescriptionEN">Hard Skills</column>
+            <column name="CG_CreateDate">2023-07-10 17:29:50</column>
+            <column name="CG_ModifyDate">2023-07-11 00:00:00</column>
+        </table>
+        <table name="category">
+            <column name="CG_Entity_No.">4</column>
+            <column name="CG_Entity_Relation_No.">0</column>
+            <column name="CG_Name">Knowledge Sharing</column>
+            <column name="CG_DescriptionTH">การแบ่งปันความรู้</column>
+            <column name="CG_DescriptionEN">Knowledge Sharing</column>
+            <column name="CG_CreateDate">2023-07-10 17:30:31</column>
+            <column name="CG_ModifyDate">2023-07-11 00:00:00</column>
+        </table>
+        <table name="category">
+            <column name="CG_Entity_No.">5</column>
+            <column name="CG_Entity_Relation_No.">3</column>
+            <column name="CG_Name">Digital Skill</column>
+            <column name="CG_DescriptionTH">ทักษะพื้นฐาน</column>
+            <column name="CG_DescriptionEN">Digital Skill</column>
+            <column name="CG_CreateDate">2023-07-10 17:30:31</column>
+            <column name="CG_ModifyDate">2023-07-11 00:00:00</column>
+        </table>
+        <table name="category">
+            <column name="CG_Entity_No.">6</column>
+            <column name="CG_Entity_Relation_No.">3</column>
+            <column name="CG_Name">Language Skill</column>
+            <column name="CG_DescriptionTH">ทักษะด้านภาษา</column>
+            <column name="CG_DescriptionEN">Language Skill</column>
+            <column name="CG_CreateDate">2023-07-11 08:51:56</column>
+            <column name="CG_ModifyDate">2023-07-11 00:00:00</column>
+        </table>
+        <table name="category">
+            <column name="CG_Entity_No.">7</column>
+            <column name="CG_Entity_Relation_No.">2</column>
+            <column name="CG_Name">Certificate of Achievement</column>
+            <column name="CG_DescriptionTH">การรับใบประกาศณียบัตร</column>
+            <column name="CG_DescriptionEN">Certificate of Achievement</column>
+            <column name="CG_CreateDate">2023-07-11 13:45:05</column>
+            <column name="CG_ModifyDate">2023-07-11 00:00:00</column>
+        </table>
+        <table name="category">
+            <column name="CG_Entity_No.">8</column>
+            <column name="CG_Entity_Relation_No.">6</column>
+            <column name="CG_Name">Language Skill-1</column>
+            <column name="CG_DescriptionTH">ทักษะทางสังคมที่ใช้เพื่อปฏิสัมพันธ์กับผู้คน-1</column>
+            <column name="CG_DescriptionEN">Language Skill-1</column>
+            <column name="CG_CreateDate">2023-07-11 15:52:14</column>
+            <column name="CG_ModifyDate">2023-07-14 00:00:00</column>
+        </table>
+        <table name="category">
+            <column name="CG_Entity_No.">9</column>
+            <column name="CG_Entity_Relation_No.">6</column>
+            <column name="CG_Name">Language Skill-2</column>
+            <column name="CG_DescriptionTH">ทักษะทางสังคมที่ใช้เพื่อปฏิสัมพันธ์กับผู้คน-2</column>
+            <column name="CG_DescriptionEN">Language Skill-2</column>
+            <column name="CG_CreateDate">2023-07-11 17:29:51</column>
+            <column name="CG_ModifyDate">2023-07-14 00:00:00</column>
+        </table>
+        <table name="category">
+            <column name="CG_Entity_No.">10</column>
+            <column name="CG_Entity_Relation_No.">0</column>
+            <column name="CG_Name">Gallery</column>
+            <column name="CG_DescriptionTH">แกลลอรี่</column>
+            <column name="CG_DescriptionEN">Gallery</column>
+            <column name="CG_CreateDate">2023-07-14 09:29:13</column>
+            <column name="CG_ModifyDate">2023-07-14 00:00:00</column>
+        </table>
+        <!-- Table gallery -->
+        <table name="gallery">
+            <column name="GR_Entity_No.">2</column>
+            <column name="GR_Activities_Code">61</column>
+            <column name="GR_Name">2.gif</column>
+            <column name="GR_CreateDate">2023-07-18 13:37:44</column>
+            <column name="GR_ModifyDate">2023-07-18 13:37:44</column>
+        </table>
+        <table name="gallery">
+            <column name="GR_Entity_No.">3</column>
+            <column name="GR_Activities_Code">61</column>
+            <column name="GR_Name">3.mp4</column>
+            <column name="GR_CreateDate">2023-07-18 13:37:44</column>
+            <column name="GR_ModifyDate">2023-07-18 13:37:44</column>
+        </table>
+        <table name="gallery">
+            <column name="GR_Entity_No.">4</column>
+            <column name="GR_Activities_Code">61</column>
+            <column name="GR_Name">4.jpg</column>
+            <column name="GR_CreateDate">2023-07-18 13:37:44</column>
+            <column name="GR_ModifyDate">2023-07-18 13:37:44</column>
+        </table>
+        <table name="gallery">
+            <column name="GR_Entity_No.">5</column>
+            <column name="GR_Activities_Code">62</column>
+            <column name="GR_Name">5.gif</column>
+            <column name="GR_CreateDate">2023-07-18 13:38:38</column>
+            <column name="GR_ModifyDate">2023-07-18 13:38:38</column>
+        </table>
+        <table name="gallery">
+            <column name="GR_Entity_No.">6</column>
+            <column name="GR_Activities_Code">62</column>
+            <column name="GR_Name">6.mp4</column>
+            <column name="GR_CreateDate">2023-07-18 13:38:38</column>
+            <column name="GR_ModifyDate">2023-07-18 13:38:38</column>
+        </table>
+        <table name="gallery">
+            <column name="GR_Entity_No.">7</column>
+            <column name="GR_Activities_Code">62</column>
+            <column name="GR_Name">7.jpg</column>
+            <column name="GR_CreateDate">2023-07-18 13:38:38</column>
+            <column name="GR_ModifyDate">2023-07-18 13:38:38</column>
+        </table>
+        <table name="gallery">
+            <column name="GR_Entity_No.">8</column>
+            <column name="GR_Activities_Code">63</column>
+            <column name="GR_Name">8.gif</column>
+            <column name="GR_CreateDate">2023-07-19 09:57:37</column>
+            <column name="GR_ModifyDate">2023-07-19 09:57:37</column>
+        </table>
+        <table name="gallery">
+            <column name="GR_Entity_No.">9</column>
+            <column name="GR_Activities_Code">63</column>
+            <column name="GR_Name">9.mp4</column>
+            <column name="GR_CreateDate">2023-07-19 09:57:37</column>
+            <column name="GR_ModifyDate">2023-07-19 09:57:37</column>
+        </table>
+        <table name="gallery">
+            <column name="GR_Entity_No.">10</column>
+            <column name="GR_Activities_Code">64</column>
+            <column name="GR_Name">10.gif</column>
+            <column name="GR_CreateDate">2023-07-19 10:04:26</column>
+            <column name="GR_ModifyDate">2023-07-19 10:04:26</column>
+        </table>
+        <table name="gallery">
+            <column name="GR_Entity_No.">11</column>
+            <column name="GR_Activities_Code">64</column>
+            <column name="GR_Name">11.mp4</column>
+            <column name="GR_CreateDate">2023-07-19 10:04:26</column>
+            <column name="GR_ModifyDate">2023-07-19 10:04:26</column>
+        </table>
+        <table name="gallery">
+            <column name="GR_Entity_No.">12</column>
+            <column name="GR_Activities_Code">65</column>
+            <column name="GR_Name">12.jpg</column>
+            <column name="GR_CreateDate">2023-07-19 10:06:52</column>
+            <column name="GR_ModifyDate">2023-07-19 10:06:52</column>
+        </table>
+        <table name="gallery">
+            <column name="GR_Entity_No.">13</column>
+            <column name="GR_Activities_Code">65</column>
+            <column name="GR_Name">13.gif</column>
+            <column name="GR_CreateDate">2023-07-19 10:06:52</column>
+            <column name="GR_ModifyDate">2023-07-19 10:06:52</column>
+        </table>
+        <table name="gallery">
+            <column name="GR_Entity_No.">14</column>
+            <column name="GR_Activities_Code">65</column>
+            <column name="GR_Name">14.jpg</column>
+            <column name="GR_CreateDate">2023-07-19 10:06:53</column>
+            <column name="GR_ModifyDate">2023-07-19 10:06:53</column>
+        </table>
+        <table name="gallery">
+            <column name="GR_Entity_No.">15</column>
+            <column name="GR_Activities_Code">65</column>
+            <column name="GR_Name">15.mp4</column>
+            <column name="GR_CreateDate">2023-07-19 10:06:53</column>
+            <column name="GR_ModifyDate">2023-07-19 10:06:53</column>
+        </table>
+        <table name="gallery">
+            <column name="GR_Entity_No.">16</column>
+            <column name="GR_Activities_Code">66</column>
+            <column name="GR_Name">16.png</column>
+            <column name="GR_CreateDate">2023-07-19 10:18:16</column>
+            <column name="GR_ModifyDate">2023-07-19 10:18:16</column>
+        </table>
+        <table name="gallery">
+            <column name="GR_Entity_No.">17</column>
+            <column name="GR_Activities_Code">66</column>
+            <column name="GR_Name">17.png</column>
+            <column name="GR_CreateDate">2023-07-19 10:18:16</column>
+            <column name="GR_ModifyDate">2023-07-19 10:18:16</column>
+        </table>
+        <table name="gallery">
+            <column name="GR_Entity_No.">18</column>
+            <column name="GR_Activities_Code">66</column>
+            <column name="GR_Name">18.jpg</column>
+            <column name="GR_CreateDate">2023-07-19 10:18:16</column>
+            <column name="GR_ModifyDate">2023-07-19 10:18:16</column>
+        </table>
+        <table name="gallery">
+            <column name="GR_Entity_No.">20</column>
+            <column name="GR_Activities_Code">67</column>
+            <column name="GR_Name">20.png</column>
+            <column name="GR_CreateDate">2023-07-19 10:44:29</column>
+            <column name="GR_ModifyDate">2023-07-19 10:44:29</column>
+        </table>
+        <table name="gallery">
+            <column name="GR_Entity_No.">21</column>
+            <column name="GR_Activities_Code">67</column>
+            <column name="GR_Name">21.jpg</column>
+            <column name="GR_CreateDate">2023-07-19 10:44:29</column>
+            <column name="GR_ModifyDate">2023-07-19 10:44:29</column>
+        </table>
+        <table name="gallery">
+            <column name="GR_Entity_No.">22</column>
+            <column name="GR_Activities_Code">67</column>
+            <column name="GR_Name">22.gif</column>
+            <column name="GR_CreateDate">2023-07-19 10:44:29</column>
+            <column name="GR_ModifyDate">2023-07-19 10:44:29</column>
+        </table>
+        <table name="gallery">
+            <column name="GR_Entity_No.">23</column>
+            <column name="GR_Activities_Code">68</column>
+            <column name="GR_Name">23.png</column>
+            <column name="GR_CreateDate">2023-07-19 11:18:53</column>
+            <column name="GR_ModifyDate">2023-07-19 11:18:53</column>
+        </table>
+        <table name="gallery">
+            <column name="GR_Entity_No.">24</column>
+            <column name="GR_Activities_Code">68</column>
+            <column name="GR_Name">24.jpg</column>
+            <column name="GR_CreateDate">2023-07-19 11:18:53</column>
+            <column name="GR_ModifyDate">2023-07-19 11:18:53</column>
+        </table>
+        <table name="gallery">
+            <column name="GR_Entity_No.">25</column>
+            <column name="GR_Activities_Code">68</column>
+            <column name="GR_Name">25.gif</column>
+            <column name="GR_CreateDate">2023-07-19 11:18:53</column>
+            <column name="GR_ModifyDate">2023-07-19 11:18:53</column>
+        </table>
+        <table name="gallery">
+            <column name="GR_Entity_No.">26</column>
+            <column name="GR_Activities_Code">0</column>
+            <column name="GR_Name">26.png</column>
+            <column name="GR_CreateDate">2023-07-19 11:21:57</column>
+            <column name="GR_ModifyDate">2023-07-19 11:21:57</column>
+        </table>
+        <table name="gallery">
+            <column name="GR_Entity_No.">27</column>
+            <column name="GR_Activities_Code">0</column>
+            <column name="GR_Name">27.png</column>
+            <column name="GR_CreateDate">2023-07-19 11:21:57</column>
+            <column name="GR_ModifyDate">2023-07-19 11:21:57</column>
+        </table>
+        <table name="gallery">
+            <column name="GR_Entity_No.">28</column>
+            <column name="GR_Activities_Code">0</column>
+            <column name="GR_Name">28.jpg</column>
+            <column name="GR_CreateDate">2023-07-19 11:21:57</column>
+            <column name="GR_ModifyDate">2023-07-19 11:21:57</column>
+        </table>
+        <table name="gallery">
+            <column name="GR_Entity_No.">29</column>
+            <column name="GR_Activities_Code">0</column>
+            <column name="GR_Name">29.gif</column>
+            <column name="GR_CreateDate">2023-07-19 11:21:57</column>
+            <column name="GR_ModifyDate">2023-07-19 11:21:57</column>
+        </table>
+        <table name="gallery">
+            <column name="GR_Entity_No.">30</column>
+            <column name="GR_Activities_Code">68</column>
+            <column name="GR_Name">30.png</column>
+            <column name="GR_CreateDate">2023-07-19 11:23:00</column>
+            <column name="GR_ModifyDate">2023-07-19 11:23:00</column>
+        </table>
+        <table name="gallery">
+            <column name="GR_Entity_No.">31</column>
+            <column name="GR_Activities_Code">68</column>
+            <column name="GR_Name">31.jpg</column>
+            <column name="GR_CreateDate">2023-07-19 11:23:00</column>
+            <column name="GR_ModifyDate">2023-07-19 11:23:00</column>
+        </table>
+        <table name="gallery">
+            <column name="GR_Entity_No.">32</column>
+            <column name="GR_Activities_Code">68</column>
+            <column name="GR_Name">32.gif</column>
+            <column name="GR_CreateDate">2023-07-19 11:23:00</column>
+            <column name="GR_ModifyDate">2023-07-19 11:23:00</column>
+        </table>
+        <table name="gallery">
+            <column name="GR_Entity_No.">33</column>
+            <column name="GR_Activities_Code">69</column>
+            <column name="GR_Name">33.gif</column>
+            <column name="GR_CreateDate">2023-07-19 11:28:38</column>
+            <column name="GR_ModifyDate">2023-07-19 11:28:38</column>
+        </table>
+        <table name="gallery">
+            <column name="GR_Entity_No.">34</column>
+            <column name="GR_Activities_Code">69</column>
+            <column name="GR_Name">34.mp4</column>
+            <column name="GR_CreateDate">2023-07-19 11:28:38</column>
+            <column name="GR_ModifyDate">2023-07-19 11:28:38</column>
+        </table>
+        <table name="gallery">
+            <column name="GR_Entity_No.">39</column>
+            <column name="GR_Activities_Code">68</column>
+            <column name="GR_Name">38.png</column>
+            <column name="GR_CreateDate">2023-07-19 11:47:50</column>
+            <column name="GR_ModifyDate">2023-07-19 11:47:50</column>
+        </table>
+        <table name="gallery">
+            <column name="GR_Entity_No.">40</column>
+            <column name="GR_Activities_Code">68</column>
+            <column name="GR_Name">40.png</column>
+            <column name="GR_CreateDate">2023-07-19 11:47:50</column>
+            <column name="GR_ModifyDate">2023-07-19 11:47:50</column>
+        </table>
+        <table name="gallery">
+            <column name="GR_Entity_No.">41</column>
+            <column name="GR_Activities_Code">68</column>
+            <column name="GR_Name">41.jpg</column>
+            <column name="GR_CreateDate">2023-07-19 11:47:50</column>
+            <column name="GR_ModifyDate">2023-07-19 11:47:50</column>
+        </table>
+        <table name="gallery">
+            <column name="GR_Entity_No.">42</column>
+            <column name="GR_Activities_Code">70</column>
+            <column name="GR_Name">42.</column>
+            <column name="GR_CreateDate">2023-07-20 12:42:18</column>
+            <column name="GR_ModifyDate">2023-07-20 12:42:18</column>
+        </table>
+        <table name="gallery">
+            <column name="GR_Entity_No.">43</column>
+            <column name="GR_Activities_Code">71</column>
+            <column name="GR_Name">43.</column>
+            <column name="GR_CreateDate">2023-07-20 12:46:54</column>
+            <column name="GR_ModifyDate">2023-07-20 12:46:54</column>
+        </table>
+        <table name="gallery">
+            <column name="GR_Entity_No.">44</column>
+            <column name="GR_Activities_Code">72</column>
+            <column name="GR_Name">44.</column>
+            <column name="GR_CreateDate">2023-07-20 12:49:00</column>
+            <column name="GR_ModifyDate">2023-07-20 12:49:00</column>
+        </table>
+        <table name="gallery">
+            <column name="GR_Entity_No.">45</column>
+            <column name="GR_Activities_Code">73</column>
+            <column name="GR_Name">45.jpg</column>
+            <column name="GR_CreateDate">2023-07-20 12:49:24</column>
+            <column name="GR_ModifyDate">2023-07-20 12:49:24</column>
+        </table>
+        <table name="gallery">
+            <column name="GR_Entity_No.">46</column>
+            <column name="GR_Activities_Code">73</column>
+            <column name="GR_Name">46.png</column>
+            <column name="GR_CreateDate">2023-07-20 12:49:24</column>
+            <column name="GR_ModifyDate">2023-07-20 12:49:24</column>
+        </table>
+        <table name="gallery">
+            <column name="GR_Entity_No.">47</column>
+            <column name="GR_Activities_Code">74</column>
+            <column name="GR_Name">47.jpg</column>
+            <column name="GR_CreateDate">2023-07-20 12:49:40</column>
+            <column name="GR_ModifyDate">2023-07-20 12:49:40</column>
+        </table>
+        <table name="gallery">
+            <column name="GR_Entity_No.">48</column>
+            <column name="GR_Activities_Code">75</column>
+            <column name="GR_Name">48.</column>
+            <column name="GR_CreateDate">2023-07-20 12:51:24</column>
+            <column name="GR_ModifyDate">2023-07-20 12:51:24</column>
+        </table>
+        <table name="gallery">
+            <column name="GR_Entity_No.">49</column>
+            <column name="GR_Activities_Code">76</column>
+            <column name="GR_Name">49.jpg</column>
+            <column name="GR_CreateDate">2023-07-20 12:51:44</column>
+            <column name="GR_ModifyDate">2023-07-20 12:51:44</column>
+        </table>
+        <table name="gallery">
+            <column name="GR_Entity_No.">50</column>
+            <column name="GR_Activities_Code">76</column>
+            <column name="GR_Name">50.png</column>
+            <column name="GR_CreateDate">2023-07-20 12:51:44</column>
+            <column name="GR_ModifyDate">2023-07-20 12:51:44</column>
+        </table>
+        <table name="gallery">
+            <column name="GR_Entity_No.">51</column>
+            <column name="GR_Activities_Code">76</column>
+            <column name="GR_Name">51.png</column>
+            <column name="GR_CreateDate">2023-07-20 12:51:44</column>
+            <column name="GR_ModifyDate">2023-07-20 12:51:44</column>
+        </table>
+        <table name="gallery">
+            <column name="GR_Entity_No.">52</column>
+            <column name="GR_Activities_Code">77</column>
+            <column name="GR_Name">52.</column>
+            <column name="GR_CreateDate">2023-07-20 12:52:27</column>
+            <column name="GR_ModifyDate">2023-07-20 12:52:27</column>
+        </table>
+        <table name="gallery">
+            <column name="GR_Entity_No.">53</column>
+            <column name="GR_Activities_Code">78</column>
+            <column name="GR_Name">53.jpg</column>
+            <column name="GR_CreateDate">2023-07-20 12:52:45</column>
+            <column name="GR_ModifyDate">2023-07-20 12:52:45</column>
+        </table>
+        <table name="gallery">
+            <column name="GR_Entity_No.">54</column>
+            <column name="GR_Activities_Code">78</column>
+            <column name="GR_Name">54.png</column>
+            <column name="GR_CreateDate">2023-07-20 12:52:45</column>
+            <column name="GR_ModifyDate">2023-07-20 12:52:45</column>
+        </table>
+        <table name="gallery">
+            <column name="GR_Entity_No.">55</column>
+            <column name="GR_Activities_Code">78</column>
+            <column name="GR_Name">55.png</column>
+            <column name="GR_CreateDate">2023-07-20 12:52:45</column>
+            <column name="GR_ModifyDate">2023-07-20 12:52:45</column>
+        </table>
+        <table name="gallery">
+            <column name="GR_Entity_No.">56</column>
+            <column name="GR_Activities_Code">78</column>
+            <column name="GR_Name">56.png</column>
+            <column name="GR_CreateDate">2023-07-20 12:52:45</column>
+            <column name="GR_ModifyDate">2023-07-20 12:52:45</column>
+        </table>
+        <table name="gallery">
+            <column name="GR_Entity_No.">57</column>
+            <column name="GR_Activities_Code">78</column>
+            <column name="GR_Name">57.jpg</column>
+            <column name="GR_CreateDate">2023-07-20 12:52:45</column>
+            <column name="GR_ModifyDate">2023-07-20 12:52:45</column>
+        </table>
+        <table name="gallery">
+            <column name="GR_Entity_No.">58</column>
+            <column name="GR_Activities_Code">78</column>
+            <column name="GR_Name">58.jpg</column>
+            <column name="GR_CreateDate">2023-07-20 12:52:45</column>
+            <column name="GR_ModifyDate">2023-07-20 12:52:45</column>
+        </table>
+        <table name="gallery">
+            <column name="GR_Entity_No.">59</column>
+            <column name="GR_Activities_Code">78</column>
+            <column name="GR_Name">59.jpg</column>
+            <column name="GR_CreateDate">2023-07-20 12:52:45</column>
+            <column name="GR_ModifyDate">2023-07-20 12:52:45</column>
+        </table>
+        <table name="gallery">
+            <column name="GR_Entity_No.">60</column>
+            <column name="GR_Activities_Code">78</column>
+            <column name="GR_Name">60.jpg</column>
+            <column name="GR_CreateDate">2023-07-20 12:52:45</column>
+            <column name="GR_ModifyDate">2023-07-20 12:52:45</column>
+        </table>
+        <table name="gallery">
+            <column name="GR_Entity_No.">61</column>
+            <column name="GR_Activities_Code">78</column>
+            <column name="GR_Name">61.gif</column>
+            <column name="GR_CreateDate">2023-07-20 12:52:45</column>
+            <column name="GR_ModifyDate">2023-07-20 12:52:45</column>
+        </table>
+        <table name="gallery">
+            <column name="GR_Entity_No.">62</column>
+            <column name="GR_Activities_Code">79</column>
+            <column name="GR_Name">62.</column>
+            <column name="GR_CreateDate">2023-07-20 12:53:33</column>
+            <column name="GR_ModifyDate">2023-07-20 12:53:33</column>
+        </table>
+        <table name="gallery">
+            <column name="GR_Entity_No.">63</column>
+            <column name="GR_Activities_Code">80</column>
+            <column name="GR_Name">63.jpg</column>
+            <column name="GR_CreateDate">2023-07-20 12:53:46</column>
+            <column name="GR_ModifyDate">2023-07-20 12:53:46</column>
+        </table>
+        <table name="gallery">
+            <column name="GR_Entity_No.">64</column>
+            <column name="GR_Activities_Code">81</column>
+            <column name="GR_Name">64.</column>
+            <column name="GR_CreateDate">2023-07-20 12:56:43</column>
+            <column name="GR_ModifyDate">2023-07-20 12:56:43</column>
+        </table>
+        <table name="gallery">
+            <column name="GR_Entity_No.">65</column>
+            <column name="GR_Activities_Code">82</column>
+            <column name="GR_Name">65.jpg</column>
+            <column name="GR_CreateDate">2023-07-20 12:56:57</column>
+            <column name="GR_ModifyDate">2023-07-20 12:56:57</column>
+        </table>
+        <table name="gallery">
+            <column name="GR_Entity_No.">66</column>
+            <column name="GR_Activities_Code">84</column>
+            <column name="GR_Name">66.jpg</column>
+            <column name="GR_CreateDate">2023-07-20 12:59:57</column>
+            <column name="GR_ModifyDate">2023-07-20 12:59:57</column>
+        </table>
+        <table name="gallery">
+            <column name="GR_Entity_No.">67</column>
+            <column name="GR_Activities_Code">84</column>
+            <column name="GR_Name">67.png</column>
+            <column name="GR_CreateDate">2023-07-20 12:59:57</column>
+            <column name="GR_ModifyDate">2023-07-20 12:59:57</column>
+        </table>
+        <!-- Table setup -->
+        <table name="setup">
             <column name="SU_Code">1</column>
             <column name="SU_DefaultImageNews">0.png</column>
-            <column name="SU_PathDefaultImageNews">img/UploadAddNews/</column>
+            <column name="SU_PathDefaultImageNews">img/UploadAddActivities/</column>
+            <column name="SU_PathDefaultImageGallery">img/UploadAddGallery/</column>
             <column name="SU_CreateDate">2023-06-22 11:40:33</column>
-            <column name="SU_ModifyDate">2023-07-07 16:30:03</column>
+            <column name="SU_ModifyDate">2023-07-20 15:46:31</column>
+        </table>
+        <!-- Table setupgames -->
+        <table name="setupgames">
+            <column name="GA_Code">1</column>
+            <column name="GA_Iframe">&lt;iframe style=&quot;max-width:100%&quot; src=&quot;https://wordwall.net/th/embed/620534d5e58a47b7939eb484a22c7505?themeId=52&amp;templateId=2&amp;fontStackId=0&quot; width=&quot;500&quot; height=&quot;800&quot; frameborder=&quot;0&quot; allowfullscreen&gt;&lt;/iframe&gt;</column>
+            <column name="GA_CreateDate">2023-07-20 15:46:31</column>
+            <column name="GA_ModifyDate">2023-07-20 15:46:31</column>
+        </table>
+        <table name="setupgames">
+            <column name="GA_Code">2</column>
+            <column name="GA_Iframe">&lt;iframe style=&quot;max-width:100%&quot; src=&quot;https://wordwall.net/th/embed/620534d5e58a47b7939eb484a22c7505?themeId=52&amp;templateId=38&amp;fontStackId=0&quot; width=&quot;500&quot; height=&quot;800&quot; frameborder=&quot;0&quot; allowfullscreen&gt;&lt;/iframe&gt;</column>
+            <column name="GA_CreateDate">2023-07-20 15:46:31</column>
+            <column name="GA_ModifyDate">2023-07-20 15:46:31</column>
+        </table>
+        <table name="setupgames">
+            <column name="GA_Code">3</column>
+            <column name="GA_Iframe">&lt;iframe style=&quot;max-width:100%&quot; src=&quot;https://wordwall.net/th/embed/620534d5e58a47b7939eb484a22c7505?themeId=52&amp;templateId=8&amp;fontStackId=0&quot; width=&quot;500&quot; height=&quot;800&quot; frameborder=&quot;0&quot; allowfullscreen&gt;&lt;/iframe&gt;</column>
+            <column name="GA_CreateDate">2023-07-20 15:46:31</column>
+            <column name="GA_ModifyDate">2023-07-20 15:46:31</column>
+        </table>
+        <table name="setupgames">
+            <column name="GA_Code">4</column>
+            <column name="GA_Iframe">&lt;iframe style=&quot;max-width:100%&quot; src=&quot;https://wordwall.net/th/embed/620534d5e58a47b7939eb484a22c7505?themeId=21&amp;templateId=69&amp;fontStackId=0&quot; width=&quot;500&quot; height=&quot;800&quot; frameborder=&quot;0&quot; allowfullscreen&gt;&lt;/iframe&gt;</column>
+            <column name="GA_CreateDate">2023-07-20 15:46:31</column>
+            <column name="GA_ModifyDate">2023-07-20 15:46:31</column>
+        </table>
+        <table name="setupgames">
+            <column name="GA_Code">5</column>
+            <column name="GA_Iframe">&lt;iframe style=&quot;max-width:100%&quot; src=&quot;https://wordwall.net/th/embed/620534d5e58a47b7939eb484a22c7505?themeId=52&amp;templateId=30&amp;fontStackId=0&quot; width=&quot;500&quot; height=&quot;800&quot; frameborder=&quot;0&quot; allowfullscreen&gt;&lt;/iframe&gt;</column>
+            <column name="GA_CreateDate">2023-07-20 15:46:31</column>
+            <column name="GA_ModifyDate">2023-07-20 15:46:31</column>
+        </table>
+        <table name="setupgames">
+            <column name="GA_Code">6</column>
+            <column name="GA_Iframe">&lt;iframe style=&quot;max-width:100%&quot; src=&quot;https://wordwall.net/th/embed/620534d5e58a47b7939eb484a22c7505?themeId=44&amp;templateId=73&amp;fontStackId=0&quot; width=&quot;500&quot; height=&quot;800&quot; frameborder=&quot;0&quot; allowfullscreen&gt;&lt;/iframe&gt;</column>
+            <column name="GA_CreateDate">2023-07-20 15:46:31</column>
+            <column name="GA_ModifyDate">2023-07-20 15:46:31</column>
+        </table>
+        <table name="setupgames">
+            <column name="GA_Code">7</column>
+            <column name="GA_Iframe">&lt;iframe style=&quot;max-width:100%&quot; src=&quot;https://wordwall.net/th/embed/620534d5e58a47b7939eb484a22c7505?themeId=52&amp;templateId=5&amp;fontStackId=0&quot; width=&quot;500&quot; height=&quot;800&quot; frameborder=&quot;0&quot; allowfullscreen&gt;&lt;/iframe&gt;</column>
+            <column name="GA_CreateDate">2023-07-20 15:46:31</column>
+            <column name="GA_ModifyDate">2023-07-20 15:46:31</column>
+        </table>
+        <table name="setupgames">
+            <column name="GA_Code">8</column>
+            <column name="GA_Iframe">&lt;iframe style=&quot;max-width:100%&quot; src=&quot;https://wordwall.net/th/embed/620534d5e58a47b7939eb484a22c7505?themeId=52&amp;templateId=70&amp;fontStackId=0&quot; width=&quot;500&quot; height=&quot;800&quot; frameborder=&quot;0&quot; allowfullscreen&gt;&lt;/iframe&gt;</column>
+            <column name="GA_CreateDate">2023-07-20 15:46:31</column>
+            <column name="GA_ModifyDate">2023-07-20 15:46:31</column>
         </table>
         <!-- Table user -->
         <table name="user">

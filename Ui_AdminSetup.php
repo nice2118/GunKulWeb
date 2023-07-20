@@ -40,7 +40,7 @@ $_SESSION['PathPage'] = "AdminSetup.php";
         <div class="container">
             <div class="text-center mx-auto mb-2 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 600px;">
                 <h6 class="text-primary">Setup & Set system defaults.</h6>
-                <h2 class="mb-4">ตั้งค่าและเซตค่าเริ่มต้นระบบ</h2>
+                <h2 class="mb-4">ตั้งค่าและเซ็ตค่าเริ่มต้นระบบ</h2>
             </div>
         </div>
         <div class="row g-4">
@@ -116,6 +116,31 @@ $_SESSION['PathPage'] = "AdminSetup.php";
                                     <!-- /.card-body -->
                                 </div>
                                 <!-- /.card -->
+                                <div class="card card-secondary collapsed-card">
+                                    <div class="card-header">
+                                        <h3 class="card-title text-white">มีไว้ก่อน</h3>
+                                        <div class="card-tools">
+                                            <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+                                            <i class="fas fa-plus"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="form-group">
+                                            <label>ว่าง</label>
+                                            <input type="number" class="form-control">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>ว่าง</label>
+                                            <input type="number" class="form-control">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>ว่าง</label>
+                                            <input type="number" class="form-control">
+                                        </div>
+                                    </div>
+                                    <!-- /.card-body -->
+                                </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="card card-danger">
@@ -152,9 +177,7 @@ $_SESSION['PathPage'] = "AdminSetup.php";
                                     <!-- /.card-body -->
                                 </div>
                                 <!-- /.card -->
-                            </div>
-                            <div class="col-md-6">
-                                <div class="card card-secondary collapsed-card">
+                                <div class="card card-info collapsed-card">
                                     <div class="card-header">
                                         <h3 class="card-title text-white">มีไว้ก่อน</h3>
                                         <div class="card-tools">
@@ -179,35 +202,6 @@ $_SESSION['PathPage'] = "AdminSetup.php";
                                     </div>
                                     <!-- /.card-body -->
                                 </div>
-                                <!-- /.card -->
-                            </div>
-                            <div class="col-md-6">
-                                <div class="card card-secondary collapsed-card">
-                                    <div class="card-header">
-                                        <h3 class="card-title text-white">มีไว้ก่อน</h3>
-                                        <div class="card-tools">
-                                            <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
-                                            <i class="fas fa-plus"></i>
-                                            </button>
-                                        </div>
-                                    </div>
-                                    <div class="card-body">
-                                        <div class="form-group">
-                                            <label>ว่าง</label>
-                                            <input type="number" class="form-control">
-                                        </div>
-                                        <div class="form-group">
-                                            <label>ว่าง</label>
-                                            <input type="number" class="form-control">
-                                        </div>
-                                        <div class="form-group">
-                                            <label>ว่าง</label>
-                                            <input type="number" class="form-control">
-                                        </div>
-                                    </div>
-                                    <!-- /.card-body -->
-                                </div>
-                                <!-- /.card -->
                             </div>
                         </div>
                         <div class="row">

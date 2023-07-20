@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 19, 2023 at 11:17 AM
+-- Generation Time: Jul 20, 2023 at 12:40 PM
 -- Server version: 5.5.27
 -- PHP Version: 5.4.7
 
@@ -39,7 +39,7 @@ CREATE TABLE IF NOT EXISTS `activities` (
   `AT_CreateDate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `AT_ModifyDate` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   PRIMARY KEY (`AT_Code`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=70 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=85 ;
 
 --
 -- Dumping data for table `activities`
@@ -98,7 +98,20 @@ INSERT INTO `activities` (`AT_Code`, `AT_Entity No.`, `AT_Date`, `AT_Time`, `AT_
 (66, 1, '2023-07-19', '10:18:16', '1', '1', 'PHA+MTwvcD4=', '0.png', '', '2023-07-19 03:18:16', '2023-07-19 03:18:16'),
 (67, 1, '2023-07-19', '10:44:29', '333', '33', 'PHA+MzMzPC9wPg==', '0.png', '', '2023-07-19 03:44:29', '2023-07-19 03:44:29'),
 (68, 1, '2023-07-19', '11:18:53', '44', '44', 'PHA+NDQ8L3A+', '68.png', '', '2023-07-19 04:18:53', '2023-07-19 04:47:50'),
-(69, 1, '2023-07-19', '11:28:38', '5', '5', 'PHA+NTwvcD4=', '69.jpg', '', '2023-07-19 04:28:38', '2023-07-19 04:40:47');
+(69, 1, '2023-07-19', '11:28:38', '5', '5', 'PHA+NTwvcD4=', '69.jpg', '', '2023-07-19 04:28:38', '2023-07-19 04:40:47'),
+(72, 1, '2023-07-20', '12:49:00', 's', 's', 'PHA+czwvcD4=', '0.png', '', '2023-07-20 05:49:00', '2023-07-20 05:49:00'),
+(73, 1, '2023-07-20', '12:49:24', 's', 's', 'PHA+czwvcD4=', '0.png', '', '2023-07-20 05:49:24', '2023-07-20 05:49:24'),
+(74, 1, '2023-07-20', '12:49:40', 's', 's', 'PHA+czwvcD4=', '0.png', '', '2023-07-20 05:49:40', '2023-07-20 05:49:40'),
+(75, 1, '2023-07-20', '12:51:24', '5', '5', 'PHA+NTwvcD4=', '0.png', '', '2023-07-20 05:51:24', '2023-07-20 05:51:24'),
+(76, 1, '2023-07-20', '12:51:44', '5', '5', 'PHA+NTwvcD4=', '0.png', '', '2023-07-20 05:51:44', '2023-07-20 05:51:44'),
+(77, 1, '2023-07-20', '12:52:27', 'a', 'a', 'PHA+YTwvcD4=', '0.png', '', '2023-07-20 05:52:27', '2023-07-20 05:52:27'),
+(78, 1, '2023-07-20', '12:52:45', 'a', 'a', 'PHA+YTwvcD4=', '0.png', '', '2023-07-20 05:52:45', '2023-07-20 05:52:45'),
+(79, 1, '2023-07-20', '12:53:33', '9', '9', 'PHA+OTwvcD4=', '0.png', '', '2023-07-20 05:53:33', '2023-07-20 05:53:33'),
+(80, 1, '2023-07-20', '12:53:46', '9', '9', 'PHA+OTwvcD4=', '0.png', '', '2023-07-20 05:53:46', '2023-07-20 05:53:46'),
+(81, 1, '2023-07-20', '12:56:43', '6', '6', 'PHA+NjwvcD4=', '0.png', '', '2023-07-20 05:56:43', '2023-07-20 05:56:43'),
+(82, 1, '2023-07-20', '12:56:57', '6', '6', 'PHA+NjwvcD4=', '0.png', '', '2023-07-20 05:56:57', '2023-07-20 05:56:57'),
+(83, 1, '2023-07-20', '12:59:42', '4', '4', 'PHA+NDwvcD4=', '0.png', '', '2023-07-20 05:59:42', '2023-07-20 05:59:42'),
+(84, 1, '2023-07-20', '12:59:57', '4', '4', 'PHA+NDwvcD4=', '0.png', '', '2023-07-20 05:59:57', '2023-07-20 05:59:57');
 
 -- --------------------------------------------------------
 
@@ -146,7 +159,7 @@ CREATE TABLE IF NOT EXISTS `gallery` (
   `GR_CreateDate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `GR_ModifyDate` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   PRIMARY KEY (`GR_Entity No.`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=42 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=68 ;
 
 --
 -- Dumping data for table `gallery`
@@ -187,7 +200,33 @@ INSERT INTO `gallery` (`GR_Entity No.`, `GR_Activities Code`, `GR_Name`, `GR_Cre
 (34, 69, '34.mp4', '2023-07-19 04:28:38', '2023-07-19 04:28:38'),
 (39, 68, '38.png', '2023-07-19 04:47:50', '2023-07-19 04:47:50'),
 (40, 68, '40.png', '2023-07-19 04:47:50', '2023-07-19 04:47:50'),
-(41, 68, '41.jpg', '2023-07-19 04:47:50', '2023-07-19 04:47:50');
+(41, 68, '41.jpg', '2023-07-19 04:47:50', '2023-07-19 04:47:50'),
+(42, 70, '42.', '2023-07-20 05:42:18', '2023-07-20 05:42:18'),
+(43, 71, '43.', '2023-07-20 05:46:54', '2023-07-20 05:46:54'),
+(44, 72, '44.', '2023-07-20 05:49:00', '2023-07-20 05:49:00'),
+(45, 73, '45.jpg', '2023-07-20 05:49:24', '2023-07-20 05:49:24'),
+(46, 73, '46.png', '2023-07-20 05:49:24', '2023-07-20 05:49:24'),
+(47, 74, '47.jpg', '2023-07-20 05:49:40', '2023-07-20 05:49:40'),
+(48, 75, '48.', '2023-07-20 05:51:24', '2023-07-20 05:51:24'),
+(49, 76, '49.jpg', '2023-07-20 05:51:44', '2023-07-20 05:51:44'),
+(50, 76, '50.png', '2023-07-20 05:51:44', '2023-07-20 05:51:44'),
+(51, 76, '51.png', '2023-07-20 05:51:44', '2023-07-20 05:51:44'),
+(52, 77, '52.', '2023-07-20 05:52:27', '2023-07-20 05:52:27'),
+(53, 78, '53.jpg', '2023-07-20 05:52:45', '2023-07-20 05:52:45'),
+(54, 78, '54.png', '2023-07-20 05:52:45', '2023-07-20 05:52:45'),
+(55, 78, '55.png', '2023-07-20 05:52:45', '2023-07-20 05:52:45'),
+(56, 78, '56.png', '2023-07-20 05:52:45', '2023-07-20 05:52:45'),
+(57, 78, '57.jpg', '2023-07-20 05:52:45', '2023-07-20 05:52:45'),
+(58, 78, '58.jpg', '2023-07-20 05:52:45', '2023-07-20 05:52:45'),
+(59, 78, '59.jpg', '2023-07-20 05:52:45', '2023-07-20 05:52:45'),
+(60, 78, '60.jpg', '2023-07-20 05:52:45', '2023-07-20 05:52:45'),
+(61, 78, '61.gif', '2023-07-20 05:52:45', '2023-07-20 05:52:45'),
+(62, 79, '62.', '2023-07-20 05:53:33', '2023-07-20 05:53:33'),
+(63, 80, '63.jpg', '2023-07-20 05:53:46', '2023-07-20 05:53:46'),
+(64, 81, '64.', '2023-07-20 05:56:43', '2023-07-20 05:56:43'),
+(65, 82, '65.jpg', '2023-07-20 05:56:57', '2023-07-20 05:56:57'),
+(66, 84, '66.jpg', '2023-07-20 05:59:57', '2023-07-20 05:59:57'),
+(67, 84, '67.png', '2023-07-20 05:59:57', '2023-07-20 05:59:57');
 
 -- --------------------------------------------------------
 
@@ -210,7 +249,7 @@ CREATE TABLE IF NOT EXISTS `setup` (
 --
 
 INSERT INTO `setup` (`SU_Code`, `SU_DefaultImageNews`, `SU_PathDefaultImageNews`, `SU_PathDefaultImageGallery`, `SU_CreateDate`, `SU_ModifyDate`) VALUES
-(1, '0.png', 'img/UploadAddActivities/', 'img/UploadAddGallery/', '2023-06-22 04:40:33', '2023-07-14 06:36:41');
+(1, '0.png', 'img/UploadAddActivities/', 'img/UploadAddGallery/', '2023-06-22 04:40:33', '2023-07-20 08:46:31');
 
 --
 -- Triggers `setup`
@@ -223,6 +262,34 @@ CREATE TRIGGER `set_SU_ModifyDate` BEFORE UPDATE ON `setup`
 END
 //
 DELIMITER ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `setupgames`
+--
+
+CREATE TABLE IF NOT EXISTS `setupgames` (
+  `GA_Code` int(11) NOT NULL AUTO_INCREMENT,
+  `GA_Iframe` varchar(500) NOT NULL,
+  `GA_CreateDate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `GA_ModifyDate` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  PRIMARY KEY (`GA_Code`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=9 ;
+
+--
+-- Dumping data for table `setupgames`
+--
+
+INSERT INTO `setupgames` (`GA_Code`, `GA_Iframe`, `GA_CreateDate`, `GA_ModifyDate`) VALUES
+(1, '<iframe style="max-width:100%" src="https://wordwall.net/th/embed/620534d5e58a47b7939eb484a22c7505?themeId=52&templateId=2&fontStackId=0" width="500" height="800" frameborder="0" allowfullscreen></iframe>', '2023-07-20 08:46:31', '2023-07-20 08:46:31'),
+(2, '<iframe style="max-width:100%" src="https://wordwall.net/th/embed/620534d5e58a47b7939eb484a22c7505?themeId=52&templateId=38&fontStackId=0" width="500" height="800" frameborder="0" allowfullscreen></iframe>', '2023-07-20 08:46:31', '2023-07-20 08:46:31'),
+(3, '<iframe style="max-width:100%" src="https://wordwall.net/th/embed/620534d5e58a47b7939eb484a22c7505?themeId=52&templateId=8&fontStackId=0" width="500" height="800" frameborder="0" allowfullscreen></iframe>', '2023-07-20 08:46:31', '2023-07-20 08:46:31'),
+(4, '<iframe style="max-width:100%" src="https://wordwall.net/th/embed/620534d5e58a47b7939eb484a22c7505?themeId=21&templateId=69&fontStackId=0" width="500" height="800" frameborder="0" allowfullscreen></iframe>', '2023-07-20 08:46:31', '2023-07-20 08:46:31'),
+(5, '<iframe style="max-width:100%" src="https://wordwall.net/th/embed/620534d5e58a47b7939eb484a22c7505?themeId=52&templateId=30&fontStackId=0" width="500" height="800" frameborder="0" allowfullscreen></iframe>', '2023-07-20 08:46:31', '2023-07-20 08:46:31'),
+(6, '<iframe style="max-width:100%" src="https://wordwall.net/th/embed/620534d5e58a47b7939eb484a22c7505?themeId=44&templateId=73&fontStackId=0" width="500" height="800" frameborder="0" allowfullscreen></iframe>', '2023-07-20 08:46:31', '2023-07-20 08:46:31'),
+(7, '<iframe style="max-width:100%" src="https://wordwall.net/th/embed/620534d5e58a47b7939eb484a22c7505?themeId=52&templateId=5&fontStackId=0" width="500" height="800" frameborder="0" allowfullscreen></iframe>', '2023-07-20 08:46:31', '2023-07-20 08:46:31'),
+(8, '<iframe style="max-width:100%" src="https://wordwall.net/th/embed/620534d5e58a47b7939eb484a22c7505?themeId=52&templateId=70&fontStackId=0" width="500" height="800" frameborder="0" allowfullscreen></iframe>', '2023-07-20 08:46:31', '2023-07-20 08:46:31');
 
 -- --------------------------------------------------------
 
