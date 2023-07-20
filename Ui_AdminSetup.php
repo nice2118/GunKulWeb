@@ -49,20 +49,17 @@ $_SESSION['PathPage'] = "AdminSetup.php";
                     <form action="Pro_EditSetup.php" method="post" enctype="multipart/form-data">
                         <div class="row">
                             <div class="col-md-6">
-                                    <div class="card card-primary">
+                                <div class="card card-primary">
                                     <div class="card-header">
                                         <h3 class="card-title text-white">ข่าวสารและกิจกรรม</h3>
-
                                         <div class="card-tools">
-                                            <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
-                                            <i class="fas fa-minus"></i>
-                                            </button>
+                                            <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse"><i class="fas fa-minus"></i></button>
                                         </div>
                                     </div>
                                     <div class="card-body">
-                                        <div class="form-group">
+                                        <div class="form-group my-3">
                                             <label for="inputName">รูปเริ่มต้นของข่าวและกิจกรรม</label>
-                                            <div class="container-fluid bg-light overflow-hidden my-3 px-lg-0">
+                                            <div class="container-fluid bg-light overflow-hidden px-lg-0">
                                                 <div class="container quote px-lg-0">
                                                     <div class="row g-0 mx-lg-0">
                                                         <div class="col-lg-4 quote-text py-0 wow fadeIn" data-wow-delay="0.5s"></div>
@@ -107,11 +104,11 @@ $_SESSION['PathPage'] = "AdminSetup.php";
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="form-group">
+                                        <div class="form-group my-3">
                                             <label for="PathFolderNews">ที่เก็บที่อยู่รูปข่าว</label>
                                             <input type="text" name="PathFolderNews" value="<?= $PathFolderNews; ?>" class="form-control">
                                         </div>
-                                        <div class="form-group">
+                                        <div class="form-group my-3">
                                             <label for="PathFolderNews">ที่เก็บแกลลอรี่</label>
                                             <input type="text" name="PathFolderGallery" value="<?= $PathFolderGallery; ?>" class="form-control">
                                         </div>
@@ -119,40 +116,104 @@ $_SESSION['PathPage'] = "AdminSetup.php";
                                     <!-- /.card-body -->
                                 </div>
                                 <!-- /.card -->
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="card card-secondary collapsed-card">
-                                        <div class="card-header">
-                                            <h3 class="card-title text-white">มีไว้ก่อน</h3>
-
-                                            <div class="card-tools">
-                                                <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
-                                                <i class="fas fa-minus"></i>
-                                                </button>
-                                            </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="card card-danger">
+                                    <div class="card-header">
+                                        <h3 class="card-title text-white">Games and recreational activities</h3>
+                                        <div class="card-tools">
+                                            <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+                                            <i class="fas fa-minus"></i>
+                                            </button>
                                         </div>
-                                        <div class="card-body">
+                                    </div>
+                                    <div class="card-body">
+                                        <div id="form-container">
+                                        <?PHP
+                                            $sql = "SELECT * FROM SetupGames;";
+                                            $result = $conn->query($sql);
+                                            
+                                            if ($result->num_rows > 0) {
+                                                while ($row = $result->fetch_assoc()) {
+                                        ?>
+                                            <div class="form-group">
+                                                <textarea name="Games[]" class="form-control border-1 my-3" placeholder="iframe" style="height: 110px;"><?php echo htmlspecialchars($row['GA_Iframe'], ENT_QUOTES); ?></textarea>
+                                            </div>
+                                        <?PHP
+                                                }
+                                            }
+                                        ?>
+                                        </div>
+                                        <div class="form-group text-center text-md-end">
+                                            <button type="button" class="btn btn-danger rounded-pill py-2 px-3 add-image-btn text-end" id="deleteButton"><i class="fas fa-trash"></i></button>
+                                            <button type="button" class="btn btn-primary rounded-pill py-2 px-3 add-image-btn text-end" id="addButton"><i class="fa fa-plus"></i></button>
+                                        </div>
+                                    </div>
+                                    <!-- /.card-body -->
+                                </div>
+                                <!-- /.card -->
+                            </div>
+                            <div class="col-md-6">
+                                <div class="card card-secondary collapsed-card">
+                                    <div class="card-header">
+                                        <h3 class="card-title text-white">มีไว้ก่อน</h3>
+                                        <div class="card-tools">
+                                            <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+                                            <i class="fas fa-plus"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="card-body">
                                         <div class="form-group">
                                             <label>ว่าง</label>
-                                            <input type="number"  class="form-control">
+                                            <input type="number" class="form-control">
                                         </div>
                                         <div class="form-group">
                                             <label>ว่าง</label>
                                             <input type="number" class="form-control">
                                         </div>
-                                            <div class="form-group">
-                                                <label>ว่าง</label>
-                                                <input type="number"  class="form-control">
-                                            </div>
+                                        <div class="form-group">
+                                            <label>ว่าง</label>
+                                            <input type="number" class="form-control">
                                         </div>
-                                        <!-- /.card-body -->
+                                    </div>
+                                    <!-- /.card-body -->
+                                </div>
+                                <!-- /.card -->
+                            </div>
+                            <div class="col-md-6">
+                                <div class="card card-secondary collapsed-card">
+                                    <div class="card-header">
+                                        <h3 class="card-title text-white">มีไว้ก่อน</h3>
+                                        <div class="card-tools">
+                                            <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+                                            <i class="fas fa-plus"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="form-group">
+                                            <label>ว่าง</label>
+                                            <input type="number" class="form-control">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>ว่าง</label>
+                                            <input type="number" class="form-control">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>ว่าง</label>
+                                            <input type="number" class="form-control">
+                                        </div>
+                                    </div>
+                                    <!-- /.card-body -->
                                 </div>
                                 <!-- /.card -->
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-12">
-                            <input type="submit" value="บันทึก" class="btn btn-success float-right">
+                            <div class="col-12 text-center text-md-end">
+                                <!-- <input type="submit" value="บันทึก" class="btn btn-success rounded-pill py-2 px-3 add-image-btn text-end"> -->
+                                <button type="submit" class="btn btn-success rounded-pill py-2 px-5 add-image-btn text-end" id="addButton"><i class="fa fa-save"></i></button>
                             </div>
                         </div>
                     </form>
@@ -194,4 +255,20 @@ $_SESSION['PathPage'] = "AdminSetup.php";
     </script>
     <script src="js/jquery.min.js"></script>
     <script src="js/adminlte.min.js"></script>
+    <script>
+    $(document).ready(function() {
+        var count = 1; // ตัวแปรนับค่าชื่อ name
+        $('#addButton').click(function() {
+            var formGroup = $('<div class="form-group">' +
+                '<textarea name="Games[]" class="form-control border-0 my-3" placeholder="iframe" style="height: 110px;"></textarea>' +
+                '</div>');
+            $('#form-container').append(formGroup);
+        });
+
+        $('#deleteButton').click(function() {
+            $('#form-container .form-group:last-child').remove();
+            count--; // ลดค่านับเมื่อกดปุ่ม "ลบ"
+        });
+    });
+    </script>
 <?php include("Ma_Footer_Script.php"); ?>

@@ -51,7 +51,7 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <div class="navbar-nav ms-auto p-4 p-lg-0">
-                 <div class="nav-item dropdown">
+                <div class="nav-item dropdown">
                     <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">เมนูหลัก</a>
                     <div class="dropdown-menu bg-light m-0">
                         <a href="https://www.gunkul.com/th/about-us/nature-of-business" class="dropdown-item" target="_blank">ข้อมูลบริษัท</a>

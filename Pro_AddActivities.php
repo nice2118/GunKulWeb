@@ -93,7 +93,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $_SESSION['StatusTitle'] = "ดำเนินการเรียบร้อยแล้ว";
     $_SESSION['StatusMessage'] = "ทำการบันทึกในหัวข้อ ".$Title." เรียบร้อบแล้ว";
     $_SESSION['StatusAlert'] = "success";
-    generateGallery($_FILES['ImageGallery'],$lastInsertID);
+    if (isset($_FILES['ImageGallery']['name'][0]) && $_FILES['ImageGallery']['name'][0] !== '') {
+      generateGallery($_FILES['ImageGallery'],$lastInsertID);
+    }
   } else {
     if (!empty($newnFullNameImage) && $newnFullNameImage !== $DefaultImageNews) {
       $filePath = $PathFolderNews . $newnFullNameImage;

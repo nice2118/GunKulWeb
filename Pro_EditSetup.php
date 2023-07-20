@@ -88,6 +88,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     //     header("Location: ".$_SESSION['PathPage']);
     //     exit();
     // echo '<script>swal("Success.");</script>';
+    if (isset($_POST["Games"]) && is_array($_POST["Games"])) {
+      AddSetupGames($_POST['Games']);
+    }
     $_SESSION['StatusTitle'] = "ดำเนินการเรียบร้อยแล้ว";
     $_SESSION['StatusMessage'] = "ทำการอัพเดชเรียบร้อบแล้ว";
     $_SESSION['StatusAlert'] = "success";
@@ -131,7 +134,29 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   $conn->close();
 
   // ส่งข้อความตอบกลับหรือเปลี่ยนเส้นทางไปหน้าอื่นตามต้องการ
-   echo '<script> setTimeout(function() { window.location.href = "./AdminSetup.php"; }, 0); </script>';
+   echo '<script> setTimeout(function() { window.location.href = "./Ui_AdminSetup.php"; }, 0); </script>';
+}
+
+function AddSetupGames($GamesArray) {   
+  global $conn;
+  // ตรวจสอบว่ามีค่า Gram ที่ถูกส่งมาหรือไม่
+  if (isset($GamesArray) && is_array($GamesArray)) {
+      $query = "TRUNCATE TABLE setupgames;";
+      $conn->query($query);
+
+      // แสดงค่าที่ถูกส่งมา
+      foreach ($GamesArray as $index => $gram) {
+        if ($gram != '') {
+          // echo "Gram[$index]: $gram<br>";
+          $query = "INSERT INTO `newsandactivities`.`SetupGames` (`GA_Code`, `GA_Iframe`, `GA_CreateDate`, `GA_ModifyDate`) VALUES (NULL, '$gram', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)";
+          if ($conn->query($query) !== true) {
+              echo "Error: " . $query . "<br>" . $conn->error;
+          }
+        }
+      }
+  } else {
+      echo "ไม่พบข้อมูล Gram ที่ถูกส่งมา";
+  }
 }
 ?>
 

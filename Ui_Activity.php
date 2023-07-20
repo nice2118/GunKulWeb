@@ -19,9 +19,20 @@ include("DB_Include.php");
                 <div class="col-12 wow fadeInUp" data-wow-delay="0.1s">
                     <div class="service-item rounded overflow-hidden">
                         <div class="container quote px-lg-0">
+                            <?PHP
+                                $sql = "SELECT * FROM SetupGames;";
+                                $result = $conn->query($sql);
+                                
+                                if ($result->num_rows > 0) {
+                                    while ($row = $result->fetch_assoc()) {
+                            ?>
                             <div class="row g-0 mx-lg-0 py-5">
-                                <iframe style="max-width:100%" src="https://wordwall.net/th/embed/620534d5e58a47b7939eb484a22c7505?themeId=52&templateId=2&fontStackId=0" width="500" height="800" frameborder="0" allowfullscreen></iframe>
+                                <?= $row['GA_Iframe']; ?>
                             </div>
+                            <?PHP
+                                    }
+                                }
+                            ?>
                         </div>
                     </div>
                 </div>
