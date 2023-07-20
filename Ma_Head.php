@@ -60,7 +60,7 @@
                         <a href="https://www.gunkul.com/th/about-us/management/board-of-directors" class="dropdown-item" target="_blank">โครงสร้างการจัดการ</a>
                         <a href="https://www.gunkul.com/th/investor-relations/ir-home" class="dropdown-item" target="_blank">นักลงทุนสัมพันธ์</a>
                         <nav>
-                            <a href="" class="dropdown-item"> รายการ <i class="fa fa-angle-right"></i></a>
+                            <a href="" class="dropdown-item">รายการ&nbsp;&nbsp;<i class="fa fa-angle-down"></i></a>
                             <ul class="dropdown-menu-submenu submenu multi-menu">
                             <?php
                                 $sql = "SELECT * FROM `Category` WHERE `Category`.`CG_Entity Relation No.` = 0;";
@@ -89,20 +89,20 @@
                     <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">มุม HR</a>
                     <div class="dropdown-menu bg-light m-0">
                         <nav>
-                            <a href="" class="dropdown-item">แผนกสรรหาว่าจ้างและฝึกอบรม  <i class="fa fa-angle-right"></i></a>
+                            <a href="" class="dropdown-item">แผนกสรรหาว่าจ้างและฝึกอบรม&nbsp;&nbsp;<i class="fa fa-angle-down"></i></a>
                             <ul class="dropdown-menu-submenu submenu multi-menu">
                                 <li><a href="#" class="dropdown-item">GKA Newcomer ***</a></li>
                                 <li><a href="https://www.gunkul.com/th/careers/available-positions" class="dropdown-item">ตำแหน่งงานว่างภายใน</a></li>
                             </ul>
                         </nav>
                         <nav>
-                            <a href="" class="dropdown-item">แผนกเงินเดือนและสวัสดิการ  <i class="fa fa-angle-right"></i></a>
+                            <a href="" class="dropdown-item">แผนกเงินเดือนและสวัสดิการ&nbsp;&nbsp;<i class="fa fa-angle-down"></i></a>
                             <ul class="dropdown-menu-submenu submenu multi-menu">
                             <li><a href="#" class="dropdown-item">สวัสดิการพนักงาน ***</a></li>
                             </ul>
                         </nav>
                         <nav>
-                            <a href="" class="dropdown-item">วันหยุดประจำปี  <i class="fa fa-angle-right"></i></a>
+                            <a href="" class="dropdown-item">วันหยุดประจำปี&nbsp;&nbsp;<i class="fa fa-angle-down"></i></a>
                             <ul class="dropdown-menu-submenu submenu multi-menu">
                                 <li><a href="PDF\Holiday\2566\GKE_5_HQ.pdf" target="_blank" class="dropdown-item">สำนักงานใหญ่ GKE</a></li>
                                 <li><a href="PDF\Holiday\2566\GKE_6_Site.pdf" target="_blank" class="dropdown-item">ไซต์งานก่อสร้าง และ O&M GKE</a></li>
@@ -118,7 +118,7 @@
                     <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">แหล่งข้อมูล</a>
                     <div class="dropdown-menu bg-light m-0">
                         <nav>
-                            <a href="" class="dropdown-item">ความรู้ทั่วไป  <i class="fa fa-angle-right"></i></a>
+                            <a href="" class="dropdown-item">ความรู้ทั่วไป&nbsp;&nbsp;<i class="fa fa-angle-down"></i></a>
                             <ul class="dropdown-menu-submenu submenu multi-menu">
                                 <li><a href="#" class="dropdown-item" target="_blank">ERP Dynamics 365 F&O ***</a></li>
                                 <li><a href="#" class="dropdown-item" target="_blank">ERP AX2012 R2, R3 ***</a></li>
@@ -151,7 +151,7 @@
                     <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">เว็บภายใน</a>
                     <div class="dropdown-menu bg-light m-0">
                         <nav>
-                            <a href="" class="dropdown-item"><i class="fa fa-angle-left "></i>  ระบบจริง</a>
+                            <a href="" class="dropdown-item">ระบบจริง&nbsp;&nbsp;<i class="fa fa-angle-down"></i></a>
                             <ul class="dropdown-menu-submenu submenu submenu-left">
                                 <li><a href="https://hrm.gunkul.net/LoginERS/login.aspx" target="_blank" class="dropdown-item"><i
                                 class="fa fa-heartbeat text-primary"></i> ระบบลาและเงินเดือน</a></li>
@@ -168,7 +168,7 @@
                             </ul>
                         </nav>
                         <nav>
-                            <a href="" class="dropdown-item"><i class="fa fa-angle-left "></i>  ระบบเทส</a>
+                            <a href="" class="dropdown-item">ระบบเทส&nbsp;&nbsp;<i class="fa fa-angle-down"></i></a>
                             <ul class="dropdown-menu-submenu submenu submenu-left">
                                 <li><a href="https://edocdev.gunkul.com/share/page" target="_blank" class="dropdown-item"><i
                                 class="fa fa-cogs text-primary"></i> ระบบ Dev e-Doc GKE</a></li>
@@ -181,7 +181,7 @@
                             </ul>
                         </nav>
                         <nav>
-                            <a href="" class="dropdown-item"><i class="fa fa-angle-left "></i>  จัดการ</a>
+                            <a href="" class="dropdown-item">จัดการ&nbsp;&nbsp;<i class="fa fa-angle-down"></i></a>
                             <ul class="dropdown-menu-submenu submenu submenu-left">
                             <?php
                                 $sql = "SELECT * FROM `Category` WHERE `Category`.`CG_Entity Relation No.` = 0;";

@@ -218,6 +218,7 @@ $_SESSION['PathPage'] = "AdminSetup.php";
     <!-- Content -->
 
 <?php include("Ma_Footer.php"); ?>
+    <!-- Show Image -->
     <script>
         document.getElementById('image').addEventListener('change', function (e) {
             var file = e.target.files[0];
@@ -249,6 +250,7 @@ $_SESSION['PathPage'] = "AdminSetup.php";
     </script>
     <script src="js/jquery.min.js"></script>
     <script src="js/adminlte.min.js"></script>
+    <!-- Add & Delete Input -->
     <script>
     $(document).ready(function() {
         var count = 1; // ตัวแปรนับค่าชื่อ name
