@@ -51,7 +51,7 @@ $_SESSION['PathPage'] = "AdminSetup.php";
                             <div class="col-md-6">
                                 <div class="card card-primary">
                                     <div class="card-header">
-                                        <h3 class="card-title text-white">ข่าวสารและกิจกรรม</h3>
+                                        <h3 class="card-title text-white">Activities</h3>
                                         <div class="card-tools">
                                             <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse"><i class="fas fa-minus"></i></button>
                                         </div>
@@ -71,29 +71,29 @@ $_SESSION['PathPage'] = "AdminSetup.php";
                                                                 <input type="hidden" name="OldNameImageNews" value="<?= $DefaultImageNews ?>" class="form-control">
                                                                 <label for="image" style="cursor: pointer;">
                                                                     <?php
-                                                                    if (isset($DefaultImageNews) && $DefaultImageNews !== '') {
-                                                                        $PathDefaultImage = $PathFolderNews . $DefaultImageNews;
-                                                                    } else {
-                                                                        $folderPath = 'Default/DefaultImage/';
-                                                                        $files = scandir($folderPath);
-                                                                        $imageFiles = array_diff($files, array('.', '..'));
-                                                                        $latestImage = '';
-                                                                        $latestTimestamp = 0;
-                                                                        foreach ($imageFiles as $imageFile) {
-                                                                            $filePath = $folderPath . $imageFile;
-                                                                            $timestamp = filemtime($filePath);
+                                                                        if (isset($DefaultImageNews) && $DefaultImageNews !== '') {
+                                                                            $PathDefaultImage = $PathFolderNews . $DefaultImageNews;
+                                                                        } else {
+                                                                            $folderPath = 'Default/DefaultImage/';
+                                                                            $files = scandir($folderPath);
+                                                                            $imageFiles = array_diff($files, array('.', '..'));
+                                                                            $latestImage = '';
+                                                                            $latestTimestamp = 0;
+                                                                            foreach ($imageFiles as $imageFile) {
+                                                                                $filePath = $folderPath . $imageFile;
+                                                                                $timestamp = filemtime($filePath);
 
-                                                                            if ($timestamp > $latestTimestamp) {
-                                                                                $latestTimestamp = $timestamp;
-                                                                                $latestImage = $imageFile;
+                                                                                if ($timestamp > $latestTimestamp) {
+                                                                                    $latestTimestamp = $timestamp;
+                                                                                    $latestImage = $imageFile;
+                                                                                }
+                                                                            }
+                                                                            if (!empty($latestImage)) {
+                                                                                $PathDefaultImage = $folderPath . $latestImage;
+                                                                            } else {
+                                                                                echo "ไม่พบภาพในโฟลเดอร์";
                                                                             }
                                                                         }
-                                                                        if (!empty($latestImage)) {
-                                                                            $PathDefaultImage = $folderPath . $latestImage;
-                                                                        } else {
-                                                                            echo "ไม่พบภาพในโฟลเดอร์";
-                                                                        }
-                                                                    }
                                                                     ?>
                                                                     <img id="previewImage" class="img-fluid rounded" src="<?= $PathDefaultImage ?>" alt="">
                                                                 </label>
@@ -116,27 +116,45 @@ $_SESSION['PathPage'] = "AdminSetup.php";
                                     <!-- /.card-body -->
                                 </div>
                                 <!-- /.card -->
-                                <div class="card card-secondary collapsed-card">
+                                <div class="card card-info">
                                     <div class="card-header">
-                                        <h3 class="card-title text-white">มีไว้ก่อน</h3>
+                                        <h3 class="card-title text-white">Category</h3>
                                         <div class="card-tools">
-                                            <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
-                                            <i class="fas fa-plus"></i>
-                                            </button>
+                                            <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse"><i class="fas fa-plus"></i></button>
                                         </div>
                                     </div>
                                     <div class="card-body">
                                         <div class="form-group">
-                                            <label>ว่าง</label>
-                                            <input type="number" class="form-control">
+                                            <ul class="todo-list" data-widget="todo-list">
+                                                <?PHP
+                                                    $sql = "SELECT *
+                                                    FROM category
+                                                    ORDER BY `CG_Entity No.`, `CG_Entity Relation No.`;";
+                                                    $result = $conn->query($sql);
+                                                    if ($result->num_rows > 0) {
+                                                        while ($row = $result->fetch_assoc()) {
+                                                        //    $row["CG_Entity No."];
+                                                        //    $row["CG_Entity Relation No."];
+                                                        //    $row["CG_Name"];
+                                                        //    $row["CG_DescriptionTH"];
+                                                        //    $row["CG_DescriptionEN"];
+                                                ?>
+                                                <li class="my-2">
+                                                    <span class="text"><?=$row["CG_Name"]?></span>
+                                                    <div class="tools">
+                                                        <i class="fas fa-edit"></i>
+                                                    </div>
+                                                </li>
+                                                <?PHP
+                                                        }
+                                                    }
+                                                    unset($sql);
+                                                ?>
+                                            </ul>
                                         </div>
-                                        <div class="form-group">
-                                            <label>ว่าง</label>
-                                            <input type="number" class="form-control">
-                                        </div>
-                                        <div class="form-group">
-                                            <label>ว่าง</label>
-                                            <input type="number" class="form-control">
+                                        <div class="form-group text-center text-md-end">
+                                            <button type="button" class="btn btn-danger rounded-pill py-2 px-3 add-image-btn text-end" id="deleteButton"><i class="fas fa-trash"></i></button>
+                                            <button type="button" class="btn btn-primary rounded-pill py-2 px-3 add-image-btn text-end" id="addButton"><i class="fa fa-plus"></i></button>
                                         </div>
                                     </div>
                                     <!-- /.card-body -->
@@ -162,7 +180,7 @@ $_SESSION['PathPage'] = "AdminSetup.php";
                                                 while ($row = $result->fetch_assoc()) {
                                         ?>
                                             <div class="form-group">
-                                                <textarea name="Games[]" class="form-control border-1 my-3" placeholder="iframe" style="height: 110px;"><?php echo htmlspecialchars($row['GA_Iframe'], ENT_QUOTES); ?></textarea>
+                                                <textarea name="Games[]" class="form-control border-1 my-2" placeholder="iframe" style="height: 110px;"><?php echo htmlspecialchars($row['GA_Iframe'], ENT_QUOTES); ?></textarea>
                                             </div>
                                         <?PHP
                                                 }
@@ -177,7 +195,7 @@ $_SESSION['PathPage'] = "AdminSetup.php";
                                     <!-- /.card-body -->
                                 </div>
                                 <!-- /.card -->
-                                <div class="card card-info collapsed-card">
+                                <div class="card card-secondary collapsed-card">
                                     <div class="card-header">
                                         <h3 class="card-title text-white">มีไว้ก่อน</h3>
                                         <div class="card-tools">
@@ -256,7 +274,7 @@ $_SESSION['PathPage'] = "AdminSetup.php";
         var count = 1; // ตัวแปรนับค่าชื่อ name
         $('#addButton').click(function() {
             var formGroup = $('<div class="form-group">' +
-                '<textarea name="Games[]" class="form-control border-0 my-3" placeholder="iframe" style="height: 110px;"></textarea>' +
+                '<textarea name="Games[]" class="form-control border-0 my-2" placeholder="iframe" style="height: 110px;"></textarea>' +
                 '</div>');
             $('#form-container').append(formGroup);
         });

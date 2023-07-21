@@ -5,7 +5,7 @@
 - http://www.phpmyadmin.net
 -
 - Host: 127.0.0.1
-- Generation Time: Jul 20, 2023 at 12:40 PM
+- Generation Time: Jul 21, 2023 at 11:58 AM
 - Server version: 5.5.27
 - PHP Version: 5.4.7
 -->
@@ -32,6 +32,18 @@
                   PRIMARY KEY (`AT_Code`)
                 ) ENGINE=InnoDB AUTO_INCREMENT=85 DEFAULT CHARSET=utf8;
             </pma:table>
+            <pma:table name="answers">
+                CREATE TABLE `answers` (
+                  `AW_code` int(11) NOT NULL AUTO_INCREMENT,
+                  `AW_text` text NOT NULL,
+                  `QT_code` int(11) DEFAULT NULL,
+                  `AW_CreateDate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+                  `AW_ModifyDate` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+                  PRIMARY KEY (`AW_code`),
+                  KEY `QT_code` (`QT_code`),
+                  CONSTRAINT `answers_ibfk_1` FOREIGN KEY (`QT_code`) REFERENCES `questions` (`QT_code`) ON DELETE CASCADE ON UPDATE CASCADE
+                ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+            </pma:table>
             <pma:table name="category">
                 CREATE TABLE `category` (
                   `CG_Entity No.` int(11) NOT NULL AUTO_INCREMENT,
@@ -53,6 +65,27 @@
                   `GR_ModifyDate` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
                   PRIMARY KEY (`GR_Entity No.`)
                 ) ENGINE=InnoDB AUTO_INCREMENT=68 DEFAULT CHARSET=utf8;
+            </pma:table>
+            <pma:table name="questions">
+                CREATE TABLE `questions` (
+                  `QT_code` int(11) NOT NULL AUTO_INCREMENT,
+                  `QT_text` text NOT NULL,
+                  `QC_code` int(11) DEFAULT NULL,
+                  `QT_CreateDate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+                  `QT_ModifyDate` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+                  PRIMARY KEY (`QT_code`),
+                  KEY `QC_code` (`QC_code`),
+                  CONSTRAINT `questions_ibfk_1` FOREIGN KEY (`QC_code`) REFERENCES `questionscategories` (`QC_code`) ON DELETE CASCADE ON UPDATE CASCADE
+                ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+            </pma:table>
+            <pma:table name="questionscategories">
+                CREATE TABLE `questionscategories` (
+                  `QC_code` int(11) NOT NULL AUTO_INCREMENT,
+                  `QC_name` varchar(255) NOT NULL,
+                  `QC_CreateDate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+                  `QC_ModifyDate` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+                  PRIMARY KEY (`QC_code`)
+                ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
             </pma:table>
             <pma:table name="setup">
                 CREATE TABLE `setup` (
@@ -905,6 +938,7 @@
             <column name="AT_CreateDate">2023-07-20 12:59:57</column>
             <column name="AT_ModifyDate">2023-07-20 12:59:57</column>
         </table>
+        <!-- Table answers -->
         <!-- Table category -->
         <table name="category">
             <column name="CG_Entity_No.">1</column>
@@ -1424,6 +1458,8 @@
             <column name="GR_CreateDate">2023-07-20 12:59:57</column>
             <column name="GR_ModifyDate">2023-07-20 12:59:57</column>
         </table>
+        <!-- Table questions -->
+        <!-- Table questionscategories -->
         <!-- Table setup -->
         <table name="setup">
             <column name="SU_Code">1</column>

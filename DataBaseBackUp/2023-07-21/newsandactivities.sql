@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 20, 2023 at 12:40 PM
+-- Generation Time: Jul 21, 2023 at 11:58 AM
 -- Server version: 5.5.27
 -- PHP Version: 5.4.7
 
@@ -112,6 +112,22 @@ INSERT INTO `activities` (`AT_Code`, `AT_Entity No.`, `AT_Date`, `AT_Time`, `AT_
 (82, 1, '2023-07-20', '12:56:57', '6', '6', 'PHA+NjwvcD4=', '0.png', '', '2023-07-20 05:56:57', '2023-07-20 05:56:57'),
 (83, 1, '2023-07-20', '12:59:42', '4', '4', 'PHA+NDwvcD4=', '0.png', '', '2023-07-20 05:59:42', '2023-07-20 05:59:42'),
 (84, 1, '2023-07-20', '12:59:57', '4', '4', 'PHA+NDwvcD4=', '0.png', '', '2023-07-20 05:59:57', '2023-07-20 05:59:57');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `answers`
+--
+
+CREATE TABLE IF NOT EXISTS `answers` (
+  `AW_code` int(11) NOT NULL AUTO_INCREMENT,
+  `AW_text` text NOT NULL,
+  `QT_code` int(11) DEFAULT NULL,
+  `AW_CreateDate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `AW_ModifyDate` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  PRIMARY KEY (`AW_code`),
+  KEY `QT_code` (`QT_code`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -231,6 +247,36 @@ INSERT INTO `gallery` (`GR_Entity No.`, `GR_Activities Code`, `GR_Name`, `GR_Cre
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `questions`
+--
+
+CREATE TABLE IF NOT EXISTS `questions` (
+  `QT_code` int(11) NOT NULL AUTO_INCREMENT,
+  `QT_text` text NOT NULL,
+  `QC_code` int(11) DEFAULT NULL,
+  `QT_CreateDate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `QT_ModifyDate` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  PRIMARY KEY (`QT_code`),
+  KEY `QC_code` (`QC_code`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `questionscategories`
+--
+
+CREATE TABLE IF NOT EXISTS `questionscategories` (
+  `QC_code` int(11) NOT NULL AUTO_INCREMENT,
+  `QC_name` varchar(255) NOT NULL,
+  `QC_CreateDate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `QC_ModifyDate` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  PRIMARY KEY (`QC_code`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `setup`
 --
 
@@ -314,6 +360,22 @@ CREATE TABLE IF NOT EXISTS `user` (
 INSERT INTO `user` (`US_Username`, `US_Password`, `US_Prefix`, `US_Fname`, `US_Lname`, `US_Image`) VALUES
 ('aaa', 'aaa', '', 'aaa', 'aaa', 'testimonial-1.jpg'),
 ('bbb', 'bbb', '', 'bbb', 'bbb', 'testimonial-2.jpg');
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `answers`
+--
+ALTER TABLE `answers`
+  ADD CONSTRAINT `answers_ibfk_1` FOREIGN KEY (`QT_code`) REFERENCES `questions` (`QT_code`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `questions`
+--
+ALTER TABLE `questions`
+  ADD CONSTRAINT `questions_ibfk_1` FOREIGN KEY (`QC_code`) REFERENCES `questionscategories` (`QC_code`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
