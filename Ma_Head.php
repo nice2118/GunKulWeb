@@ -63,12 +63,30 @@
                             <a href="" class="dropdown-item">รายการ&nbsp;&nbsp;<i class="fa fa-angle-down text-secondary2"></i></a>
                             <ul class="dropdown-menu-submenu submenu multi-menu">
                             <?php
+                                $categories = array();
                                 $sql = "SELECT * FROM `Category` WHERE `Category`.`CG_Entity Relation No.` = 0;";
                                 $result = $conn->query($sql);
                                 if ($result->num_rows > 0) {
                                     while ($row = $result->fetch_assoc()) {
+                                        $categories[] = $row;
                             ?>
                                 <li><a href="Ui_ShowPage.php?Send_Category=<?= $row["CG_Entity No."] ?>&Multiplier=1&Search=" class="dropdown-item"><?= $row["CG_DescriptionTH"] ?></a></li>
+                            <?php
+                                    }
+                                }
+                            ?>
+                            </ul>
+                        </nav>
+                        <nav>
+                            <a href="" class="dropdown-item">เพิ่มเติม&nbsp;&nbsp;<i class="fa fa-angle-down text-secondary2"></i></a>
+                            <ul class="dropdown-menu-submenu submenu multi-menu">
+                            <?php
+                                $sql = "SELECT * FROM `HeadingCategories`;";
+                                $result = $conn->query($sql);
+                                if ($result->num_rows > 0) {
+                                    while ($row = $result->fetch_assoc()) {
+                            ?>
+                                <li><a href="Ui_ShowPageMenu.php?Send_MoreMenu=<?= $row["HC_Code"] ?>" class="dropdown-item"><?= $row["HC_DescriptionTH"] ?></a></li>
                             <?php
                                     }
                                 }
@@ -183,17 +201,9 @@
                         <nav>
                             <a href="" class="dropdown-item">จัดการ&nbsp;&nbsp;<i class="fa fa-angle-down text-secondary2"></i></a>
                             <ul class="dropdown-menu-submenu submenu submenu-left">
-                            <?php
-                                $sql = "SELECT * FROM `Category` WHERE `Category`.`CG_Entity Relation No.` = 0;";
-                                $result = $conn->query($sql);
-                                if ($result->num_rows > 0) {
-                                    while ($row = $result->fetch_assoc()) {
-                            ?>
-                                <li><a href="Ui_ListAdmin.php?Send_Category=<?= $row["CG_Entity No."] ?>" class="dropdown-item"><?= $row["CG_DescriptionTH"] ?></a></li>
-                            <?php
-                                    }
-                                }
-                            ?>
+                            <?php foreach ($categories as $category) : ?>
+                                <li><a href="Ui_ListAdmin.php?Send_Category=<?= $category["CG_Entity No."] ?>" class="dropdown-item"><?= $category["CG_DescriptionTH"] ?></a></li>
+                            <?php endforeach; ?>
                             </ul>
                         </nav>
                         <a href="Ui_AdminSetup.php" class="dropdown-item">Setup</a>

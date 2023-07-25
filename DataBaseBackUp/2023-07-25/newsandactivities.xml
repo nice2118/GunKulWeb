@@ -5,7 +5,7 @@
 - http://www.phpmyadmin.net
 -
 - Host: 127.0.0.1
-- Generation Time: Jul 21, 2023 at 11:58 AM
+- Generation Time: Jul 25, 2023 at 10:53 AM
 - Server version: 5.5.27
 - PHP Version: 5.4.7
 -->
@@ -32,18 +32,6 @@
                   PRIMARY KEY (`AT_Code`)
                 ) ENGINE=InnoDB AUTO_INCREMENT=85 DEFAULT CHARSET=utf8;
             </pma:table>
-            <pma:table name="answers">
-                CREATE TABLE `answers` (
-                  `AW_code` int(11) NOT NULL AUTO_INCREMENT,
-                  `AW_text` text NOT NULL,
-                  `QT_code` int(11) DEFAULT NULL,
-                  `AW_CreateDate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-                  `AW_ModifyDate` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
-                  PRIMARY KEY (`AW_code`),
-                  KEY `QT_code` (`QT_code`),
-                  CONSTRAINT `answers_ibfk_1` FOREIGN KEY (`QT_code`) REFERENCES `questions` (`QT_code`) ON DELETE CASCADE ON UPDATE CASCADE
-                ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-            </pma:table>
             <pma:table name="category">
                 CREATE TABLE `category` (
                   `CG_Entity No.` int(11) NOT NULL AUTO_INCREMENT,
@@ -54,7 +42,17 @@
                   `CG_CreateDate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
                   `CG_ModifyDate` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
                   PRIMARY KEY (`CG_Entity No.`)
-                ) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
+                ) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8;
+            </pma:table>
+            <pma:table name="details">
+                CREATE TABLE `details` (
+                  `DT_Code` int(11) NOT NULL AUTO_INCREMENT,
+                  `DT_Text` varchar(255) DEFAULT NULL,
+                  `HD_Code` int(11) DEFAULT NULL,
+                  `DT_CreateDate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+                  `DT_ModifyDate` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+                  PRIMARY KEY (`DT_Code`)
+                ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
             </pma:table>
             <pma:table name="gallery">
                 CREATE TABLE `gallery` (
@@ -66,25 +64,35 @@
                   PRIMARY KEY (`GR_Entity No.`)
                 ) ENGINE=InnoDB AUTO_INCREMENT=68 DEFAULT CHARSET=utf8;
             </pma:table>
-            <pma:table name="questions">
-                CREATE TABLE `questions` (
-                  `QT_code` int(11) NOT NULL AUTO_INCREMENT,
-                  `QT_text` text NOT NULL,
-                  `QC_code` int(11) DEFAULT NULL,
-                  `QT_CreateDate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-                  `QT_ModifyDate` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
-                  PRIMARY KEY (`QT_code`),
-                  KEY `QC_code` (`QC_code`),
-                  CONSTRAINT `questions_ibfk_1` FOREIGN KEY (`QC_code`) REFERENCES `questionscategories` (`QC_code`) ON DELETE CASCADE ON UPDATE CASCADE
+            <pma:table name="heading">
+                CREATE TABLE `heading` (
+                  `HD_Code` int(11) NOT NULL AUTO_INCREMENT,
+                  `HD_Text` varchar(255) DEFAULT NULL,
+                  `HG_Code` int(11) DEFAULT NULL,
+                  `HD_CreateDate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+                  `HD_ModifyDate` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+                  PRIMARY KEY (`HD_Code`)
                 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
             </pma:table>
-            <pma:table name="questionscategories">
-                CREATE TABLE `questionscategories` (
-                  `QC_code` int(11) NOT NULL AUTO_INCREMENT,
-                  `QC_name` varchar(255) NOT NULL,
-                  `QC_CreateDate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-                  `QC_ModifyDate` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
-                  PRIMARY KEY (`QC_code`)
+            <pma:table name="headingcategories">
+                CREATE TABLE `headingcategories` (
+                  `HC_Code` int(11) NOT NULL AUTO_INCREMENT,
+                  `HC_Text` varchar(255) DEFAULT NULL,
+                  `HC_DescriptionTH` varchar(255) NOT NULL,
+                  `HC_DescriptionEN` varchar(255) NOT NULL,
+                  `HC_CreateDate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+                  `HC_ModifyDate` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+                  PRIMARY KEY (`HC_Code`)
+                ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+            </pma:table>
+            <pma:table name="headinggroup">
+                CREATE TABLE `headinggroup` (
+                  `HG_Code` int(11) NOT NULL AUTO_INCREMENT,
+                  `HG_Text` varchar(255) DEFAULT NULL,
+                  `HC_Code` int(11) DEFAULT NULL,
+                  `HG_CreateDate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+                  `HG_ModifyDate` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+                  PRIMARY KEY (`HG_Code`)
                 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
             </pma:table>
             <pma:table name="setup">
@@ -938,7 +946,6 @@
             <column name="AT_CreateDate">2023-07-20 12:59:57</column>
             <column name="AT_ModifyDate">2023-07-20 12:59:57</column>
         </table>
-        <!-- Table answers -->
         <!-- Table category -->
         <table name="category">
             <column name="CG_Entity_No.">1</column>
@@ -1030,6 +1037,7 @@
             <column name="CG_CreateDate">2023-07-14 09:29:13</column>
             <column name="CG_ModifyDate">2023-07-14 00:00:00</column>
         </table>
+        <!-- Table details -->
         <!-- Table gallery -->
         <table name="gallery">
             <column name="GR_Entity_No.">2</column>
@@ -1458,8 +1466,9 @@
             <column name="GR_CreateDate">2023-07-20 12:59:57</column>
             <column name="GR_ModifyDate">2023-07-20 12:59:57</column>
         </table>
-        <!-- Table questions -->
-        <!-- Table questionscategories -->
+        <!-- Table heading -->
+        <!-- Table headingcategories -->
+        <!-- Table headinggroup -->
         <!-- Table setup -->
         <table name="setup">
             <column name="SU_Code">1</column>
@@ -1467,56 +1476,56 @@
             <column name="SU_PathDefaultImageNews">img/UploadAddActivities/</column>
             <column name="SU_PathDefaultImageGallery">img/UploadAddGallery/</column>
             <column name="SU_CreateDate">2023-06-22 11:40:33</column>
-            <column name="SU_ModifyDate">2023-07-20 15:46:31</column>
+            <column name="SU_ModifyDate">2023-07-25 08:51:55</column>
         </table>
         <!-- Table setupgames -->
         <table name="setupgames">
             <column name="GA_Code">1</column>
             <column name="GA_Iframe">&lt;iframe style=&quot;max-width:100%&quot; src=&quot;https://wordwall.net/th/embed/620534d5e58a47b7939eb484a22c7505?themeId=52&amp;templateId=2&amp;fontStackId=0&quot; width=&quot;500&quot; height=&quot;800&quot; frameborder=&quot;0&quot; allowfullscreen&gt;&lt;/iframe&gt;</column>
-            <column name="GA_CreateDate">2023-07-20 15:46:31</column>
-            <column name="GA_ModifyDate">2023-07-20 15:46:31</column>
+            <column name="GA_CreateDate">2023-07-25 08:51:56</column>
+            <column name="GA_ModifyDate">2023-07-25 08:51:56</column>
         </table>
         <table name="setupgames">
             <column name="GA_Code">2</column>
             <column name="GA_Iframe">&lt;iframe style=&quot;max-width:100%&quot; src=&quot;https://wordwall.net/th/embed/620534d5e58a47b7939eb484a22c7505?themeId=52&amp;templateId=38&amp;fontStackId=0&quot; width=&quot;500&quot; height=&quot;800&quot; frameborder=&quot;0&quot; allowfullscreen&gt;&lt;/iframe&gt;</column>
-            <column name="GA_CreateDate">2023-07-20 15:46:31</column>
-            <column name="GA_ModifyDate">2023-07-20 15:46:31</column>
+            <column name="GA_CreateDate">2023-07-25 08:51:56</column>
+            <column name="GA_ModifyDate">2023-07-25 08:51:56</column>
         </table>
         <table name="setupgames">
             <column name="GA_Code">3</column>
             <column name="GA_Iframe">&lt;iframe style=&quot;max-width:100%&quot; src=&quot;https://wordwall.net/th/embed/620534d5e58a47b7939eb484a22c7505?themeId=52&amp;templateId=8&amp;fontStackId=0&quot; width=&quot;500&quot; height=&quot;800&quot; frameborder=&quot;0&quot; allowfullscreen&gt;&lt;/iframe&gt;</column>
-            <column name="GA_CreateDate">2023-07-20 15:46:31</column>
-            <column name="GA_ModifyDate">2023-07-20 15:46:31</column>
+            <column name="GA_CreateDate">2023-07-25 08:51:56</column>
+            <column name="GA_ModifyDate">2023-07-25 08:51:56</column>
         </table>
         <table name="setupgames">
             <column name="GA_Code">4</column>
             <column name="GA_Iframe">&lt;iframe style=&quot;max-width:100%&quot; src=&quot;https://wordwall.net/th/embed/620534d5e58a47b7939eb484a22c7505?themeId=21&amp;templateId=69&amp;fontStackId=0&quot; width=&quot;500&quot; height=&quot;800&quot; frameborder=&quot;0&quot; allowfullscreen&gt;&lt;/iframe&gt;</column>
-            <column name="GA_CreateDate">2023-07-20 15:46:31</column>
-            <column name="GA_ModifyDate">2023-07-20 15:46:31</column>
+            <column name="GA_CreateDate">2023-07-25 08:51:56</column>
+            <column name="GA_ModifyDate">2023-07-25 08:51:56</column>
         </table>
         <table name="setupgames">
             <column name="GA_Code">5</column>
             <column name="GA_Iframe">&lt;iframe style=&quot;max-width:100%&quot; src=&quot;https://wordwall.net/th/embed/620534d5e58a47b7939eb484a22c7505?themeId=52&amp;templateId=30&amp;fontStackId=0&quot; width=&quot;500&quot; height=&quot;800&quot; frameborder=&quot;0&quot; allowfullscreen&gt;&lt;/iframe&gt;</column>
-            <column name="GA_CreateDate">2023-07-20 15:46:31</column>
-            <column name="GA_ModifyDate">2023-07-20 15:46:31</column>
+            <column name="GA_CreateDate">2023-07-25 08:51:56</column>
+            <column name="GA_ModifyDate">2023-07-25 08:51:56</column>
         </table>
         <table name="setupgames">
             <column name="GA_Code">6</column>
             <column name="GA_Iframe">&lt;iframe style=&quot;max-width:100%&quot; src=&quot;https://wordwall.net/th/embed/620534d5e58a47b7939eb484a22c7505?themeId=44&amp;templateId=73&amp;fontStackId=0&quot; width=&quot;500&quot; height=&quot;800&quot; frameborder=&quot;0&quot; allowfullscreen&gt;&lt;/iframe&gt;</column>
-            <column name="GA_CreateDate">2023-07-20 15:46:31</column>
-            <column name="GA_ModifyDate">2023-07-20 15:46:31</column>
+            <column name="GA_CreateDate">2023-07-25 08:51:56</column>
+            <column name="GA_ModifyDate">2023-07-25 08:51:56</column>
         </table>
         <table name="setupgames">
             <column name="GA_Code">7</column>
             <column name="GA_Iframe">&lt;iframe style=&quot;max-width:100%&quot; src=&quot;https://wordwall.net/th/embed/620534d5e58a47b7939eb484a22c7505?themeId=52&amp;templateId=5&amp;fontStackId=0&quot; width=&quot;500&quot; height=&quot;800&quot; frameborder=&quot;0&quot; allowfullscreen&gt;&lt;/iframe&gt;</column>
-            <column name="GA_CreateDate">2023-07-20 15:46:31</column>
-            <column name="GA_ModifyDate">2023-07-20 15:46:31</column>
+            <column name="GA_CreateDate">2023-07-25 08:51:56</column>
+            <column name="GA_ModifyDate">2023-07-25 08:51:56</column>
         </table>
         <table name="setupgames">
             <column name="GA_Code">8</column>
             <column name="GA_Iframe">&lt;iframe style=&quot;max-width:100%&quot; src=&quot;https://wordwall.net/th/embed/620534d5e58a47b7939eb484a22c7505?themeId=52&amp;templateId=70&amp;fontStackId=0&quot; width=&quot;500&quot; height=&quot;800&quot; frameborder=&quot;0&quot; allowfullscreen&gt;&lt;/iframe&gt;</column>
-            <column name="GA_CreateDate">2023-07-20 15:46:31</column>
-            <column name="GA_ModifyDate">2023-07-20 15:46:31</column>
+            <column name="GA_CreateDate">2023-07-25 08:51:56</column>
+            <column name="GA_ModifyDate">2023-07-25 08:51:56</column>
         </table>
         <!-- Table user -->
         <table name="user">

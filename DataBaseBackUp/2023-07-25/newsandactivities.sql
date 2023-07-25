@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 21, 2023 at 11:58 AM
+-- Generation Time: Jul 25, 2023 at 10:53 AM
 -- Server version: 5.5.27
 -- PHP Version: 5.4.7
 
@@ -116,22 +116,6 @@ INSERT INTO `activities` (`AT_Code`, `AT_Entity No.`, `AT_Date`, `AT_Time`, `AT_
 -- --------------------------------------------------------
 
 --
--- Table structure for table `answers`
---
-
-CREATE TABLE IF NOT EXISTS `answers` (
-  `AW_code` int(11) NOT NULL AUTO_INCREMENT,
-  `AW_text` text NOT NULL,
-  `QT_code` int(11) DEFAULT NULL,
-  `AW_CreateDate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `AW_ModifyDate` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
-  PRIMARY KEY (`AW_code`),
-  KEY `QT_code` (`QT_code`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `category`
 --
 
@@ -144,7 +128,7 @@ CREATE TABLE IF NOT EXISTS `category` (
   `CG_CreateDate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `CG_ModifyDate` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   PRIMARY KEY (`CG_Entity No.`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=11 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=17 ;
 
 --
 -- Dumping data for table `category`
@@ -161,6 +145,21 @@ INSERT INTO `category` (`CG_Entity No.`, `CG_Entity Relation No.`, `CG_Name`, `C
 (8, 6, 'Language Skill-1', 'ทักษะทางสังคมที่ใช้เพื่อปฏิสัมพันธ์กับผู้คน-1', 'Language Skill-1', '2023-07-11 08:52:14', '2023-07-13 17:00:00'),
 (9, 6, 'Language Skill-2', 'ทักษะทางสังคมที่ใช้เพื่อปฏิสัมพันธ์กับผู้คน-2', 'Language Skill-2', '2023-07-11 10:29:51', '2023-07-13 17:00:00'),
 (10, 0, 'Gallery', 'แกลลอรี่', 'Gallery', '2023-07-14 02:29:13', '2023-07-13 17:00:00');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `details`
+--
+
+CREATE TABLE IF NOT EXISTS `details` (
+  `DT_Code` int(11) NOT NULL AUTO_INCREMENT,
+  `DT_Text` varchar(255) DEFAULT NULL,
+  `HD_Code` int(11) DEFAULT NULL,
+  `DT_CreateDate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `DT_ModifyDate` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  PRIMARY KEY (`DT_Code`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -247,31 +246,47 @@ INSERT INTO `gallery` (`GR_Entity No.`, `GR_Activities Code`, `GR_Name`, `GR_Cre
 -- --------------------------------------------------------
 
 --
--- Table structure for table `questions`
+-- Table structure for table `heading`
 --
 
-CREATE TABLE IF NOT EXISTS `questions` (
-  `QT_code` int(11) NOT NULL AUTO_INCREMENT,
-  `QT_text` text NOT NULL,
-  `QC_code` int(11) DEFAULT NULL,
-  `QT_CreateDate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `QT_ModifyDate` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
-  PRIMARY KEY (`QT_code`),
-  KEY `QC_code` (`QC_code`)
+CREATE TABLE IF NOT EXISTS `heading` (
+  `HD_Code` int(11) NOT NULL AUTO_INCREMENT,
+  `HD_Text` varchar(255) DEFAULT NULL,
+  `HG_Code` int(11) DEFAULT NULL,
+  `HD_CreateDate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `HD_ModifyDate` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  PRIMARY KEY (`HD_Code`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `questionscategories`
+-- Table structure for table `headingcategories`
 --
 
-CREATE TABLE IF NOT EXISTS `questionscategories` (
-  `QC_code` int(11) NOT NULL AUTO_INCREMENT,
-  `QC_name` varchar(255) NOT NULL,
-  `QC_CreateDate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `QC_ModifyDate` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
-  PRIMARY KEY (`QC_code`)
+CREATE TABLE IF NOT EXISTS `headingcategories` (
+  `HC_Code` int(11) NOT NULL AUTO_INCREMENT,
+  `HC_Text` varchar(255) DEFAULT NULL,
+  `HC_DescriptionTH` varchar(255) NOT NULL,
+  `HC_DescriptionEN` varchar(255) NOT NULL,
+  `HC_CreateDate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `HC_ModifyDate` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  PRIMARY KEY (`HC_Code`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `headinggroup`
+--
+
+CREATE TABLE IF NOT EXISTS `headinggroup` (
+  `HG_Code` int(11) NOT NULL AUTO_INCREMENT,
+  `HG_Text` varchar(255) DEFAULT NULL,
+  `HC_Code` int(11) DEFAULT NULL,
+  `HG_CreateDate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `HG_ModifyDate` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  PRIMARY KEY (`HG_Code`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
@@ -295,7 +310,7 @@ CREATE TABLE IF NOT EXISTS `setup` (
 --
 
 INSERT INTO `setup` (`SU_Code`, `SU_DefaultImageNews`, `SU_PathDefaultImageNews`, `SU_PathDefaultImageGallery`, `SU_CreateDate`, `SU_ModifyDate`) VALUES
-(1, '0.png', 'img/UploadAddActivities/', 'img/UploadAddGallery/', '2023-06-22 04:40:33', '2023-07-20 08:46:31');
+(1, '0.png', 'img/UploadAddActivities/', 'img/UploadAddGallery/', '2023-06-22 04:40:33', '2023-07-25 01:51:55');
 
 --
 -- Triggers `setup`
@@ -328,14 +343,14 @@ CREATE TABLE IF NOT EXISTS `setupgames` (
 --
 
 INSERT INTO `setupgames` (`GA_Code`, `GA_Iframe`, `GA_CreateDate`, `GA_ModifyDate`) VALUES
-(1, '<iframe style="max-width:100%" src="https://wordwall.net/th/embed/620534d5e58a47b7939eb484a22c7505?themeId=52&templateId=2&fontStackId=0" width="500" height="800" frameborder="0" allowfullscreen></iframe>', '2023-07-20 08:46:31', '2023-07-20 08:46:31'),
-(2, '<iframe style="max-width:100%" src="https://wordwall.net/th/embed/620534d5e58a47b7939eb484a22c7505?themeId=52&templateId=38&fontStackId=0" width="500" height="800" frameborder="0" allowfullscreen></iframe>', '2023-07-20 08:46:31', '2023-07-20 08:46:31'),
-(3, '<iframe style="max-width:100%" src="https://wordwall.net/th/embed/620534d5e58a47b7939eb484a22c7505?themeId=52&templateId=8&fontStackId=0" width="500" height="800" frameborder="0" allowfullscreen></iframe>', '2023-07-20 08:46:31', '2023-07-20 08:46:31'),
-(4, '<iframe style="max-width:100%" src="https://wordwall.net/th/embed/620534d5e58a47b7939eb484a22c7505?themeId=21&templateId=69&fontStackId=0" width="500" height="800" frameborder="0" allowfullscreen></iframe>', '2023-07-20 08:46:31', '2023-07-20 08:46:31'),
-(5, '<iframe style="max-width:100%" src="https://wordwall.net/th/embed/620534d5e58a47b7939eb484a22c7505?themeId=52&templateId=30&fontStackId=0" width="500" height="800" frameborder="0" allowfullscreen></iframe>', '2023-07-20 08:46:31', '2023-07-20 08:46:31'),
-(6, '<iframe style="max-width:100%" src="https://wordwall.net/th/embed/620534d5e58a47b7939eb484a22c7505?themeId=44&templateId=73&fontStackId=0" width="500" height="800" frameborder="0" allowfullscreen></iframe>', '2023-07-20 08:46:31', '2023-07-20 08:46:31'),
-(7, '<iframe style="max-width:100%" src="https://wordwall.net/th/embed/620534d5e58a47b7939eb484a22c7505?themeId=52&templateId=5&fontStackId=0" width="500" height="800" frameborder="0" allowfullscreen></iframe>', '2023-07-20 08:46:31', '2023-07-20 08:46:31'),
-(8, '<iframe style="max-width:100%" src="https://wordwall.net/th/embed/620534d5e58a47b7939eb484a22c7505?themeId=52&templateId=70&fontStackId=0" width="500" height="800" frameborder="0" allowfullscreen></iframe>', '2023-07-20 08:46:31', '2023-07-20 08:46:31');
+(1, '<iframe style="max-width:100%" src="https://wordwall.net/th/embed/620534d5e58a47b7939eb484a22c7505?themeId=52&templateId=2&fontStackId=0" width="500" height="800" frameborder="0" allowfullscreen></iframe>', '2023-07-25 01:51:56', '2023-07-25 01:51:56'),
+(2, '<iframe style="max-width:100%" src="https://wordwall.net/th/embed/620534d5e58a47b7939eb484a22c7505?themeId=52&templateId=38&fontStackId=0" width="500" height="800" frameborder="0" allowfullscreen></iframe>', '2023-07-25 01:51:56', '2023-07-25 01:51:56'),
+(3, '<iframe style="max-width:100%" src="https://wordwall.net/th/embed/620534d5e58a47b7939eb484a22c7505?themeId=52&templateId=8&fontStackId=0" width="500" height="800" frameborder="0" allowfullscreen></iframe>', '2023-07-25 01:51:56', '2023-07-25 01:51:56'),
+(4, '<iframe style="max-width:100%" src="https://wordwall.net/th/embed/620534d5e58a47b7939eb484a22c7505?themeId=21&templateId=69&fontStackId=0" width="500" height="800" frameborder="0" allowfullscreen></iframe>', '2023-07-25 01:51:56', '2023-07-25 01:51:56'),
+(5, '<iframe style="max-width:100%" src="https://wordwall.net/th/embed/620534d5e58a47b7939eb484a22c7505?themeId=52&templateId=30&fontStackId=0" width="500" height="800" frameborder="0" allowfullscreen></iframe>', '2023-07-25 01:51:56', '2023-07-25 01:51:56'),
+(6, '<iframe style="max-width:100%" src="https://wordwall.net/th/embed/620534d5e58a47b7939eb484a22c7505?themeId=44&templateId=73&fontStackId=0" width="500" height="800" frameborder="0" allowfullscreen></iframe>', '2023-07-25 01:51:56', '2023-07-25 01:51:56'),
+(7, '<iframe style="max-width:100%" src="https://wordwall.net/th/embed/620534d5e58a47b7939eb484a22c7505?themeId=52&templateId=5&fontStackId=0" width="500" height="800" frameborder="0" allowfullscreen></iframe>', '2023-07-25 01:51:56', '2023-07-25 01:51:56'),
+(8, '<iframe style="max-width:100%" src="https://wordwall.net/th/embed/620534d5e58a47b7939eb484a22c7505?themeId=52&templateId=70&fontStackId=0" width="500" height="800" frameborder="0" allowfullscreen></iframe>', '2023-07-25 01:51:56', '2023-07-25 01:51:56');
 
 -- --------------------------------------------------------
 
@@ -360,22 +375,6 @@ CREATE TABLE IF NOT EXISTS `user` (
 INSERT INTO `user` (`US_Username`, `US_Password`, `US_Prefix`, `US_Fname`, `US_Lname`, `US_Image`) VALUES
 ('aaa', 'aaa', '', 'aaa', 'aaa', 'testimonial-1.jpg'),
 ('bbb', 'bbb', '', 'bbb', 'bbb', 'testimonial-2.jpg');
-
---
--- Constraints for dumped tables
---
-
---
--- Constraints for table `answers`
---
-ALTER TABLE `answers`
-  ADD CONSTRAINT `answers_ibfk_1` FOREIGN KEY (`QT_code`) REFERENCES `questions` (`QT_code`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Constraints for table `questions`
---
-ALTER TABLE `questions`
-  ADD CONSTRAINT `questions_ibfk_1` FOREIGN KEY (`QC_code`) REFERENCES `questionscategories` (`QC_code`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

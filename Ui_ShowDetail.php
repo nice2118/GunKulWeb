@@ -74,7 +74,7 @@
                         <div class="card-body">
                             <div class="form-group row g-4">
                             <?php
-                            while ($row = $result->fetch_assoc()) {
+                                while ($row = $result->fetch_assoc()) {
                             ?>
                                 <div class="col-lg-2 col-md-2 portfolio-item">
                                     <div class="portfolio-img rounded overflow-hidden">
@@ -112,7 +112,7 @@
                                     </div>
                                 </div>
                             <?php
-                            }
+                                }
                             ?>
                             </div>
                         </div>
