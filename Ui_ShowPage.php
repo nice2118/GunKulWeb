@@ -22,6 +22,27 @@
 ?>
 <?php include("Fn_RecursiveCategory.php"); ?>
 <?php include("Ma_Head_Link.php"); ?>
+    <script>
+        function scrollToBottom() {
+            // หาความสูงของเนื้อหาในหน้าต่างที่เปิด (สูงสุด)
+            const contentHeight = Math.max(
+                document.body.scrollHeight,
+                document.body.offsetHeight,
+                document.documentElement.clientHeight,
+                document.documentElement.scrollHeight,
+                document.documentElement.offsetHeight
+            );
+
+            // เลื่อนหน้าเว็บไปที่ส่วนล่างสุดของเนื้อหา
+            window.scrollTo(0, contentHeight);
+        }
+
+        // ถ้าค่า $CG_EntityNo และ $CG_EntityRelationNo ไม่ใช่ 0 ให้เลื่อนลงมากลางหน้าต่างทันที
+        <?php if ($Multiplier > 1 ) { ?>
+            window.onload = scrollToBottom;
+            scrollToBottom();
+        <?php } ?>
+    </script>
 <?php include("Ma_Head.php"); ?>
 <?php include("Ma_Carousel.php"); ?>
 

@@ -28,7 +28,7 @@ function SearchCategory($GroupCategory) {   //3,5,6,8,9
     return $SelectCategory;
 }
 
-function SearchCategorySub($GroupCategory) {    //5,8,9
+function SearchCategorySub($GroupCategory) {    //5,8,9     เคสนี้กรณีเมื่อมีหัวแค่ตัวเดียวจะแสดงแค่หัว 1 ตัว
     global $conn;
     $SelectCategory = '';
     
@@ -55,7 +55,7 @@ function SearchCategorySub($GroupCategory) {    //5,8,9
     return $SelectCategory;
 }
 
-function SearchCategorySubNotHeader($GroupCategory) {    //5,8,9
+function SearchCategorySubNotHeader($GroupCategory) {    //5,8,9  เคสนี้กรณีเมื่อมีหัวแค่ตัวเดียวจะไม่แสดง
     global $conn;
     $SelectCategory = '';
     
@@ -91,7 +91,7 @@ function SearchCategoryReturn($GroupCategory) {  // Send 9  = 9 6 3
 
     if ($result && $result->num_rows > 0) {
         while ($row = $result->fetch_assoc()) {
-            $Temp = SearchCategoryReturn($row["CG_Entity Relation No."], $conn);
+            $Temp = SearchCategoryReturn($row["CG_Entity Relation No."]);
             if ($Temp != '') {
                 if ($SelectCategory == '') {
                     $SelectCategory .= $Temp;
@@ -121,7 +121,7 @@ function SearchCategoryReturnNotBegin($GroupCategory) {  // Send 9  = 9 6
 
     if ($result && $result->num_rows > 0) {
         while ($row = $result->fetch_assoc()) {
-            $Temp = SearchCategoryReturnNotBegin($row["CG_Entity Relation No."], $conn);
+            $Temp = SearchCategoryReturnNotBegin($row["CG_Entity Relation No."]);
             if ($Temp != '') {
                 if ($SelectCategory == '') {
                     $SelectCategory .= $Temp;
@@ -141,6 +141,5 @@ function SearchCategoryReturnNotBegin($GroupCategory) {  // Send 9  = 9 6
 
     return $SelectCategory;
 }
-
 
 ?>

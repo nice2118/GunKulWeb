@@ -94,7 +94,7 @@ include("DB_Setup.php");
             ?>
             </div>
             <div class="row g-1">
-                <div class="wow fadeInUp portfolio-item first" data-wow-delay="0.6s">
+                <div class="wow fadeInUp portfolio-item first my-4" data-wow-delay="0.6s">
                     <div align="right">
                         <a class="small fw-medium" href="Ui_List.php?Send_Category=1">ข่าวสารและกิจกรรมทั้งหมด<i class="fa fa-arrow-right ms-2"></i></a>  
                     </div>

@@ -3871,12 +3871,12 @@ fieldset:disabled .btn {
 
 .btn-link {
     font-weight: 400;
-    color: #1802bf;
+    color: #dc3545;
     text-decoration: none
 }
 
 .btn-link:hover {
-    color: #289c56
+    color: #dc3545
 }
 
 .btn-link:disabled,
