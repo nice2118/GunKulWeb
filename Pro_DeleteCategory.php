@@ -14,12 +14,9 @@ if (isset($_GET['Send_ID']) && $_GET['Send_ID'] !== '') {
     exit();
   }
 
-echo '<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>';
-$sql = "DELETE FROM `category` WHERE `category`.`CG_Entity No.` = $t_id";
-if ($conn->query($sql) === true) {
-  // $_SESSION['StatusMessage'] = 'กรุณากลับไป Setup ก่อน';
-  //     header("Location: ".$_SESSION['PathPage']);
-  //     exit();
+$sql1 = "DELETE FROM `Activities` WHERE `AT_Entity No.` = $t_id";
+$sql2 = "DELETE FROM `category` WHERE `CG_Entity No.` = $t_id";
+if ($conn->query($sql1) === TRUE && $conn->query($sql2) === TRUE) {
   $_SESSION['StatusTitle'] = "ดำเนินการเรียบร้อยแล้ว";
   $_SESSION['StatusMessage'] = "ทำการลบเอกสารให้หัวข้อ ".$t_Name." เรียบร้อบแล้ว";
   $_SESSION['StatusAlert'] = "success";

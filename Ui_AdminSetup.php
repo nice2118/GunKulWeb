@@ -121,7 +121,7 @@ $_SESSION['PathPage'] = "AdminSetup.php";
                                     <div class="card-header">
                                         <h3 class="card-title text-white">Category</h3>
                                         <div class="card-tools">
-                                            <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse"><i class="fas fa-plus"></i></button>
+                                            <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse"><i class="fas fa-minus"></i></button>
                                         </div>
                                     </div>
                                     <div class="card-body">
@@ -216,27 +216,38 @@ $_SESSION['PathPage'] = "AdminSetup.php";
                                     <!-- /.card-body -->
                                 </div>
                                 <!-- /.card -->
-                                <div class="card card-secondary collapsed-card">
+                                <div class="card card-secondary">
                                     <div class="card-header">
-                                        <h3 class="card-title text-white">มีไว้ก่อน</h3>
+                                        <h3 class="card-title text-white">Menu Categories</h3>
                                         <div class="card-tools">
                                             <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
-                                            <i class="fas fa-plus"></i>
+                                            <i class="fas fa-minus"></i>
                                             </button>
                                         </div>
                                     </div>
                                     <div class="card-body">
-                                        <div class="form-group">
-                                            <label>ว่าง</label>
-                                            <input type="number" class="form-control">
-                                        </div>
-                                        <div class="form-group">
-                                            <label>ว่าง</label>
-                                            <input type="number" class="form-control">
-                                        </div>
-                                        <div class="form-group">
-                                            <label>ว่าง</label>
-                                            <input type="number" class="form-control">
+                                        <ul class="todo-list" data-widget="todo-list">
+                                            <?PHP
+                                                    $sql = "SELECT * FROM `HeadingCategories` ORDER BY `HC_Code`;";
+                                                    $result = $conn->query($sql);
+                                                    if ($result->num_rows > 0) {
+                                                        while ($row = $result->fetch_assoc()) {
+                                                ?>
+                                                <li class="my-2">
+                                                    <span class="text"><?=$row["HC_Text"]?></span>
+                                                    <div class="tools">
+                                                        <a class="btn btn-link py-1 px-2 text-end" onclick="deleteAlert(<?php echo $row["CG_Entity No."];?>, '<?php echo $row["CG_Name"];?>')"><i class="fas fa-trash"></i></a>
+                                                        <button type="button" class="btn btn-link py-1 px-2 text-end text-warning" data-bs-toggle="modal" data-bs-target="#staticBackdrop" data-entityno="<?= $row["CG_Entity No."] ?>" data-entityrelationno="<?= $row["CG_Entity Relation No."] ?>" data-name="<?= $row["CG_Name"] ?>" data-descriptionth="<?= $row["CG_DescriptionTH"] ?>" data-descriptionen="<?= $row["CG_DescriptionEN"] ?>"><i class="fas fa-edit"></i> </button>
+                                                    </div>
+                                                </li>
+                                            <?PHP
+                                                    }
+                                                }
+                                                unset($sql);
+                                            ?>
+                                        </ui>
+                                        <div class="form-group text-center text-md-end">
+                                            <button type="button" class="btn btn-primary rounded-pill py-1 px-4 add-image-btn text-end" data-bs-toggle="modal" data-bs-target="#staticBackdrop" data-entityno="0" data-entityrelationno="0" data-name="" data-descriptionth="" data-descriptionen=""><i class="fa fa-plus"></i></button>
                                         </div>
                                     </div>
                                     <!-- /.card-body -->

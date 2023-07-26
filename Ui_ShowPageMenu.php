@@ -47,145 +47,92 @@
                     <div class="container quote px-lg-0">
                         <div class="row g-0 mx-lg-0 py-5">
                             <!-- Main content -->
-                            <section class="content">
-                                <div class="row">
-                                    <div class="col-12" id="accordion">
-                                        <div class="card card-primary card-outline">
-                                            <a class="d-block w-100" data-toggle="collapse" href="#collapseOne">
-                                                <div class="card-header">
-                                                    <h4 class="card-title w-100">
-                                                        1. Lorem ipsum dolor sit amet
-                                                    </h4>
-                                                </div>
-                                            </a>
-                                            <div id="collapseOne" class="collapse show" data-parent="#accordion">
-                                                <div class="card-body">
-                                                    Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean
-                                                    commodo ligula eget dolor.
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="card card-primary card-outline">
-                                            <a class="d-block w-100" data-toggle="collapse" href="#collapseTwo">
-                                                <div class="card-header">
-                                                    <h4 class="card-title w-100">
-                                                        2. Aenean massa
-                                                    </h4>
-                                                </div>
-                                            </a>
-                                            <div id="collapseTwo" class="collapse" data-parent="#accordion">
-                                                <div class="card-body">
-                                                    Aenean massa. Cum sociis natoque penatibus et magnis dis parturient
-                                                    montes, nascetur ridiculus mus.
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="card card-primary card-outline">
-                                            <a class="d-block w-100" data-toggle="collapse" href="#collapseThree">
-                                                <div class="card-header">
-                                                    <h4 class="card-title w-100">
-                                                        3. Donec quam felis
-                                                    </h4>
-                                                </div>
-                                            </a>
-                                            <div id="collapseThree" class="collapse" data-parent="#accordion">
-                                                <div class="card-body">
-                                                    Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem.
-                                                    Nulla consequat massa quis enim.
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="card card-warning card-outline">
-                                            <a class="d-block w-100" data-toggle="collapse" href="#collapseFour">
-                                                <div class="card-header">
-                                                    <h4 class="card-title w-100">
-                                                        4. Donec pede justo
-                                                    </h4>
-                                                </div>
-                                            </a>
-                                            <div id="collapseFour" class="collapse" data-parent="#accordion">
-                                                <div class="card-body">
-                                                    Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu.
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="card card-warning card-outline">
-                                            <a class="d-block w-100" data-toggle="collapse" href="#collapseFive">
-                                                <div class="card-header">
-                                                    <h4 class="card-title w-100">
-                                                        5. In enim justo
-                                                    </h4>
-                                                </div>
-                                            </a>
-                                            <div id="collapseFive" class="collapse" data-parent="#accordion">
-                                                <div class="card-body">
-                                                    In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo.
-                                                    Nullam dictum felis eu pede mollis pretium.
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="card card-warning card-outline">
-                                            <a class="d-block w-100" data-toggle="collapse" href="#collapseSix">
-                                                <div class="card-header">
-                                                    <h4 class="card-title w-100">
-                                                        6. Integer tincidunt
-                                                    </h4>
-                                                </div>
-                                            </a>
-                                            <div id="collapseSix" class="collapse" data-parent="#accordion">
-                                                <div class="card-body">
-                                                    Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi.
-                                                    Aenean vulputate eleifend tellus.
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="card card-danger card-outline">
-                                            <a class="d-block w-100" data-toggle="collapse" href="#collapseSeven">
-                                                <div class="card-header">
-                                                    <h4 class="card-title w-100">
-                                                        7. Aenean leo ligula
-                                                    </h4>
-                                                </div>
-                                            </a>
-                                            <div id="collapseSeven" class="collapse" data-parent="#accordion">
-                                                <div class="card-body">
-                                                    Aenean leo ligula, porttitor eu, consequat vitae, eleifend ac, enim.
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="card card-danger card-outline">
-                                            <a class="d-block w-100" data-toggle="collapse" href="#collapseEight">
-                                                <div class="card-header">
-                                                    <h4 class="card-title w-100">
-                                                        8. Aliquam lorem ante
-                                                    </h4>
-                                                </div>
-                                            </a>
-                                            <div id="collapseEight" class="collapse" data-parent="#accordion">
-                                                <div class="card-body">
-                                                    Aliquam lorem ante, dapibus in, viverra quis, feugiat a, tellus.
-                                                    Phasellus viverra nulla ut metus varius laoreet.
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="card card-danger card-outline">
-                                            <a class="d-block w-100" data-toggle="collapse" href="#collapseNine">
-                                                <div class="card-header">
-                                                    <h4 class="card-title w-100">
-                                                        9. Quisque rutrum
-                                                    </h4>
-                                                </div>
-                                            </a>
-                                            <div id="collapseNine" class="collapse" data-parent="#accordion">
-                                                <div class="card-body">
-                                                    Quisque rutrum. Aenean imperdiet. Etiam ultricies nisi vel augue.
-                                                    Curabitur ullamcorper ultricies nisi.
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+                            <?php
+    // ตั้งค่าตัวแปรเริ่มต้นสำหรับตรวจสอบรอบแรก
+    $firstRow = true;
+?>
+
+<section class="content">
+    <div class="row">
+        <div class="col-12" id="accordion">
+            <?php
+                // ส่งคำสั่ง SQL เพื่อดึงข้อมูล
+                $sql = "SELECT * FROM `headinggroup` WHERE `headinggroup`.`HC_Code` = $Send_MoreMenu;";
+                $result1 = $conn->query($sql);
+
+                // ตรวจสอบข้อมูล
+                if ($result1->num_rows > 0) {
+                    while ($row1 = $result1->fetch_assoc()) {
+                        // อาร์เรย์ที่เก็บค่า class ที่ต้องการให้สุ่ม
+                        $classes = array('card-primary', 'card-warning', 'card-danger', 'card-info', 'card-secondary', 'card-success', 'card-fuchsia', 'card-light', 'card-lightblue', 'card-olive', 'card-maroon', 'card-dark', 'card-navy', 'card-lime',  'card-blue', 'card-indigo', 'card-red', 'card-green',  'card-teal', 'card-purple', 'card-orange', 'card-cyan',  'card-gray', 'card-pink', 'card-yellow', 'card-dark');
+                                                        
+                        // สุ่มค่า index ของอาร์เรย์
+                        $randomIndex = array_rand($classes);
+
+                        // ค่า class ที่สุ่มได้
+                        $randomClass = $classes[$randomIndex];
+            ?>
+
+                    <div class="card <?php echo $randomClass; ?> card-outline">
+                        <a class="d-block w-100" data-toggle="collapse" href="#collapse<?php echo $row1["HG_Code"]; ?>">
+                            <div class="card-header">
+                                <h4>
+                                    <?php echo $row1["HG_Text"]; ?>
+                                </h4>
+                            </div>
+                        </a>
+                        <?php
+                            // ส่งคำสั่ง SQL เพื่อดึงข้อมูล
+                            $sql = "SELECT * FROM `Heading` WHERE `Heading`.`HG_Code` = " . $row1["HG_Code"];
+                            $result2 = $conn->query($sql);
+
+                            // ตรวจสอบข้อมูล
+                            if ($result2->num_rows > 0) {
+                        ?>
+                        <div id="collapse<?php echo $row1["HG_Code"]; ?>" class="collapse <?php echo ($firstRow ? 'show' : ''); ?>" data-parent="#accordion">
+                            <div class="card-body">
+                            <?php
+                                while ($row2 = $result2->fetch_assoc()) {
+                            ?>
+                                <div class="form-group">
+                                    <h5 class="text-primary"><?php echo $row2["HD_Text"]; ?></h5>
+                                    <?php
+                                        // ส่งคำสั่ง SQL เพื่อดึงข้อมูล
+                                        $sql = "SELECT * FROM `Details` WHERE `Details`.`HD_Code` = " . $row2["HD_Code"];
+                                        $result3 = $conn->query($sql);
+
+                                        // ตรวจสอบข้อมูล
+                                        if ($result3->num_rows > 0) {
+                                            while ($row3 = $result3->fetch_assoc()) {
+                                    ?>
+                                    <p><?php echo $row3["DT_Text"]; ?></p>
+                                    <?php
+                                            }
+                                        }
+                                    ?>
                                 </div>
-                            </section>
+                            <?php
+                                }
+                            ?>
+                            </div>
+                        </div>
+                        <?php
+                            }
+                        ?>
+                    </div>
+
+                    <?php
+                    // ตั้งค่าตัวแปร $firstRow เป็น false หลังจากแสดงเนื้อหาในรอบแรกแล้ว
+                    $firstRow = false;
+                }
+            }
+            $conn->close();
+            ?>
+
+        </div>
+    </div>
+</section>
+
                             <!-- /.content -->
                         </div>
                     </div>
@@ -198,5 +145,5 @@
 
 <?php include("Ma_Footer.php"); ?>
 <?php include("Ma_FirstFooter_Script.php"); ?>
-
+<script src="js/bootstrap.bundle.min.js"></script>
 <?php include("Ma_Footer_Script.php"); ?>
