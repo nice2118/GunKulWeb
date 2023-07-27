@@ -3,8 +3,9 @@
     <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap5.min.js"></script>
     <!-- Page specific script -->
-    <script>
+<script>
     $(document).ready(function () {
+        // DataTable ของ example1
         $('#example1').DataTable({
             language: {
                 url: '//cdn.datatables.net/plug-ins/1.13.4/i18n/th.json',
@@ -23,19 +24,20 @@
                     "render": function(data, type, row) {
                         if (type === 'display') {
                             var date = new Date(data);
-                            var day = ("0" + date.getDate()).slice(-2); // เพิ่มเติมการเติม 0 นำหน้าถ้าตัวเลขมีเพียงหลักเดียว
-                            var month = ("0" + (date.getMonth() + 1)).slice(-2); // เพิ่มเติมการเติม 0 นำหน้าถ้าตัวเลขมีเพียงหลักเดียว
+                            var day = ("0" + date.getDate()).slice(-2);
+                            var month = ("0" + (date.getMonth() + 1)).slice(-2);
                             var year = date.getFullYear();
                             var formattedDate = day + '/' + month + '/' + year;
-                        return formattedDate;
-                    }
+                            return formattedDate;
+                        }
                         return data;
                     }
                 },
             ],
         });
     });
-    </script>
+</script>
+
     <script>
         // document.querySelectorAll('.dropdown-menu .dropdown-submenu').forEach(function (dropdown) {
         //     dropdown.addEventListener('mouseover', function () {

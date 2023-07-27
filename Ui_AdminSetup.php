@@ -133,8 +133,8 @@ $_SESSION['PathPage'] = "AdminSetup.php";
                                             ?>
                                                     <span class="text"><?=$row["CG_Name"]?></span>
                                                     <div class="tools">
-                                                        <a class="btn btn-link py-1 px-2 text-end" onclick="deleteAlert(<?php echo $row["CG_Entity No."];?>, '<?php echo $row["CG_Name"];?>')"><i class="fas fa-trash"></i></a>
-                                                        <button type="button" class="btn btn-link py-1 px-2 text-end text-warning" data-bs-toggle="modal" data-bs-target="#staticBackdrop" data-entityno="<?= $row["CG_Entity No."] ?>" data-entityrelationno="<?= $row["CG_Entity Relation No."] ?>" data-name="<?= $row["CG_Name"] ?>" data-descriptionth="<?= $row["CG_DescriptionTH"] ?>" data-descriptionen="<?= $row["CG_DescriptionEN"] ?>"><i class="fas fa-edit"></i> </button>
+                                                        <a class="btn btn-link py-1 px-2 text-end" onclick="deleteAlertCategory(<?php echo $row["CG_Entity No."];?>, '<?php echo $row["CG_Name"];?>')"><i class="fas fa-trash"></i></a>
+                                                        <button type="button" class="btn btn-link py-1 px-2 text-end text-warning" data-bs-toggle="modal" data-bs-target="#Category" data-entityno="<?= $row["CG_Entity No."] ?>" data-entityrelationno="<?= $row["CG_Entity Relation No."] ?>" data-name="<?= $row["CG_Name"] ?>" data-descriptionth="<?= $row["CG_DescriptionTH"] ?>" data-descriptionen="<?= $row["CG_DescriptionEN"] ?>"><i class="fas fa-edit"></i> </button>
                                                     </div>
                                                 <?php
                                                     $sql = "SELECT *
@@ -174,7 +174,7 @@ $_SESSION['PathPage'] = "AdminSetup.php";
                                             </ul>
                                         </div>
                                         <div class="form-group text-center text-md-end">
-                                            <button type="button" class="btn btn-primary rounded-pill py-1 px-4 add-image-btn text-end" data-bs-toggle="modal" data-bs-target="#staticBackdrop" data-entityno="0" data-entityrelationno="0" data-name="" data-descriptionth="" data-descriptionen=""><i class="fa fa-plus"></i></button>
+                                            <button type="button" class="btn btn-primary rounded-pill py-1 px-4 add-image-btn text-end" data-bs-toggle="modal" data-bs-target="#Category" data-entityno="0" data-entityrelationno="0" data-name="" data-descriptionth="" data-descriptionen=""><i class="fa fa-plus"></i></button>
                                         </div>
                                     </div>
                                     <!-- /.card-body -->
@@ -236,8 +236,8 @@ $_SESSION['PathPage'] = "AdminSetup.php";
                                                 <li class="my-2">
                                                     <span class="text"><?=$row["HC_Text"]?></span>
                                                     <div class="tools">
-                                                        <a class="btn btn-link py-1 px-2 text-end" onclick="deleteAlert(<?php echo $row["CG_Entity No."];?>, '<?php echo $row["CG_Name"];?>')"><i class="fas fa-trash"></i></a>
-                                                        <button type="button" class="btn btn-link py-1 px-2 text-end text-warning" data-bs-toggle="modal" data-bs-target="#staticBackdrop" data-entityno="<?= $row["CG_Entity No."] ?>" data-entityrelationno="<?= $row["CG_Entity Relation No."] ?>" data-name="<?= $row["CG_Name"] ?>" data-descriptionth="<?= $row["CG_DescriptionTH"] ?>" data-descriptionen="<?= $row["CG_DescriptionEN"] ?>"><i class="fas fa-edit"></i> </button>
+                                                        <a class="btn btn-link py-1 px-2 text-end" onclick="deleteAlertMenuCategory(<?php echo $row["HC_Code"];?>, '<?php echo $row["HC_Text"];?>')"><i class="fas fa-trash"></i></a>
+                                                        <button type="button" class="btn btn-link py-1 px-2 text-end text-warning" data-bs-toggle="modal" data-bs-target="#MenuCategory" data-hcCode="<?= $row["HC_Code"] ?>" data-hcText="<?= $row["HC_Text"] ?>" data-hcdescriptionth="<?= $row["HC_DescriptionTH"] ?>" data-hcdescriptionen="<?= $row["HC_DescriptionEN"] ?>"><i class="fas fa-edit"></i> </button>
                                                     </div>
                                                 </li>
                                             <?PHP
@@ -247,7 +247,7 @@ $_SESSION['PathPage'] = "AdminSetup.php";
                                             ?>
                                         </ui>
                                         <div class="form-group text-center text-md-end">
-                                            <button type="button" class="btn btn-primary rounded-pill py-1 px-4 add-image-btn text-end" data-bs-toggle="modal" data-bs-target="#staticBackdrop" data-entityno="0" data-entityrelationno="0" data-name="" data-descriptionth="" data-descriptionen=""><i class="fa fa-plus"></i></button>
+                                            <button type="button" class="btn btn-primary rounded-pill py-1 px-4 add-image-btn text-end" data-bs-toggle="modal" data-bs-target="#MenuCategory" data-hcCode="0" data-hcText="" data-hcdescriptionth="" data-hcdescriptionen=""><i class="fa fa-plus"></i></button>
                                         </div>
                                     </div>
                                     <!-- /.card-body -->
@@ -267,8 +267,8 @@ $_SESSION['PathPage'] = "AdminSetup.php";
     </div>
     <!-- Content -->
 
-    <!-- Modal -->
-    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <!-- Modal Category-->
+    <div class="modal fade" id="Category" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
             <div class="modal-content">
                 <div class="modal-header">
@@ -316,6 +316,45 @@ $_SESSION['PathPage'] = "AdminSetup.php";
                             <div class="col-6 col-sm-6">
                                 <h6 class="text-primary">ชื่อภาษาอังกฤษ</h6>
                                 <input type="Text" id="CG_DescriptionEN" name="CG_DescriptionEN" class="form-control border-1" placeholder="ชื่อภาษาอังกฤษ" required>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">ยกเลิก</button>
+                            <!-- <button type="button" class="btn btn-primary" onclick="submitModalForm()">บันทึก</button> -->
+                            <button type="submit" class="btn btn-primary">บันทึก</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal MenuCategory-->
+    <div class="modal fade" id="MenuCategory" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="staticBackdropLabel">Category</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="modalForm" action="Pro_Add&EditMenuCategory.php" method="post" enctype="multipart/form-data">
+                        <div class="row g-2 my-2">
+                            <div class="col-3 col-sm-2">
+                                <h6 class="text-primary">รหัส</h6>
+                                <input type="Text" id="HC_Code" name="HC_Code" class="form-control border-1" placeholder="0" readonly>
+                            </div>
+                            <div class="col-9 col-sm-10">
+                                <h6 class="text-primary">ชื่อ</h6>
+                                <input type="Text" id="HC_Text" name="HC_Text" class="form-control border-1" placeholder="ชื่อหัวข้อ" required>
+                            </div>
+                            <div class="col-6 col-sm-6">
+                                <h6 class="text-primary">ชื่อภาษาไทย</h6>
+                                <input type="Text" id="HC_descriptionth" name="HC_descriptionth" class="form-control border-1" placeholder="ชื่อภาษาไทย" required>
+                            </div>
+                            <div class="col-6 col-sm-6">
+                                <h6 class="text-primary">ชื่อภาษาอังกฤษ</h6>
+                                <input type="Text" id="HC_descriptionen" name="HC_descriptionen" class="form-control border-1" placeholder="ชื่อภาษาอังกฤษ" required>
                             </div>
                         </div>
                         <div class="modal-footer">
@@ -393,7 +432,7 @@ $_SESSION['PathPage'] = "AdminSetup.php";
     </script>
         <!-- category Delete -->
     <script>
-        function deleteAlert(categoryID, categoryName) {
+        function deleteAlertCategory(categoryID, categoryName) {
             swal({
                 title: "คุณต้องการที่จะลบหรือไม่?",
                 text: `${categoryName}\nเมื่อกดลบไปแล้วข่าวและกิจกรรมนี้จะไม่สามารถนำข้อมูลกลับมาได้!`,
@@ -429,6 +468,43 @@ $_SESSION['PathPage'] = "AdminSetup.php";
                 console.error("Error displaying SweetAlert:", error);
             });
         }
+
+        function deleteAlertMenuCategory(categoryID, categoryText) {
+            swal({
+                title: "คุณต้องการที่จะลบหรือไม่?",
+                text: `${categoryText}\nเมื่อกดลบไปแล้วข่าวและกิจกรรมนี้จะไม่สามารถนำข้อมูลกลับมาได้!`,
+                icon: "warning",
+                buttons: {
+                    cancel: {
+                        text: "ยกเลิก",
+                        value: false,
+                        visible: true,
+                        className: "",
+                        closeModal: true,
+                    },
+                    confirm: {
+                        text: "ลบ",
+                        value: true,
+                        visible: true,
+                        className: "",
+                        closeModal: true,
+                    },
+                },
+                dangerMode: true,
+            })
+            .then((willDelete) => {
+                if (willDelete) {
+                    // เมื่อกดตกลง ทำการเปลี่ยนหน้า
+                    window.location.replace(`Pro_DeleteMenuCategory.php?Send_ID=${categoryID}&Send_Text=${categoryText}`);
+                } else {
+                    // เมื่อกดยกเลิก ไม่ต้องทำอะไร
+                }
+            })
+            .catch((error) => {
+                // เกิดข้อผิดพลาดในกรณีที่ไม่สามารถแสดงกล่อง SweetAlert ได้
+                console.error("Error displaying SweetAlert:", error);
+            });
+        }
         
             // ตรวจสอบว่ามีข้อความใน Session หรือไม่
         <?php if (isset($_SESSION['StatusMessage'])) : ?>
@@ -441,24 +517,8 @@ $_SESSION['PathPage'] = "AdminSetup.php";
     </script>
     <!-- category Edit -->
     <script>
-    // JavaScript
-    function saveData() {
-        const entityNo = document.getElementById("CG_EntityNo").value;
-        const entityRelationNo = document.getElementById("CG_EntityRelationNo").value;
-        const name = document.getElementById("CG_Name").value;
-        const descriptionTH = document.getElementById("CG_DescriptionTH").value;
-        const descriptionEN = document.getElementById("CG_DescriptionEN").value;
-
-        // ใช้ตัวแปรนี้ในการทำงานต่อ
-        console.log("Entity No:", entityNo);
-        console.log("Entity Relation No:", entityRelationNo);
-        console.log("Name:", name);
-        console.log("Description (TH):", descriptionTH);
-        console.log("Description (EN):", descriptionEN);
-    }
-
-    // เมื่อ Modal ถูกเปิดขึ้นมา
-    $('#staticBackdrop').on('show.bs.modal', function(event) {
+    // เมื่อ Modal Category ถูกเปิดขึ้นมา
+    $('#Category').on('show.bs.modal', function(event) {
         const button = $(event.relatedTarget);
         const entityNo = button.data('entityno');
         const entityRelationNo = button.data('entityrelationno');
@@ -472,6 +532,21 @@ $_SESSION['PathPage'] = "AdminSetup.php";
         document.getElementById("CG_Name").value = name;
         document.getElementById("CG_DescriptionTH").value = descriptionTH;
         document.getElementById("CG_DescriptionEN").value = descriptionEN;
+    });
+
+    // เมื่อ Modal MenuCategory ถูกเปิดขึ้นมา
+    $('#MenuCategory').on('show.bs.modal', function(event) {
+        const button = $(event.relatedTarget);
+        const hcCode = button.data('hccode');
+        const hcText = button.data('hctext');
+        const hcDescriptionTH = button.data('hcdescriptionth');
+        const hcDescriptionEN = button.data('hcdescriptionen');
+
+        // กำหนดค่าให้กับช่อง input ใน Modal
+        document.getElementById("HC_Code").value = hcCode;
+        document.getElementById("HC_Text").value = hcText;
+        document.getElementById("HC_descriptionth").value = hcDescriptionTH;
+        document.getElementById("HC_descriptionen").value = hcDescriptionEN;
     });
     </script>
 <?php include("Ma_Footer_Script.php"); ?>

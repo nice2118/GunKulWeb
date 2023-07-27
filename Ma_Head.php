@@ -1,3 +1,7 @@
+<?PHP
+    $categories = array();
+    $menuCategories = array();
+?>
 </head>
 <body>
     <!-- Spinner Start -->
@@ -63,7 +67,6 @@
                             <a href="" class="dropdown-item">รายการ&nbsp;&nbsp;<i class="fa fa-angle-down text-secondary2"></i></a>
                             <ul class="dropdown-menu-submenu submenu multi-menu">
                             <?php
-                                $categories = array();
                                 $sql = "SELECT * FROM `Category` WHERE `Category`.`CG_Entity Relation No.` = 0;";
                                 $result = $conn->query($sql);
                                 if ($result->num_rows > 0) {
@@ -85,6 +88,7 @@
                                 $result = $conn->query($sql);
                                 if ($result->num_rows > 0) {
                                     while ($row = $result->fetch_assoc()) {
+                                        $menuCategories[] = $row;
                             ?>
                                 <li><a href="Ui_ShowPageMenu.php?Send_MoreMenu=<?= $row["HC_Code"] ?>" class="dropdown-item"><?= $row["HC_DescriptionTH"] ?></a></li>
                             <?php
@@ -203,6 +207,12 @@
                             <ul class="dropdown-menu-submenu submenu submenu-left">
                             <?php foreach ($categories as $category) : ?>
                                 <li><a href="Ui_ListAdmin.php?Send_Category=<?= $category["CG_Entity No."] ?>" class="dropdown-item"><?= $category["CG_DescriptionTH"] ?></a></li>
+                            <?php 
+                            endforeach;
+                            if (count($menuCategories) > 0) { echo '<li><hr class="dropdown-divider"></li>'; }
+                            foreach ($menuCategories as $menuCategory) : 
+                            ?>
+                                <li><a href="Ui_ListAdminMenuCategories.php?Send_MenuCategory=<?= $menuCategory["HC_Code"] ?>" class="dropdown-item"><?= $menuCategory["HC_DescriptionTH"] ?></a></li>
                             <?php endforeach; ?>
                             </ul>
                         </nav>
@@ -211,7 +221,7 @@
                     </div>
                 </div>
             </div>
-            <a href="" class="btn btn-white rounded-0 py-4 px-lg-3 d-none d-lg-block"><i class="fa fa-archive ms-auto fs-5"></i></a>
+            <a href="" class="btn btn-white rounded-0 py-4 px-lg-3 d-none d-lg-block"><i class="fa fa-user-circle ms-auto fs-4"></i></a>
         </div>
     </nav>
     <!-- Navbar End -->
