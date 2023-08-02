@@ -1775,7 +1775,7 @@ progress {
     --bs-table-hover-color: #6b6b6b;
     --bs-table-hover-bg: rgba(0, 0, 0, 0.075);
     width: 100%;
-    margin-bottom: 1rem;
+    /* margin-bottom: 1rem; */
     color: #6b6b6b;
     vertical-align: top;
     border-color: #dee2e6
@@ -1786,6 +1786,8 @@ progress {
     background-color: var(--bs-table-bg);
     border-bottom-width: 1px;
     box-shadow: inset 0 0 0 9999px var(--bs-table-accent-bg)
+    /* vertical-align: top; */
+    /* border-top: 1px solid #dee2e6 */
 }
 
 .table>tbody {
@@ -11386,4 +11388,67 @@ fieldset:disabled .btn {
     .d-print-none {
         display: none !important
     }
+}
+
+[data-widget=expandable-table] i.expandable-table-caret {
+    transition: -webkit-transform .3s linear;
+    transition: transform .3s linear;
+    transition: transform .3s linear, -webkit-transform .3s linear
+}
+
+[data-widget=expandable-table][aria-expanded=true] i.expandable-table-caret[class*=right] {
+    -webkit-transform: rotate(90deg);
+    transform: rotate(90deg)
+}
+
+[data-widget=expandable-table][aria-expanded=true] i.expandable-table-caret[class*=left] {
+    -webkit-transform: rotate(-90deg);
+    transform: rotate(-90deg)
+}
+
+[aria-expanded=true] {
+    cursor: pointer
+}
+
+[aria-expanded=true] i.expandable-table-caret {
+    transition: -webkit-transform .3s linear;
+    transition: transform .3s linear;
+    transition: transform .3s linear, -webkit-transform .3s linear
+}
+
+[aria-expanded=true] [data-widget=expandable-table] i.expandable-table-caret[class*=right] {
+    -webkit-transform: rotate(90deg);
+    transform: rotate(90deg)
+}
+
+[aria-expanded=true] [data-widget=expandable-table] i.expandable-table-caret[class*=left] {
+    -webkit-transform: rotate(-90deg);
+    transform: rotate(-90deg)
+}
+
+.table-hover2 tbody tr:hover {
+    color: #212529;
+    background-color: rgba(0, 0, 0, .075)
+}
+
+.table-hover2 tbody tr.expandable-body:hover {
+    background-color: inherit!important
+}
+
+.card-body.p-0 .table tbody>tr>td:first-of-type,
+.card-body.p-0 .table tbody>tr>th:first-of-type,
+.card-body.p-0 .table tfoot>tr>td:first-of-type,
+.card-body.p-0 .table tfoot>tr>th:first-of-type,
+.card-body.p-0 .table thead>tr>td:first-of-type,
+.card-body.p-0 .table thead>tr>th:first-of-type {
+    padding-left: 1.5rem
+}
+
+.card-body.p-0 .table tbody>tr>td:last-of-type,
+.card-body.p-0 .table tbody>tr>th:last-of-type,
+.card-body.p-0 .table tfoot>tr>td:last-of-type,
+.card-body.p-0 .table tfoot>tr>th:last-of-type,
+.card-body.p-0 .table thead>tr>td:last-of-type,
+.card-body.p-0 .table thead>tr>th:last-of-type {
+    padding-right: 1.5rem
 }

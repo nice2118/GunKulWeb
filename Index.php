@@ -14,7 +14,7 @@ include("DB_Setup.php");
             </div>
 
             <?php
-                $sql = "SELECT * FROM `Activities` WHERE `Activities`.`AT_Entity No.` = 1 ORDER BY `Activities`.`AT_Date` DESC , `Activities`.`AT_Time` DESC LIMIT 0,8";
+                $sql = "SELECT * FROM `Activities` WHERE `Activities`.`AT_Entity No.` = 1 ORDER BY `Activities`.`AT_Date` DESC , `Activities`.`AT_Time` DESC LIMIT 0,6";
                 $result = $conn->query($sql);
                 $isFirstRow = true;
                 $isTwoRow = false;
@@ -34,7 +34,7 @@ include("DB_Setup.php");
             <div class="container-fluid bg-light overflow-hidden my-5 px-lg-0">
                 <div class="container about px-lg-0">
                     <div class="row g-0 mx-lg-0">
-                        <div class="col-lg-6 ps-lg-0 wow fadeIn" data-wow-delay="0.1s" style="min-height: 400px;">
+                        <div class="col-lg-4 ps-lg-0 wow fadeIn" data-wow-delay="0.1s" style="min-height: 300px;">
                             <div class="position-relative h-100">
                                 <a href="<?= $PathFolderNews.$AT_Image;?>" data-lightbox="portfolio"> 
                                 <img class="position-absolute img-fluid w-100 h-100" src="<?= $PathFolderNews.$AT_Image;?>"
@@ -42,8 +42,7 @@ include("DB_Setup.php");
                                 </a>
                             </div>
                         </div>
-                      
-                        <div class="col-lg-6 about-text py-5 wow fadeIn" data-wow-delay="0.5s">
+                        <div class="col-lg-8 about-text py-5 wow fadeIn" data-wow-delay="0.5s">
                             <div class="p-lg-5 pe-lg-0">
                                 <h6 class="text-primary">NEWS</h6>
                                 <h3 class="mb-4"><?= $row['AT_Title'];?></h3>
@@ -66,8 +65,8 @@ include("DB_Setup.php");
             <?php
                                     }
             ?>
-                <!-- Loop 6 -->
-                <div class="col-lg-4 col-md-6 wow fadeInUp portfolio-item first" data-wow-delay="0.1s">
+                <!-- Loop -->
+                <div class="col-lg-3 col-md-6 wow fadeInUp portfolio-item first" data-wow-delay="0.1s">
                     <div class="service-item rounded overflow-hidden">
                         <div class="portfolio-img rounded overflow-hidden">
                             <img class="img-fluid w-100" src="<?= $PathFolderNews.$AT_Image;?>" style="height:275px;" alt="">
@@ -88,7 +87,7 @@ include("DB_Setup.php");
                         </div>
                     </div>
                 </div>
-                <!-- Loop 6 -->
+                <!-- Loop -->
             <?php
                                 } else {
             ?>

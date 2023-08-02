@@ -1,4 +1,5 @@
 /********** Template CSS **********/
+
 :root {
     --primary: #1802bf;
     --light: #F6F7F8;
@@ -27,6 +28,7 @@
 
 
 /*** Spinner ***/
+
 #spinner {
     opacity: 0;
     visibility: hidden;
@@ -40,7 +42,9 @@
     opacity: 1;
 }
 
+
 /*** Button ***/
+
 .btn {
     font-weight: 500;
     transition: .5s;
@@ -76,7 +80,9 @@
     font-weight: normal;
 }
 
+
 /*** Navbar ***/
+
 .navbar.sticky-top {
     top: -100px;
     transition: .5s;
@@ -112,18 +118,17 @@
 }
 
 @media (max-width: 991.98px) {
-    .navbar .navbar-nav .nav-link  {
+    .navbar .navbar-nav .nav-link {
         margin-right: 0;
         padding: 10px 0;
     }
-
     .navbar .navbar-nav {
         border-top: 1px solid #EEEEEE;
     }
 }
 
 @media (min-width: 992px) {
-     .navbar .nav-item .dropdown-menu {
+    .navbar .nav-item .dropdown-menu {
         position: absolute;
         /* position: relative; */
         display: block;
@@ -134,14 +139,12 @@
         visibility: hidden;
         transition: .5s;
     }
-
     .navbar .nav-item:hover .dropdown-menu {
         top: 100%;
         visibility: visible;
         transition: .5s;
         opacity: 1;
-    } 
-
+    }
     .dropdown-menu .submenu {
         display: none;
         position: absolute;
@@ -149,11 +152,9 @@
         right: auto;
         margin-top: -40px;
     }
-    
     .dropdown-menu>nav:hover>.submenu {
         display: block;
     }
-    
     .dropdown-menu .submenu-left {
         display: none;
         position: absolute;
@@ -178,6 +179,7 @@
 
 
 /*** Header ***/
+
 .owl-carousel-inner {
     position: absolute;
     width: 100%;
@@ -194,14 +196,12 @@
         position: relative;
         min-height: 500px;
     }
-
     .header-carousel .owl-carousel-item img {
         position: absolute;
         width: 100%;
         height: 100%;
         object-fit: cover;
     }
-
     .header-carousel .owl-carousel-item p {
         font-size: 16px !important;
     }
@@ -250,36 +250,37 @@
     background-size: cover;
 }
 
-.breadcrumb-item + .breadcrumb-item::before {
+.breadcrumb-item+.breadcrumb-item::before {
     color: var(--light);
 }
 
 
 /*** About ***/
+
 @media (min-width: 992px) {
     .container.about {
         max-width: 100% !important;
     }
-
-    .about-text  {
+    .about-text {
         padding-right: calc(((100% - 960px) / 2) + .75rem);
     }
 }
 
 @media (min-width: 1200px) {
-    .about-text  {
+    .about-text {
         padding-right: calc(((100% - 1140px) / 2) + .75rem);
     }
 }
 
 @media (min-width: 1400px) {
-    .about-text  {
+    .about-text {
         padding-right: calc(((100% - 1320px) / 2) + .75rem);
     }
 }
 
 
 /*** Service ***/
+
 .service-item {
     box-shadow: 0 0 45px rgba(0, 0, 0, .08);
 }
@@ -306,30 +307,31 @@
 
 
 /*** Feature ***/
+
 @media (min-width: 992px) {
     .container.feature {
         max-width: 100% !important;
     }
-
-    .feature-text  {
+    .feature-text {
         padding-left: calc(((100% - 960px) / 2) + .75rem);
     }
 }
 
 @media (min-width: 1200px) {
-    .feature-text  {
+    .feature-text {
         padding-left: calc(((100% - 1140px) / 2) + .75rem);
     }
 }
 
 @media (min-width: 1400px) {
-    .feature-text  {
+    .feature-text {
         padding-left: calc(((100% - 1320px) / 2) + .75rem);
     }
 }
 
 
 /*** Project Portfolio ***/
+
 #portfolio-flters li {
     display: inline-block;
     font-weight: 500;
@@ -399,30 +401,31 @@
 
 
 /*** Quote ***/
+
 @media (min-width: 992px) {
     .container.quote {
         max-width: 100% !important;
     }
-
-    .quote-text  {
+    .quote-text {
         padding-right: calc(((100% - 960px) / 2) + .75rem);
     }
 }
 
 @media (min-width: 1200px) {
-    .quote-text  {
+    .quote-text {
         padding-right: calc(((100% - 1140px) / 2) + .75rem);
     }
 }
 
 @media (min-width: 1400px) {
-    .quote-text  {
+    .quote-text {
         padding-right: calc(((100% - 1320px) / 2) + .75rem);
     }
 }
 
 
 /*** Team ***/
+
 .team-item {
     box-shadow: 0 0 45px rgba(0, 0, 0, .08);
 }
@@ -442,6 +445,7 @@
 
 
 /*** Testimonial ***/
+
 .testimonial-carousel::before {
     position: absolute;
     content: "";
@@ -534,30 +538,31 @@
 
 
 /*** Contact ***/
+
 @media (min-width: 992px) {
     .container.contact {
         max-width: 100% !important;
     }
-
-    .contact-text  {
+    .contact-text {
         padding-left: calc(((100% - 960px) / 2) + .75rem);
     }
 }
 
 @media (min-width: 1200px) {
-    .contact-text  {
+    .contact-text {
         padding-left: calc(((100% - 1140px) / 2) + .75rem);
     }
 }
 
 @media (min-width: 1400px) {
-    .contact-text  {
+    .contact-text {
         padding-left: calc(((100% - 1320px) / 2) + .75rem);
     }
 }
 
 
 /*** Footer ***/
+
 .footer .btn.btn-social {
     margin-right: 5px;
     color: #9B9B9B;
@@ -608,7 +613,10 @@
 .footer .copyright a:hover {
     color: var(--primary);
 }
+
+
 /* -----------New adminlte----------- */
+
 .card {
     position: relative;
     display: -ms-flexbox;
@@ -754,7 +762,6 @@
         margin-right: -7.5px;
         margin-left: -7.5px
     }
-
     .card-deck .card {
         -ms-flex: 1 0 0%;
         flex: 1 0 0%;
@@ -775,43 +782,35 @@
         -ms-flex-flow: row wrap;
         flex-flow: row wrap
     }
-
     .card-group>.card {
         -ms-flex: 1 0 0%;
         flex: 1 0 0%;
         margin-bottom: 0
     }
-
     .card-group>.card+.card {
         margin-left: 0;
         border-left: 0
     }
-
     .card-group>.card:not(:last-child) {
         border-top-right-radius: 0;
         border-bottom-right-radius: 0
     }
-
     .card-group>.card:not(:last-child) .card-header,
     .card-group>.card:not(:last-child) .card-img-top {
         border-top-right-radius: 0
     }
-
     .card-group>.card:not(:last-child) .card-footer,
     .card-group>.card:not(:last-child) .card-img-bottom {
         border-bottom-right-radius: 0
     }
-
     .card-group>.card:not(:first-child) {
         border-top-left-radius: 0;
         border-bottom-left-radius: 0
     }
-
     .card-group>.card:not(:first-child) .card-header,
     .card-group>.card:not(:first-child) .card-img-top {
         border-top-left-radius: 0
     }
-
     .card-group>.card:not(:first-child) .card-footer,
     .card-group>.card:not(:first-child) .card-img-bottom {
         border-bottom-left-radius: 0
@@ -833,7 +832,6 @@
         orphans: 1;
         widows: 1
     }
-
     .card-columns .card {
         display: inline-block;
         width: 100%
@@ -863,6 +861,7 @@
     border-radius: 0;
     margin-bottom: 0
 }
+
 .card-primary:not(.card-outline)>.card-header {
     background-color: #11019b
 }
@@ -5289,6 +5288,7 @@ html.maximized-card {
 .dark-mode .card-comments .card-comment {
     border-bottom-color: #454d55
 }
+
 .card-body.p-0 .table tbody>tr>td:first-of-type,
 .card-body.p-0 .table tbody>tr>th:first-of-type,
 .card-body.p-0 .table tfoot>tr>td:first-of-type,
@@ -5530,14 +5530,16 @@ html.maximized-card {
     float: none !important
 }
 
+
 /* -------------------------------------Import Image */
+
 .image-container {
     display: flex;
     flex-wrap: wrap;
-  }
+}
 
-  .image-preview,
-  .image-preview2 {
+.image-preview,
+.image-preview2 {
     position: relative;
     width: 100px;
     height: 100px;
@@ -5546,34 +5548,34 @@ html.maximized-card {
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
     overflow: hidden;
     cursor: pointer;
-  }
-  
-  .image-preview img,
-  .image-preview2 img {
+}
+
+.image-preview img,
+.image-preview2 img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-  }
-  
-  .image-preview:hover img,
-  .image-preview2:hover img {
+}
+
+.image-preview:hover img,
+.image-preview2:hover img {
     transform: scale(1.1);
-  }
-  
-  .image-preview video,
-  .image-preview2 video {
+}
+
+.image-preview video,
+.image-preview2 video {
     width: 100%;
     height: 100%;
     object-fit: cover;
     transition: transform 0.3s ease;
-  }
-  
-  .image-preview:hover video,
-  .image-preview2:hover video {
+}
+
+.image-preview:hover video,
+.image-preview2:hover video {
     transform: scale(1.1);
-  }
-  
-  .delete-image-btn {
+}
+
+.delete-image-btn {
     position: absolute;
     top: 50%;
     left: 50%;
@@ -5586,14 +5588,14 @@ html.maximized-card {
     font-size: 25px;
     cursor: pointer;
     display: none;
-  }
-  
-  .image-preview:hover .delete-image-btn,
-  .image-preview2:hover .delete-image-btn {
+}
+
+.image-preview:hover .delete-image-btn,
+.image-preview2:hover .delete-image-btn {
     display: block;
-  }
-  
-  .loading-text {
+}
+
+.loading-text {
     display: none;
     position: absolute;
     top: 50%;
@@ -5601,9 +5603,9 @@ html.maximized-card {
     transform: translate(-50%, -50%);
     font-weight: bold;
     color: #333;
-  }
-  
-  .image-preview.loading .loading-text,
-  .image-preview2.loading .loading-text {
+}
+
+.image-preview.loading .loading-text,
+.image-preview2.loading .loading-text {
     display: block;
-  }
+}

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8">
     <title>GUNKUL Engineering (GUNKUL)</title>
@@ -34,7 +35,7 @@
     <link href="css/style.css" rel="stylesheet">
     <link href="css/styleNAV.css" rel="stylesheet">
     <style>
-/* .dropdown-submenu .dropdown-menu {
+    /* .dropdown-submenu .dropdown-menu {
   position: static;
   display: none;
   margin-top: -1px;
@@ -50,32 +51,31 @@
     <style type="text/css">
     </style>
     <script type="text/javascript">
-        document.addEventListener("DOMContentLoaded", function() {
-            document.querySelectorAll('.dropdown-menu').forEach(function(element) {
+    document.addEventListener("DOMContentLoaded", function() {
+        document.querySelectorAll('.dropdown-menu').forEach(function(element) {
+            element.addEventListener('click', function(e) {
+                e.stopPropagation();
+            });
+        })
+
+        if (window.innerWidth < 992) {
+
+            document.querySelectorAll('.dropdown-menu a').forEach(function(element) {
                 element.addEventListener('click', function(e) {
-                    e.stopPropagation();
+
+                    let nextEl = this.nextElementSibling;
+                    if (nextEl && nextEl.classList.contains('submenu')) {
+                        e.preventDefault();
+                        if (nextEl.style.display == 'block') {
+                            nextEl.style.display = 'none';
+                        } else {
+                            nextEl.style.display = 'block';
+                        }
+
+                    }
                 });
             })
+        }
 
-            if (window.innerWidth < 992) {
-
-                document.querySelectorAll('.dropdown-menu a').forEach(function(element) {
-                    element.addEventListener('click', function(e) {
-
-                        let nextEl = this.nextElementSibling;
-                        if (nextEl && nextEl.classList.contains('submenu')) {
-                            e.preventDefault();
-                            if (nextEl.style.display == 'block') {
-                                nextEl.style.display = 'none';
-                            } else {
-                                nextEl.style.display = 'block';
-                            }
-
-                        }
-                    });
-                })
-            }
-
-        });
+    });
     </script>
-

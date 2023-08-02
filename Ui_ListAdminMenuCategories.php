@@ -1,17 +1,25 @@
 <?php 
-include("DB_Include.php"); 
-$_SESSION['PathPage'] = "Ui_ListAdminMenuCategory.php";
-if (isset($_GET['Send_MenuCategory']) && $_GET['Send_MenuCategory'] !== '') {
-    $MenuCategory_id = $_GET['Send_MenuCategory'];
-} else {
-    $MenuCategory_id = 1;
-}
-?>
+include("DB_Include.php");
 
-<?php include("Ma_Head_Link.php"); ?>
+$MenuCategory_id = isset($_GET['Send_MenuCategory']) && $_GET['Send_MenuCategory'] !== '' ? $_GET['Send_MenuCategory'] : 1;
+$_SESSION['PathPage'] = "Ui_ListAdminMenuCategories.php?Send_MenuCategory=".$MenuCategory_id;
+
+include("Ma_Head_Link.php");
+?>
+			 
 <!-- Icon Font Stylesheet -->
 <!-- <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.2.0/css/bootstrap.min.css" rel="stylesheet"> -->
 <link href="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap5.min.css" rel="stylesheet">
+<style>
+thead,
+tbody,
+tfoot,
+tr,
+td,
+th {
+    border-style: none;
+}
+</style>
 
 <?php include("Ma_Head.php"); ?>
 <?php include("Ma_Carousel.php"); ?>
@@ -21,14 +29,14 @@ if (isset($_GET['Send_MenuCategory']) && $_GET['Send_MenuCategory'] !== '') {
     <div class="container">
         <div class="text-center mx-auto mb-2 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 600px;">
             <?php
-                    $sql = "SELECT * FROM `HeadingCategories` WHERE `HeadingCategories`.`HC_Code` = $MenuCategory_id;";
-                    $result = $conn->query($sql);
-                    if ($result->num_rows > 0) {
-                        $row = $result->fetch_assoc();
-                        $DescriptionTH = $row["HC_DescriptionTH"];
-                        $DescriptionEN = $row["HC_DescriptionEN"];
-                    }
-                ?>
+                $sql = "SELECT * FROM `HeadingCategories` WHERE `HeadingCategories`.`HC_Code` = $MenuCategory_id;";
+                $result = $conn->query($sql);
+                if ($result->num_rows > 0) {
+                    $row = $result->fetch_assoc();
+                    $DescriptionTH = $row["HC_DescriptionTH"];
+                    $DescriptionEN = $row["HC_DescriptionEN"];
+                }
+            ?>
             <h6 class="small text-primary mb-0 mt-0"><?= $DescriptionEN ?></h6>
             <h2 class="mb-0 mt-0"><?= $DescriptionTH ?></h2>
         </div>
@@ -37,7 +45,7 @@ if (isset($_GET['Send_MenuCategory']) && $_GET['Send_MenuCategory'] !== '') {
         <div class="text-start mx-auto mb-2 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 600px;">
             <div class="d-flex align-items-center">
                 <button type="button" class="btn btn-link rounded-pill py-1 px-4 add-image-btn text-start"
-                    data-bs-toggle="modal" data-bs-target="#AddHeadingGroup">
+                    data-bs-toggle="modal" data-bs-target="#AddEditHeading" data-hgCode="0" data-hgText="">
                     <div class="d-flex align-items-center">
                         <div class="btn-lg-square bg-primary rounded-circle">
                             <i class="fa fa-plus text-white"></i>
@@ -58,38 +66,137 @@ if (isset($_GET['Send_MenuCategory']) && $_GET['Send_MenuCategory'] !== '') {
                     <div class="card">
                         <!-- /.card-header -->
                         <div class="card-body">
-                            <table id="example2" class="table table-striped projects">
-                                <thead>
-                                    <tr>
-                                        <th>วันที่ลง </th>
-                                        <th>หัวเรื่อง</th>
-                                        <th>เนื่อหาโดยย่อ</th>
-                                        <th>เจ้าของ</th>
-                                        <th>สถานะ</th>
-                                    </tr>
-                                </thead>
+                            <table class="table table-hover2">
                                 <tbody>
-                                    <tr data-widget="expandable-table" aria-expanded="false">
-                                        <td>1111</td>
-                                        <td>2222</td>
-                                        <td>3333</td>
-                                        <td>4444</td>
-                                        <td class="project-actions text-right">
-                                            <a class="btn btn-warning btn-sm" href=""><i
-                                                    class="fas fa-pencil-alt"></i></a>
-                                            <a class="btn btn-danger btn-sm" href=""><i class="fas fa-trash"></i></a>
-                                        </td>
-                                    </tr>
+                                <?php
+                                        $sqlHeadingGroup = "SELECT * FROM `HeadingGroup` WHERE `HeadingGroup`.`HC_Code` = $MenuCategory_id;";
+                                        $resultHeadingGroup = $conn->query($sqlHeadingGroup);
+                                        if ($resultHeadingGroup->num_rows > 0) {
+                                            while ($rowHeadingGroup = $resultHeadingGroup->fetch_assoc()) {
+                                                $DataHeading = array();
+                                                $DataDetails = array();
+                                    ?>
+                                            <tr data-widget="expandable-table" aria-expanded="true">
+                                                <td>
+                                                    <div class="card-header">
+                                                        <h5 class="card-title">
+                                                <?php
+                                                    $sqlHeading = "SELECT * FROM `Heading` WHERE `Heading`.`HG_Code` = '{$rowHeadingGroup["HG_Code"]}';";
+                                                    $resultHeading = $conn->query($sqlHeading);
+                                                    if ($resultHeading->num_rows > 0) {  
+                                                ?>
+                                                            <i class="expandable-table-caret fas fa-caret-right fa-fw"></i>
+                                                <?php
+                                                        while ($rowHeading = $resultHeading->fetch_assoc()) {
+                                                            $DataHeading[] = $rowHeading;
+                                                        }
+                                                    }
+                                                ?>
+                                                        <?= $rowHeadingGroup["HG_Text"] ?></h5>
+                                                        <div class="card-tools">
+                                                            <?php
+                                                                if ($rowHeadingGroup["HG_Active"] == 1) {
+                                                                    echo '<a class="btn btn-link py-0 px-1 text-end text-secondary"><i class="fa fa-eye"></i></a>';
+                                                                } else {
+                                                                    echo '<a class="btn btn-link py-0 px-1 text-end text-secondary"><i class="fa fa-eye-slash"></i></a>';
+                                                                }
+                                                            ?>
+                                                            <a class="btn btn-link py-0 px-1 text-end" ><i class="fa fa-trash"></i></a>
+                                                            <button type="button" class="btn btn-link py-0 px-1 text-end text-warning" data-bs-toggle="modal" data-bs-target="#AddEditHeading" data-sendCode="<?= $rowHeadingGroup["HG_Code"] ?>" data-sendText="<?= $rowHeadingGroup["HG_Text"] ?>" data-sendType="HeadingGroup"><i class="fa fa-pencil-alt"></i></button>
+                                                            <button type="button" class="btn btn-link py-0 px-1 text-end text-primary" data-bs-toggle="modal" data-bs-target="#AddEditHeading" data-sendCode="<?= $Heading["HD_Code"] ?>" data-sendText="<?= $Heading["HD_Text"] ?>" data-sendType="Heading"><i class="fa fa-plus"></i></button>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                    <?php 
+                                                if (count($DataHeading) > 0) {
+                                    ?>
+                                            <tr class="expandable-body">
+                                                <td>
+                                                    <div class="p-0">
+                                                        <table class="table table-hover2">
+                                                            <tbody>
+                                                                <?php
+                                                                    foreach ($DataHeading as $Heading) { 
+                                                                        $DataDetails = array();
+                                                                        $sqlDetails = "SELECT * FROM `details` WHERE `details`.`HD_Code` = '{$Heading["HD_Code"]}';";
+                                                                        $resultDetails = $conn->query($sqlDetails);
+                                                                        if ($resultDetails->num_rows > 0) {
+                                                                            while ($rowDetails = $resultDetails->fetch_assoc()) {
+                                                                                $DataDetails[] = $rowDetails;
+                                                                            }
+                                                                        }
+                                                                ?>
+                                                                <tr data-widget="expandable-table" aria-expanded="false">
+                                                                    <td>
+                                                                        <div class="card-header">
+                                                                            <h6 class="card-title">
+                                                                            <?php if (count($DataDetails) > 0) { echo '<i class="expandable-table-caret fas fa-caret-right fa-fw"></i>'; }?>
+                                                                            <?= $Heading["HD_Text"] ?></h6>
+                                                                            <div class="card-tools">
+                                                                                <?php
+                                                                                    if ($Heading["HD_Active"] == 1) {
+                                                                                        echo '<a class="btn btn-link py-0 px-1 text-end text-secondary"><i class="fa fa-eye"></i></a>';
+                                                                                    } else {
+                                                                                        echo '<a class="btn btn-link py-0 px-1 text-end text-secondary"><i class="fa fa-eye-slash"></i></a>';
+                                                                                    }
+                                                                                ?>
+                                                                                <a class="btn btn-link py-0 px-1 text-end" ><i class="fa fa-trash"></i></a>
+                                                                                <button type="button" class="btn btn-link py-0 px-1 text-end text-warning" data-bs-toggle="modal" data-bs-target="#AddEditHeading" data-sendCode="<?= $Heading["HD_Code"] ?>" data-sendText="<?= $Heading["HD_Text"] ?>" data-sendType="Heading"><i class="fa fa-pencil-alt"></i></button>
+                                                                                <button type="button" class="btn btn-link py-0 px-1 text-end text-primary" data-bs-toggle="modal" data-bs-target="#AddEditHeading" data-sendCode="<?= $Details["DT_Code"] ?>" data-sendText="<?= $Details["DT_Text"] ?>" data-sendType="details"><i class="fa fa-plus"></i></button>
+                                                                            </div>
+                                                                        </div>
+                                                                    </td>
+                                                                </tr>
+                                                                <?php 
+                                                                    
+                                                                        if (count($DataDetails) > 0) { 
+                                                                ?>
+                                                                <tr class="expandable-body">
+                                                                    <td>
+                                                                        <div class="p-0">
+                                                                            <table class="table table-hover2">
+                                                                                <tbody>
+                                                                                <?php foreach ($DataDetails as $Details) { ?>
+                                                                                    <tr>
+                                                                                        <td>
+                                                                                            <div class="card-header">    
+                                                                                                <?= $Details["DT_Text"] ?>
+                                                                                                <div class="card-tools">
+                                                                                                    <?php
+                                                                                                        if ($Details["DT_Active"] == 1) {
+                                                                                                            echo '<a class="btn btn-link py-0 px-1 text-end text-secondary"><i class="fa fa-eye"></i></a>';
+                                                                                                        } else {
+                                                                                                            echo '<a class="btn btn-link py-0 px-1 text-end text-secondary"><i class="fa fa-eye-slash"></i></a>';
+                                                                                                        }
+                                                                                                    ?>
+                                                                                                    <a class="btn btn-link py-0 px-1 text-end" ><i class="fa fa-trash"></i></a>
+                                                                                                    <button type="button" class="btn btn-link py-0 px-1 text-end text-warning" data-bs-toggle="modal" data-bs-target="#AddEditHeading" data-sendCode="<?= $Details["DT_Code"] ?>" data-sendText="<?= $Details["DT_Text"] ?>" data-sendType="details"><i class="fa fa-pencil-alt"></i></button>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                <?php } ?>
+                                                                                </tbody>
+                                                                            </table>
+                                                                        </div>
+                                                                    </td>
+                                                                </tr>
+                                                                <?php 
+                                                                        }
+                                                                    } 
+                                                                ?>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                    <?php
+                                                }
+                                            }
+                                        }
+                                    ?>
                                 </tbody>
-                                <tfoot>
-                                    <tr>
-                                        <th>วันที่ลง</th>
-                                        <th>หัวเรื่อง</th>
-                                        <th>เนื่อหาโดยย่อ</th>
-                                        <th>เจ้าของ</th>
-                                        <th>สถานะ</th>
-                                    </tr>
-                                </tfoot>
                             </table>
                         </div>
                         <!-- /.card-body -->
@@ -102,42 +209,27 @@ if (isset($_GET['Send_MenuCategory']) && $_GET['Send_MenuCategory'] !== '') {
 </div>
 <!-- Content -->
 
-<!-- Modal Category-->
-<div class="modal fade" id="AddHeadingGroup" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+<!-- Modal HeadingGroup-->
+<div class="modal fade" id="AddEditHeading" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="AddEditHeadingLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="staticBackdropLabel">Category</h5>
+                <h5 class="modal-title" id="AddEditHeadingLabel">Name</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form id="modalForm" action="Pro_Add&EditCategory.php" method="post" enctype="multipart/form-data">
+                <form id="modalForm" action="#" method="post" enctype="multipart/form-data">
                     <div class="row g-2 my-2">
-                        <div class="col-3 col-sm-2">
-                            <h6 class="text-primary">รหัส</h6>
-                            <input type="Text" id="CG_EntityNo" name="CG_EntityNo" class="form-control border-1"
-                                placeholder="0" readonly>
-                        </div>
-                        <div class="col-5 col-sm-5">
+                        <div class="col-112 col-sm-112">
+                            <input type="hidden" id="Type" name="Type">
+                            <input type="hidden" id="Code" name="Code">
                             <h6 class="text-primary">ชื่อ</h6>
-                            <input type="Text" id="CG_Name" name="CG_Name" class="form-control border-1"
-                                placeholder="ชื่อหัวข้อ" required>
-                        </div>
-                        <div class="col-6 col-sm-6">
-                            <h6 class="text-primary">ชื่อภาษาไทย</h6>
-                            <input type="Text" id="CG_DescriptionTH" name="CG_DescriptionTH"
-                                class="form-control border-1" placeholder="ชื่อภาษาไทย" required>
-                        </div>
-                        <div class="col-6 col-sm-6">
-                            <h6 class="text-primary">ชื่อภาษาอังกฤษ</h6>
-                            <input type="Text" id="CG_DescriptionEN" name="CG_DescriptionEN"
-                                class="form-control border-1" placeholder="ชื่อภาษาอังกฤษ" required>
+                            <textarea id="Text" name="Text" class="form-control border-1" style="height: 120px;" rows="5" placeholder="ชื่อหัวข้อ" required></textarea>
                         </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">ยกเลิก</button>
-                        <!-- <button type="button" class="btn btn-primary" onclick="submitModalForm()">บันทึก</button> -->
                         <button type="submit" class="btn btn-primary">บันทึก</button>
                     </div>
                 </form>
@@ -145,17 +237,15 @@ if (isset($_GET['Send_MenuCategory']) && $_GET['Send_MenuCategory'] !== '') {
         </div>
     </div>
 </div>
-
-
-
+		  
 <?php include("Ma_Footer.php"); ?>
 <!-- sweetalert -->
 <script>
 // ปุ่ม Delete
-function deleteAlert(NewsID, NewsTitle) {
+function deleteAlert(SendID, SendsTitle,SendType) {
     swal({
             title: "คุณต้องการที่จะลบหรือไม่?",
-            text: `${NewsTitle}\nเมื่อกดลบไปแล้วข่าวและกิจกรรมนี้จะไม่สามารถนำข้อมูลกลับมาได้!`,
+            text: `${SendsTitle}\nเมื่อกดลบไปแล้วจะไม่สามารถนำข้อมูลกลับมาได้!`,
             icon: "warning",
             buttons: {
                 cancel: {
@@ -177,9 +267,7 @@ function deleteAlert(NewsID, NewsTitle) {
         })
         .then((willDelete) => {
             if (willDelete) {
-                window.location.replace(
-                    `Pro_DeleteActivities.php?Send_IDNews=${NewsID}&Send_Title=${NewsTitle}&Send_Category=${CategoryId}`
-                );
+                window.location.replace(`Pro_DeleteMenuCategory.php?Send_ID=${SendID}&Send_Text=${SendsTitle}&Send_Type=${SendType}` );
             }
         })
         .catch((error) => {
@@ -197,16 +285,24 @@ window.onload = function() {
 };
 <?php endif; ?>
 </script>
+
 <?php include("Ma_FirstFooter_Script.php"); ?>
 <?php include("Ma_ScriptDatatable.php"); ?>
-<script>
-// DataTable ของ example2
-new DataTable('#example2', {
-    "language": {
-        "url": "https://cdn.datatables.net/plug-ins/1.13.4/i18n/th.json"
-    }
-});
-</script>
 <script src="js/jquery.min.js"></script>
 <script src="js/adminlte.min.js"></script>
+    <!-- Edit -->
+<script>
+    // เมื่อ Modal AddEditHeading ถูกเปิดขึ้นมา
+    $('#AddEditHeading').on('show.bs.modal', function(event) {
+        const button = $(event.relatedTarget);
+        const sendType = button.data('sendType');
+        const sendcode = button.data('sendcode');
+        const sendtext = button.data('sendtext');
+
+        // กำหนดค่าให้กับช่อง input ใน Modal
+        document.getElementById("Type").value = sendType;
+        document.getElementById("Code").value = sendcode;
+        document.getElementById("Text").value = sendtext;
+    });
+</script>
 <?php include("Ma_Footer_Script.php"); ?>

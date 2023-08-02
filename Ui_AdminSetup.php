@@ -228,7 +228,7 @@ $_SESSION['PathPage'] = "AdminSetup.php";
                                     <div class="card-body">
                                         <ul class="todo-list" data-widget="todo-list">
                                             <?PHP
-                                                    $sql = "SELECT * FROM `HeadingCategories` ORDER BY `HC_Code`;";
+                                                    $sql = "SELECT * FROM `headingcategories` ORDER BY `HC_Code`;";
                                                     $result = $conn->query($sql);
                                                     if ($result->num_rows > 0) {
                                                         while ($row = $result->fetch_assoc()) {
@@ -236,7 +236,7 @@ $_SESSION['PathPage'] = "AdminSetup.php";
                                                 <li class="my-2">
                                                     <span class="text"><?=$row["HC_Text"]?></span>
                                                     <div class="tools">
-                                                        <a class="btn btn-link py-1 px-2 text-end" onclick="deleteAlertMenuCategory(<?php echo $row["HC_Code"];?>, '<?php echo $row["HC_Text"];?>')"><i class="fas fa-trash"></i></a>
+                                                        <a class="btn btn-link py-1 px-2 text-end" onclick="deleteAlertMenuCategory(<?php echo $row["HC_Code"];?>, '<?php echo $row["HC_Text"];?>', 'headingcategories')"><i class="fas fa-trash"></i></a>
                                                         <button type="button" class="btn btn-link py-1 px-2 text-end text-warning" data-bs-toggle="modal" data-bs-target="#MenuCategory" data-hcCode="<?= $row["HC_Code"] ?>" data-hcText="<?= $row["HC_Text"] ?>" data-hcdescriptionth="<?= $row["HC_DescriptionTH"] ?>" data-hcdescriptionen="<?= $row["HC_DescriptionEN"] ?>"><i class="fas fa-edit"></i> </button>
                                                     </div>
                                                 </li>
@@ -435,7 +435,7 @@ $_SESSION['PathPage'] = "AdminSetup.php";
         function deleteAlertCategory(categoryID, categoryName) {
             swal({
                 title: "คุณต้องการที่จะลบหรือไม่?",
-                text: `${categoryName}\nเมื่อกดลบไปแล้วข่าวและกิจกรรมนี้จะไม่สามารถนำข้อมูลกลับมาได้!`,
+                text: `${categoryName}\nเมื่อกดลบไปแล้วจะไม่สามารถนำข้อมูลกลับมาได้!`,
                 icon: "warning",
                 buttons: {
                     cancel: {
@@ -469,10 +469,10 @@ $_SESSION['PathPage'] = "AdminSetup.php";
             });
         }
 
-        function deleteAlertMenuCategory(categoryID, categoryText) {
+        function deleteAlertMenuCategory(categoryID, categoryText,SendType) {
             swal({
                 title: "คุณต้องการที่จะลบหรือไม่?",
-                text: `${categoryText}\nเมื่อกดลบไปแล้วข่าวและกิจกรรมนี้จะไม่สามารถนำข้อมูลกลับมาได้!`,
+                text: `${categoryText}\nเมื่อกดลบไปแล้วจะไม่สามารถนำข้อมูลกลับมาได้!`,
                 icon: "warning",
                 buttons: {
                     cancel: {
@@ -495,7 +495,7 @@ $_SESSION['PathPage'] = "AdminSetup.php";
             .then((willDelete) => {
                 if (willDelete) {
                     // เมื่อกดตกลง ทำการเปลี่ยนหน้า
-                    window.location.replace(`Pro_DeleteMenuCategory.php?Send_ID=${categoryID}&Send_Text=${categoryText}`);
+                    window.location.replace(`Pro_DeleteMenuCategory.php?Send_ID=${categoryID}&Send_Text=${categoryText}&Send_Type=${SendType}`);
                 } else {
                     // เมื่อกดยกเลิก ไม่ต้องทำอะไร
                 }
