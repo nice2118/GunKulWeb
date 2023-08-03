@@ -94,14 +94,8 @@ th {
                                                 ?>
                                                         <?= $rowHeadingGroup["HG_Text"] ?></h5>
                                                         <div class="card-tools">
-                                                            <?php
-                                                                if ($rowHeadingGroup["HG_Active"] == 1) {
-                                                                    echo '<a class="btn btn-link py-0 px-1 text-end text-secondary"><i class="fa fa-eye"></i></a>';
-                                                                } else {
-                                                                    echo '<a class="btn btn-link py-0 px-1 text-end text-secondary"><i class="fa fa-eye-slash"></i></a>';
-                                                                }
-                                                            ?>
-                                                            <a class="btn btn-link py-0 px-1 text-end" ><i class="fa fa-trash"></i></a>
+                                                            <a class="btn btn-link py-0 px-1 text-end text-secondary toggleButton"><i class="fa fa-eye"></i></a>
+                                                            <a class="btn btn-link py-1 px-2 text-end" onclick="deleteAlertMenuCategory(<?php echo $rowHeadingGroup["HG_Code"];?>, '<?php echo $rowHeadingGroup["HG_Text"];?>', 'headinggroup')"><i class="fas fa-trash"></i></a>
                                                             <button type="button" class="btn btn-link py-0 px-1 text-end text-warning" data-bs-toggle="modal" data-bs-target="#AddEditHeading" data-sendCode="<?= $rowHeadingGroup["HG_Code"] ?>" data-sendText="<?= $rowHeadingGroup["HG_Text"] ?>" data-sendType="HeadingGroup"><i class="fa fa-pencil-alt"></i></button>
                                                             <button type="button" class="btn btn-link py-0 px-1 text-end text-primary" data-bs-toggle="modal" data-bs-target="#AddEditHeading" data-sendCode="<?= $Heading["HD_Code"] ?>" data-sendText="<?= $Heading["HD_Text"] ?>" data-sendType="Heading"><i class="fa fa-plus"></i></button>
                                                         </div>
