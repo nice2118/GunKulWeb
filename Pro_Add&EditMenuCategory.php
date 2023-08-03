@@ -14,11 +14,11 @@ echo '<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   // เก็บข้อมูลจากฟอร์ม
   $Send_Code = isset($_POST['Send_Code']) ? $_POST['Send_Code'] : 0;
+  $Send_Relation = isset($_POST['Send_Relation']) ? $_POST['Send_Relation'] : 0;
   $Send_Text = $_POST['Send_Text'];
   $Send_descriptionth = $_POST['Send_descriptionth'];
   $Send_descriptionen = $_POST['Send_descriptionen'];
   $Type = $_POST['Send_MenuCategoryType'];
-  CG_Entity Relation No.
 
   // ทำอย่างอื่นๆ เช่นบันทึกข้อมูลลงฐานข้อมูล
   if ($Send_Code == 0) {

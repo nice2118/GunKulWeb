@@ -342,7 +342,8 @@ $_SESSION['PathPage'] = "AdminSetup.php";
                         <div class="row g-2 my-2">
                             <div class="col-3 col-sm-2">
                                 <h6 class="text-primary">รหัส</h6>
-                                <input type="hidden" name="Send_MenuCategoryType" class="form-control border-1" value="headingcategories">
+                                <input type="hidden" name="Send_MenuCategoryType" value="headingcategories">
+                                <input type="hidden" id="Send_Relation" name="Send_Relation" value="0">
                                 <input type="Text" id="Send_Code" name="Send_Code" class="form-control border-1" placeholder="0" readonly>
                             </div>
                             <div class="col-9 col-sm-10">
