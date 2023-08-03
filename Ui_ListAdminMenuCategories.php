@@ -94,7 +94,13 @@ th {
                                                 ?>
                                                         <?= $rowHeadingGroup["HG_Text"] ?></h5>
                                                         <div class="card-tools">
-                                                            <a class="btn btn-link py-0 px-1 text-end text-secondary toggleButton"><i class="fa fa-eye"></i></a>
+                                                        <?php
+                                                            if ($rowHeadingGroup["HG_Active"] == 1) {
+                                                                echo '<a class="btn btn-link py-0 px-1 text-end text-secondary toggleButton" id="toggleButton1" data-sendStatus="0" data-sendID="' . $rowHeadingGroup['HG_Code'] . '" data-sendType="headinggroup"><i class="fa fa-eye"></i></a>';
+                                                            } else {
+                                                                echo '<a class="btn btn-link py-0 px-1 text-end text-secondary toggleButton" id="toggleButton0" data-sendStatus="1" data-sendID="' . $rowHeadingGroup['HG_Code'] . '" data-sendType="headinggroup"><i class="fa fa-eye-slash"></i></a>';
+                                                            }
+                                                        ?>
                                                             <a class="btn btn-link py-1 px-2 text-end" onclick="deleteAlertMenuCategory(<?php echo $rowHeadingGroup["HG_Code"];?>, '<?php echo $rowHeadingGroup["HG_Text"];?>', 'headinggroup')"><i class="fas fa-trash"></i></a>
                                                             <button type="button" class="btn btn-link py-0 px-1 text-end text-warning" data-bs-toggle="modal" data-bs-target="#AddEditHeading" data-sendCode="<?= $rowHeadingGroup["HG_Code"] ?>" data-sendText="<?= $rowHeadingGroup["HG_Text"] ?>" data-sendType="HeadingGroup"><i class="fa fa-pencil-alt"></i></button>
                                                             <button type="button" class="btn btn-link py-0 px-1 text-end text-primary" data-bs-toggle="modal" data-bs-target="#AddEditHeading" data-sendCode="<?= $Heading["HD_Code"] ?>" data-sendText="<?= $Heading["HD_Text"] ?>" data-sendType="Heading"><i class="fa fa-plus"></i></button>
@@ -130,12 +136,12 @@ th {
                                                                             <div class="card-tools">
                                                                                 <?php
                                                                                     if ($Heading["HD_Active"] == 1) {
-                                                                                        echo '<a class="btn btn-link py-0 px-1 text-end text-secondary"><i class="fa fa-eye"></i></a>';
+                                                                                        echo '<a class="btn btn-link py-0 px-1 text-end text-secondary toggleButton" id="toggleButton1" data-sendStatus="0" data-sendID="' . $Heading['HD_Code'] . '" data-sendType="heading"><i class="fa fa-eye"></i></a>';
                                                                                     } else {
-                                                                                        echo '<a class="btn btn-link py-0 px-1 text-end text-secondary"><i class="fa fa-eye-slash"></i></a>';
+                                                                                        echo '<a class="btn btn-link py-0 px-1 text-end text-secondary toggleButton" id="toggleButton0" data-sendStatus="1" data-sendID="' . $Heading['HD_Code'] . '" data-sendType="heading"><i class="fa fa-eye-slash"></i></a>';
                                                                                     }
                                                                                 ?>
-                                                                                <a class="btn btn-link py-0 px-1 text-end" ><i class="fa fa-trash"></i></a>
+                                                                                <a class="btn btn-link py-1 px-2 text-end" onclick="deleteAlertMenuCategory(<?php echo $Heading["HD_Code"];?>, '<?php echo $Heading["HD_Text"];?>', 'heading')"><i class="fas fa-trash"></i></a>
                                                                                 <button type="button" class="btn btn-link py-0 px-1 text-end text-warning" data-bs-toggle="modal" data-bs-target="#AddEditHeading" data-sendCode="<?= $Heading["HD_Code"] ?>" data-sendText="<?= $Heading["HD_Text"] ?>" data-sendType="Heading"><i class="fa fa-pencil-alt"></i></button>
                                                                                 <button type="button" class="btn btn-link py-0 px-1 text-end text-primary" data-bs-toggle="modal" data-bs-target="#AddEditHeading" data-sendCode="<?= $Details["DT_Code"] ?>" data-sendText="<?= $Details["DT_Text"] ?>" data-sendType="details"><i class="fa fa-plus"></i></button>
                                                                             </div>
@@ -157,14 +163,14 @@ th {
                                                                                             <div class="card-header">    
                                                                                                 <?= $Details["DT_Text"] ?>
                                                                                                 <div class="card-tools">
-                                                                                                    <?php
-                                                                                                        if ($Details["DT_Active"] == 1) {
-                                                                                                            echo '<a class="btn btn-link py-0 px-1 text-end text-secondary"><i class="fa fa-eye"></i></a>';
-                                                                                                        } else {
-                                                                                                            echo '<a class="btn btn-link py-0 px-1 text-end text-secondary"><i class="fa fa-eye-slash"></i></a>';
-                                                                                                        }
-                                                                                                    ?>
-                                                                                                    <a class="btn btn-link py-0 px-1 text-end" ><i class="fa fa-trash"></i></a>
+                                                                                                <?php
+                                                                                                    if ($Details["DT_Active"] == 1) {
+                                                                                                        echo '<a class="btn btn-link py-0 px-1 text-end text-secondary toggleButton" id="toggleButton1" data-sendStatus="0" data-sendID="' . $Details['DT_Code'] . '" data-sendType="details"><i class="fa fa-eye"></i></a>';
+                                                                                                    } else {
+                                                                                                        echo '<a class="btn btn-link py-0 px-1 text-end text-secondary toggleButton" id="toggleButton0" data-sendStatus="1" data-sendID="' . $Details['DT_Code'] . '" data-sendType="details"><i class="fa fa-eye-slash"></i></a>';
+                                                                                                    }
+                                                                                                ?>
+                                                                                                    <a class="btn btn-link py-1 px-2 text-end" onclick="deleteAlertMenuCategory(<?php echo $Details["DT_Code"];?>, '<?php echo $Details["DT_Text"];?>', 'details')"><i class="fas fa-trash"></i></a>
                                                                                                     <button type="button" class="btn btn-link py-0 px-1 text-end text-warning" data-bs-toggle="modal" data-bs-target="#AddEditHeading" data-sendCode="<?= $Details["DT_Code"] ?>" data-sendText="<?= $Details["DT_Text"] ?>" data-sendType="details"><i class="fa fa-pencil-alt"></i></button>
                                                                                                 </div>
                                                                                             </div>
@@ -236,7 +242,7 @@ th {
 <!-- sweetalert -->
 <script>
 // ปุ่ม Delete
-function deleteAlert(SendID, SendsTitle,SendType) {
+function deleteAlertMenuCategory(SendID, SendsTitle,SendType) {
     swal({
             title: "คุณต้องการที่จะลบหรือไม่?",
             text: `${SendsTitle}\nเมื่อกดลบไปแล้วจะไม่สามารถนำข้อมูลกลับมาได้!`,
@@ -284,6 +290,43 @@ window.onload = function() {
 <?php include("Ma_ScriptDatatable.php"); ?>
 <script src="js/jquery.min.js"></script>
 <script src="js/adminlte.min.js"></script>
+<script>
+// ดักจับเหตุการณ์คลิกที่ปุ่มที่มีคลาส toggleButton
+const toggleButtons = document.querySelectorAll(".toggleButton");
+toggleButtons.forEach(button => {
+  button.addEventListener("click", function() {
+    const icon = this.querySelector("i");
+    if (icon.classList.contains("fa-eye")) {
+      icon.classList.remove("fa-eye");
+      icon.classList.add("fa-eye-slash");
+    } else if (icon.classList.contains("fa-eye-slash")){
+      icon.classList.remove("fa-eye-slash");
+      icon.classList.add("fa-eye");
+    }
+    const sendStatus = this.getAttribute("data-sendStatus");
+    const sendType = this.getAttribute("data-sendType");
+    const sendID = this.getAttribute("data-sendID");
+    sendDataToPHP(sendStatus, sendType, sendID); // ส่งค่าไปยัง PHP
+  });
+});
+
+function sendDataToPHP(status, type, id) {
+  // ส่งข้อมูลไปยัง PHP โดยใช้ AJAX
+  const xhr = new XMLHttpRequest();
+  const url = "MenuCategoryHidden.php"; // เปลี่ยนเป็นชื่อไฟล์ PHP ที่คุณต้องการใช้งาน
+  const params = "status=" + status + "&type=" + type + "&id=" + id; // ส่งค่าตัวแปรไปยัง PHP
+  console.log(params);
+  xhr.open("POST", url, true);
+  xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+  xhr.onreadystatechange = function() {
+    if (xhr.readyState == 4 && xhr.status == 200) {
+      // ทำสิ่งที่คุณต้องการหลังจากที่ส่งข้อมูลเสร็จสิ้น (หากต้องการ)
+      console.log(xhr.responseText); // ตัวอย่างการแสดงผล response ที่ได้จาก PHP
+    }
+  };
+  xhr.send(params);
+}
+</script>
     <!-- Edit -->
 <script>
     // เมื่อ Modal AddEditHeading ถูกเปิดขึ้นมา
@@ -296,7 +339,11 @@ window.onload = function() {
         // กำหนดค่าให้กับช่อง input ใน Modal
         document.getElementById("Type").value = sendType;
         document.getElementById("Code").value = sendcode;
-        document.getElementById("Text").value = sendtext;
+        if (sendtext === undefined) {
+            document.getElementById("Text").value = '';
+        } else {
+            document.getElementById("Text").value = sendtext;
+        }
     });
 </script>
 <?php include("Ma_Footer_Script.php"); ?>

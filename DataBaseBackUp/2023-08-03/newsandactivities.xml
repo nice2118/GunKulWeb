@@ -5,7 +5,7 @@
 - http://www.phpmyadmin.net
 -
 - Host: 127.0.0.1
-- Generation Time: Jul 25, 2023 at 10:53 AM
+- Generation Time: Aug 03, 2023 at 03:10 AM
 - Server version: 5.5.27
 - PHP Version: 5.4.7
 -->
@@ -42,17 +42,18 @@
                   `CG_CreateDate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
                   `CG_ModifyDate` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
                   PRIMARY KEY (`CG_Entity No.`)
-                ) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8;
+                ) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8;
             </pma:table>
             <pma:table name="details">
                 CREATE TABLE `details` (
                   `DT_Code` int(11) NOT NULL AUTO_INCREMENT,
-                  `DT_Text` varchar(255) DEFAULT NULL,
+                  `DT_Text` mediumtext,
+                  `DT_Active` tinyint(1) NOT NULL DEFAULT '1',
                   `HD_Code` int(11) DEFAULT NULL,
                   `DT_CreateDate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
                   `DT_ModifyDate` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
                   PRIMARY KEY (`DT_Code`)
-                ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+                ) ENGINE=InnoDB AUTO_INCREMENT=67 DEFAULT CHARSET=utf8;
             </pma:table>
             <pma:table name="gallery">
                 CREATE TABLE `gallery` (
@@ -62,17 +63,18 @@
                   `GR_CreateDate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
                   `GR_ModifyDate` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
                   PRIMARY KEY (`GR_Entity No.`)
-                ) ENGINE=InnoDB AUTO_INCREMENT=68 DEFAULT CHARSET=utf8;
+                ) ENGINE=InnoDB AUTO_INCREMENT=77 DEFAULT CHARSET=utf8;
             </pma:table>
             <pma:table name="heading">
                 CREATE TABLE `heading` (
                   `HD_Code` int(11) NOT NULL AUTO_INCREMENT,
                   `HD_Text` varchar(255) DEFAULT NULL,
+                  `HD_Active` tinyint(1) NOT NULL DEFAULT '1',
                   `HG_Code` int(11) DEFAULT NULL,
                   `HD_CreateDate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
                   `HD_ModifyDate` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
                   PRIMARY KEY (`HD_Code`)
-                ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+                ) ENGINE=InnoDB AUTO_INCREMENT=46 DEFAULT CHARSET=utf8;
             </pma:table>
             <pma:table name="headingcategories">
                 CREATE TABLE `headingcategories` (
@@ -83,17 +85,18 @@
                   `HC_CreateDate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
                   `HC_ModifyDate` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
                   PRIMARY KEY (`HC_Code`)
-                ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+                ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
             </pma:table>
             <pma:table name="headinggroup">
                 CREATE TABLE `headinggroup` (
                   `HG_Code` int(11) NOT NULL AUTO_INCREMENT,
                   `HG_Text` varchar(255) DEFAULT NULL,
+                  `HG_Active` tinyint(1) NOT NULL DEFAULT '1',
                   `HC_Code` int(11) DEFAULT NULL,
                   `HG_CreateDate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
                   `HG_ModifyDate` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
                   PRIMARY KEY (`HG_Code`)
-                ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+                ) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
             </pma:table>
             <pma:table name="setup">
                 CREATE TABLE `setup` (
@@ -915,10 +918,10 @@
             <column name="AT_Title">6</column>
             <column name="AT_Description">6</column>
             <column name="AT_Note">PHA+NjwvcD4=</column>
-            <column name="AT_Image">0.png</column>
+            <column name="AT_Image">82.jpg</column>
             <column name="AT_UserCreate"></column>
             <column name="AT_CreateDate">2023-07-20 12:56:57</column>
-            <column name="AT_ModifyDate">2023-07-20 12:56:57</column>
+            <column name="AT_ModifyDate">2023-08-02 15:32:16</column>
         </table>
         <table name="activities">
             <column name="AT_Code">83</column>
@@ -928,10 +931,10 @@
             <column name="AT_Title">4</column>
             <column name="AT_Description">4</column>
             <column name="AT_Note">PHA+NDwvcD4=</column>
-            <column name="AT_Image">0.png</column>
+            <column name="AT_Image">83.png</column>
             <column name="AT_UserCreate"></column>
             <column name="AT_CreateDate">2023-07-20 12:59:42</column>
-            <column name="AT_ModifyDate">2023-07-20 12:59:42</column>
+            <column name="AT_ModifyDate">2023-08-02 15:29:59</column>
         </table>
         <table name="activities">
             <column name="AT_Code">84</column>
@@ -941,20 +944,20 @@
             <column name="AT_Title">4</column>
             <column name="AT_Description">4</column>
             <column name="AT_Note">PHA+NDwvcD4=</column>
-            <column name="AT_Image">0.png</column>
+            <column name="AT_Image">84.png</column>
             <column name="AT_UserCreate"></column>
             <column name="AT_CreateDate">2023-07-20 12:59:57</column>
-            <column name="AT_ModifyDate">2023-07-20 12:59:57</column>
+            <column name="AT_ModifyDate">2023-08-02 15:54:36</column>
         </table>
         <!-- Table category -->
         <table name="category">
             <column name="CG_Entity_No.">1</column>
             <column name="CG_Entity_Relation_No.">0</column>
             <column name="CG_Name">News</column>
-            <column name="CG_DescriptionTH">สร้างข่าวสารและกิจกรรม</column>
+            <column name="CG_DescriptionTH">ข่าวสารและกิจกรรม</column>
             <column name="CG_DescriptionEN">Form News &amp; Activities</column>
             <column name="CG_CreateDate">2023-07-07 13:25:06</column>
-            <column name="CG_ModifyDate">2023-07-07 13:25:06</column>
+            <column name="CG_ModifyDate">2023-08-02 14:03:29</column>
         </table>
         <table name="category">
             <column name="CG_Entity_No.">2</column>
@@ -1037,7 +1040,60 @@
             <column name="CG_CreateDate">2023-07-14 09:29:13</column>
             <column name="CG_ModifyDate">2023-07-14 00:00:00</column>
         </table>
+        <table name="category">
+            <column name="CG_Entity_No.">19</column>
+            <column name="CG_Entity_Relation_No.">0</column>
+            <column name="CG_Name">ประกาศ</column>
+            <column name="CG_DescriptionTH">ประกาศ</column>
+            <column name="CG_DescriptionEN">ประกาศ</column>
+            <column name="CG_CreateDate">2023-08-02 14:09:41</column>
+            <column name="CG_ModifyDate">2023-08-02 14:09:41</column>
+        </table>
         <!-- Table details -->
+        <table name="details">
+            <column name="DT_Code">62</column>
+            <column name="DT_Text">วุฒิ ปวช. / ปวส. สาขาช่างไฟฟ้า
+
+เพศชาย อายุ 23 - 30 ปี
+
+มีประสบการณ์ด้านการติดตั้งระบบโซลาร์บนหลังคาและงานไฟฟ้าอาคาร จะพิจารณาเป็นพิเศษ
+
+ได้ผ่านการรับรองความรู้ความสามารถ สาขาไฟฟ้าภายในอาคาร จากกรมพัฒนาฝีมือแรงงาน</column>
+            <column name="DT_Active">1</column>
+            <column name="HD_Code">39</column>
+            <column name="DT_CreateDate">2023-07-31 17:02:04</column>
+            <column name="DT_ModifyDate">0000-00-00 00:00:00</column>
+        </table>
+        <table name="details">
+            <column name="DT_Code">64</column>
+            <column name="DT_Text">คุณธนศักดิ์ (ใหญ่),  โทร 5884  E-Mail  : thanasak.sir@gunkul.com</column>
+            <column name="DT_Active">1</column>
+            <column name="HD_Code">41</column>
+            <column name="DT_CreateDate">2023-07-31 17:02:04</column>
+            <column name="DT_ModifyDate">0000-00-00 00:00:00</column>
+        </table>
+        <table name="details">
+            <column name="DT_Code">65</column>
+            <column name="DT_Text">คุณผุสชา (เจ),  โทร 5884  E-Mail  : pussacha.sri@gunkul.com </column>
+            <column name="DT_Active">1</column>
+            <column name="HD_Code">41</column>
+            <column name="DT_CreateDate">2023-07-31 17:02:04</column>
+            <column name="DT_ModifyDate">0000-00-00 00:00:00</column>
+        </table>
+        <table name="details">
+            <column name="DT_Code">66</column>
+            <column name="DT_Text">&lt;p&gt;ติดตั้งระบบโซลาร์บนหลังคา สำหรับบ้านที่อยู่อาศัย&lt;/p&gt;
+
+&lt;p&gt;ดำเนินงานด้านไฟฟ้า ระบบงานเดินสายระบบต่าง ๆ&lt;/p&gt;
+
+&lt;p&gt;ซ่อมบำรุงระบบโซลาร์บนหลังคา&lt;/p&gt;
+
+&lt;p&gt;งานสำรวจวิเคราะห์หน้างาน&lt;/p&gt;</column>
+            <column name="DT_Active">1</column>
+            <column name="HD_Code">40</column>
+            <column name="DT_CreateDate">2023-07-31 17:21:10</column>
+            <column name="DT_ModifyDate">0000-00-00 00:00:00</column>
+        </table>
         <!-- Table gallery -->
         <table name="gallery">
             <column name="GR_Entity_No.">2</column>
@@ -1466,9 +1522,150 @@
             <column name="GR_CreateDate">2023-07-20 12:59:57</column>
             <column name="GR_ModifyDate">2023-07-20 12:59:57</column>
         </table>
+        <table name="gallery">
+            <column name="GR_Entity_No.">69</column>
+            <column name="GR_Activities_Code">83</column>
+            <column name="GR_Name">69.</column>
+            <column name="GR_CreateDate">2023-08-02 15:29:59</column>
+            <column name="GR_ModifyDate">2023-08-02 15:29:59</column>
+        </table>
+        <table name="gallery">
+            <column name="GR_Entity_No.">70</column>
+            <column name="GR_Activities_Code">82</column>
+            <column name="GR_Name">70.</column>
+            <column name="GR_CreateDate">2023-08-02 15:32:16</column>
+            <column name="GR_ModifyDate">2023-08-02 15:32:16</column>
+        </table>
+        <table name="gallery">
+            <column name="GR_Entity_No.">76</column>
+            <column name="GR_Activities_Code">84</column>
+            <column name="GR_Name">71.mp4</column>
+            <column name="GR_CreateDate">2023-08-02 15:54:36</column>
+            <column name="GR_ModifyDate">2023-08-02 15:54:36</column>
+        </table>
         <!-- Table heading -->
+        <table name="heading">
+            <column name="HD_Code">39</column>
+            <column name="HD_Text">คุณสมบัติ  :</column>
+            <column name="HD_Active">1</column>
+            <column name="HG_Code">6</column>
+            <column name="HD_CreateDate">2023-07-31 16:55:31</column>
+            <column name="HD_ModifyDate">0000-00-00 00:00:00</column>
+        </table>
+        <table name="heading">
+            <column name="HD_Code">40</column>
+            <column name="HD_Text">รายละเอียด  :</column>
+            <column name="HD_Active">1</column>
+            <column name="HG_Code">6</column>
+            <column name="HD_CreateDate">2023-07-31 16:55:31</column>
+            <column name="HD_ModifyDate">0000-00-00 00:00:00</column>
+        </table>
+        <table name="heading">
+            <column name="HD_Code">41</column>
+            <column name="HD_Text">ติดต่อ </column>
+            <column name="HD_Active">1</column>
+            <column name="HG_Code">6</column>
+            <column name="HD_CreateDate">2023-07-31 16:55:31</column>
+            <column name="HD_ModifyDate">0000-00-00 00:00:00</column>
+        </table>
+        <table name="heading">
+            <column name="HD_Code">43</column>
+            <column name="HD_Text">ติดต่อ</column>
+            <column name="HD_Active">1</column>
+            <column name="HG_Code">5</column>
+            <column name="HD_CreateDate">2023-08-02 15:13:40</column>
+            <column name="HD_ModifyDate">0000-00-00 00:00:00</column>
+        </table>
+        <table name="heading">
+            <column name="HD_Code">44</column>
+            <column name="HD_Text">รายละเอียด  :</column>
+            <column name="HD_Active">1</column>
+            <column name="HG_Code">5</column>
+            <column name="HD_CreateDate">2023-08-02 15:13:40</column>
+            <column name="HD_ModifyDate">0000-00-00 00:00:00</column>
+        </table>
+        <table name="heading">
+            <column name="HD_Code">45</column>
+            <column name="HD_Text">คุณสมบัติ  :</column>
+            <column name="HD_Active">1</column>
+            <column name="HG_Code">5</column>
+            <column name="HD_CreateDate">2023-08-02 15:13:40</column>
+            <column name="HD_ModifyDate">0000-00-00 00:00:00</column>
+        </table>
         <!-- Table headingcategories -->
+        <table name="headingcategories">
+            <column name="HC_Code">1</column>
+            <column name="HC_Text">INTERNAL RECRUITMENT</column>
+            <column name="HC_DescriptionTH">ตำแหน่งงานว่างภายใน</column>
+            <column name="HC_DescriptionEN">INTERNAL RECRUITMENT</column>
+            <column name="HC_CreateDate">2023-07-25 15:57:55</column>
+            <column name="HC_ModifyDate">0000-00-00 00:00:00</column>
+        </table>
+        <table name="headingcategories">
+            <column name="HC_Code">2</column>
+            <column name="HC_Text">FAQ</column>
+            <column name="HC_DescriptionTH">คำถามที่พบบ่อย</column>
+            <column name="HC_DescriptionEN">FAQs</column>
+            <column name="HC_CreateDate">2023-07-25 15:57:55</column>
+            <column name="HC_ModifyDate">0000-00-00 00:00:00</column>
+        </table>
         <!-- Table headinggroup -->
+        <table name="headinggroup">
+            <column name="HG_Code">1</column>
+            <column name="HG_Text">แผนกค่าตอบแทนและสวัสดิการ</column>
+            <column name="HG_Active">1</column>
+            <column name="HC_Code">2</column>
+            <column name="HG_CreateDate">2023-07-25 15:59:06</column>
+            <column name="HG_ModifyDate">0000-00-00 00:00:00</column>
+        </table>
+        <table name="headinggroup">
+            <column name="HG_Code">2</column>
+            <column name="HG_Text">แผนกธุรการและซ่อมบำรุง</column>
+            <column name="HG_Active">1</column>
+            <column name="HC_Code">2</column>
+            <column name="HG_CreateDate">2023-07-25 15:59:06</column>
+            <column name="HG_ModifyDate">0000-00-00 00:00:00</column>
+        </table>
+        <table name="headinggroup">
+            <column name="HG_Code">3</column>
+            <column name="HG_Text">แผนกสรรหาว่าจ้าง</column>
+            <column name="HG_Active">1</column>
+            <column name="HC_Code">2</column>
+            <column name="HG_CreateDate">2023-07-25 15:59:06</column>
+            <column name="HG_ModifyDate">0000-00-00 00:00:00</column>
+        </table>
+        <table name="headinggroup">
+            <column name="HG_Code">4</column>
+            <column name="HG_Text">แผนกฝึกอบรม</column>
+            <column name="HG_Active">1</column>
+            <column name="HC_Code">2</column>
+            <column name="HG_CreateDate">2023-07-25 15:59:06</column>
+            <column name="HG_ModifyDate">0000-00-00 00:00:00</column>
+        </table>
+        <table name="headinggroup">
+            <column name="HG_Code">5</column>
+            <column name="HG_Text">ช่างเทคนิคบริการโรงไฟฟ้า Solar rooflop  (1 ตำแหน่ง)</column>
+            <column name="HG_Active">1</column>
+            <column name="HC_Code">1</column>
+            <column name="HG_CreateDate">2023-07-25 15:59:51</column>
+            <column name="HG_ModifyDate">0000-00-00 00:00:00</column>
+        </table>
+        <table name="headinggroup">
+            <column name="HG_Code">6</column>
+            <column name="HG_Text">Sales Engineer  (1 ตำแหน่ง)</column>
+            <column name="HG_Active">1</column>
+            <column name="HC_Code">1</column>
+            <column name="HG_CreateDate">2023-07-25 15:59:51</column>
+            <column name="HG_ModifyDate">0000-00-00 00:00:00</column>
+        </table>
+        <table name="headinggroup">
+            <column name="HG_Code">7</column>
+            <column name="HG_Text">Maintenance Engineer  (1 ตำแหน่ง)</column>
+            <column name="HG_Active">1</column>
+            <column name="HC_Code">1</column>
+            <column name="HG_CreateDate">2023-07-25 15:59:51</column>
+            <column name="HG_ModifyDate">0000-00-00 00:00:00</column>
+        </table>
         <!-- Table setup -->
         <table name="setup">
             <column name="SU_Code">1</column>

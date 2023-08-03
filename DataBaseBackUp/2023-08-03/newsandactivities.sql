@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 25, 2023 at 10:53 AM
+-- Generation Time: Aug 03, 2023 at 03:10 AM
 -- Server version: 5.5.27
 -- PHP Version: 5.4.7
 
@@ -109,9 +109,9 @@ INSERT INTO `activities` (`AT_Code`, `AT_Entity No.`, `AT_Date`, `AT_Time`, `AT_
 (79, 1, '2023-07-20', '12:53:33', '9', '9', 'PHA+OTwvcD4=', '0.png', '', '2023-07-20 05:53:33', '2023-07-20 05:53:33'),
 (80, 1, '2023-07-20', '12:53:46', '9', '9', 'PHA+OTwvcD4=', '0.png', '', '2023-07-20 05:53:46', '2023-07-20 05:53:46'),
 (81, 1, '2023-07-20', '12:56:43', '6', '6', 'PHA+NjwvcD4=', '0.png', '', '2023-07-20 05:56:43', '2023-07-20 05:56:43'),
-(82, 1, '2023-07-20', '12:56:57', '6', '6', 'PHA+NjwvcD4=', '0.png', '', '2023-07-20 05:56:57', '2023-07-20 05:56:57'),
-(83, 1, '2023-07-20', '12:59:42', '4', '4', 'PHA+NDwvcD4=', '0.png', '', '2023-07-20 05:59:42', '2023-07-20 05:59:42'),
-(84, 1, '2023-07-20', '12:59:57', '4', '4', 'PHA+NDwvcD4=', '0.png', '', '2023-07-20 05:59:57', '2023-07-20 05:59:57');
+(82, 1, '2023-07-20', '12:56:57', '6', '6', 'PHA+NjwvcD4=', '82.jpg', '', '2023-07-20 05:56:57', '2023-08-02 08:32:16'),
+(83, 1, '2023-07-20', '12:59:42', '4', '4', 'PHA+NDwvcD4=', '83.png', '', '2023-07-20 05:59:42', '2023-08-02 08:29:59'),
+(84, 1, '2023-07-20', '12:59:57', '4', '4', 'PHA+NDwvcD4=', '84.png', '', '2023-07-20 05:59:57', '2023-08-02 08:54:36');
 
 -- --------------------------------------------------------
 
@@ -128,14 +128,14 @@ CREATE TABLE IF NOT EXISTS `category` (
   `CG_CreateDate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `CG_ModifyDate` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   PRIMARY KEY (`CG_Entity No.`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=17 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=20 ;
 
 --
 -- Dumping data for table `category`
 --
 
 INSERT INTO `category` (`CG_Entity No.`, `CG_Entity Relation No.`, `CG_Name`, `CG_DescriptionTH`, `CG_DescriptionEN`, `CG_CreateDate`, `CG_ModifyDate`) VALUES
-(1, 0, 'News', 'สร้างข่าวสารและกิจกรรม', 'Form News & Activities', '2023-07-07 06:25:06', '2023-07-07 06:25:06'),
+(1, 0, 'News', 'ข่าวสารและกิจกรรม', 'Form News & Activities', '2023-07-07 06:25:06', '2023-08-02 07:03:29'),
 (2, 0, 'Soft Skills', 'ทักษะทางสังคมที่ใช้เพื่อปฏิสัมพันธ์', 'Soft Skills', '2023-07-10 10:29:50', '2023-07-10 17:00:00'),
 (3, 0, 'Hard Skills', 'ทักษะหรือความสามารถในแต่ละสายอาชีพ', 'Hard Skills', '2023-07-10 10:29:50', '2023-07-10 17:00:00'),
 (4, 0, 'Knowledge Sharing', 'การแบ่งปันความรู้', 'Knowledge Sharing', '2023-07-10 10:30:31', '2023-07-10 17:00:00'),
@@ -144,7 +144,8 @@ INSERT INTO `category` (`CG_Entity No.`, `CG_Entity Relation No.`, `CG_Name`, `C
 (7, 2, 'Certificate of Achievement', 'การรับใบประกาศณียบัตร', 'Certificate of Achievement', '2023-07-11 06:45:05', '2023-07-10 17:00:00'),
 (8, 6, 'Language Skill-1', 'ทักษะทางสังคมที่ใช้เพื่อปฏิสัมพันธ์กับผู้คน-1', 'Language Skill-1', '2023-07-11 08:52:14', '2023-07-13 17:00:00'),
 (9, 6, 'Language Skill-2', 'ทักษะทางสังคมที่ใช้เพื่อปฏิสัมพันธ์กับผู้คน-2', 'Language Skill-2', '2023-07-11 10:29:51', '2023-07-13 17:00:00'),
-(10, 0, 'Gallery', 'แกลลอรี่', 'Gallery', '2023-07-14 02:29:13', '2023-07-13 17:00:00');
+(10, 0, 'Gallery', 'แกลลอรี่', 'Gallery', '2023-07-14 02:29:13', '2023-07-13 17:00:00'),
+(19, 0, 'ประกาศ', 'ประกาศ', 'ประกาศ', '2023-08-02 07:09:41', '2023-08-02 07:09:41');
 
 -- --------------------------------------------------------
 
@@ -154,12 +155,23 @@ INSERT INTO `category` (`CG_Entity No.`, `CG_Entity Relation No.`, `CG_Name`, `C
 
 CREATE TABLE IF NOT EXISTS `details` (
   `DT_Code` int(11) NOT NULL AUTO_INCREMENT,
-  `DT_Text` varchar(255) DEFAULT NULL,
+  `DT_Text` mediumtext,
+  `DT_Active` tinyint(1) NOT NULL DEFAULT '1',
   `HD_Code` int(11) DEFAULT NULL,
   `DT_CreateDate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `DT_ModifyDate` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   PRIMARY KEY (`DT_Code`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=67 ;
+
+--
+-- Dumping data for table `details`
+--
+
+INSERT INTO `details` (`DT_Code`, `DT_Text`, `DT_Active`, `HD_Code`, `DT_CreateDate`, `DT_ModifyDate`) VALUES
+(62, 'วุฒิ ปวช. / ปวส. สาขาช่างไฟฟ้า\r\n\r\nเพศชาย อายุ 23 - 30 ปี\r\n\r\nมีประสบการณ์ด้านการติดตั้งระบบโซลาร์บนหลังคาและงานไฟฟ้าอาคาร จะพิจารณาเป็นพิเศษ\r\n\r\nได้ผ่านการรับรองความรู้ความสามารถ สาขาไฟฟ้าภายในอาคาร จากกรมพัฒนาฝีมือแรงงาน', 1, 39, '2023-07-31 10:02:04', '0000-00-00 00:00:00'),
+(64, 'คุณธนศักดิ์ (ใหญ่),  โทร 5884  E-Mail  : thanasak.sir@gunkul.com', 1, 41, '2023-07-31 10:02:04', '0000-00-00 00:00:00'),
+(65, 'คุณผุสชา (เจ),  โทร 5884  E-Mail  : pussacha.sri@gunkul.com ', 1, 41, '2023-07-31 10:02:04', '0000-00-00 00:00:00'),
+(66, '<p>ติดตั้งระบบโซลาร์บนหลังคา สำหรับบ้านที่อยู่อาศัย</p>\n\n<p>ดำเนินงานด้านไฟฟ้า ระบบงานเดินสายระบบต่าง ๆ</p>\n\n<p>ซ่อมบำรุงระบบโซลาร์บนหลังคา</p>\n\n<p>งานสำรวจวิเคราะห์หน้างาน</p>', 1, 40, '2023-07-31 10:21:10', '0000-00-00 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -174,7 +186,7 @@ CREATE TABLE IF NOT EXISTS `gallery` (
   `GR_CreateDate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `GR_ModifyDate` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   PRIMARY KEY (`GR_Entity No.`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=68 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=77 ;
 
 --
 -- Dumping data for table `gallery`
@@ -241,7 +253,10 @@ INSERT INTO `gallery` (`GR_Entity No.`, `GR_Activities Code`, `GR_Name`, `GR_Cre
 (64, 81, '64.', '2023-07-20 05:56:43', '2023-07-20 05:56:43'),
 (65, 82, '65.jpg', '2023-07-20 05:56:57', '2023-07-20 05:56:57'),
 (66, 84, '66.jpg', '2023-07-20 05:59:57', '2023-07-20 05:59:57'),
-(67, 84, '67.png', '2023-07-20 05:59:57', '2023-07-20 05:59:57');
+(67, 84, '67.png', '2023-07-20 05:59:57', '2023-07-20 05:59:57'),
+(69, 83, '69.', '2023-08-02 08:29:59', '2023-08-02 08:29:59'),
+(70, 82, '70.', '2023-08-02 08:32:16', '2023-08-02 08:32:16'),
+(76, 84, '71.mp4', '2023-08-02 08:54:36', '2023-08-02 08:54:36');
 
 -- --------------------------------------------------------
 
@@ -252,11 +267,24 @@ INSERT INTO `gallery` (`GR_Entity No.`, `GR_Activities Code`, `GR_Name`, `GR_Cre
 CREATE TABLE IF NOT EXISTS `heading` (
   `HD_Code` int(11) NOT NULL AUTO_INCREMENT,
   `HD_Text` varchar(255) DEFAULT NULL,
+  `HD_Active` tinyint(1) NOT NULL DEFAULT '1',
   `HG_Code` int(11) DEFAULT NULL,
   `HD_CreateDate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `HD_ModifyDate` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   PRIMARY KEY (`HD_Code`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=46 ;
+
+--
+-- Dumping data for table `heading`
+--
+
+INSERT INTO `heading` (`HD_Code`, `HD_Text`, `HD_Active`, `HG_Code`, `HD_CreateDate`, `HD_ModifyDate`) VALUES
+(39, 'คุณสมบัติ  :', 1, 6, '2023-07-31 09:55:31', '0000-00-00 00:00:00'),
+(40, 'รายละเอียด  :', 1, 6, '2023-07-31 09:55:31', '0000-00-00 00:00:00'),
+(41, 'ติดต่อ ', 1, 6, '2023-07-31 09:55:31', '0000-00-00 00:00:00'),
+(43, 'ติดต่อ', 1, 5, '2023-08-02 08:13:40', '0000-00-00 00:00:00'),
+(44, 'รายละเอียด  :', 1, 5, '2023-08-02 08:13:40', '0000-00-00 00:00:00'),
+(45, 'คุณสมบัติ  :', 1, 5, '2023-08-02 08:13:40', '0000-00-00 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -272,7 +300,15 @@ CREATE TABLE IF NOT EXISTS `headingcategories` (
   `HC_CreateDate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `HC_ModifyDate` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   PRIMARY KEY (`HC_Code`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=6 ;
+
+--
+-- Dumping data for table `headingcategories`
+--
+
+INSERT INTO `headingcategories` (`HC_Code`, `HC_Text`, `HC_DescriptionTH`, `HC_DescriptionEN`, `HC_CreateDate`, `HC_ModifyDate`) VALUES
+(1, 'INTERNAL RECRUITMENT', 'ตำแหน่งงานว่างภายใน', 'INTERNAL RECRUITMENT', '2023-07-25 08:57:55', '0000-00-00 00:00:00'),
+(2, 'FAQ', 'คำถามที่พบบ่อย', 'FAQs', '2023-07-25 08:57:55', '0000-00-00 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -283,11 +319,25 @@ CREATE TABLE IF NOT EXISTS `headingcategories` (
 CREATE TABLE IF NOT EXISTS `headinggroup` (
   `HG_Code` int(11) NOT NULL AUTO_INCREMENT,
   `HG_Text` varchar(255) DEFAULT NULL,
+  `HG_Active` tinyint(1) NOT NULL DEFAULT '1',
   `HC_Code` int(11) DEFAULT NULL,
   `HG_CreateDate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `HG_ModifyDate` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   PRIMARY KEY (`HG_Code`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=12 ;
+
+--
+-- Dumping data for table `headinggroup`
+--
+
+INSERT INTO `headinggroup` (`HG_Code`, `HG_Text`, `HG_Active`, `HC_Code`, `HG_CreateDate`, `HG_ModifyDate`) VALUES
+(1, 'แผนกค่าตอบแทนและสวัสดิการ', 1, 2, '2023-07-25 08:59:06', '0000-00-00 00:00:00'),
+(2, 'แผนกธุรการและซ่อมบำรุง', 1, 2, '2023-07-25 08:59:06', '0000-00-00 00:00:00'),
+(3, 'แผนกสรรหาว่าจ้าง', 1, 2, '2023-07-25 08:59:06', '0000-00-00 00:00:00'),
+(4, 'แผนกฝึกอบรม', 1, 2, '2023-07-25 08:59:06', '0000-00-00 00:00:00'),
+(5, 'ช่างเทคนิคบริการโรงไฟฟ้า Solar rooflop  (1 ตำแหน่ง)', 1, 1, '2023-07-25 08:59:51', '0000-00-00 00:00:00'),
+(6, 'Sales Engineer  (1 ตำแหน่ง)', 1, 1, '2023-07-25 08:59:51', '0000-00-00 00:00:00'),
+(7, 'Maintenance Engineer  (1 ตำแหน่ง)', 1, 1, '2023-07-25 08:59:51', '0000-00-00 00:00:00');
 
 -- --------------------------------------------------------
 

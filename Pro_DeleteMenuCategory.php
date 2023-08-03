@@ -20,7 +20,6 @@ if (isset($_GET['Send_ID']) && $_GET['Send_ID'] !== '') {
 $conn->autocommit(false);
 
 try {
-    echo $heading_category_Type;
     switch ($heading_category_Type) {
         case "headingcategories":
             // ส่งคำสั่ง SQL เพื่อลบข้อมูลในตาราง `details` ที่ตรงกับ `HD_Code` ในตาราง `heading`
