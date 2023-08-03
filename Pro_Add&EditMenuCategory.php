@@ -13,18 +13,54 @@ echo '<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script
 // เช็คว่ามีการส่งข้อมูลผ่านแบบ POST มาหรือไม่
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   // เก็บข้อมูลจากฟอร์ม
-  $HC_Code = isset($_POST['HC_Code']) ? $_POST['HC_Code'] : 0;
-  $HC_Text = $_POST['HC_Text'];
-  $HC_descriptionth = $_POST['HC_descriptionth'];
-  $HC_descriptionen = $_POST['HC_descriptionen'];
-
-  // echo $HC_Code.'--'.$HC_Text.'++'.$HC_descriptionth.'=='.$HC_descriptionen;
+  $Send_Code = isset($_POST['Send_Code']) ? $_POST['Send_Code'] : 0;
+  $Send_Text = $_POST['Send_Text'];
+  $Send_descriptionth = $_POST['Send_descriptionth'];
+  $Send_descriptionen = $_POST['Send_descriptionen'];
+  $Type = $_POST['Send_MenuCategoryType'];
+  CG_Entity Relation No.
 
   // ทำอย่างอื่นๆ เช่นบันทึกข้อมูลลงฐานข้อมูล
-  if ($HC_Code == 0) {
-    $sql = "INSERT INTO `newsandactivities`.`headingcategories` (`HC_Code`, `HC_Text`, `HC_descriptionth`, `HC_descriptionen`, `HC_CreateDate`, `HC_ModifyDate`) VALUES (NULL, '$HC_Text', '$HC_descriptionth', '$HC_descriptionen', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);";
+  if ($Send_Code == 0) {
+    switch ($Type) {
+      case "headingcategories":
+        $sql = "INSERT INTO `newsandactivities`.`headingcategories` (`HC_Code`, `HC_Text`, `HC_descriptionth`, `HC_descriptionen`, `HC_CreateDate`, `HC_ModifyDate`) VALUES (NULL, '$Send_Text', '$Send_descriptionth', '$Send_descriptionen', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);";
+        break;
+      case "headinggroup":
+          
+          break;
+      case "heading":
+          
+          break;
+      case "details":
+          
+          break;
+      default:
+          $_SESSION['StatusTitle'] = "Error!";
+          $_SESSION['StatusMessage'] = "เกิดข้อผิดพลาดในการเพิ่มข้อมูล";
+          $_SESSION['StatusAlert'] = "error";
+          break;
+    }
   } else {    
-    $sql = "UPDATE `newsandactivities`.`headingcategories` SET  `HC_Text` = '$HC_Text', `HC_descriptionth` = '$HC_descriptionth', `HC_descriptionen` = '$HC_descriptionen',`HC_ModifyDate` = CURRENT_TIMESTAMP WHERE `headingcategories`.`HC_Code` = $HC_Code;";
+    switch ($heading_category_Type) {
+      case "headingcategories":
+          $sql = "UPDATE `newsandactivities`.`headingcategories` SET  `HC_Text` = '$Send_Text', `HC_descriptionth` = '$Send_descriptionth', `HC_descriptionen` = '$Send_descriptionen',`HC_ModifyDate` = CURRENT_TIMESTAMP WHERE `headingcategories`.`HC_Code` = $Send_Code;";
+          break;
+      case "headinggroup":
+          
+          break;
+      case "heading":
+          
+          break;
+      case "details":
+          
+          break;
+      default:
+          $_SESSION['StatusTitle'] = "Error!";
+          $_SESSION['StatusMessage'] = "เกิดข้อผิดพลาดในการอัพเดชข้อมูล";
+          $_SESSION['StatusAlert'] = "error";
+          break;
+    }
   }
 
   if ($conn->query($sql) === true) {
@@ -45,7 +81,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   $conn->close();
 
   // ส่งข้อความตอบกลับหรือเปลี่ยนเส้นทางไปหน้าอื่นตามต้องการ
-  echo '<script> setTimeout(function() { window.location.href = "./Ui_AdminSetup.php"; }, 0); </script>';
+  echo "<script> setTimeout(function() { window.location.href = `./{$_SESSION['PathPage']}`; }, 0); </script>";
 }
 
 ?>

@@ -103,7 +103,7 @@ th {
                                                         ?>
                                                             <a class="btn btn-link py-1 px-2 text-end" onclick="deleteAlertMenuCategory(<?php echo $rowHeadingGroup["HG_Code"];?>, '<?php echo $rowHeadingGroup["HG_Text"];?>', 'headinggroup')"><i class="fas fa-trash"></i></a>
                                                             <button type="button" class="btn btn-link py-0 px-1 text-end text-warning" data-bs-toggle="modal" data-bs-target="#AddEditHeading" data-sendCode="<?= $rowHeadingGroup["HG_Code"] ?>" data-sendText="<?= $rowHeadingGroup["HG_Text"] ?>" data-sendType="HeadingGroup"><i class="fa fa-pencil-alt"></i></button>
-                                                            <button type="button" class="btn btn-link py-0 px-1 text-end text-primary" data-bs-toggle="modal" data-bs-target="#AddEditHeading" data-sendCode="<?= $Heading["HD_Code"] ?>" data-sendText="<?= $Heading["HD_Text"] ?>" data-sendType="Heading"><i class="fa fa-plus"></i></button>
+                                                            <button type="button" class="btn btn-link py-0 px-1 text-end text-primary" data-bs-toggle="modal" data-bs-target="#AddEditHeading" data-sendCode="" data-sendText="" data-sendType="Heading"><i class="fa fa-plus"></i></button>
                                                         </div>
                                                     </div>
                                                 </td>
@@ -143,7 +143,7 @@ th {
                                                                                 ?>
                                                                                 <a class="btn btn-link py-1 px-2 text-end" onclick="deleteAlertMenuCategory(<?php echo $Heading["HD_Code"];?>, '<?php echo $Heading["HD_Text"];?>', 'heading')"><i class="fas fa-trash"></i></a>
                                                                                 <button type="button" class="btn btn-link py-0 px-1 text-end text-warning" data-bs-toggle="modal" data-bs-target="#AddEditHeading" data-sendCode="<?= $Heading["HD_Code"] ?>" data-sendText="<?= $Heading["HD_Text"] ?>" data-sendType="Heading"><i class="fa fa-pencil-alt"></i></button>
-                                                                                <button type="button" class="btn btn-link py-0 px-1 text-end text-primary" data-bs-toggle="modal" data-bs-target="#AddEditHeading" data-sendCode="<?= $Details["DT_Code"] ?>" data-sendText="<?= $Details["DT_Text"] ?>" data-sendType="details"><i class="fa fa-plus"></i></button>
+                                                                                <button type="button" class="btn btn-link py-0 px-1 text-end text-primary" data-bs-toggle="modal" data-bs-target="#AddEditHeading" data-sendCode="" data-sendText="" data-sendType="details"><i class="fa fa-plus"></i></button>
                                                                             </div>
                                                                         </div>
                                                                     </td>
@@ -219,13 +219,15 @@ th {
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form id="modalForm" action="#" method="post" enctype="multipart/form-data">
+                <form id="modalForm" action="Pro_Add&EditMenuCategory.php" method="post" enctype="multipart/form-data">
                     <div class="row g-2 my-2">
                         <div class="col-112 col-sm-112">
-                            <input type="hidden" id="Type" name="Type">
-                            <input type="hidden" id="Code" name="Code">
+                            <input type="hidden" id="Send_MenuCategoryType" name="Send_MenuCategoryType">
+                            <input type="hidden" id="Send_Code" name="Send_Code">
+                            <input type="hidden" id="Send_descriptionth" name="Send_descriptionth" value="">
+                            <input type="hidden" id="Send_descriptionen" name="Send_descriptionen" value="">
                             <h6 class="text-primary">ชื่อ</h6>
-                            <textarea id="Text" name="Text" class="form-control border-1" style="height: 120px;" rows="5" placeholder="ชื่อหัวข้อ" required></textarea>
+                            <textarea id="Send_Text" name="Send_Text" class="form-control border-1" style="height: 120px;" rows="5" placeholder="ชื่อหัวข้อ" required></textarea>
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -337,12 +339,12 @@ function sendDataToPHP(status, type, id) {
         const sendtext = button.data('sendtext');
 
         // กำหนดค่าให้กับช่อง input ใน Modal
-        document.getElementById("Type").value = sendType;
-        document.getElementById("Code").value = sendcode;
+        document.getElementById("Send_MenuCategoryType").value = sendType;
+        document.getElementById("Send_Code").value = sendcode;
         if (sendtext === undefined) {
-            document.getElementById("Text").value = '';
+            document.getElementById("Send_Text").value = '';
         } else {
-            document.getElementById("Text").value = sendtext;
+            document.getElementById("Send_Text").value = sendtext;
         }
     });
 </script>

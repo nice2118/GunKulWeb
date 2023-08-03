@@ -83,7 +83,7 @@
                         </a>
                         <?php
                             // ส่งคำสั่ง SQL เพื่อดึงข้อมูล
-                            $sql = "SELECT * FROM `Heading` WHERE `Heading`.`HG_Code` = " . $row1["HG_Code"]."AND `Heading`.`HD_Active` = 1";
+                            $sql = "SELECT * FROM `Heading` WHERE `Heading`.`HG_Code` = " . $row1["HG_Code"]." AND `Heading`.`HD_Active` = 1";
                             $result2 = $conn->query($sql);
 
                             // ตรวจสอบข้อมูล
@@ -98,7 +98,7 @@
                                     <h5 class="text-primary"><?php echo $row2["HD_Text"]; ?></h5>
                                     <?php
                                         // ส่งคำสั่ง SQL เพื่อดึงข้อมูล
-                                        $sql = "SELECT * FROM `Details` WHERE `Details`.`HD_Code` = " . $row2["HD_Code"]."AND `Details`.`DT_Active` = 1";
+                                        $sql = "SELECT * FROM `Details` WHERE `Details`.`HD_Code` = " . $row2["HD_Code"]." AND `Details`.`DT_Active` = 1";
                                         $result3 = $conn->query($sql);
 
                                         // ตรวจสอบข้อมูล

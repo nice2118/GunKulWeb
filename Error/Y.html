@@ -2,109 +2,99 @@
 <html>
 
 <head>
-    <!-- ... ของอื่นๆ ... -->
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.4/css/jquery.dataTables.min.css">
-    <link rel="stylesheet" href="https://cdn.datatables.net/treegrid/1.0.9/css/jquery.treegrid.min.css">
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdn.datatables.net/1.11.4/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdn.datatables.net/treegrid/1.0.9/js/jquery.treegrid.min.js"></script>
+    <title>แก้ไขข้อมูล</title>
 </head>
 
 <body>
-    <table id="menuCategoriesTable" class="table table-bordered table-hover treegrid" style="width:100%">
-        <thead>
-            <tr>
-                <th data-treegrid="true">Category ID</th>
-                <th>Category Text</th>
-                <!-- ข้อมูลอื่นๆ ของตาราง -->
-            </tr>
-        </thead>
-        <tbody>
-            <!-- ใส่ข้อมูลของตารางที่นี่ -->
-        </tbody>
+    <h1>ตารางข้อมูล</h1>
+    <table>
+        <tr>
+            <th>รหัส</th>
+            <th>ชื่อ</th>
+            <th>นามสกุล</th>
+            <th>อีเมล</th>
+            <th>การกระทำ</th>
+        </tr>
+        <tr>
+            <td>1</td>
+            <td>John</td>
+            <td>Doe</td>
+            <td>john@example.com</td>
+            <td>
+                <a class="btn btn-link py-0 px-1 text-end text-secondary toggleButton" data-sendStatus="1" data-sendType="headinggroup" data-sendID="1"><i class="fa fa-eye"></i></a>
+            </td>
+        </tr>
+        <tr>
+            <td>2</td>
+            <td>Jane</td>
+            <td>Smith</td>
+            <td>jane@example.com</td>
+            <td>
+                <a class="btn btn-link py-0 px-1 text-end text-secondary toggleButton" data-sendStatus="0" data-sendType="headinggroup" data-sendID="2"><i class="fa fa-eye-slash"></i></a>
+            </td>
+        </tr>
+        <!-- เพิ่มแถวข้อมูลตามความต้องการ -->
     </table>
 
+    <h1>แก้ไขข้อมูล</h1>
+    <form id="editForm" action="update_data.php" method="post">
+        <input type="hidden" id="editID" name="editID">
+        <label for="editFirstname">ชื่อ:</label>
+        <input type="text" id="editFirstname" name="editFirstname">
+        <br>
+        <label for="editLastname">นามสกุล:</label>
+        <input type="text" id="editLastname" name="editLastname">
+        <br>
+        <label for="editEmail">อีเมล:</label>
+        <input type="email" id="editEmail" name="editEmail">
+        <br>
+        <input type="submit" value="บันทึก">
+    </form>
+
     <script>
-        $(document).ready(function() {
-            // ตัวแปรเก็บสถานะการแสดงของแต่ละลำดับชั้น
-            var isCollapsed = {};
-
-            // กำหนดข้อมูลสำหรับตาราง DataTables
-            var menuCategoriesData = [{
-                id: 1,
-                text: "Category 1",
-                parent: null
-            }, {
-                id: 2,
-                text: "Category 2",
-                parent: null
-            }, {
-                id: 3,
-                text: "Subcategory 1-1",
-                parent: 1
-            }, {
-                id: 4,
-                text: "Subcategory 1-2",
-                parent: 1
-            }, {
-                id: 5,
-                text: "Subcategory 2-1",
-                parent: 2
-            }, {
-                id: 6,
-                text: "Subcategory 2-2",
-                parent: 2
-            }, {
-                id: 7,
-                text: "Subsubcategory 1-1-1",
-                parent: 3
-            }, {
-                id: 8,
-                text: "Subsubcategory 1-1-2",
-                parent: 3
-            }, ];
-
-            // สร้างตาราง DataTables TreeGrid
-            var menuCategoriesTable = $("#menuCategoriesTable").DataTable({
-                data: menuCategoriesData,
-                columns: [{
-                        data: "id"
-                    }, {
-                        data: "text"
-                    },
-                    // คอลัมน์อื่นๆ ของตาราง
-                ],
-                order: [
-                    [0, "asc"]
-                ],
-                columnDefs: [{
-                        // targets: 0,
-                        // visible: false,
-                        // searchable: false
-                    }, // ซ่อนคอลัมน์ ID
-                    {
-                        targets: 1,
-                        className: "treegrid-control"
-                    }, // กำหนดคลาส treegrid-control ให้คอลัมน์ Category Text
-                ]
-            });
-
-            // เรียกใช้งาน plugin treegrid หลังจากที่ DataTables ถูกสร้างเสร็จ
-            $("#menuCategoriesTable").treegrid({
-                expanderExpandedClass: "fas fa-minus",
-                expanderCollapsedClass: "fas fa-plus",
-                initialState: function($row, id) {
-                    // ตรวจสอบสถานะการซ่อนและแสดงของแต่ละลำดับชั้น
-                    if (isCollapsed[id]) {
-                        return "collapsed";
-                    }
-                },
-                onChange: function(id) {
-                    // อัปเดตสถานะการซ่อนและแสดงของแต่ละลำดับชั้นเมื่อมีการเปิดหรือปิด
-                    isCollapsed[id] = !isCollapsed[id];
-                },
+        // เมื่อกดปุ่ม Toggle
+        const toggleButtons = document.querySelectorAll('.toggleButton');
+        toggleButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const status = button.dataset.sendStatus;
+                const type = button.dataset.sendType;
+                const id = button.dataset.sendID;
+                updateStatus(status, type, id);
             });
         });
+
+        // ฟังก์ชันในการอัปเดตสถานะข้อมูล
+        function updateStatus(status, type, id) {
+            // ส่งข้อมูลไปยังไฟล์ PHP ที่จะทำการอัปเดตข้อมูล
+            fetch('update_data.php', {
+                    method: 'post',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                    },
+                    body: `status=${status}&type=${type}&id=${id}`
+                })
+                .then(response => response.json())
+                .then(data => {
+                    // ทำการแสดงปุ่มตามสถานะที่อัปเดต
+                    const button = document.querySelector(`[data-sendID="${data.id}"]`);
+                    if (data.status === '1') {
+                        button.innerHTML = '<i class="fa fa-eye"></i>';
+                    } else if (data.status === '0') {
+                        button.innerHTML = '<i class="fa fa-eye-slash"></i>';
+                    }
+                })
+                .catch(error => {
+                    console.error('เกิดข้อผิดพลาด:', error);
+                });
+        }
+
+        // ฟังก์ชันในการแก้ไขแถวข้อมูล
+        function editRow(id, firstname, lastname, email) {
+            document.getElementById("editID").value = id;
+            document.getElementById("editFirstname").value = firstname;
+            document.getElementById("editLastname").value = lastname;
+            document.getElementById("editEmail").value = email;
+        }
     </script>
 </body>
 

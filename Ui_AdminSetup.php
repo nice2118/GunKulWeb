@@ -342,19 +342,20 @@ $_SESSION['PathPage'] = "AdminSetup.php";
                         <div class="row g-2 my-2">
                             <div class="col-3 col-sm-2">
                                 <h6 class="text-primary">รหัส</h6>
-                                <input type="Text" id="HC_Code" name="HC_Code" class="form-control border-1" placeholder="0" readonly>
+                                <input type="hidden" name="Send_MenuCategoryType" class="form-control border-1" value="headingcategories">
+                                <input type="Text" id="Send_Code" name="Send_Code" class="form-control border-1" placeholder="0" readonly>
                             </div>
                             <div class="col-9 col-sm-10">
                                 <h6 class="text-primary">ชื่อ</h6>
-                                <input type="Text" id="HC_Text" name="HC_Text" class="form-control border-1" placeholder="ชื่อหัวข้อ" required>
+                                <input type="Text" id="Send_Text" name="Send_Text" class="form-control border-1" placeholder="ชื่อหัวข้อ" required>
                             </div>
                             <div class="col-6 col-sm-6">
                                 <h6 class="text-primary">ชื่อภาษาไทย</h6>
-                                <input type="Text" id="HC_descriptionth" name="HC_descriptionth" class="form-control border-1" placeholder="ชื่อภาษาไทย" required>
+                                <input type="Text" id="Send_descriptionth" name="Send_descriptionth" class="form-control border-1" placeholder="ชื่อภาษาไทย" required>
                             </div>
                             <div class="col-6 col-sm-6">
                                 <h6 class="text-primary">ชื่อภาษาอังกฤษ</h6>
-                                <input type="Text" id="HC_descriptionen" name="HC_descriptionen" class="form-control border-1" placeholder="ชื่อภาษาอังกฤษ" required>
+                                <input type="Text" id="Send_descriptionen" name="Send_descriptionen" class="form-control border-1" placeholder="ชื่อภาษาอังกฤษ" required>
                             </div>
                         </div>
                         <div class="modal-footer">
@@ -543,10 +544,10 @@ $_SESSION['PathPage'] = "AdminSetup.php";
         const hcDescriptionEN = button.data('hcdescriptionen');
 
         // กำหนดค่าให้กับช่อง input ใน Modal
-        document.getElementById("HC_Code").value = hcCode;
-        document.getElementById("HC_Text").value = hcText;
-        document.getElementById("HC_descriptionth").value = hcDescriptionTH;
-        document.getElementById("HC_descriptionen").value = hcDescriptionEN;
+        document.getElementById("Send_Code").value = hcCode;
+        document.getElementById("Send_Text").value = hcText;
+        document.getElementById("Send_descriptionth").value = hcDescriptionTH;
+        document.getElementById("Send_descriptionen").value = hcDescriptionEN;
     });
     </script>
 <?php include("Ma_Footer_Script.php"); ?>
