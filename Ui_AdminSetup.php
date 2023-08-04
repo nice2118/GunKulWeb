@@ -449,13 +449,16 @@ $_SESSION['PathPage'] = "Ui_AdminSetup.php";
         <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="EngravedActivitiesLabel">Menu Category</h5>
+                    <h5 class="modal-title" id="EngravedActivitiesLabel">General Settings</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <form id="modalForm" action="Pro_Add&EditEngravedActivities.php" method="post" enctype="multipart/form-data">
                         <div class="form-group">
                             <div id="modalContent"></div>
+                            <div class="form-group text-center text-md-end">
+                                <button type="button" class="btn btn-primary rounded-pill py-2 px-3 add-image-btn text-end" id="addButtonGeneralSettings"><i class="fa fa-plus"></i></button>
+                            </div>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">ยกเลิก</button>
@@ -526,6 +529,25 @@ $_SESSION['PathPage'] = "Ui_AdminSetup.php";
         $('#deleteButton').click(function() {
             $('#form-container .form-group:last-child').remove();
             count--; // ลดค่านับเมื่อกดปุ่ม "ลบ"
+        });
+
+        var i = 999;
+        $('#addButtonGeneralSettings').click(function() {
+            i++;
+            var formGroup = $('<div class="row my-3">' +
+                        '<div class="col-4">' +
+                        '<input type="hidden" name="input_code_' + i + '" class="form-control">' +
+                        '<input type="text" name="input_name_' + i + '" class="form-control">' +
+                        '</div>' +
+                        '<div class="col-5">' +
+                        '<input type="text" name="input_value_' + i + '" class="form-control">' +
+                        '</div>' +
+                        '<div class="col-2">' +
+                        '</div>' +
+                        '<div class="col-1">' +
+                        '</div>' +
+                        '</div>');
+            $('#modalContent').append(formGroup);
         });
     });
     </script>
@@ -711,17 +733,20 @@ $_SESSION['PathPage'] = "Ui_AdminSetup.php";
                 for (var i = 0; i < response.length; i++) {
                     contentHTML +=
                         '<div class="row my-3">' +
-                        '<div class="col-5">' +
-                        '<input type="hidden" name="input_code_' + i + '" value="' + response[i].EC_Code + '" class="form-control">' +
-                        '<input type="text" name="input_name_' + i + '" value="' + response[i].EC_Name + '" class="form-control">' +
+                        '<div class="col-4">' +
+                        '<input type="hidden" name="input_code_' + i + '" value="' + response[i].EA_Code + '" class="form-control">' +
+                        '<input type="text" name="input_name_' + i + '" value="' + response[i].EA_Name + '" class="form-control">' +
                         '</div>' +
                         '<div class="col-5">' +
-                        '<input type="text" name="input_value_' + i + '" value="' + response[i].EC_Path + '" class="form-control">' +
+                        '<input type="text" name="input_value_' + i + '" value="' + response[i].EA_Path + '" class="form-control">' +
                         '</div>' +
                         '<div class="col-2">' +
-                        '<input class="form-control form-control-sm" id="HeadOfficeGKE" name="input_file_' + i + '" type="file">' +
+                        '<input class="form-control" id="HeadOfficeGKE" name="input_file_' + i + '" type="file">' +
                         '</div>' +
-                        '</div>';
+                        '<div class="col-1">' +
+                        '<button type="button" class="btn btn-danger rounded-pill py-1 px-2 add-image-btn text-end" id="deleteButton"><i class="fas fa-trash"></i></button>' +
+                        '</div>' +
+                        '</div>';  
                 }
                 modalContent.innerHTML = contentHTML;
             },
