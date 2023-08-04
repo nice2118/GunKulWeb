@@ -709,7 +709,19 @@ $_SESSION['PathPage'] = "Ui_AdminSetup.php";
 
                 // ใช้ Loop เพื่อแสดงข้อมูลใน Modal
                 for (var i = 0; i < response.length; i++) {
-                    contentHTML += '<p>' + response[i].EC_Code + '</p>';
+                    contentHTML +=
+                        '<div class="row my-3">' +
+                        '<div class="col-5">' +
+                        '<input type="hidden" name="input_code_' + i + '" value="' + response[i].EC_Code + '" class="form-control">' +
+                        '<input type="text" name="input_name_' + i + '" value="' + response[i].EC_Name + '" class="form-control">' +
+                        '</div>' +
+                        '<div class="col-5">' +
+                        '<input type="text" name="input_value_' + i + '" value="' + response[i].EC_Path + '" class="form-control">' +
+                        '</div>' +
+                        '<div class="col-2">' +
+                        '<input class="form-control form-control-sm" id="HeadOfficeGKE" name="input_file_' + i + '" type="file">' +
+                        '</div>' +
+                        '</div>';
                 }
                 modalContent.innerHTML = contentHTML;
             },
