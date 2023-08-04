@@ -531,16 +531,14 @@ $_SESSION['PathPage'] = "Ui_AdminSetup.php";
             count--; // ลดค่านับเมื่อกดปุ่ม "ลบ"
         });
 
-        var i = 999;
         $('#addButtonGeneralSettings').click(function() {
-            i++;
             var formGroup = $('<div class="row my-3">' +
                         '<div class="col-4">' +
-                        '<input type="hidden" name="input_code_' + i + '" class="form-control">' +
-                        '<input type="text" name="input_name_' + i + '" class="form-control">' +
+                        '<input type="hidden" name="inputcode[]" class="form-control">' +
+                        '<input type="text" name="inputname[]" class="form-control">' +
                         '</div>' +
                         '<div class="col-5">' +
-                        '<input type="text" name="input_value_' + i + '" class="form-control">' +
+                        '<input type="text" name="inputvalue[]" class="form-control">' +
                         '</div>' +
                         '<div class="col-2">' +
                         '</div>' +
@@ -734,14 +732,14 @@ $_SESSION['PathPage'] = "Ui_AdminSetup.php";
                     contentHTML +=
                         '<div class="row my-3">' +
                         '<div class="col-4">' +
-                        '<input type="hidden" name="input_code_' + i + '" value="' + response[i].EA_Code + '" class="form-control">' +
-                        '<input type="text" name="input_name_' + i + '" value="' + response[i].EA_Name + '" class="form-control">' +
+                        '<input type="hidden" name="inputcode[]" value="' + response[i].EA_Code + '" class="form-control">' +
+                        '<input type="text" name="inputname[]" value="' + response[i].EA_Name + '" class="form-control">' +
                         '</div>' +
                         '<div class="col-5">' +
-                        '<input type="text" name="input_value_' + i + '" value="' + response[i].EA_Path + '" class="form-control">' +
+                        '<input type="text" name="inputvalue[]" value="' + response[i].EA_Path + '" class="form-control">' +
                         '</div>' +
                         '<div class="col-2">' +
-                        '<input class="form-control" id="HeadOfficeGKE" name="input_file_' + i + '" type="file">' +
+                        '<input class="form-control" id="inputvaluefile[]" name="input_file_' + i + '" type="file">' +
                         '</div>' +
                         '<div class="col-1">' +
                         '<button type="button" class="btn btn-danger rounded-pill py-1 px-2 add-image-btn text-end" id="deleteButton"><i class="fas fa-trash"></i></button>' +
