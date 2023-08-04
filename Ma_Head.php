@@ -98,6 +98,32 @@
                             ?>
                             </ul>
                         </nav>
+                        <?php
+                            $sql = "SELECT * FROM `engravedcategory`;";
+                            $resultengravedcategory = $conn->query($sql);
+                            if ($resultengravedcategory->num_rows > 0) {
+                                while ($rowengravedcategory = $resultengravedcategory->fetch_assoc()) {
+                        ?>
+                        <nav>
+                            <a href="" class="dropdown-item"><?= $rowengravedcategory["EC_Name"]?>&nbsp;&nbsp;<i class="fa fa-angle-down text-secondary2"></i></a>
+                            <ul class="dropdown-menu-submenu submenu multi-menu">
+                            <?php
+                                $sql = "SELECT * FROM `engravedactivities` WHERE `engravedactivities`.`EC_Code`= ".$rowengravedcategory["EC_Code"].";";
+                                $resultengravedactivities = $conn->query($sql);
+                                if ($resultengravedactivities->num_rows > 0) {
+                                    while ($rowengravedactivities = $resultengravedactivities->fetch_assoc()) {
+                            ?>
+                                <li><a href="<?= PDFNamePathLast($rowengravedactivities["EA_Path"]) ?>" class="dropdown-item"><?= $rowengravedactivities["EA_Name"] ?></a></li>
+                            <?php
+                                    }
+                                }
+                            ?>
+                            </ul>
+                        </nav>
+                        <?php
+                                }
+                            }
+                        ?>
                     </div>
                 </div>
                 <div class="nav-item dropdown">

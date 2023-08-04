@@ -1,5 +1,8 @@
 <?php
 function PDFNamePathLast($folderPath) {
+    if (!is_dir($folderPath)) {
+        mkdir($folderPath, 0777, true);
+    }
     $files = scandir($folderPath);
     $pdfFiles = array_filter($files, function($file) {
         return pathinfo($file, PATHINFO_EXTENSION) === 'pdf';

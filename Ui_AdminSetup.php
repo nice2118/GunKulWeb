@@ -456,7 +456,7 @@ $_SESSION['PathPage'] = "Ui_AdminSetup.php";
                     <form id="modalForm" action="Pro_Add&EditEngravedActivities.php" method="post" enctype="multipart/form-data">
                         <div class="form-group">
                             <div id="modalContent"></div>
-                            <div class="form-group text-center text-md-end">
+                            <div class="form-group text-center text-md-end my-2">
                                 <button type="button" class="btn btn-primary rounded-pill py-2 px-3 add-image-btn text-end" id="addButtonGeneralSettings"><i class="fa fa-plus"></i></button>
                             </div>
                         </div>
@@ -541,6 +541,7 @@ $_SESSION['PathPage'] = "Ui_AdminSetup.php";
                         '<input type="text" name="inputvalue[]" class="form-control">' +
                         '</div>' +
                         '<div class="col-2">' +
+                        '<input class="form-control" name="inputvaluefile[]" type="file" accept=".pdf, .doc, .docx, .xls, .xlsx, .ppt, .pptx">' +
                         '</div>' +
                         '<div class="col-1">' +
                         '</div>' +
@@ -550,7 +551,7 @@ $_SESSION['PathPage'] = "Ui_AdminSetup.php";
     });
     </script>
         <!-- category Delete -->
-    <script>
+    <script>    
         function deleteAlertCategory(categoryID, categoryName) {
             swal({
                 title: "คุณต้องการที่จะลบหรือไม่?",
@@ -659,99 +660,135 @@ $_SESSION['PathPage'] = "Ui_AdminSetup.php";
                 console.error("Error displaying SweetAlert:", error);
             });
         }
+        function deleteAlertEngravedActivities(EngravedActivitiesID, EngravedActivitiesName) {
+            swal({
+                title: "คุณต้องการที่จะลบหรือไม่?",
+                text: `${EngravedActivitiesName}\nเมื่อกดลบไปแล้วจะไม่สามารถนำข้อมูลกลับมาได้!`,
+                icon: "warning",
+                buttons: {
+                    cancel: {
+                        text: "ยกเลิก",
+                        value: false,
+                        visible: true,
+                        className: "",
+                        closeModal: true,
+                    },
+                    confirm: {
+                        text: "ลบ",
+                        value: true,
+                        visible: true,
+                        className: "",
+                        closeModal: true,
+                    },
+                },
+                dangerMode: true,
+            })
+            .then((willDelete) => {
+                if (willDelete) {
+                    // เมื่อกดตกลง ทำการเปลี่ยนหน้า
+                    window.location.replace(`Pro_DeleteEngravedActivities.php?Send_ID=${EngravedActivitiesID}&Send_Name=${EngravedActivitiesName}`);
+                } else {
+                    // เมื่อกดยกเลิก ไม่ต้องทำอะไร
+                }
+            })
+            .catch((error) => {
+                // เกิดข้อผิดพลาดในกรณีที่ไม่สามารถแสดงกล่อง SweetAlert ได้
+                console.error("Error displaying SweetAlert:", error);
+            });
+        }
     </script>
     <!-- category Edit -->
     <script>
-    // เมื่อ Modal Category ถูกเปิดขึ้นมา
-    $('#Category').on('show.bs.modal', function(event) {
-        const button = $(event.relatedTarget);
-        const entityNo = button.data('entityno');
-        const entityRelationNo = button.data('entityrelationno');
-        const name = button.data('name');
-        const descriptionTH = button.data('descriptionth');
-        const descriptionEN = button.data('descriptionen');
+        // เมื่อ Modal Category ถูกเปิดขึ้นมา
+        $('#Category').on('show.bs.modal', function(event) {
+            const button = $(event.relatedTarget);
+            const entityNo = button.data('entityno');
+            const entityRelationNo = button.data('entityrelationno');
+            const name = button.data('name');
+            const descriptionTH = button.data('descriptionth');
+            const descriptionEN = button.data('descriptionen');
 
-        // กำหนดค่าให้กับช่อง input ใน Modal
-        document.getElementById("CG_EntityNo").value = entityNo;
-        document.getElementById("CG_EntityRelationNo").value = entityRelationNo;
-        document.getElementById("CG_Name").value = name;
-        document.getElementById("CG_DescriptionTH").value = descriptionTH;
-        document.getElementById("CG_DescriptionEN").value = descriptionEN;
-    });
-
-    // เมื่อ Modal MenuCategory ถูกเปิดขึ้นมา
-    $('#MenuCategory').on('show.bs.modal', function(event) {
-        const button = $(event.relatedTarget);
-        const hcCode = button.data('hccode');
-        const hcText = button.data('hctext');
-        const hcDescriptionTH = button.data('hcdescriptionth');
-        const hcDescriptionEN = button.data('hcdescriptionen');
-
-        // กำหนดค่าให้กับช่อง input ใน Modal
-        document.getElementById("Send_Code").value = hcCode;
-        document.getElementById("Send_Text").value = hcText;
-        document.getElementById("Send_descriptionth").value = hcDescriptionTH;
-        document.getElementById("Send_descriptionen").value = hcDescriptionEN;
-    });
-
-    // เมื่อ Modal EngravedCategory ถูกเปิดขึ้นมา
-    $('#engravedcategory').on('show.bs.modal', function(event) {
-        const button = $(event.relatedTarget);
-        const ecCode = button.data('eccode');
-        const ecName = button.data('ecname');
-        const ecDescriptionTH = button.data('ecdescriptionth');
-        const ecDescriptionEN = button.data('ecdescriptionen');
-
-        // กำหนดค่าให้กับช่อง input ใน Modal
-        document.getElementById("EC_code").value = ecCode;
-        if (ecName === undefined) {
-            document.getElementById("EC_name").value = '';
-        } else {
-            document.getElementById("EC_name").value = ecName;
-        }
-        document.getElementById("EC_descriptionth").value = ecDescriptionTH;
-        document.getElementById("EC_descriptionen").value = ecDescriptionEN;
-    });
-
-    // เมื่อ Modal EngravedActivities ถูกเปิดขึ้นมา
-    $('#EngravedActivities').on('show.bs.modal', function(event) {
-        var ecCode = event.relatedTarget.dataset.eccode;
-        // ส่งค่าตัวกรองไปยังหน้า PHP ดึงข้อมูล
-        $.ajax({
-            url: "DB_EngravedActivities.php",
-            type: "POST",
-            data: { eccode: ecCode },
-            dataType: "json",
-            success: function(response) {
-                // ดำเนินการแสดงผลข้อมูลที่ได้รับใน Modal
-                var modalContent = document.getElementById("modalContent");
-                var contentHTML = '';
-
-                // ใช้ Loop เพื่อแสดงข้อมูลใน Modal
-                for (var i = 0; i < response.length; i++) {
-                    contentHTML +=
-                        '<div class="row my-3">' +
-                        '<div class="col-4">' +
-                        '<input type="hidden" name="inputcode[]" value="' + response[i].EA_Code + '" class="form-control">' +
-                        '<input type="text" name="inputname[]" value="' + response[i].EA_Name + '" class="form-control">' +
-                        '</div>' +
-                        '<div class="col-5">' +
-                        '<input type="text" name="inputvalue[]" value="' + response[i].EA_Path + '" class="form-control">' +
-                        '</div>' +
-                        '<div class="col-2">' +
-                        '<input class="form-control" id="inputvaluefile[]" name="input_file_' + i + '" type="file">' +
-                        '</div>' +
-                        '<div class="col-1">' +
-                        '<button type="button" class="btn btn-danger rounded-pill py-1 px-2 add-image-btn text-end" id="deleteButton"><i class="fas fa-trash"></i></button>' +
-                        '</div>' +
-                        '</div>';  
-                }
-                modalContent.innerHTML = contentHTML;
-            },
-            error: function() {
-                console.log("ไม่มีข้อมูล");
-            }
+            // กำหนดค่าให้กับช่อง input ใน Modal
+            document.getElementById("CG_EntityNo").value = entityNo;
+            document.getElementById("CG_EntityRelationNo").value = entityRelationNo;
+            document.getElementById("CG_Name").value = name;
+            document.getElementById("CG_DescriptionTH").value = descriptionTH;
+            document.getElementById("CG_DescriptionEN").value = descriptionEN;
         });
-    });
+
+        // เมื่อ Modal MenuCategory ถูกเปิดขึ้นมา
+        $('#MenuCategory').on('show.bs.modal', function(event) {
+            const button = $(event.relatedTarget);
+            const hcCode = button.data('hccode');
+            const hcText = button.data('hctext');
+            const hcDescriptionTH = button.data('hcdescriptionth');
+            const hcDescriptionEN = button.data('hcdescriptionen');
+
+            // กำหนดค่าให้กับช่อง input ใน Modal
+            document.getElementById("Send_Code").value = hcCode;
+            document.getElementById("Send_Text").value = hcText;
+            document.getElementById("Send_descriptionth").value = hcDescriptionTH;
+            document.getElementById("Send_descriptionen").value = hcDescriptionEN;
+        });
+
+        // เมื่อ Modal EngravedCategory ถูกเปิดขึ้นมา
+        $('#engravedcategory').on('show.bs.modal', function(event) {
+            const button = $(event.relatedTarget);
+            const ecCode = button.data('eccode');
+            const ecName = button.data('ecname');
+            const ecDescriptionTH = button.data('ecdescriptionth');
+            const ecDescriptionEN = button.data('ecdescriptionen');
+
+            // กำหนดค่าให้กับช่อง input ใน Modal
+            document.getElementById("EC_code").value = ecCode;
+            if (ecName === undefined) {
+                document.getElementById("EC_name").value = '';
+            } else {
+                document.getElementById("EC_name").value = ecName;
+            }
+            document.getElementById("EC_descriptionth").value = ecDescriptionTH;
+            document.getElementById("EC_descriptionen").value = ecDescriptionEN;
+        });
+
+        // เมื่อ Modal EngravedActivities ถูกเปิดขึ้นมา
+        $('#EngravedActivities').on('show.bs.modal', function(event) {
+            var ecCode = event.relatedTarget.dataset.eccode;
+            // ส่งค่าตัวกรองไปยังหน้า PHP ดึงข้อมูล
+            $.ajax({
+                url: "DB_EngravedActivities.php",
+                type: "POST",
+                data: { eccode: ecCode },
+                dataType: "json",
+                success: function(response) {
+                    // ดำเนินการแสดงผลข้อมูลที่ได้รับใน Modal
+                    var modalContent = document.getElementById("modalContent");
+                    var contentHTML = '<input type="hidden" name="inputMastercode" value="' + ecCode + '" class="form-control">';
+
+                    // ใช้ Loop เพื่อแสดงข้อมูลใน Modal
+                    for (var i = 0; i < response.length; i++) {
+                        contentHTML +=
+                            '<div class="row my-3">' +
+                            '<div class="col-4">' +
+                            '<input type="hidden" name="inputcode[]" value="' + response[i].EA_Code + '" class="form-control">' +
+                            '<input type="text" name="inputname[]" value="' + response[i].EA_Name + '" class="form-control">' +
+                            '</div>' +
+                            '<div class="col-5">' +
+                            '<input type="text" name="inputvalue[]" value="' + response[i].EA_Path + '" class="form-control">' +
+                            '</div>' +
+                            '<div class="col-2">' +
+                            '<input class="form-control" name="inputvaluefile[]" type="file" accept=".pdf, .doc, .docx, .xls, .xlsx, .ppt, .pptx">' +
+                            '</div>' +
+                            '<div class="col-1">' +
+                            '<button type="button" class="btn btn-danger rounded-pill py-1 px-2 add-image-btn text-end" onclick="deleteAlertEngravedActivities(\'' + response[i].EA_Code + '\', \'' + response[i].EA_Name + '\')"><i class="fas fa-trash"></i></button>' +
+                            '</div>' +
+                            '</div>';
+                    }
+                    modalContent.innerHTML = contentHTML;
+                },
+                error: function() {
+                    console.log("เกิดข้อผิดพลาดกับการเชื่อมต่อ");
+                }
+            });
+        });
     </script>
 <?php include("Ma_Footer_Script.php"); ?>
