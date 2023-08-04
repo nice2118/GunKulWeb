@@ -20,21 +20,28 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   $Send_descriptionen = $_POST['Send_descriptionen'];
   $Type = $_POST['Send_MenuCategoryType'];
 
+  // echo '-----'.$Send_Code.'++++'.$Send_Relation.'****'.$Send_Text.'////'.$Type;
+
   // ทำอย่างอื่นๆ เช่นบันทึกข้อมูลลงฐานข้อมูล
+  $TypeLower = strtolower($Type);
   if ($Send_Code == 0) {
-    switch ($Type) {
+    switch ($TypeLower) {
       case "headingcategories":
         $sql = "INSERT INTO `newsandactivities`.`headingcategories` (`HC_Code`, `HC_Text`, `HC_descriptionth`, `HC_descriptionen`, `HC_CreateDate`, `HC_ModifyDate`) VALUES (NULL, '$Send_Text', '$Send_descriptionth', '$Send_descriptionen', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);";
+        // echo 'a';
         break;
       case "headinggroup":
-          
-          break;
+        $sql = "INSERT INTO `newsandactivities`.`headinggroup` (`HG_Code`, `HG_Text`, `HG_Active`, `HC_Code`, `HG_CreateDate`, `HG_ModifyDate`) VALUES (NULL, '$Send_Text', '1', '$Send_Relation', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);";
+        // echo 'b';
+        break;
       case "heading":
-          
-          break;
+        $sql = "INSERT INTO `newsandactivities`.`heading` (`HD_Code`, `HD_Text`, `HD_Active`, `HG_Code`, `HD_CreateDate`, `HD_ModifyDate`) VALUES (NULL, '$Send_Text', '1', '$Send_Relation', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);";
+        // echo 'c';
+        break;
       case "details":
-          
-          break;
+        $sql = "INSERT INTO `newsandactivities`.`details` (`DT_Code`, `DT_Text`, `DT_Active`, `HD_Code`, `DT_CreateDate`, `DT_ModifyDate`) VALUES (NULL, '$Send_Text', '1', '$Send_Relation', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);";
+        // echo 'd';
+        break;
       default:
           $_SESSION['StatusTitle'] = "Error!";
           $_SESSION['StatusMessage'] = "เกิดข้อผิดพลาดในการเพิ่มข้อมูล";
@@ -42,18 +49,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
           break;
     }
   } else {    
-    switch ($heading_category_Type) {
+    switch ($TypeLower) {
       case "headingcategories":
-          $sql = "UPDATE `newsandactivities`.`headingcategories` SET  `HC_Text` = '$Send_Text', `HC_descriptionth` = '$Send_descriptionth', `HC_descriptionen` = '$Send_descriptionen',`HC_ModifyDate` = CURRENT_TIMESTAMP WHERE `headingcategories`.`HC_Code` = $Send_Code;";
+          $sql = "UPDATE `newsandactivities`.`headingcategories` SET `HC_Text` = '$Send_Text', `HC_descriptionth` = '$Send_descriptionth', `HC_descriptionen` = '$Send_descriptionen',`HC_ModifyDate` = CURRENT_TIMESTAMP WHERE `headingcategories`.`HC_Code` = $Send_Code;";
+          // echo 'aa';
           break;
       case "headinggroup":
-          
+          $sql = "UPDATE `newsandactivities`.`headinggroup` SET `HG_Text` = '$Send_Text', `HG_ModifyDate` = CURRENT_TIMESTAMP WHERE `headinggroup`.`HG_Code` = $Send_Code;";
+          // echo 'bb';
           break;
       case "heading":
-          
+          $sql = "UPDATE `newsandactivities`.`heading` SET `HD_Text` = '$Send_Text', `HD_ModifyDate` = CURRENT_TIMESTAMP WHERE `heading`.`HD_Code` = $Send_Code;";
+          // echo 'cc';
           break;
       case "details":
-          
+          $sql = "UPDATE `newsandactivities`.`details` SET `DT_Text` = '$Send_Text', `DT_ModifyDate` = CURRENT_TIMESTAMP WHERE `details`.`DT_Code` = $Send_Code;";
+          // echo 'dd';
           break;
       default:
           $_SESSION['StatusTitle'] = "Error!";
@@ -64,9 +75,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   }
 
   if ($conn->query($sql) === true) {
-    $_SESSION['StatusTitle'] = "ดำเนินการเรียบร้อยแล้ว";
-    $_SESSION['StatusMessage'] = "ทำการอัพเดชเรียบร้อบแล้ว";
-    $_SESSION['StatusAlert'] = "success";
+      $_SESSION['StatusTitle'] = "ดำเนินการเรียบร้อยแล้ว";
+      $_SESSION['StatusMessage'] = "ทำการอัพเดชเรียบร้อบแล้ว";
+      $_SESSION['StatusAlert'] = "success";
   } else {
       $_SESSION['StatusTitle'] = "Error!";
       $_SESSION['StatusMessage'] = "Error: ".$conn->error;
@@ -83,7 +94,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   // ส่งข้อความตอบกลับหรือเปลี่ยนเส้นทางไปหน้าอื่นตามต้องการ
   echo "<script> setTimeout(function() { window.location.href = `./{$_SESSION['PathPage']}`; }, 0); </script>";
 }
-
 ?>
 </head>
 </html>

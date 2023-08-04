@@ -20,7 +20,8 @@ if (isset($_GET['Send_ID']) && $_GET['Send_ID'] !== '') {
 $conn->autocommit(false);
 
 try {
-    switch ($heading_category_Type) {
+    $heading_category_TypeLower = strtolower($heading_category_Type);
+    switch ($heading_category_TypeLower) {
         case "headingcategories":
             // ส่งคำสั่ง SQL เพื่อลบข้อมูลในตาราง `details` ที่ตรงกับ `HD_Code` ในตาราง `heading`
             $sql1 = "DELETE FROM `details` WHERE `HD_Code` IN (SELECT `HD_Code` FROM `heading` WHERE `HG_Code` IN (SELECT `HG_Code` FROM `headinggroup` WHERE `HC_Code` = $heading_category_id))";

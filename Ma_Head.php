@@ -1,4 +1,5 @@
 <?PHP
+    include("Fn_SearchPathNameLast.php"); 
     $categories = array();
     $menuCategories = array();
 ?>
@@ -126,11 +127,11 @@
                         <nav>
                             <a href="" class="dropdown-item">วันหยุดประจำปี&nbsp;&nbsp;<i class="fa fa-angle-down text-secondary2"></i></a>
                             <ul class="dropdown-menu-submenu submenu multi-menu">
-                                <li><a href="PDF\Holiday\2566\GKE_5_HQ.pdf" target="_blank" class="dropdown-item">สำนักงานใหญ่ GKE</a></li>
-                                <li><a href="PDF\Holiday\2566\GKE_6_Site.pdf" target="_blank" class="dropdown-item">ไซต์งานก่อสร้าง และ O&M GKE</a></li>
-                                <li><a href="PDF\Holiday\2566\GKAP.pdf" target="_blank" class="dropdown-item">โรงงาน GKA & GKP</a></li>
-                                <li><a href="PDF\Holiday\2566\GPD_5_HQ.pdf" target="_blank" class="dropdown-item">สำนักงานใหญ่ GPD</a></li>
-                                <li><a href="PDF\Holiday\2566\GPD_6_SITE.pdf" target="_blank" class="dropdown-item">ไซต์งานก่อสร้าง GPD</a></li>
+                                <li><a href="<?= PDFNamePathLast('PDF/Holiday/HeadOfficeGKE/') ?>" target="_blank" class="dropdown-item">สำนักงานใหญ่ GKE</a></li>
+                                <li><a href="<?= PDFNamePathLast('PDF/Holiday/ConstructionSiteGKE/') ?>" target="_blank" class="dropdown-item">ไซต์งานก่อสร้าง และ O&M GKE</a></li>
+                                <li><a href="<?= PDFNamePathLast('PDF/Holiday/FactoryGKAGKP/') ?>" target="_blank" class="dropdown-item">โรงงาน GKA & GKP</a></li>
+                                <li><a href="<?= PDFNamePathLast('PDF/Holiday/HeadOfficeGPD/') ?>" target="_blank" class="dropdown-item">สำนักงานใหญ่ GPD</a></li>
+                                <li><a href="<?= PDFNamePathLast('PDF/Holiday/ConstructionSiteGPD/') ?>" target="_blank" class="dropdown-item">ไซต์งานก่อสร้าง GPD</a></li>
                             </ul>
                         </nav>
                     </div>

@@ -1,101 +1,58 @@
-<!DOCTYPE html>
-<html>
-
-<head>
-    <title>แก้ไขข้อมูล</title>
-</head>
-
-<body>
-    <h1>ตารางข้อมูล</h1>
-    <table>
-        <tr>
-            <th>รหัส</th>
-            <th>ชื่อ</th>
-            <th>นามสกุล</th>
-            <th>อีเมล</th>
-            <th>การกระทำ</th>
-        </tr>
-        <tr>
-            <td>1</td>
-            <td>John</td>
-            <td>Doe</td>
-            <td>john@example.com</td>
-            <td>
-                <a class="btn btn-link py-0 px-1 text-end text-secondary toggleButton" data-sendStatus="1" data-sendType="headinggroup" data-sendID="1"><i class="fa fa-eye"></i></a>
-            </td>
-        </tr>
-        <tr>
-            <td>2</td>
-            <td>Jane</td>
-            <td>Smith</td>
-            <td>jane@example.com</td>
-            <td>
-                <a class="btn btn-link py-0 px-1 text-end text-secondary toggleButton" data-sendStatus="0" data-sendType="headinggroup" data-sendID="2"><i class="fa fa-eye-slash"></i></a>
-            </td>
-        </tr>
-        <!-- เพิ่มแถวข้อมูลตามความต้องการ -->
-    </table>
-
-    <h1>แก้ไขข้อมูล</h1>
-    <form id="editForm" action="update_data.php" method="post">
-        <input type="hidden" id="editID" name="editID">
-        <label for="editFirstname">ชื่อ:</label>
-        <input type="text" id="editFirstname" name="editFirstname">
-        <br>
-        <label for="editLastname">นามสกุล:</label>
-        <input type="text" id="editLastname" name="editLastname">
-        <br>
-        <label for="editEmail">อีเมล:</label>
-        <input type="email" id="editEmail" name="editEmail">
-        <br>
-        <input type="submit" value="บันทึก">
-    </form>
-
-    <script>
-        // เมื่อกดปุ่ม Toggle
-        const toggleButtons = document.querySelectorAll('.toggleButton');
-        toggleButtons.forEach(button => {
-            button.addEventListener('click', function() {
-                const status = button.dataset.sendStatus;
-                const type = button.dataset.sendType;
-                const id = button.dataset.sendID;
-                updateStatus(status, type, id);
-            });
-        });
-
-        // ฟังก์ชันในการอัปเดตสถานะข้อมูล
-        function updateStatus(status, type, id) {
-            // ส่งข้อมูลไปยังไฟล์ PHP ที่จะทำการอัปเดตข้อมูล
-            fetch('update_data.php', {
-                    method: 'post',
-                    headers: {
-                        'Content-Type': 'application/x-www-form-urlencoded'
-                    },
-                    body: `status=${status}&type=${type}&id=${id}`
-                })
-                .then(response => response.json())
-                .then(data => {
-                    // ทำการแสดงปุ่มตามสถานะที่อัปเดต
-                    const button = document.querySelector(`[data-sendID="${data.id}"]`);
-                    if (data.status === '1') {
-                        button.innerHTML = '<i class="fa fa-eye"></i>';
-                    } else if (data.status === '0') {
-                        button.innerHTML = '<i class="fa fa-eye-slash"></i>';
-                    }
-                })
-                .catch(error => {
-                    console.error('เกิดข้อผิดพลาด:', error);
-                });
-        }
-
-        // ฟังก์ชันในการแก้ไขแถวข้อมูล
-        function editRow(id, firstname, lastname, email) {
-            document.getElementById("editID").value = id;
-            document.getElementById("editFirstname").value = firstname;
-            document.getElementById("editLastname").value = lastname;
-            document.getElementById("editEmail").value = email;
-        }
-    </script>
-</body>
-
-</html>
+<div class="form-group">
+    <label for="PathFolderNews">วันหยุดประจำปี</label>
+    <div class="row my-3">
+        <div class="col-5">
+            <label>สำนักงานใหญ่ GKE</label>
+        </div>
+        <div class="col-5">
+            <input type="text" class="form-control">
+        </div>
+        <div class="col-2">
+            <input class="form-control form-control-sm" id="HeadOfficeGKE" type="file">
+        </div>
+    </div>
+    <div class="row my-3">
+        <div class="col-5">
+            <label>ไซต์งานก่อสร้าง และ O&M GKE</label>
+        </div>
+        <div class="col-5">
+            <input type="text" class="form-control">
+        </div>
+        <div class="col-2">
+            <input class="form-control form-control-sm" id="ConstructionSiteGKE" type="file">
+        </div>
+    </div>
+    <div class="row my-3">
+        <div class="col-5">
+            <label>โรงงาน GKA & GKP</label>
+        </div>
+        <div class="col-5">
+            <input type="text" class="form-control">
+        </div>
+        <div class="col-2">
+            <input class="form-control form-control-sm" id="FactoryGKAGKP" type="file">
+        </div>
+    </div>
+    <div class="row my-3">
+        <div class="col-5">
+            <label>สำนักงานใหญ่ GPD</label>
+        </div>
+        <div class="col-5">
+            <input type="text" class="form-control">
+        </div>
+        <div class="col-2">
+            <input class="form-control form-control-sm" id="HeadOfficeGPD" type="file">
+        </div>
+    </div>
+    <div class="row my-3">
+        <div class="col-5">
+            <label>ไซต์งานก่อสร้าง GPD</label>
+        </div>
+        <div class="col-5">
+            <input type="text" class="form-control">
+        </div>
+        <div class="col-2">
+            <input class="form-control form-control-sm" id="ConstructionSiteGPD" type="file">
+        </div>
+    </div>
+</div>

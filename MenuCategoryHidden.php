@@ -35,8 +35,8 @@ if (isset($_POST['status']) && isset($_POST['type']) && isset($_POST['id'])) {
         echo json_encode($response);
         exit;
     }
-
-    switch ($type) {
+    $TypeLower = strtolower($type);
+    switch ($TypeLower) {
         case "headinggroup":
             $sql1 = "UPDATE `newsandactivities`.`headinggroup` SET `HG_Active` = '$status' WHERE `headinggroup`.`HG_Code` = $id;";
             $conn->query($sql1);

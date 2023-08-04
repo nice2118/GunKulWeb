@@ -24,6 +24,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   if ($CG_EntityNo == 0) {
     $sql = "INSERT INTO `newsandactivities`.`category` (`CG_Entity No.`, `CG_Entity Relation No.`, `CG_Name`, `CG_DescriptionTH`, `CG_DescriptionEN`, `CG_CreateDate`, `CG_ModifyDate`) VALUES (NULL, $CG_EntityRelationNo, '$CG_Name', '$CG_DescriptionTH', '$CG_DescriptionEN', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);";
   } else {    
+    $sqlCheck = "SELECT * FROM `category` WHERE `category`.`CG_Name` = $CG_Name;";
+    $resultCheck = $conn->query($sqlCheck);
+    if ($resultCheck->num_rows > 0) {
+      $rowCheck = $resultCheck->fetch_assoc();
+      if ($rowCheck["CG_Entity No."] == $CG_EntityRelationNo) {
+        $_SESSION['StatusTitle'] = "Error!";
+        $_SESSION['StatusMessage'] = "เนื่องจากต้องไม่สามารถเลือกในลำดับชั้นของตัวเองได้";
+        $_SESSION['StatusAlert'] = "error";
+        if (isset($_SESSION['PathPage']) && $_SESSION['PathPage'] !== '') {
+          header("Location: ".$_SESSION['PathPage']);
+          unset($_SESSION['PathPage']);
+          exit;
+        }
+      }
+    }
     $sql = "UPDATE `newsandactivities`.`category` SET `CG_Entity Relation No.` = $CG_EntityRelationNo , `CG_Name` = '$CG_Name', `CG_DescriptionTH` = '$CG_DescriptionTH', `CG_DescriptionEN` = '$CG_DescriptionEN',`CG_ModifyDate` = CURRENT_TIMESTAMP WHERE `category`.`CG_Entity No.` = $CG_EntityNo;";
   }
 

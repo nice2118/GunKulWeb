@@ -45,7 +45,7 @@ th {
         <div class="text-start mx-auto mb-2 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 600px;">
             <div class="d-flex align-items-center">
                 <button type="button" class="btn btn-link rounded-pill py-1 px-4 add-image-btn text-start"
-                    data-bs-toggle="modal" data-bs-target="#AddEditHeading" data-hgCode="0" data-hgText="">
+                    data-bs-toggle="modal" data-bs-target="#AddEditHeading" data-sendCode="" data-sendText="" data-sendType="headinggroup" data-sendRelation="<?= $MenuCategory_id ?>">
                     <div class="d-flex align-items-center">
                         <div class="btn-lg-square bg-primary rounded-circle">
                             <i class="fa fa-plus text-white"></i>
@@ -96,14 +96,14 @@ th {
                                                         <div class="card-tools">
                                                         <?php
                                                             if ($rowHeadingGroup["HG_Active"] == 1) {
-                                                                echo '<a class="btn btn-link py-0 px-1 text-end text-secondary toggleButton" id="toggleButton1" data-sendStatus="0" data-sendID="' . $rowHeadingGroup['HG_Code'] . '" data-sendType="headinggroup"><i class="fa fa-eye"></i></a>';
+                                                                echo '<a class="btn btn-link py-0 px-1 text-end text-secondary toggleButton" id="toggleButton1" data-sendHiddenStatus="0" data-sendHiddenID="' . $rowHeadingGroup['HG_Code'] . '" data-sendHiddenType="headinggroup"><i class="fa fa-eye"></i></a>';
                                                             } else {
-                                                                echo '<a class="btn btn-link py-0 px-1 text-end text-secondary toggleButton" id="toggleButton0" data-sendStatus="1" data-sendID="' . $rowHeadingGroup['HG_Code'] . '" data-sendType="headinggroup"><i class="fa fa-eye-slash"></i></a>';
+                                                                echo '<a class="btn btn-link py-0 px-1 text-end text-secondary toggleButton" id="toggleButton0" data-sendHiddenStatus="1" data-sendHiddenID="' . $rowHeadingGroup['HG_Code'] . '" data-sendHiddenType="headinggroup"><i class="fa fa-eye-slash"></i></a>';
                                                             }
                                                         ?>
                                                             <a class="btn btn-link py-1 px-2 text-end" onclick="deleteAlertMenuCategory(<?php echo $rowHeadingGroup["HG_Code"];?>, '<?php echo $rowHeadingGroup["HG_Text"];?>', 'headinggroup')"><i class="fas fa-trash"></i></a>
-                                                            <button type="button" class="btn btn-link py-0 px-1 text-end text-warning" data-bs-toggle="modal" data-bs-target="#AddEditHeading" data-sendCode="<?= $rowHeadingGroup["HG_Code"] ?>" data-sendText="<?= $rowHeadingGroup["HG_Text"] ?>" data-sendType="HeadingGroup"><i class="fa fa-pencil-alt"></i></button>
-                                                            <button type="button" class="btn btn-link py-0 px-1 text-end text-primary" data-bs-toggle="modal" data-bs-target="#AddEditHeading" data-sendCode="" data-sendText="" data-sendType="Heading" data-sendRelation=""><i class="fa fa-plus"></i></button>
+                                                            <button type="button" class="btn btn-link py-0 px-1 text-end text-warning" data-bs-toggle="modal" data-bs-target="#AddEditHeading" data-sendCode="<?= $rowHeadingGroup["HG_Code"] ?>" data-sendText="<?= $rowHeadingGroup["HG_Text"] ?>" data-sendType="headinggroup" data-sendRelation=""><i class="fa fa-pencil-alt"></i></button>
+                                                            <button type="button" class="btn btn-link py-0 px-1 text-end text-primary" data-bs-toggle="modal" data-bs-target="#AddEditHeading" data-sendCode="" data-sendText="" data-sendType="heading" data-sendRelation="<?= $rowHeadingGroup["HG_Code"] ?>"><i class="fa fa-plus"></i></button>
                                                         </div>
                                                     </div>
                                                 </td>
@@ -136,14 +136,14 @@ th {
                                                                             <div class="card-tools">
                                                                                 <?php
                                                                                     if ($Heading["HD_Active"] == 1) {
-                                                                                        echo '<a class="btn btn-link py-0 px-1 text-end text-secondary toggleButton" id="toggleButton1" data-sendStatus="0" data-sendID="' . $Heading['HD_Code'] . '" data-sendType="heading"><i class="fa fa-eye"></i></a>';
+                                                                                        echo '<a class="btn btn-link py-0 px-1 text-end text-secondary toggleButton" id="toggleButton1" data-sendHiddenStatus="0" data-sendHiddenID="' . $Heading['HD_Code'] . '" data-sendHiddenType="heading"><i class="fa fa-eye"></i></a>';
                                                                                     } else {
-                                                                                        echo '<a class="btn btn-link py-0 px-1 text-end text-secondary toggleButton" id="toggleButton0" data-sendStatus="1" data-sendID="' . $Heading['HD_Code'] . '" data-sendType="heading"><i class="fa fa-eye-slash"></i></a>';
+                                                                                        echo '<a class="btn btn-link py-0 px-1 text-end text-secondary toggleButton" id="toggleButton0" data-sendHiddenStatus="1" data-sendHiddenID="' . $Heading['HD_Code'] . '" data-sendHiddenType="heading"><i class="fa fa-eye-slash"></i></a>';
                                                                                     }
                                                                                 ?>
                                                                                 <a class="btn btn-link py-1 px-2 text-end" onclick="deleteAlertMenuCategory(<?php echo $Heading["HD_Code"];?>, '<?php echo $Heading["HD_Text"];?>', 'heading')"><i class="fas fa-trash"></i></a>
-                                                                                <button type="button" class="btn btn-link py-0 px-1 text-end text-warning" data-bs-toggle="modal" data-bs-target="#AddEditHeading" data-sendCode="<?= $Heading["HD_Code"] ?>" data-sendText="<?= $Heading["HD_Text"] ?>" data-sendType="heading"><i class="fa fa-pencil-alt"></i></button>
-                                                                                <button type="button" class="btn btn-link py-0 px-1 text-end text-primary" data-bs-toggle="modal" data-bs-target="#AddEditHeading" data-sendCode="" data-sendText="" data-sendType="details" data-sendRelation=""><i class="fa fa-plus"></i></button>
+                                                                                <button type="button" class="btn btn-link py-0 px-1 text-end text-warning" data-bs-toggle="modal" data-bs-target="#AddEditHeading" data-sendCode="<?= $Heading["HD_Code"] ?>" data-sendText="<?= $Heading["HD_Text"] ?>" data-sendType="heading" data-sendRelation=""><i class="fa fa-pencil-alt"></i></button>
+                                                                                <button type="button" class="btn btn-link py-0 px-1 text-end text-primary" data-bs-toggle="modal" data-bs-target="#AddEditHeading" data-sendCode="" data-sendText="" data-sendType="details" data-sendRelation="<?= $Heading["HD_Code"] ?>"><i class="fa fa-plus"></i></button>
                                                                             </div>
                                                                         </div>
                                                                     </td>
@@ -165,13 +165,13 @@ th {
                                                                                                 <div class="card-tools">
                                                                                                 <?php
                                                                                                     if ($Details["DT_Active"] == 1) {
-                                                                                                        echo '<a class="btn btn-link py-0 px-1 text-end text-secondary toggleButton" id="toggleButton1" data-sendStatus="0" data-sendID="' . $Details['DT_Code'] . '" data-sendType="details"><i class="fa fa-eye"></i></a>';
+                                                                                                        echo '<a class="btn btn-link py-0 px-1 text-end text-secondary toggleButton" id="toggleButton1" data-sendHiddenStatus="0" data-sendHiddenID="' . $Details['DT_Code'] . '" data-sendHiddenType="details"><i class="fa fa-eye"></i></a>';
                                                                                                     } else {
-                                                                                                        echo '<a class="btn btn-link py-0 px-1 text-end text-secondary toggleButton" id="toggleButton0" data-sendStatus="1" data-sendID="' . $Details['DT_Code'] . '" data-sendType="details"><i class="fa fa-eye-slash"></i></a>';
+                                                                                                        echo '<a class="btn btn-link py-0 px-1 text-end text-secondary toggleButton" id="toggleButton0" data-sendHiddenStatus="1" data-sendHiddenID="' . $Details['DT_Code'] . '" data-sendHiddenType="details"><i class="fa fa-eye-slash"></i></a>';
                                                                                                     }
                                                                                                 ?>
                                                                                                     <a class="btn btn-link py-1 px-2 text-end" onclick="deleteAlertMenuCategory(<?php echo $Details["DT_Code"];?>, '<?php echo $Details["DT_Text"];?>', 'details')"><i class="fas fa-trash"></i></a>
-                                                                                                    <button type="button" class="btn btn-link py-0 px-1 text-end text-warning" data-bs-toggle="modal" data-bs-target="#AddEditHeading" data-sendCode="<?= $Details["DT_Code"] ?>" data-sendText="<?= $Details["DT_Text"] ?>" data-sendType="details" data-sendRelation=""><i class="fa fa-pencil-alt"></i></button>
+                                                                                                    <button type="button" class="btn btn-link py-0 px-1 text-end text-warning" data-bs-toggle="modal" data-bs-target="#AddEditHeading" data-sendCode="<?= $Details["DT_Code"] ?>" data-sendText="<?= $Details["DT_Text"] ?>" data-sendType="details" data-sendRelation="<?= $Heading["HD_Code"] ?>"><i class="fa fa-pencil-alt"></i></button>
                                                                                                 </div>
                                                                                             </div>
                                                                                         </td>
@@ -222,10 +222,10 @@ th {
                 <form id="modalForm" action="Pro_Add&EditMenuCategory.php" method="post" enctype="multipart/form-data">
                     <div class="row g-2 my-2">
                         <div class="col-112 col-sm-112">
-                            <input type="hidden" id="Send_MenuCategoryType" name="Send_MenuCategoryType">
                             <input type="hidden" id="Send_Code" name="Send_Code">
                             <input type="hidden" id="Send_descriptionth" name="Send_descriptionth" value="">
                             <input type="hidden" id="Send_descriptionen" name="Send_descriptionen" value="">
+                            <input type="hidden" id="Send_MenuCategoryType" name="Send_MenuCategoryType">
                             <input type="hidden" id="Send_Relation" name="Send_Relation">
                             <h6 class="text-primary">ชื่อ</h6>
                             <textarea id="Send_Text" name="Send_Text" class="form-control border-1" style="height: 120px;" rows="5" placeholder="ชื่อหัวข้อ" required></textarea>
@@ -306,9 +306,9 @@ toggleButtons.forEach(button => {
       icon.classList.remove("fa-eye-slash");
       icon.classList.add("fa-eye");
     }
-    const sendStatus = this.getAttribute("data-sendStatus");
-    const sendType = this.getAttribute("data-sendType");
-    const sendID = this.getAttribute("data-sendID");
+    const sendStatus = this.getAttribute("data-sendHiddenStatus");
+    const sendType = this.getAttribute("data-sendHiddenType");
+    const sendID = this.getAttribute("data-sendHiddenID");
     sendDataToPHP(sendStatus, sendType, sendID); // ส่งค่าไปยัง PHP
   });
 });
@@ -335,15 +335,20 @@ function sendDataToPHP(status, type, id) {
     // เมื่อ Modal AddEditHeading ถูกเปิดขึ้นมา
     $('#AddEditHeading').on('show.bs.modal', function(event) {
         const button = $(event.relatedTarget);
-        const sendType = button.data('sendType');
         const sendcode = button.data('sendcode');
         const sendtext = button.data('sendtext');
-        const sendRelation = button.data('sendRelation');
+        const sendtype = button.data('sendtype');
+        const sendrelation = button.data('sendrelation');
+
+        // console.log(sendcode);
+        // console.log(sendtext);
+        // console.log(sendtype);
+        // console.log(sendrelation);
 
         // กำหนดค่าให้กับช่อง input ใน Modal
-        document.getElementById("Send_MenuCategoryType").value = sendType;
+        document.getElementById("Send_MenuCategoryType").value = sendtype;
         document.getElementById("Send_Code").value = sendcode;
-        document.getElementById("Send_Relation").value = sendRelation;
+        document.getElementById("Send_Relation").value = sendrelation;
         if (sendtext === undefined) {
             document.getElementById("Send_Text").value = '';
         } else {
