@@ -24,7 +24,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
   // ทำอย่างอื่นๆ เช่นบันทึกข้อมูลลงฐานข้อมูล
   $TypeLower = strtolower($Type);
-  if ($Send_Code == 0) {
+  if ($Send_Code == 0 || $Send_Code == '') {
     switch ($TypeLower) {
       case "headingcategories":
         $sql = "INSERT INTO `newsandactivities`.`headingcategories` (`HC_Code`, `HC_Text`, `HC_descriptionth`, `HC_descriptionen`, `HC_CreateDate`, `HC_ModifyDate`) VALUES (NULL, '$Send_Text', '$Send_descriptionth', '$Send_descriptionen', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);";
@@ -33,6 +33,26 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       case "headinggroup":
         $sql = "INSERT INTO `newsandactivities`.`headinggroup` (`HG_Code`, `HG_Text`, `HG_Active`, `HC_Code`, `HG_CreateDate`, `HG_ModifyDate`) VALUES (NULL, '$Send_Text', '1', '$Send_Relation', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);";
         // echo 'b';
+        $resultMasterHeadingCategories = $conn->query("SELECT * FROM `masterheadingcategories` WHERE `HC_Code` = $Send_Relation ORDER BY `MC_Code` ASC;");
+        if ($resultMasterHeadingCategories->num_rows > 0) {
+          if ($conn->query($sql) === true) {
+              $sql = "";
+              $insertedHG_Code = $conn->insert_id;    
+              // นำข้อมูลที่ได้จาก headinggroup มาเพิ่มเข้าไปในตาราง heading โดย loop ผ่านทุก row ที่ได้จาก masterheadingcategories
+              while ($rowMasterHeadingCategories = $resultMasterHeadingCategories->fetch_assoc()) {
+                  $MC_Text = $rowMasterHeadingCategories["MC_Text"];
+                  $sql .= "INSERT INTO `newsandactivities`.`heading` (`HD_Code`, `HD_Text`, `HD_Active`, `HG_Code`, `HD_CreateDate`, `HD_ModifyDate`) VALUES (NULL, '$MC_Text', '1', '$insertedHG_Code', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);";
+              }
+          } else {
+              $_SESSION['StatusTitle'] = "Error!";
+              $_SESSION['StatusMessage'] = "Error: ".$conn->error;
+              $_SESSION['StatusAlert'] = "error";
+              if (isset($_SESSION['PathPage']) && $_SESSION['PathPage'] !== '') {
+                header("Location: ".$_SESSION['PathPage']);
+                unset($_SESSION['PathPage']);
+              }
+          }
+        }
         break;
       case "heading":
         $sql = "INSERT INTO `newsandactivities`.`heading` (`HD_Code`, `HD_Text`, `HD_Active`, `HG_Code`, `HD_CreateDate`, `HD_ModifyDate`) VALUES (NULL, '$Send_Text', '1', '$Send_Relation', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);";
@@ -73,8 +93,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
           break;
     }
   }
-
-  if ($conn->query($sql) === true) {
+  if ($conn->multi_query($sql) === true) {
       $_SESSION['StatusTitle'] = "ดำเนินการเรียบร้อยแล้ว";
       $_SESSION['StatusMessage'] = "ทำการอัพเดชเรียบร้อบแล้ว";
       $_SESSION['StatusAlert'] = "success";

@@ -21,7 +21,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   // echo $CG_EntityNo.'--'.$CG_EntityRelationNo.'++'.$CG_Name.'//'.$CG_DescriptionTH.'=='.$CG_DescriptionEN;
 
   // ทำอย่างอื่นๆ เช่นบันทึกข้อมูลลงฐานข้อมูล
-  if ($CG_EntityNo == 0) {
+  if ($CG_EntityNo == 0 || $CG_EntityNo == '') {
     $sql = "INSERT INTO `newsandactivities`.`category` (`CG_Entity No.`, `CG_Entity Relation No.`, `CG_Name`, `CG_DescriptionTH`, `CG_DescriptionEN`, `CG_CreateDate`, `CG_ModifyDate`) VALUES (NULL, $CG_EntityRelationNo, '$CG_Name', '$CG_DescriptionTH', '$CG_DescriptionEN', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);";
   } else {    
     $sqlCheck = "SELECT * FROM `category` WHERE `category`.`CG_Name` = $CG_Name;";

@@ -237,6 +237,7 @@ $_SESSION['PathPage'] = "Ui_AdminSetup.php";
                                                     <div class="tools">
                                                         <a class="btn btn-link py-1 px-2 text-end" onclick="deleteAlertMenuCategory(<?php echo $row["HC_Code"];?>, '<?php echo $row["HC_Text"];?>', 'headingcategories')"><i class="fas fa-trash"></i></a>
                                                         <button type="button" class="btn btn-link py-1 px-2 text-end text-warning" data-bs-toggle="modal" data-bs-target="#MenuCategory" data-hcCode="<?= $row["HC_Code"] ?>" data-hcText="<?= $row["HC_Text"] ?>" data-hcdescriptionth="<?= $row["HC_DescriptionTH"] ?>" data-hcdescriptionen="<?= $row["HC_DescriptionEN"] ?>"><i class="fas fa-edit"></i> </button>
+                                                        <button type="button" class="btn btn-link py-0 px-1 text-end text-primary" data-bs-toggle="modal" data-bs-target="#MasterMenuCategory" data-hccode="<?= $row["HC_Code"] ?>"><i class="fas fa-graduation-cap"></i></button>
                                                     </div>
                                                 </li>
                                             <?PHP
@@ -406,6 +407,32 @@ $_SESSION['PathPage'] = "Ui_AdminSetup.php";
         </div>
     </div>
 
+    <!-- Modal MasterMenuCategory-->
+    <div class="modal fade" id="MasterMenuCategory" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="MasterMenuCategoryLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="MasterMenuCategoryLabel">General Settings</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="modalForm" action="Pro_Add&EditMasterMenuCategory.php" method="post" enctype="multipart/form-data">
+                        <div class="form-group">
+                            <div id="modalContentMasterMenuCategory"></div>
+                            <div class="form-group text-center text-md-end my-2">
+                                <button type="button" class="btn btn-primary rounded-pill py-2 px-3 add-image-btn text-end" id="addButtonMasterMenuCategory"><i class="fa fa-plus"></i></button>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">ยกเลิก</button>
+                            <button type="submit" class="btn btn-primary">บันทึก</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Modal EngravedCategory-->
     <div class="modal fade" id="engravedcategory" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="engravedcategoryLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
@@ -530,6 +557,18 @@ $_SESSION['PathPage'] = "Ui_AdminSetup.php";
             $('#form-container .form-group:last-child').remove();
             count--; // ลดค่านับเมื่อกดปุ่ม "ลบ"
         });
+        
+        $('#addButtonMasterMenuCategory').click(function() {
+            var formGroup = $('<div class="row my-3">' +
+                        '<div class="col-11">' +
+                        '<input type="hidden" name="mcinputcode[]" class="form-control">' +
+                        '<input type="text" name="mcinputname[]" class="form-control">' +
+                        '</div>' +
+                        '<div class="col-1">' +
+                        '</div>' +
+                        '</div>');
+            $('#modalContentMasterMenuCategory').append(formGroup);
+        });
 
         $('#addButtonGeneralSettings').click(function() {
             var formGroup = $('<div class="row my-3">' +
@@ -615,6 +654,42 @@ $_SESSION['PathPage'] = "Ui_AdminSetup.php";
                 if (willDelete) {
                     // เมื่อกดตกลง ทำการเปลี่ยนหน้า
                     window.location.replace(`Pro_DeleteMenuCategory.php?Send_ID=${categoryID}&Send_Text=${categoryText}&Send_Type=${SendType}`);
+                } else {
+                    // เมื่อกดยกเลิก ไม่ต้องทำอะไร
+                }
+            })
+            .catch((error) => {
+                // เกิดข้อผิดพลาดในกรณีที่ไม่สามารถแสดงกล่อง SweetAlert ได้
+                console.error("Error displaying SweetAlert:", error);
+            });
+        }
+        function deleteAlertMasterMenuCategory(MasterMenuCategoryID, MasterMenuCategoryName) {
+            swal({
+                title: "คุณต้องการที่จะลบหรือไม่?",
+                text: `${MasterMenuCategoryName}\nเมื่อกดลบไปแล้วจะไม่สามารถนำข้อมูลกลับมาได้!`,
+                icon: "warning",
+                buttons: {
+                    cancel: {
+                        text: "ยกเลิก",
+                        value: false,
+                        visible: true,
+                        className: "",
+                        closeModal: true,
+                    },
+                    confirm: {
+                        text: "ลบ",
+                        value: true,
+                        visible: true,
+                        className: "",
+                        closeModal: true,
+                    },
+                },
+                dangerMode: true,
+            })
+            .then((willDelete) => {
+                if (willDelete) {
+                    // เมื่อกดตกลง ทำการเปลี่ยนหน้า
+                    window.location.replace(`Pro_DeleteMasterMenuCategory.php?Send_ID=${MasterMenuCategoryID}&Send_Name=${MasterMenuCategoryName}`);
                 } else {
                     // เมื่อกดยกเลิก ไม่ต้องทำอะไร
                 }
@@ -729,6 +804,42 @@ $_SESSION['PathPage'] = "Ui_AdminSetup.php";
             document.getElementById("Send_Text").value = hcText;
             document.getElementById("Send_descriptionth").value = hcDescriptionTH;
             document.getElementById("Send_descriptionen").value = hcDescriptionEN;
+        });
+
+        // เมื่อ Modal MasterMenuCategory ถูกเปิดขึ้นมา
+        $('#MasterMenuCategory').on('show.bs.modal', function(event) {
+            var hcCode = event.relatedTarget.dataset.hccode;
+            console.log(hcCode);
+            // ส่งค่าตัวกรองไปยังหน้า PHP ดึงข้อมูล
+            $.ajax({
+                url: "DB_MasterMenuCategory.php",
+                type: "POST",
+                data: { hccode: hcCode },
+                dataType: "json",
+                success: function(response) {
+                    // ดำเนินการแสดงผลข้อมูลที่ได้รับใน Modal
+                    var modalContentMasterMenuCategory = document.getElementById("modalContentMasterMenuCategory");
+                    var contentHTML = '<input type="hidden" name="inputMastercode" value="' + hcCode + '" class="form-control">';
+
+                    // ใช้ Loop เพื่อแสดงข้อมูลใน Modal
+                    for (var i = 0; i < response.length; i++) {
+                        contentHTML +=
+                            '<div class="row my-3">' +
+                            '<div class="col-11">' +
+                            '<input type="hidden" name="mcinputcode[]" value="' + response[i].MC_Code + '" class="form-control">' +
+                            '<input type="text" name="mcinputname[]" value="' + response[i].MC_Text + '" class="form-control">' +
+                            '</div>' +
+                            '<div class="col-1">' +
+                            '<button type="button" class="btn btn-danger rounded-pill py-1 px-2 add-image-btn text-end" onclick="deleteAlertMasterMenuCategory(\'' + response[i].MC_Code + '\', \'' + response[i].MC_Text + '\')"><i class="fas fa-trash"></i></button>' +
+                            '</div>' +
+                            '</div>';
+                    }
+                    modalContentMasterMenuCategory.innerHTML = contentHTML;
+                },
+                error: function() {
+                    console.log("เกิดข้อผิดพลาดกับการเชื่อมต่อ");
+                }
+            });
         });
 
         // เมื่อ Modal EngravedCategory ถูกเปิดขึ้นมา
