@@ -22,6 +22,7 @@ $_SESSION['PathPage'] = "Ui_AdminSetup.php";
         $DefaultImageNews = $row["SU_DefaultImageNews"];
         $PathFolderNews = $row["SU_PathDefaultImageNews"];
         $PathFolderGallery = $row["SU_PathDefaultImageGallery"];
+        $PathDefaultFile= $row["SU_PathDefaultFile"];
     } else {
         unset($sql);
         $sql = "INSERT INTO `Setup` (`CG_Entity No.`,`CG_CreateDate`) VALUES (1, CURRENT_TIMESTAMP)";
@@ -30,6 +31,7 @@ $_SESSION['PathPage'] = "Ui_AdminSetup.php";
             $DefaultImageNews = "";
             $PathFolderNews = "";
             $PathFolderGallery = "";
+            $PathDefaultFile= "";
         }
     }
     unset($sql);
@@ -112,6 +114,10 @@ $_SESSION['PathPage'] = "Ui_AdminSetup.php";
                                             <label for="PathFolderNews">ที่เก็บแกลลอรี่</label>
                                             <input type="text" name="PathFolderGallery" value="<?= $PathFolderGallery; ?>" class="form-control">
                                         </div>
+                                        <div class="form-group my-3">
+                                            <label for="PathFolderNews">ที่เก็บไฟล์</label>
+                                            <input type="text" name="PathDefaultFile" value="<?= $PathDefaultFile; ?>" class="form-control">
+                                        </div>
                                     </div>
                                     <!-- /.card-body -->
                                 </div>
@@ -133,7 +139,7 @@ $_SESSION['PathPage'] = "Ui_AdminSetup.php";
                                                     <span class="text"><?=$row["CG_Name"]?></span>
                                                     <div class="tools">
                                                         <a class="btn btn-link py-1 px-2 text-end" onclick="deleteAlertCategory(<?php echo $row["CG_Entity No."];?>, '<?php echo $row["CG_Name"];?>')"><i class="fas fa-trash"></i></a>
-                                                        <button type="button" class="btn btn-link py-1 px-2 text-end text-warning" data-bs-toggle="modal" data-bs-target="#Category" data-entityno="<?= $row["CG_Entity No."] ?>" data-entityrelationno="<?= $row["CG_Entity Relation No."] ?>" data-name="<?= $row["CG_Name"]; ?>" data-descriptionth="<?= $row["CG_DescriptionTH"] ?>" data-descriptionen="<?= $row["CG_DescriptionEN"] ?>"><i class="fas fa-edit"></i> </button>
+                                                        <button type="button" class="btn btn-link py-1 px-2 text-end text-warning" data-bs-toggle="modal" data-bs-target="#Category" data-entityno="<?= $row["CG_Entity No."] ?>" data-isfile="<?= $row["CG_IsFile"] ?>" data-entityrelationno="<?= $row["CG_Entity Relation No."] ?>" data-name="<?= $row["CG_Name"]; ?>" data-descriptionth="<?= $row["CG_DescriptionTH"] ?>" data-descriptionen="<?= $row["CG_DescriptionEN"] ?>"><i class="fas fa-edit"></i> </button>
                                                     </div>
                                                 <?php
                                                     $sql = "SELECT *
@@ -173,7 +179,7 @@ $_SESSION['PathPage'] = "Ui_AdminSetup.php";
                                             </ul>
                                         </div>
                                         <div class="form-group text-center text-md-end">
-                                            <button type="button" class="btn btn-primary rounded-pill py-1 px-4 add-image-btn text-end" data-bs-toggle="modal" data-bs-target="#Category" data-entityno="0" data-entityrelationno="0" data-name="" data-descriptionth="" data-descriptionen=""><i class="fa fa-plus"></i></button>
+                                            <button type="button" class="btn btn-primary rounded-pill py-1 px-4 add-image-btn text-end" data-bs-toggle="modal" data-bs-target="#Category" data-entityno="0" data-isfile="0" data-entityrelationno="0" data-name="" data-descriptionth="" data-descriptionen=""><i class="fa fa-plus"></i></button>
                                         </div>
                                     </div>
                                     <!-- /.card-body -->
@@ -344,9 +350,16 @@ $_SESSION['PathPage'] = "Ui_AdminSetup.php";
                                 <!-- <input type="Text" id="CG_EntityRelationNo" name="CG_EntityRelationNo" class="form-control border-1" value="" placeholder=""> -->
                                 <!-- <input type="number" id="CG_EntityRelationNo" name="CG_EntityRelationNo" class="form-control border-1" value="" placeholder="0" min="0" oninput="this.value = this.value < 0 ? 0 : this.value"> -->
                             </div>
-                            <div class="col-7 col-sm-7">
+                            <div class="col-6 col-sm-6">
                                 <h6 class="text-primary">ชื่อ</h6>
                                 <input type="Text" id="CG_Name" name="CG_Name" class="form-control border-1" placeholder="ชื่อหัวข้อ" required>
+                            </div>
+                            <div class="col-1 col-sm-1">
+                                <div class="form-group text-center">
+                                    <h6 class="text-primary my-05">ไฟล์</h6>
+                                    <input class="form-check-input py-3 px-3" type="checkbox" id="CG_IsFile" name="CG_IsFile">
+                                </div>
+                                
                             </div>
                             <div class="col-6 col-sm-6">
                                 <h6 class="text-primary">ชื่อภาษาไทย</h6>
@@ -779,6 +792,7 @@ $_SESSION['PathPage'] = "Ui_AdminSetup.php";
             const button = $(event.relatedTarget);
             const entityNo = button.data('entityno');
             const entityRelationNo = button.data('entityrelationno');
+            const isfile = button.data('isfile');
             const name = button.data('name');
             const descriptionTH = button.data('descriptionth');
             const descriptionEN = button.data('descriptionen');
@@ -786,6 +800,7 @@ $_SESSION['PathPage'] = "Ui_AdminSetup.php";
             // กำหนดค่าให้กับช่อง input ใน Modal
             document.getElementById("CG_EntityNo").value = entityNo;
             document.getElementById("CG_EntityRelationNo").value = entityRelationNo;
+            document.getElementById("CG_IsFile").checked = (isfile == 1);
             document.getElementById("CG_Name").value = name;
             document.getElementById("CG_DescriptionTH").value = descriptionTH;
             document.getElementById("CG_DescriptionEN").value = descriptionEN;

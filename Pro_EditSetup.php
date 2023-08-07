@@ -9,6 +9,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   $DefaultNameImageNews = $_POST['DefaultNameImageNews'];
   $OldNameImageNews = $_POST['OldNameImageNews'];
   $PathFolderNews = $_POST['PathFolderNews'];
+  $PathFolderGallery = $_POST['PathFolderGallery'];
+  $PathDefaultFile = $_POST['PathDefaultFile'];
 
   // เก็บข้อมูลไฟล์
   $file = $_FILES['image'];
@@ -76,12 +78,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $newnFullNameImage = '';
   }
 
-  // ทำอย่างอื่นๆ เช่นบันทึกข้อมูลลงฐานข้อมูล
-  if (!empty($newnFullNameImage) && $newnFullNameImage !== '') {
-    $sql = "UPDATE `newsandactivities`.`Setup` SET `SU_DefaultImageNews` = '$newnFullNameImage',`SU_PathDefaultImageNews` = '$PathFolderNews' WHERE `Setup`.`SU_Code` = $ID;";
-  } else {    
-    $sql = "UPDATE `newsandactivities`.`Setup` SET `SU_PathDefaultImageNews` = '$PathFolderNews' WHERE `Setup`.`SU_Code` = $ID;";
+  $sql = "UPDATE `newsandactivities`.`Setup` SET `SU_PathDefaultImageNews` = '$PathFolderNews', `SU_PathDefaultImageGallery` = '$PathFolderGallery', `SU_PathDefaultFile` = '$PathDefaultFile'";
+
+  if (!empty($newnFullNameImage) && $newnFullNameImage !== '') { 
+      $sql .= ", `SU_DefaultImageNews` = '$newnFullNameImage'";
   }
+  
+  $sql .= " WHERE `Setup`.`SU_Code` = $ID;";
   // ดำเนินการ INSERT ข้อมูล
   if ($conn->query($sql) === true) {
     // $_SESSION['StatusMessage'] = 'กรุณากลับไป Setup ก่อน';

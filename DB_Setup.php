@@ -2,9 +2,11 @@
     $DefaultImageNews = '';
     $PathFolderNews = '';
     $PathFolderGallery = '';
+    $PathDefaultFile = '';
+    
 
     function handleSetupData($row) {
-        global $DefaultImageNews, $PathFolderNews, $PathFolderGallery;
+        global $DefaultImageNews, $PathFolderNews, $PathFolderGallery, $PathDefaultFile;
         if (isset($row["SU_DefaultImageNews"]) && $row["SU_DefaultImageNews"] !== '') {
             $DefaultImageNews = $row["SU_DefaultImageNews"];
         } else {
@@ -19,6 +21,11 @@
             $PathFolderGallery = $row["SU_PathDefaultImageGallery"];
         } else {
             ReturnPage('กรุณากลับไป Setup ที่อยู่รูปภาพของข่าวก่อน');
+        }
+        if (isset($row["SU_PathDefaultFile"]) && $row["SU_PathDefaultFile"] !== '') {
+            $PathDefaultFile = $row["SU_PathDefaultFile"];
+        } else {
+            ReturnPage('กรุณากลับไป Setup ที่ไฟล์ก่อน');
         }
     }
 

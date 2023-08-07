@@ -77,8 +77,8 @@
                     $DescriptionEN = $row["CG_DescriptionEN"];
                 }
             ?>
-                <h6 class="text-primary"><?= $row["CG_DescriptionEN"] ?></h6>
-                <h2 class="mb-4"><?= $row["CG_DescriptionTH"] ?></h2>
+                <h6 class="text-primary"><?= $DescriptionEN ?></h6>
+                <h2 class="mb-4"><?= $DescriptionTH ?></h2>
             </div>
         </div>
         <!-- Projects Start -->
@@ -151,8 +151,15 @@
         ?>
         </div>
         <!-- Projects End -->
+        <div class="row g-1">
+            <div class="wow fadeInUp portfolio-item first my-4" data-wow-delay="0.6s">
+                <div align="right">
+                    <a class="small fw-medium" href="Ui_List.php?Send_Category=<?= $Category_id ?>"><?= $DescriptionTH ?>ทั้งหมด<i class="fa fa-arrow-right ms-2"></i></a>  
+                </div>
+            </div>
+        </div>
         <?php
-            if ($countSql > $Maxbox) {        
+            if ($countSql > $Maxbox) {
         ?>
         <div class="container">
             <div class="text-center mx-auto mb-2 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 600px;">

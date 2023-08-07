@@ -28,6 +28,7 @@ if (isset($_GET['Send_Category']) && $_GET['Send_Category'] !== '') {
                         $row = $result->fetch_assoc();
                         $DescriptionTH = $row["CG_DescriptionTH"];
                         $DescriptionEN = $row["CG_DescriptionEN"];
+                        $IsFile = $row["CG_IsFile"];
                     }
                 ?>
                 <h6 class="small text-primary mb-0 mt-0"><?= $DescriptionEN ?></h6>
@@ -37,7 +38,11 @@ if (isset($_GET['Send_Category']) && $_GET['Send_Category'] !== '') {
         <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6">
             <div class="text-start mx-auto mb-2 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 600px;">
                 <div class="d-flex align-items-center">
+                    <?php if ($IsFile == 0): ?>
                     <a class="small fw-medium" href="Ui_Add.php?Send_Category=<?= $Category_id ?>">
+                    <?php elseif ($IsFile == 1): ?>
+                    <a class="small fw-medium" href="Ui_AddFile.php?Send_Category=<?= $Category_id ?>">
+                    <?php endif; ?>
                         <div class="d-flex align-items-center">
                             <div class="btn-lg-square bg-primary rounded-circle">
                                 <i class="fa fa-plus text-white"></i>
@@ -71,22 +76,50 @@ if (isset($_GET['Send_Category']) && $_GET['Send_Category'] !== '') {
                                     <tbody>
                                         <?php
                                         $SelectFilterCategoryEntityNo = SearchCategory($Category_id);
-                                        $sql = "SELECT * FROM Activities LEFT JOIN user ON `Activities`.AT_UserCreate = User.US_Username WHERE (`Activities`.`AT_Entity No.` IN ($SelectFilterCategoryEntityNo)) ORDER BY `Activities`.`AT_Date` DESC , `Activities`.`AT_Time` DESC;";
+                                        if ($IsFile == 0):
+                                            $sql = "SELECT * FROM Activities LEFT JOIN user ON `Activities`.AT_UserCreate = User.US_Username WHERE (`Activities`.`AT_Entity No.` IN ($SelectFilterCategoryEntityNo)) ORDER BY `Activities`.`AT_Date` DESC , `Activities`.`AT_Time` DESC;";
+                                        elseif ($IsFile == 1):
+                                            $sql = "SELECT * FROM FileActivities LEFT JOIN user ON `FileActivities`.FA_UserCreate = User.US_Username WHERE (`FileActivities`.`FA_Entity No.` IN ($SelectFilterCategoryEntityNo)) ORDER BY `FileActivities`.`FA_Date` DESC , `FileActivities`.`FA_Time` DESC;";
+                                        endif;
                                         $result = $conn->query($sql);
                                         
                                         if ($result->num_rows > 0) {
                                             while ($row = $result->fetch_assoc()) {
+                                                $reqCode = 0;
+                                                $reqDate = '';
+                                                $reqTitle = '';
+                                                $reqDescription = '';
+                                                $reqFile = '';
+                                                if ($IsFile == 0){
+                                                    $reqCode = $row['AT_Code'];
+                                                    $reqDate = $row['AT_Date'];
+                                                    $reqTitle = $row['AT_Title'];
+                                                    $reqDescription = $row['AT_Description'];
+                                                } elseif ($IsFile == 1) {
+                                                    $reqCode = $row['FA_Code'];
+                                                    $reqDate = $row['FA_Date'];
+                                                    $reqTitle = $row['FA_Title'];
+                                                    $reqDescription = $row['FA_Description'];
+                                                    
+                                                    $sqlSetup = "SELECT * FROM Setup";
+                                                    $resultSetup = $conn->query($sqlSetup);
+                                                    if ($resultSetup->num_rows > 0) {
+                                                        $rowSetup = $resultSetup->fetch_assoc();
+                                                        $reqFile = $rowSetup['SU_PathDefaultFile'].$row['FA_File'];
+                                                    }
+                                                    
+                                                }
                                         ?>
                                         <tr>
-                                            <td><?php echo $row['AT_Date']; ?></td>
+                                            <td><?php echo $reqDate; ?></td>
                                             <td>
                                                 <!-- <div class="col-5 text-truncate"> -->
-                                                    <?php echo $row["AT_Title"]; ?>
+                                                    <?php echo $reqTitle; ?>
                                                 <!-- </div> -->
                                             </td>
                                             <td>
                                                 <!-- <div class="col-10 text-truncate"> -->
-                                                    <?php echo $row["AT_Description"]; ?>
+                                                    <?php echo $reqDescription; ?>
                                                 <!-- </div> -->
                                                 <!-- <div class="progress progress-sm">
                                                     <div class="progress-bar bg-green" role="progressbar" aria-valuenow="35" aria-valuemin="0" aria-valuemax="100" style="width: 35%">
@@ -100,14 +133,19 @@ if (isset($_GET['Send_Category']) && $_GET['Send_Category'] !== '') {
                                                 <img class="img-fluid rounded-circle mx-1 mb-1" src="<?php echo "img/testimonial-1.jpg"; ?>" style="width: 40px; height: 40px;">
                                             </td>
                                             <td class="project-actions text-right">
-                                                <a class="btn btn-primary2 btn-sm" href="Ui_ShowDetail.php?Send_IDNews=<?= $row["AT_Code"];?>"><i class="fas fa-folder"></i></a>
-        
-                                                <a class="btn btn-warning btn-sm" href="Ui_Edit.php?Send_IDNews=<?= urlencode($row["AT_Code"]); ?>&Send_Title=<?= urlencode($row["AT_Title"]); ?>&Send_Category=<?= $Category_id ; ?>"><i class="fas fa-pencil-alt"></i></a>
-                                                <a class="btn btn-danger btn-sm" onclick="deleteAlert(<?php echo $row["AT_Code"];?>, '<?php echo $row["AT_Title"];?>',<?php echo $Category_id;?>)"><i class="fas fa-trash"></i></a>
+                                                <?php if ($IsFile == 0): ?>
+                                                    <a class="btn btn-primary2 btn-sm" href="Ui_ShowDetail.php?Send_IDNews=<?= $reqCode;?>"><i class="fas fa-folder"></i></a>
+                                                    <a class="btn btn-warning btn-sm" href="Ui_Edit.php?Send_IDNews=<?= urlencode($reqCode); ?>&Send_Title=<?= urlencode($reqTitle); ?>&Send_Category=<?= $Category_id ; ?>"><i class="fas fa-pencil-alt"></i></a>
+                                                    <a class="btn btn-danger btn-sm" onclick="deleteAlert(<?php echo $reqCode;?>, '<?php echo $reqTitle;?>',<?php echo $Category_id;?>)"><i class="fas fa-trash"></i></a>
+                                                <?php elseif ($IsFile == 1): ?>
+                                                    <a class="btn btn-primary2 btn-sm" href="<?= $reqFile ?>"><i class="fas fa-folder"></i></a>
+                                                    <a class="btn btn-warning btn-sm" href="Ui_EditFile.php?Send_IDNews=<?= urlencode($reqCode); ?>&Send_Title=<?= urlencode($reqTitle); ?>&Send_Category=<?= $Category_id ; ?>"><i class="fas fa-pencil-alt"></i></a>
+                                                    <a class="btn btn-danger btn-sm" onclick="deleteAlertFile(<?php echo $reqCode;?>, '<?php echo $reqTitle;?>',<?php echo $Category_id;?>)"><i class="fas fa-trash"></i></a>
+                                                <?php endif; ?>
                                             </td>
                                         </tr>
                                         <?php
-                                                $newnNameImage = $row["AT_Code"];
+                                                // $newnNameImage = $reqCode;
                                             }
                                         }
                                         ?>
@@ -164,6 +202,42 @@ if (isset($_GET['Send_Category']) && $_GET['Send_Category'] !== '') {
                 if (willDelete) {
                     // เมื่อกดตกลง ทำการเปลี่ยนหน้า
                     window.location.replace(`Pro_DeleteActivities.php?Send_IDNews=${NewsID}&Send_Title=${NewsTitle}&Send_Category=${CategoryId}`);
+                } else {
+                    // เมื่อกดยกเลิก ไม่ต้องทำอะไร
+                }
+            })
+            .catch((error) => {
+                // เกิดข้อผิดพลาดในกรณีที่ไม่สามารถแสดงกล่อง SweetAlert ได้
+                console.error("Error displaying SweetAlert:", error);
+            });
+        }
+        function deleteAlertFile(NewsID, NewsTitle,CategoryId) {
+            swal({
+                title: "คุณต้องการที่จะลบหรือไม่?",
+                text: `${NewsTitle}\nเมื่อกดลบไปแล้วข่าวและกิจกรรมนี้จะไม่สามารถนำข้อมูลกลับมาได้!`,
+                icon: "warning",
+                buttons: {
+                    cancel: {
+                        text: "ยกเลิก",
+                        value: false,
+                        visible: true,
+                        className: "",
+                        closeModal: true,
+                    },
+                    confirm: {
+                        text: "ลบ",
+                        value: true,
+                        visible: true,
+                        className: "",
+                        closeModal: true,
+                    },
+                },
+                dangerMode: true,
+            })
+            .then((willDelete) => {
+                if (willDelete) {
+                    // เมื่อกดตกลง ทำการเปลี่ยนหน้า
+                    window.location.replace(`Pro_DeleteFileActivities.php?Send_IDNews=${NewsID}&Send_Title=${NewsTitle}&Send_Category=${CategoryId}`);
                 } else {
                     // เมื่อกดยกเลิก ไม่ต้องทำอะไร
                 }

@@ -14,17 +14,18 @@ echo '<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   // เก็บข้อมูลจากฟอร์ม
   $CG_EntityNo = isset($_POST['CG_EntityNo']) ? $_POST['CG_EntityNo'] : 0;
-  $CG_EntityRelationNo = isset($_POST['CG_EntityRelationNo']) ? $_POST['CG_EntityRelationNo'] : 0;  
+  $CG_EntityRelationNo = isset($_POST['CG_EntityRelationNo']) ? $_POST['CG_EntityRelationNo'] : 0; 
+  $CG_IsFile = isset($_POST['CG_IsFile']) && $_POST['CG_IsFile'] === 'on' ? 1 : 0;
   $CG_Name = $_POST['CG_Name'];
   $CG_DescriptionTH = $_POST['CG_DescriptionTH'];
   $CG_DescriptionEN = $_POST['CG_DescriptionEN'];
-  // echo $CG_EntityNo.'--'.$CG_EntityRelationNo.'++'.$CG_Name.'//'.$CG_DescriptionTH.'=='.$CG_DescriptionEN;
+  // echo $CG_EntityNo.'--'.$CG_EntityRelationNo.'++'.$CG_Name.'//'.$CG_DescriptionTH.'=='.$CG_DescriptionEN.'..'.$CG_IsFile;
 
   // ทำอย่างอื่นๆ เช่นบันทึกข้อมูลลงฐานข้อมูล
   if ($CG_EntityNo == 0 || $CG_EntityNo == '') {
-    $sql = "INSERT INTO `newsandactivities`.`category` (`CG_Entity No.`, `CG_Entity Relation No.`, `CG_Name`, `CG_DescriptionTH`, `CG_DescriptionEN`, `CG_CreateDate`, `CG_ModifyDate`) VALUES (NULL, $CG_EntityRelationNo, '$CG_Name', '$CG_DescriptionTH', '$CG_DescriptionEN', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);";
+    $sql = "INSERT INTO `newsandactivities`.`category` (`CG_Entity No.`, `CG_IsFile`, `CG_Entity Relation No.`, `CG_Name`, `CG_DescriptionTH`, `CG_DescriptionEN`, `CG_CreateDate`, `CG_ModifyDate`) VALUES (NULL, $CG_IsFile, $CG_EntityRelationNo, '$CG_Name', '$CG_DescriptionTH', '$CG_DescriptionEN', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);";
   } else {    
-    $sqlCheck = "SELECT * FROM `category` WHERE `category`.`CG_Name` = $CG_Name;";
+    $sqlCheck = "SELECT * FROM `category` WHERE `category`.`CG_Name` = '$CG_Name';";
     $resultCheck = $conn->query($sqlCheck);
     if ($resultCheck->num_rows > 0) {
       $rowCheck = $resultCheck->fetch_assoc();
@@ -39,7 +40,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
       }
     }
-    $sql = "UPDATE `newsandactivities`.`category` SET `CG_Entity Relation No.` = $CG_EntityRelationNo , `CG_Name` = '$CG_Name', `CG_DescriptionTH` = '$CG_DescriptionTH', `CG_DescriptionEN` = '$CG_DescriptionEN',`CG_ModifyDate` = CURRENT_TIMESTAMP WHERE `category`.`CG_Entity No.` = $CG_EntityNo;";
+    $sql = "UPDATE `newsandactivities`.`category` SET `CG_IsFile` = $CG_IsFile, `CG_Entity Relation No.` = $CG_EntityRelationNo, `CG_Name` = '$CG_Name', `CG_DescriptionTH` = '$CG_DescriptionTH', `CG_DescriptionEN` = '$CG_DescriptionEN',`CG_ModifyDate` = CURRENT_TIMESTAMP WHERE `category`.`CG_Entity No.` = $CG_EntityNo;";
   }
 
   if ($conn->query($sql) === true) {

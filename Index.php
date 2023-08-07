@@ -69,7 +69,7 @@ include("DB_Setup.php");
                 <div class="col-lg-3 col-md-6 wow fadeInUp portfolio-item first" data-wow-delay="0.1s">
                     <div class="service-item rounded overflow-hidden">
                         <div class="portfolio-img rounded overflow-hidden">
-                            <img class="img-fluid w-100" src="<?= $PathFolderNews.$AT_Image;?>" style="height:275px;" alt="">
+                            <img class="img-fluid w-100" src="<?= $PathFolderNews.$AT_Image;?>" style="height:250px;" alt="">
                             <div class="portfolio-btn">
                                 <a class="btn btn-lg-square btn-outline-light rounded-circle mx-1" href="<?= $PathFolderNews.$AT_Image;?>"
                                     data-lightbox="portfolio"><i class="fa fa-eye"></i></a>

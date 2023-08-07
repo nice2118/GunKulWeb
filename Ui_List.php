@@ -28,6 +28,7 @@ if (isset($_GET['Send_Category']) && $_GET['Send_Category'] !== '') {
                         $row = $result->fetch_assoc();
                         $DescriptionTH = $row["CG_DescriptionTH"];
                         $DescriptionEN = $row["CG_DescriptionEN"];
+                        $IsFile = $row["CG_IsFile"];
                     }
                 ?>
                 <h6 class="small text-primary mb-0 mt-0"><?= $DescriptionEN ?></h6>
@@ -54,17 +55,44 @@ if (isset($_GET['Send_Category']) && $_GET['Send_Category'] !== '') {
                                     <tbody>
                                         <?php
                                         $SelectFilterCategoryEntityNo = SearchCategory($Category_id);
-                                        $sql = "SELECT * FROM Activities LEFT JOIN user ON `Activities`.AT_UserCreate = User.US_Username WHERE (`Activities`.`AT_Entity No.` IN ($SelectFilterCategoryEntityNo)) ORDER BY `Activities`.`AT_Date` DESC , `Activities`.`AT_Time` DESC;";
+                                        if ($IsFile == 0):
+                                            $sql = "SELECT * FROM Activities LEFT JOIN user ON `Activities`.AT_UserCreate = User.US_Username WHERE (`Activities`.`AT_Entity No.` IN ($SelectFilterCategoryEntityNo)) ORDER BY `Activities`.`AT_Date` DESC , `Activities`.`AT_Time` DESC;";
+                                        elseif ($IsFile == 1):
+                                            $sql = "SELECT * FROM FileActivities LEFT JOIN user ON `FileActivities`.FA_UserCreate = User.US_Username WHERE (`FileActivities`.`FA_Entity No.` IN ($SelectFilterCategoryEntityNo)) ORDER BY `FileActivities`.`FA_Date` DESC , `FileActivities`.`FA_Time` DESC;";
+                                        endif;
                                         $result = $conn->query($sql);
                                         
                                         if ($result->num_rows > 0) {
                                             while ($row = $result->fetch_assoc()) {
+                                                $reqCode = 0;
+                                                $reqDate = '';
+                                                $reqTitle = '';
+                                                $reqDescription = '';
+                                                $reqFile = '';
+                                                if ($IsFile == 0){
+                                                    $reqCode = $row['AT_Code'];
+                                                    $reqDate = $row['AT_Date'];
+                                                    $reqTitle = $row['AT_Title'];
+                                                    $reqDescription = $row['AT_Description'];
+                                                } elseif ($IsFile == 1) {
+                                                    $reqCode = $row['FA_Code'];
+                                                    $reqDate = $row['FA_Date'];
+                                                    $reqTitle = $row['FA_Title'];
+                                                    $reqDescription = $row['FA_Description'];
+                                                    
+                                                    $sqlSetup = "SELECT * FROM Setup";
+                                                    $resultSetup = $conn->query($sqlSetup);
+                                                    if ($resultSetup->num_rows > 0) {
+                                                        $rowSetup = $resultSetup->fetch_assoc();
+                                                        $reqFile = $rowSetup['SU_PathDefaultFile'].$row['FA_File'];
+                                                    }
+                                                }
                                         ?>
                                         <tr>
-                                            <td><?php echo $row['AT_Date']; ?></td>
-                                            <td><?php echo $row["AT_Title"]; ?></td>
+                                            <td><?php echo $reqDate; ?></td>
+                                            <td><?php echo $reqTitle; ?></td>
                                             <td class="project_progress">
-                                                <?php echo $row["AT_Description"]; ?>
+                                                <?php echo $reqDescription; ?>
                                                 <!-- <div class="progress progress-sm">
                                                     <div class="progress-bar bg-green" role="progressbar" aria-valuenow="35" aria-valuemin="0" aria-valuemax="100" style="width: 35%">
                                                     </div>
@@ -77,11 +105,15 @@ if (isset($_GET['Send_Category']) && $_GET['Send_Category'] !== '') {
                                                 <img class="img-fluid rounded-circle mx-1 mb-1" src="<?php echo "img/testimonial-1.jpg"; ?>" style="width: 40px; height: 40px;">
                                             </td>
                                             <td class="project-actions text-right">
-                                                <a class="btn btn-primary2 btn-sm" href="Ui_ShowDetail.php?Send_IDNews=<?= $row["AT_Code"];?>"><i class="fas fa-folder"></i></a>
+                                                <?php if ($IsFile == 0): ?>
+                                                    <a class="btn btn-primary2 btn-sm" href="Ui_ShowDetail.php?Send_IDNews=<?= $reqCode?>"><i class="fas fa-folder"></i></a>
+                                                <?php elseif ($IsFile == 1): ?>
+                                                    <a class="btn btn-primary2 btn-sm" href="<?= $reqFile ?>"><i class="fas fa-folder"></i></a>
+                                                <?php endif; ?>
                                             </td>
                                         </tr>
                                         <?php
-                                                $newnNameImage = $row["AT_Code"];
+                                                // $newnNameImage = $row["AT_Code"];
                                             }
                                         }
                                         ?>
