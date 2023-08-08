@@ -252,7 +252,38 @@
                     </div>
                 </div>
             </div>
-            <a href="" class="btn btn-white rounded-0 py-4 px-lg-3 d-none d-lg-block"><i class="fa fa-user-circle ms-auto fs-4"></i></a>
+            <?php if(!isset($_SESSION['User']) || $_SESSION['User'] === '') : ?>
+            <button class="btn btn-white rounded-0 py-4 px-lg-3 d-none d-lg-block" data-bs-toggle="modal" data-bs-target="#LoginModal"><i class="fa fa-user-circle ms-auto fs-4"></i></button>
+            <?php else: ?>
+            <a class="btn btn-white rounded-0 py-4 px-lg-3 d-none d-lg-block" onclick="logoutAlert()"><i class="fas fa-sign-out-alt ms-auto fs-4"></i></a>
+            <?php endif; ?>
         </div>
     </nav>
     <!-- Navbar End -->
+
+<!-- Modal Login-->
+<div class="modal fade" id="LoginModal" tabindex="-1" aria-labelledby="LoginModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="LoginModalLabel">Login</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form id="modalFormLogin">
+          <div class="mb-3">
+            <label for="user" class="form-label">User</label>
+            <input type="text" id="user" name="user" class="form-control border-1" placeholder="User" required>
+          </div>
+          <div class="mb-3">
+            <label for="password" class="form-label">Password</label>
+            <input type="password" id="password" name="password" class="form-control border-1" placeholder="Password" required>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="submit" form="modalFormLogin" class="btn btn-primary">Sign In</button>
+      </div>
+    </div>
+  </div>
+</div>

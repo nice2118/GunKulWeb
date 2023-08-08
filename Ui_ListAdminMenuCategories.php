@@ -219,7 +219,7 @@ th {
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form id="modalForm" action="Pro_Add&EditMenuCategory.php" method="post" enctype="multipart/form-data">
+                <form id="modalFormMenuCategory2" action="Pro_Add&EditMenuCategory.php" method="post" enctype="multipart/form-data">
                     <div class="row g-2 my-2">
                         <div class="col-112 col-sm-112">
                             <input type="hidden" id="Send_Code" name="Send_Code">

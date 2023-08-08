@@ -302,7 +302,7 @@ $_SESSION['PathPage'] = "Ui_AdminSetup.php";
                         <div class="row">
                             <div class="col-12 text-center text-md-end">
                                 <!-- <input type="submit" value="บันทึก" class="btn btn-success rounded-pill py-2 px-3 add-image-btn text-end"> -->
-                                <button type="submit" class="btn btn-success rounded-pill py-2 px-5 add-image-btn text-end" id="addButton"><i class="fa fa-save"></i></button>
+                                <button type="submit" class="btn btn-success rounded-pill py-2 px-5 add-image-btn text-end"><i class="fa fa-save"></i></button>
                             </div>
                         </div>
                     </form>
@@ -321,7 +321,7 @@ $_SESSION['PathPage'] = "Ui_AdminSetup.php";
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form id="modalForm" action="Pro_Add&EditCategory.php" method="post" enctype="multipart/form-data">
+                    <form id="modalFormCategory" action="Pro_Add&EditCategory.php" method="post" enctype="multipart/form-data">
                         <div class="row g-2 my-2">
                             <!-- <div class="col-3 col-sm-2"> -->
                                 <!-- <h6 class="text-primary">รหัส</h6> -->
@@ -389,7 +389,7 @@ $_SESSION['PathPage'] = "Ui_AdminSetup.php";
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form id="modalForm" action="Pro_Add&EditMenuCategory.php" method="post" enctype="multipart/form-data">
+                    <form id="modalFormMenuCategory" action="Pro_Add&EditMenuCategory.php" method="post" enctype="multipart/form-data">
                         <div class="row g-2 my-2">
                             <!-- <div class="col-3 col-sm-2"> -->
                                 <!-- <h6 class="text-primary">รหัส</h6> -->
@@ -429,7 +429,7 @@ $_SESSION['PathPage'] = "Ui_AdminSetup.php";
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form id="modalForm" action="Pro_Add&EditMasterMenuCategory.php" method="post" enctype="multipart/form-data">
+                    <form id="modalFormMasterMenuCategory" action="Pro_Add&EditMasterMenuCategory.php" method="post" enctype="multipart/form-data">
                         <div class="form-group">
                             <div id="modalContentMasterMenuCategory"></div>
                             <div class="form-group text-center text-md-end my-2">
@@ -455,7 +455,7 @@ $_SESSION['PathPage'] = "Ui_AdminSetup.php";
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form id="modalForm" action="Pro_Add&EditEngravedCategory.php" method="post" enctype="multipart/form-data">
+                    <form id="modalFormEngravedCategory" action="Pro_Add&EditEngravedCategory.php" method="post" enctype="multipart/form-data">
                         <div class="row g-2 my-2">
                             <!-- <div class="col-3 col-sm-2"> -->
                                 <!-- <h6 class="text-primary">รหัส</h6> -->
@@ -493,7 +493,7 @@ $_SESSION['PathPage'] = "Ui_AdminSetup.php";
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form id="modalForm" action="Pro_Add&EditEngravedActivities.php" method="post" enctype="multipart/form-data">
+                    <form id="modalFormEngravedActivities" action="Pro_Add&EditEngravedActivities.php" method="post" enctype="multipart/form-data">
                         <div class="form-group">
                             <div id="modalContent"></div>
                             <div class="form-group text-center text-md-end my-2">
@@ -511,410 +511,410 @@ $_SESSION['PathPage'] = "Ui_AdminSetup.php";
     </div>
 
 <?php include("Ma_Footer.php"); ?>
-    <script>
-        function redirectToPage() {
-            // หากต้องการเลื่อนลงมากลางหน้าต่างใหม่ที่เปิด คุณสามารถใช้ตำแหน่ง scrollTop
-            // ของหน้าต่างใหม่เท่ากับครึ่งหนึ่งของความสูงของหน้าต่าง
-            const windowHeight = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
-            const halfWindowHeight = windowHeight / 2;
-            window.scrollTo(0, halfWindowHeight);
-        }
+<script>
+    function redirectToPage() {
+        // หากต้องการเลื่อนลงมากลางหน้าต่างใหม่ที่เปิด คุณสามารถใช้ตำแหน่ง scrollTop
+        // ของหน้าต่างใหม่เท่ากับครึ่งหนึ่งของความสูงของหน้าต่าง
+        const windowHeight = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
+        const halfWindowHeight = windowHeight / 2;
+        window.scrollTo(0, halfWindowHeight);
+    }
 
-        // ให้เรียกใช้ฟังก์ชัน redirectToPage เมื่อโหลดหน้าใหม่
-        setTimeout(redirectToPage, 0);
-    </script>
+    // ให้เรียกใช้ฟังก์ชัน redirectToPage เมื่อโหลดหน้าใหม่
+    setTimeout(redirectToPage, 0);
+</script>
     <!-- Show Image -->
-    <script>
-        document.getElementById('image').addEventListener('change', function (e) {
-            var file = e.target.files[0];
-            var reader = new FileReader();
+<script>
+    document.getElementById('image').addEventListener('change', function (e) {
+        var file = e.target.files[0];
+        var reader = new FileReader();
 
-            reader.onload = function (e) {
-                var previewImage = document.getElementById('previewImage');
-                previewImage.src = e.target.result;
-            };
+        reader.onload = function (e) {
+            var previewImage = document.getElementById('previewImage');
+            previewImage.src = e.target.result;
+        };
 
-            if (file) {
-                reader.readAsDataURL(file);
+        if (file) {
+            reader.readAsDataURL(file);
+        } else {
+            var defaultImagePath = document.getElementById('DefaultNameImageNews').value;
+            previewImage.src = defaultImagePath;
+        }
+    });
+</script>
+<!-- sweetalert -->
+<script>
+        // ตรวจสอบว่ามีข้อความใน Session หรือไม่
+    <?php if (isset($_SESSION['StatusMessage'])) : ?>
+        // แสดงข้อความแจ้งเตือนเมื่อโหลดหน้า
+        window.onload = function() {
+            swal("<?php echo $_SESSION['StatusTitle']; ?>", "<?php echo $_SESSION['StatusMessage']; ?>", "<?php echo $_SESSION['StatusAlert']; ?>");
+            <?php unset($_SESSION['StatusTitle'], $_SESSION['StatusMessage'], $_SESSION['StatusAlert']); ?> // ลบค่าใน Session เพื่อไม่ให้แสดงซ้ำ
+        };
+    <?php endif; ?>
+</script>
+<script src="js/jquery.min.js"></script>
+<script src="js/adminlte.min.js"></script>
+<!-- Add & Delete Input -->
+<script>
+$(document).ready(function() {
+    var count = 1; // ตัวแปรนับค่าชื่อ name
+    $('#addButton').click(function() {
+        var formGroup = $('<div class="form-group">' +
+            '<textarea name="Games[]" class="form-control border-0 my-2" placeholder="iframe" style="height: 110px;"></textarea>' +
+            '</div>');
+        $('#form-container').append(formGroup);
+    });
+
+    $('#deleteButton').click(function() {
+        $('#form-container .form-group:last-child').remove();
+        count--; // ลดค่านับเมื่อกดปุ่ม "ลบ"
+    });
+    
+    $('#addButtonMasterMenuCategory').click(function() {
+        var formGroup = $('<div class="row my-3">' +
+                    '<div class="col-11">' +
+                    '<input type="hidden" name="mcinputcode[]" class="form-control">' +
+                    '<input type="text" name="mcinputname[]" class="form-control">' +
+                    '</div>' +
+                    '<div class="col-1">' +
+                    '</div>' +
+                    '</div>');
+        $('#modalContentMasterMenuCategory').append(formGroup);
+    });
+
+    $('#addButtonGeneralSettings').click(function() {
+        var formGroup = $('<div class="row my-3">' +
+                    '<div class="col-4">' +
+                    '<input type="hidden" name="inputcode[]" class="form-control">' +
+                    '<input type="text" name="inputname[]" class="form-control">' +
+                    '</div>' +
+                    '<div class="col-5">' +
+                    '<input type="text" name="inputvalue[]" class="form-control">' +
+                    '</div>' +
+                    '<div class="col-2">' +
+                    '<input class="form-control" name="inputvaluefile[]" type="file" accept=".pdf, .doc, .docx, .xls, .xlsx, .ppt, .pptx">' +
+                    '</div>' +
+                    '<div class="col-1">' +
+                    '</div>' +
+                    '</div>');
+        $('#modalContent').append(formGroup);
+    });
+});
+</script>
+<!-- category Delete -->
+<script>    
+    function deleteAlertCategory(categoryID, categoryName) {
+        swal({
+            title: "คุณต้องการที่จะลบหรือไม่?",
+            text: `${categoryName}\nเมื่อกดลบไปแล้วจะไม่สามารถนำข้อมูลกลับมาได้!`,
+            icon: "warning",
+            buttons: {
+                cancel: {
+                    text: "ยกเลิก",
+                    value: false,
+                    visible: true,
+                    className: "",
+                    closeModal: true,
+                },
+                confirm: {
+                    text: "ลบ",
+                    value: true,
+                    visible: true,
+                    className: "",
+                    closeModal: true,
+                },
+            },
+            dangerMode: true,
+        })
+        .then((willDelete) => {
+            if (willDelete) {
+                // เมื่อกดตกลง ทำการเปลี่ยนหน้า
+                window.location.replace(`Pro_DeleteCategory.php?Send_ID=${categoryID}&Send_Name=${categoryName}`);
             } else {
-                var defaultImagePath = document.getElementById('DefaultNameImageNews').value;
-                previewImage.src = defaultImagePath;
+                // เมื่อกดยกเลิก ไม่ต้องทำอะไร
             }
+        })
+        .catch((error) => {
+            // เกิดข้อผิดพลาดในกรณีที่ไม่สามารถแสดงกล่อง SweetAlert ได้
+            console.error("Error displaying SweetAlert:", error);
         });
-    </script>
-    <!-- sweetalert -->
-    <script>
-            // ตรวจสอบว่ามีข้อความใน Session หรือไม่
-        <?php if (isset($_SESSION['StatusMessage'])) : ?>
-            // แสดงข้อความแจ้งเตือนเมื่อโหลดหน้า
-            window.onload = function() {
-                swal("<?php echo $_SESSION['StatusTitle']; ?>", "<?php echo $_SESSION['StatusMessage']; ?>", "<?php echo $_SESSION['StatusAlert']; ?>");
-                <?php unset($_SESSION['StatusTitle'], $_SESSION['StatusMessage'], $_SESSION['StatusAlert']); ?> // ลบค่าใน Session เพื่อไม่ให้แสดงซ้ำ
-            };
-        <?php endif; ?>
-    </script>
-    <script src="js/jquery.min.js"></script>
-    <script src="js/adminlte.min.js"></script>
-    <!-- Add & Delete Input -->
-    <script>
-    $(document).ready(function() {
-        var count = 1; // ตัวแปรนับค่าชื่อ name
-        $('#addButton').click(function() {
-            var formGroup = $('<div class="form-group">' +
-                '<textarea name="Games[]" class="form-control border-0 my-2" placeholder="iframe" style="height: 110px;"></textarea>' +
-                '</div>');
-            $('#form-container').append(formGroup);
+    }
+    function deleteAlertMenuCategory(categoryID, categoryText,SendType) {
+        swal({
+            title: "คุณต้องการที่จะลบหรือไม่?",
+            text: `${categoryText}\nเมื่อกดลบไปแล้วจะไม่สามารถนำข้อมูลกลับมาได้!`,
+            icon: "warning",
+            buttons: {
+                cancel: {
+                    text: "ยกเลิก",
+                    value: false,
+                    visible: true,
+                    className: "",
+                    closeModal: true,
+                },
+                confirm: {
+                    text: "ลบ",
+                    value: true,
+                    visible: true,
+                    className: "",
+                    closeModal: true,
+                },
+            },
+            dangerMode: true,
+        })
+        .then((willDelete) => {
+            if (willDelete) {
+                // เมื่อกดตกลง ทำการเปลี่ยนหน้า
+                window.location.replace(`Pro_DeleteMenuCategory.php?Send_ID=${categoryID}&Send_Text=${categoryText}&Send_Type=${SendType}`);
+            } else {
+                // เมื่อกดยกเลิก ไม่ต้องทำอะไร
+            }
+        })
+        .catch((error) => {
+            // เกิดข้อผิดพลาดในกรณีที่ไม่สามารถแสดงกล่อง SweetAlert ได้
+            console.error("Error displaying SweetAlert:", error);
         });
+    }
+    function deleteAlertMasterMenuCategory(MasterMenuCategoryID, MasterMenuCategoryName) {
+        swal({
+            title: "คุณต้องการที่จะลบหรือไม่?",
+            text: `${MasterMenuCategoryName}\nเมื่อกดลบไปแล้วจะไม่สามารถนำข้อมูลกลับมาได้!`,
+            icon: "warning",
+            buttons: {
+                cancel: {
+                    text: "ยกเลิก",
+                    value: false,
+                    visible: true,
+                    className: "",
+                    closeModal: true,
+                },
+                confirm: {
+                    text: "ลบ",
+                    value: true,
+                    visible: true,
+                    className: "",
+                    closeModal: true,
+                },
+            },
+            dangerMode: true,
+        })
+        .then((willDelete) => {
+            if (willDelete) {
+                // เมื่อกดตกลง ทำการเปลี่ยนหน้า
+                window.location.replace(`Pro_DeleteMasterMenuCategory.php?Send_ID=${MasterMenuCategoryID}&Send_Name=${MasterMenuCategoryName}`);
+            } else {
+                // เมื่อกดยกเลิก ไม่ต้องทำอะไร
+            }
+        })
+        .catch((error) => {
+            // เกิดข้อผิดพลาดในกรณีที่ไม่สามารถแสดงกล่อง SweetAlert ได้
+            console.error("Error displaying SweetAlert:", error);
+        });
+    }
+    function deleteAlertEngravedCategory(EngravedCategoryID, EngravedCategoryName) {
+        swal({
+            title: "คุณต้องการที่จะลบหรือไม่?",
+            text: `${EngravedCategoryName}\nเมื่อกดลบไปแล้วจะไม่สามารถนำข้อมูลกลับมาได้!`,
+            icon: "warning",
+            buttons: {
+                cancel: {
+                    text: "ยกเลิก",
+                    value: false,
+                    visible: true,
+                    className: "",
+                    closeModal: true,
+                },
+                confirm: {
+                    text: "ลบ",
+                    value: true,
+                    visible: true,
+                    className: "",
+                    closeModal: true,
+                },
+            },
+            dangerMode: true,
+        })
+        .then((willDelete) => {
+            if (willDelete) {
+                // เมื่อกดตกลง ทำการเปลี่ยนหน้า
+                window.location.replace(`Pro_DeleteEngravedCategory.php?Send_ID=${EngravedCategoryID}&Send_Name=${EngravedCategoryName}`);
+            } else {
+                // เมื่อกดยกเลิก ไม่ต้องทำอะไร
+            }
+        })
+        .catch((error) => {
+            // เกิดข้อผิดพลาดในกรณีที่ไม่สามารถแสดงกล่อง SweetAlert ได้
+            console.error("Error displaying SweetAlert:", error);
+        });
+    }
+    function deleteAlertEngravedActivities(EngravedActivitiesID, EngravedActivitiesName) {
+        swal({
+            title: "คุณต้องการที่จะลบหรือไม่?",
+            text: `${EngravedActivitiesName}\nเมื่อกดลบไปแล้วจะไม่สามารถนำข้อมูลกลับมาได้!`,
+            icon: "warning",
+            buttons: {
+                cancel: {
+                    text: "ยกเลิก",
+                    value: false,
+                    visible: true,
+                    className: "",
+                    closeModal: true,
+                },
+                confirm: {
+                    text: "ลบ",
+                    value: true,
+                    visible: true,
+                    className: "",
+                    closeModal: true,
+                },
+            },
+            dangerMode: true,
+        })
+        .then((willDelete) => {
+            if (willDelete) {
+                // เมื่อกดตกลง ทำการเปลี่ยนหน้า
+                window.location.replace(`Pro_DeleteEngravedActivities.php?Send_ID=${EngravedActivitiesID}&Send_Name=${EngravedActivitiesName}`);
+            } else {
+                // เมื่อกดยกเลิก ไม่ต้องทำอะไร
+            }
+        })
+        .catch((error) => {
+            // เกิดข้อผิดพลาดในกรณีที่ไม่สามารถแสดงกล่อง SweetAlert ได้
+            console.error("Error displaying SweetAlert:", error);
+        });
+    }
+</script>
+<!-- category Edit -->
+<script>
+    // เมื่อ Modal Category ถูกเปิดขึ้นมา
+    $('#Category').on('show.bs.modal', function(event) {
+        const button = $(event.relatedTarget);
+        const entityNo = button.data('entityno');
+        const entityRelationNo = button.data('entityrelationno');
+        const isfile = button.data('isfile');
+        const name = button.data('name');
+        const descriptionTH = button.data('descriptionth');
+        const descriptionEN = button.data('descriptionen');
 
-        $('#deleteButton').click(function() {
-            $('#form-container .form-group:last-child').remove();
-            count--; // ลดค่านับเมื่อกดปุ่ม "ลบ"
-        });
-        
-        $('#addButtonMasterMenuCategory').click(function() {
-            var formGroup = $('<div class="row my-3">' +
+        // กำหนดค่าให้กับช่อง input ใน Modal
+        document.getElementById("CG_EntityNo").value = entityNo;
+        document.getElementById("CG_EntityRelationNo").value = entityRelationNo;
+        document.getElementById("CG_IsFile").checked = (isfile == 1);
+        document.getElementById("CG_Name").value = name;
+        document.getElementById("CG_DescriptionTH").value = descriptionTH;
+        document.getElementById("CG_DescriptionEN").value = descriptionEN;
+    });
+
+    // เมื่อ Modal MenuCategory ถูกเปิดขึ้นมา
+    $('#MenuCategory').on('show.bs.modal', function(event) {
+        const button = $(event.relatedTarget);
+        const hcCode = button.data('hccode');
+        const hcText = button.data('hctext');
+        const hcDescriptionTH = button.data('hcdescriptionth');
+        const hcDescriptionEN = button.data('hcdescriptionen');
+
+        // กำหนดค่าให้กับช่อง input ใน Modal
+        document.getElementById("Send_Code").value = hcCode;
+        document.getElementById("Send_Text").value = hcText;
+        document.getElementById("Send_descriptionth").value = hcDescriptionTH;
+        document.getElementById("Send_descriptionen").value = hcDescriptionEN;
+    });
+
+    // เมื่อ Modal MasterMenuCategory ถูกเปิดขึ้นมา
+    $('#MasterMenuCategory').on('show.bs.modal', function(event) {
+        var hcCode = event.relatedTarget.dataset.hccode;
+        // console.log(hcCode);
+        // ส่งค่าตัวกรองไปยังหน้า PHP ดึงข้อมูล
+        $.ajax({
+            url: "DB_MasterMenuCategory.php",
+            type: "POST",
+            data: { hccode: hcCode },
+            dataType: "json",
+            success: function(response) {
+                // ดำเนินการแสดงผลข้อมูลที่ได้รับใน Modal
+                var modalContentMasterMenuCategory = document.getElementById("modalContentMasterMenuCategory");
+                var contentHTML = '<input type="hidden" name="inputMastercode" value="' + hcCode + '" class="form-control">';
+
+                // ใช้ Loop เพื่อแสดงข้อมูลใน Modal
+                for (var i = 0; i < response.length; i++) {
+                    contentHTML +=
+                        '<div class="row my-3">' +
                         '<div class="col-11">' +
-                        '<input type="hidden" name="mcinputcode[]" class="form-control">' +
-                        '<input type="text" name="mcinputname[]" class="form-control">' +
+                        '<input type="hidden" name="mcinputcode[]" value="' + response[i].MC_Code + '" class="form-control">' +
+                        '<input type="text" name="mcinputname[]" value="' + response[i].MC_Text + '" class="form-control">' +
                         '</div>' +
                         '<div class="col-1">' +
+                        '<button type="button" class="btn btn-danger rounded-pill py-1 px-2 add-image-btn text-end" onclick="deleteAlertMasterMenuCategory(\'' + response[i].MC_Code + '\', \'' + response[i].MC_Text + '\')"><i class="fas fa-trash"></i></button>' +
                         '</div>' +
-                        '</div>');
-            $('#modalContentMasterMenuCategory').append(formGroup);
+                        '</div>';
+                }
+                modalContentMasterMenuCategory.innerHTML = contentHTML;
+            },
+            error: function() {
+                console.log("เกิดข้อผิดพลาดกับการเชื่อมต่อ");
+            }
         });
+    });
 
-        $('#addButtonGeneralSettings').click(function() {
-            var formGroup = $('<div class="row my-3">' +
+    // เมื่อ Modal EngravedCategory ถูกเปิดขึ้นมา
+    $('#engravedcategory').on('show.bs.modal', function(event) {
+        const button = $(event.relatedTarget);
+        const ecCode = button.data('eccode');
+        const ecName = button.data('ecname');
+        const ecDescriptionTH = button.data('ecdescriptionth');
+        const ecDescriptionEN = button.data('ecdescriptionen');
+
+        // กำหนดค่าให้กับช่อง input ใน Modal
+        document.getElementById("EC_code").value = ecCode;
+        if (ecName === undefined) {
+            document.getElementById("EC_name").value = '';
+        } else {
+            document.getElementById("EC_name").value = ecName;
+        }
+        document.getElementById("EC_descriptionth").value = ecDescriptionTH;
+        document.getElementById("EC_descriptionen").value = ecDescriptionEN;
+    });
+
+    // เมื่อ Modal EngravedActivities ถูกเปิดขึ้นมา
+    $('#EngravedActivities').on('show.bs.modal', function(event) {
+        var ecCode = event.relatedTarget.dataset.eccode;
+        // ส่งค่าตัวกรองไปยังหน้า PHP ดึงข้อมูล
+        $.ajax({
+            url: "DB_EngravedActivities.php",
+            type: "POST",
+            data: { eccode: ecCode },
+            dataType: "json",
+            success: function(response) {
+                // ดำเนินการแสดงผลข้อมูลที่ได้รับใน Modal
+                var modalContent = document.getElementById("modalContent");
+                var contentHTML = '<input type="hidden" name="inputMastercode" value="' + ecCode + '" class="form-control">';
+
+                // ใช้ Loop เพื่อแสดงข้อมูลใน Modal
+                for (var i = 0; i < response.length; i++) {
+                    contentHTML +=
+                        '<div class="row my-3">' +
                         '<div class="col-4">' +
-                        '<input type="hidden" name="inputcode[]" class="form-control">' +
-                        '<input type="text" name="inputname[]" class="form-control">' +
+                        '<input type="hidden" name="inputcode[]" value="' + response[i].EA_Code + '" class="form-control">' +
+                        '<input type="text" name="inputname[]" value="' + response[i].EA_Name + '" class="form-control">' +
                         '</div>' +
                         '<div class="col-5">' +
-                        '<input type="text" name="inputvalue[]" class="form-control">' +
+                        '<input type="text" name="inputvalue[]" value="' + response[i].EA_Path + '" class="form-control">' +
                         '</div>' +
                         '<div class="col-2">' +
                         '<input class="form-control" name="inputvaluefile[]" type="file" accept=".pdf, .doc, .docx, .xls, .xlsx, .ppt, .pptx">' +
                         '</div>' +
                         '<div class="col-1">' +
+                        '<button type="button" class="btn btn-danger rounded-pill py-1 px-2 add-image-btn text-end" onclick="deleteAlertEngravedActivities(\'' + response[i].EA_Code + '\', \'' + response[i].EA_Name + '\')"><i class="fas fa-trash"></i></button>' +
                         '</div>' +
-                        '</div>');
-            $('#modalContent').append(formGroup);
+                        '</div>';
+                }
+                modalContent.innerHTML = contentHTML;
+            },
+            error: function() {
+                console.log("เกิดข้อผิดพลาดกับการเชื่อมต่อ");
+            }
         });
     });
-    </script>
-        <!-- category Delete -->
-    <script>    
-        function deleteAlertCategory(categoryID, categoryName) {
-            swal({
-                title: "คุณต้องการที่จะลบหรือไม่?",
-                text: `${categoryName}\nเมื่อกดลบไปแล้วจะไม่สามารถนำข้อมูลกลับมาได้!`,
-                icon: "warning",
-                buttons: {
-                    cancel: {
-                        text: "ยกเลิก",
-                        value: false,
-                        visible: true,
-                        className: "",
-                        closeModal: true,
-                    },
-                    confirm: {
-                        text: "ลบ",
-                        value: true,
-                        visible: true,
-                        className: "",
-                        closeModal: true,
-                    },
-                },
-                dangerMode: true,
-            })
-            .then((willDelete) => {
-                if (willDelete) {
-                    // เมื่อกดตกลง ทำการเปลี่ยนหน้า
-                    window.location.replace(`Pro_DeleteCategory.php?Send_ID=${categoryID}&Send_Name=${categoryName}`);
-                } else {
-                    // เมื่อกดยกเลิก ไม่ต้องทำอะไร
-                }
-            })
-            .catch((error) => {
-                // เกิดข้อผิดพลาดในกรณีที่ไม่สามารถแสดงกล่อง SweetAlert ได้
-                console.error("Error displaying SweetAlert:", error);
-            });
-        }
-        function deleteAlertMenuCategory(categoryID, categoryText,SendType) {
-            swal({
-                title: "คุณต้องการที่จะลบหรือไม่?",
-                text: `${categoryText}\nเมื่อกดลบไปแล้วจะไม่สามารถนำข้อมูลกลับมาได้!`,
-                icon: "warning",
-                buttons: {
-                    cancel: {
-                        text: "ยกเลิก",
-                        value: false,
-                        visible: true,
-                        className: "",
-                        closeModal: true,
-                    },
-                    confirm: {
-                        text: "ลบ",
-                        value: true,
-                        visible: true,
-                        className: "",
-                        closeModal: true,
-                    },
-                },
-                dangerMode: true,
-            })
-            .then((willDelete) => {
-                if (willDelete) {
-                    // เมื่อกดตกลง ทำการเปลี่ยนหน้า
-                    window.location.replace(`Pro_DeleteMenuCategory.php?Send_ID=${categoryID}&Send_Text=${categoryText}&Send_Type=${SendType}`);
-                } else {
-                    // เมื่อกดยกเลิก ไม่ต้องทำอะไร
-                }
-            })
-            .catch((error) => {
-                // เกิดข้อผิดพลาดในกรณีที่ไม่สามารถแสดงกล่อง SweetAlert ได้
-                console.error("Error displaying SweetAlert:", error);
-            });
-        }
-        function deleteAlertMasterMenuCategory(MasterMenuCategoryID, MasterMenuCategoryName) {
-            swal({
-                title: "คุณต้องการที่จะลบหรือไม่?",
-                text: `${MasterMenuCategoryName}\nเมื่อกดลบไปแล้วจะไม่สามารถนำข้อมูลกลับมาได้!`,
-                icon: "warning",
-                buttons: {
-                    cancel: {
-                        text: "ยกเลิก",
-                        value: false,
-                        visible: true,
-                        className: "",
-                        closeModal: true,
-                    },
-                    confirm: {
-                        text: "ลบ",
-                        value: true,
-                        visible: true,
-                        className: "",
-                        closeModal: true,
-                    },
-                },
-                dangerMode: true,
-            })
-            .then((willDelete) => {
-                if (willDelete) {
-                    // เมื่อกดตกลง ทำการเปลี่ยนหน้า
-                    window.location.replace(`Pro_DeleteMasterMenuCategory.php?Send_ID=${MasterMenuCategoryID}&Send_Name=${MasterMenuCategoryName}`);
-                } else {
-                    // เมื่อกดยกเลิก ไม่ต้องทำอะไร
-                }
-            })
-            .catch((error) => {
-                // เกิดข้อผิดพลาดในกรณีที่ไม่สามารถแสดงกล่อง SweetAlert ได้
-                console.error("Error displaying SweetAlert:", error);
-            });
-        }
-        function deleteAlertEngravedCategory(EngravedCategoryID, EngravedCategoryName) {
-            swal({
-                title: "คุณต้องการที่จะลบหรือไม่?",
-                text: `${EngravedCategoryName}\nเมื่อกดลบไปแล้วจะไม่สามารถนำข้อมูลกลับมาได้!`,
-                icon: "warning",
-                buttons: {
-                    cancel: {
-                        text: "ยกเลิก",
-                        value: false,
-                        visible: true,
-                        className: "",
-                        closeModal: true,
-                    },
-                    confirm: {
-                        text: "ลบ",
-                        value: true,
-                        visible: true,
-                        className: "",
-                        closeModal: true,
-                    },
-                },
-                dangerMode: true,
-            })
-            .then((willDelete) => {
-                if (willDelete) {
-                    // เมื่อกดตกลง ทำการเปลี่ยนหน้า
-                    window.location.replace(`Pro_DeleteEngravedCategory.php?Send_ID=${EngravedCategoryID}&Send_Name=${EngravedCategoryName}`);
-                } else {
-                    // เมื่อกดยกเลิก ไม่ต้องทำอะไร
-                }
-            })
-            .catch((error) => {
-                // เกิดข้อผิดพลาดในกรณีที่ไม่สามารถแสดงกล่อง SweetAlert ได้
-                console.error("Error displaying SweetAlert:", error);
-            });
-        }
-        function deleteAlertEngravedActivities(EngravedActivitiesID, EngravedActivitiesName) {
-            swal({
-                title: "คุณต้องการที่จะลบหรือไม่?",
-                text: `${EngravedActivitiesName}\nเมื่อกดลบไปแล้วจะไม่สามารถนำข้อมูลกลับมาได้!`,
-                icon: "warning",
-                buttons: {
-                    cancel: {
-                        text: "ยกเลิก",
-                        value: false,
-                        visible: true,
-                        className: "",
-                        closeModal: true,
-                    },
-                    confirm: {
-                        text: "ลบ",
-                        value: true,
-                        visible: true,
-                        className: "",
-                        closeModal: true,
-                    },
-                },
-                dangerMode: true,
-            })
-            .then((willDelete) => {
-                if (willDelete) {
-                    // เมื่อกดตกลง ทำการเปลี่ยนหน้า
-                    window.location.replace(`Pro_DeleteEngravedActivities.php?Send_ID=${EngravedActivitiesID}&Send_Name=${EngravedActivitiesName}`);
-                } else {
-                    // เมื่อกดยกเลิก ไม่ต้องทำอะไร
-                }
-            })
-            .catch((error) => {
-                // เกิดข้อผิดพลาดในกรณีที่ไม่สามารถแสดงกล่อง SweetAlert ได้
-                console.error("Error displaying SweetAlert:", error);
-            });
-        }
-    </script>
-    <!-- category Edit -->
-    <script>
-        // เมื่อ Modal Category ถูกเปิดขึ้นมา
-        $('#Category').on('show.bs.modal', function(event) {
-            const button = $(event.relatedTarget);
-            const entityNo = button.data('entityno');
-            const entityRelationNo = button.data('entityrelationno');
-            const isfile = button.data('isfile');
-            const name = button.data('name');
-            const descriptionTH = button.data('descriptionth');
-            const descriptionEN = button.data('descriptionen');
-
-            // กำหนดค่าให้กับช่อง input ใน Modal
-            document.getElementById("CG_EntityNo").value = entityNo;
-            document.getElementById("CG_EntityRelationNo").value = entityRelationNo;
-            document.getElementById("CG_IsFile").checked = (isfile == 1);
-            document.getElementById("CG_Name").value = name;
-            document.getElementById("CG_DescriptionTH").value = descriptionTH;
-            document.getElementById("CG_DescriptionEN").value = descriptionEN;
-        });
-
-        // เมื่อ Modal MenuCategory ถูกเปิดขึ้นมา
-        $('#MenuCategory').on('show.bs.modal', function(event) {
-            const button = $(event.relatedTarget);
-            const hcCode = button.data('hccode');
-            const hcText = button.data('hctext');
-            const hcDescriptionTH = button.data('hcdescriptionth');
-            const hcDescriptionEN = button.data('hcdescriptionen');
-
-            // กำหนดค่าให้กับช่อง input ใน Modal
-            document.getElementById("Send_Code").value = hcCode;
-            document.getElementById("Send_Text").value = hcText;
-            document.getElementById("Send_descriptionth").value = hcDescriptionTH;
-            document.getElementById("Send_descriptionen").value = hcDescriptionEN;
-        });
-
-        // เมื่อ Modal MasterMenuCategory ถูกเปิดขึ้นมา
-        $('#MasterMenuCategory').on('show.bs.modal', function(event) {
-            var hcCode = event.relatedTarget.dataset.hccode;
-            console.log(hcCode);
-            // ส่งค่าตัวกรองไปยังหน้า PHP ดึงข้อมูล
-            $.ajax({
-                url: "DB_MasterMenuCategory.php",
-                type: "POST",
-                data: { hccode: hcCode },
-                dataType: "json",
-                success: function(response) {
-                    // ดำเนินการแสดงผลข้อมูลที่ได้รับใน Modal
-                    var modalContentMasterMenuCategory = document.getElementById("modalContentMasterMenuCategory");
-                    var contentHTML = '<input type="hidden" name="inputMastercode" value="' + hcCode + '" class="form-control">';
-
-                    // ใช้ Loop เพื่อแสดงข้อมูลใน Modal
-                    for (var i = 0; i < response.length; i++) {
-                        contentHTML +=
-                            '<div class="row my-3">' +
-                            '<div class="col-11">' +
-                            '<input type="hidden" name="mcinputcode[]" value="' + response[i].MC_Code + '" class="form-control">' +
-                            '<input type="text" name="mcinputname[]" value="' + response[i].MC_Text + '" class="form-control">' +
-                            '</div>' +
-                            '<div class="col-1">' +
-                            '<button type="button" class="btn btn-danger rounded-pill py-1 px-2 add-image-btn text-end" onclick="deleteAlertMasterMenuCategory(\'' + response[i].MC_Code + '\', \'' + response[i].MC_Text + '\')"><i class="fas fa-trash"></i></button>' +
-                            '</div>' +
-                            '</div>';
-                    }
-                    modalContentMasterMenuCategory.innerHTML = contentHTML;
-                },
-                error: function() {
-                    console.log("เกิดข้อผิดพลาดกับการเชื่อมต่อ");
-                }
-            });
-        });
-
-        // เมื่อ Modal EngravedCategory ถูกเปิดขึ้นมา
-        $('#engravedcategory').on('show.bs.modal', function(event) {
-            const button = $(event.relatedTarget);
-            const ecCode = button.data('eccode');
-            const ecName = button.data('ecname');
-            const ecDescriptionTH = button.data('ecdescriptionth');
-            const ecDescriptionEN = button.data('ecdescriptionen');
-
-            // กำหนดค่าให้กับช่อง input ใน Modal
-            document.getElementById("EC_code").value = ecCode;
-            if (ecName === undefined) {
-                document.getElementById("EC_name").value = '';
-            } else {
-                document.getElementById("EC_name").value = ecName;
-            }
-            document.getElementById("EC_descriptionth").value = ecDescriptionTH;
-            document.getElementById("EC_descriptionen").value = ecDescriptionEN;
-        });
-
-        // เมื่อ Modal EngravedActivities ถูกเปิดขึ้นมา
-        $('#EngravedActivities').on('show.bs.modal', function(event) {
-            var ecCode = event.relatedTarget.dataset.eccode;
-            // ส่งค่าตัวกรองไปยังหน้า PHP ดึงข้อมูล
-            $.ajax({
-                url: "DB_EngravedActivities.php",
-                type: "POST",
-                data: { eccode: ecCode },
-                dataType: "json",
-                success: function(response) {
-                    // ดำเนินการแสดงผลข้อมูลที่ได้รับใน Modal
-                    var modalContent = document.getElementById("modalContent");
-                    var contentHTML = '<input type="hidden" name="inputMastercode" value="' + ecCode + '" class="form-control">';
-
-                    // ใช้ Loop เพื่อแสดงข้อมูลใน Modal
-                    for (var i = 0; i < response.length; i++) {
-                        contentHTML +=
-                            '<div class="row my-3">' +
-                            '<div class="col-4">' +
-                            '<input type="hidden" name="inputcode[]" value="' + response[i].EA_Code + '" class="form-control">' +
-                            '<input type="text" name="inputname[]" value="' + response[i].EA_Name + '" class="form-control">' +
-                            '</div>' +
-                            '<div class="col-5">' +
-                            '<input type="text" name="inputvalue[]" value="' + response[i].EA_Path + '" class="form-control">' +
-                            '</div>' +
-                            '<div class="col-2">' +
-                            '<input class="form-control" name="inputvaluefile[]" type="file" accept=".pdf, .doc, .docx, .xls, .xlsx, .ppt, .pptx">' +
-                            '</div>' +
-                            '<div class="col-1">' +
-                            '<button type="button" class="btn btn-danger rounded-pill py-1 px-2 add-image-btn text-end" onclick="deleteAlertEngravedActivities(\'' + response[i].EA_Code + '\', \'' + response[i].EA_Name + '\')"><i class="fas fa-trash"></i></button>' +
-                            '</div>' +
-                            '</div>';
-                    }
-                    modalContent.innerHTML = contentHTML;
-                },
-                error: function() {
-                    console.log("เกิดข้อผิดพลาดกับการเชื่อมต่อ");
-                }
-            });
-        });
-    </script>
+</script>
 <?php include("Ma_Footer_Script.php"); ?>
