@@ -2,8 +2,7 @@
 include("DB_Include.php");
 
 if (isset($_GET['Send_ID']) && $_GET['Send_ID'] !== '') {
-    $Engraved_Activities_id = $_GET['Send_ID'];
-    $Engraved_Activities_Name = $_GET['Send_Name'];
+    $User_id = $_GET['Send_ID'];
 } else {
     $_SESSION['StatusTitle'] = "Error!";
     $_SESSION['StatusMessage'] = 'ไม่พบเลขที่เอกสารนี้';
@@ -15,16 +14,16 @@ if (isset($_GET['Send_ID']) && $_GET['Send_ID'] !== '') {
     exit();
 }
 
-$sql1 = "DELETE FROM `newsandactivities`.`engravedactivities` WHERE `engravedactivities`.`EA_Code` = $Engraved_Activities_id;";
+$sql1 = "DELETE FROM `newsandactivities`.`user` WHERE `user`.`US_Code` = $User_id;";
 $conn->query($sql1);
 
 if ($conn->query($sql1) === TRUE) {
   $_SESSION['StatusTitle'] = "ดำเนินการเรียบร้อยแล้ว";
-  $_SESSION['StatusMessage'] = "ทำการลบเอกสารให้หัวข้อ ".$Engraved_Activities_Name." เรียบร้อบแล้ว";
+  $_SESSION['StatusMessage'] = "ทำการลบเอกสารให้หัวข้อ ".$User_id." เรียบร้อบแล้ว";
   $_SESSION['StatusAlert'] = "success";
 } else {
   $_SESSION['StatusTitle'] = "Error!";
-  $_SESSION['StatusMessage'] = "Cannot be deleted = ".$Engraved_Activities_id;
+  $_SESSION['StatusMessage'] = "Cannot be deleted = ".$User_id;
   $_SESSION['StatusAlert'] = "error";
 }
 
@@ -33,7 +32,7 @@ if ($conn->query($sql1) === TRUE) {
     $conn->commit();
 
     $_SESSION['StatusTitle'] = "ดำเนินการเรียบร้อยแล้ว";
-    $_SESSION['StatusMessage'] = "ทำการลบเอกสารให้หัวข้อ " . $Engraved_Activities_Name . " เรียบร้อบแล้ว";
+    $_SESSION['StatusMessage'] = "ทำการลบเอกสารให้หัวข้อ " . $User_id . " เรียบร้อบแล้ว";
     $_SESSION['StatusAlert'] = "success";
 
 echo "<script>setTimeout(function() { window.location.href = `./{$_SESSION['PathPage']}`; }, 0); </script>";

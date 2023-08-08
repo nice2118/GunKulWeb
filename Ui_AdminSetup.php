@@ -2,6 +2,7 @@
 include("DB_Include.php"); 
 include("Fn_RecursiveCategory.php"); 
 $_SESSION['PathPage'] = "Ui_AdminSetup.php";
+$US_Prefix = "";
 ?>
 <?php include("Ma_Head_Link.php"); ?>
 <link href="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap5.min.css" rel="stylesheet">
@@ -317,9 +318,15 @@ $_SESSION['PathPage'] = "Ui_AdminSetup.php";
                                                     <li class="my-2">
                                                         <span class="text"><?=$row["US_Username"]?></span>
                                                         <div class="tools">
-                                                            <a class="btn btn-link py-1 px-2 text-end" onclick="deleteAlertEngravedCategory(<?php echo $row["EC_Code"];?>, '<?php echo $row["EC_Name"];?>')"><i class="fas fa-trash"></i></a>
-                                                            <button type="button" class="btn btn-link py-1 px-2 text-end text-warning" data-bs-toggle="modal" data-bs-target="#engravedcategory" data-eccode="<?= $row["EC_Code"] ?>" data-ecname="<?= $row["EC_Name"] ?>" data-ecdescriptionth="<?= $row["EC_DescriptionTH"] ?>" data-ecdescriptionen="<?= $row["EC_DescriptionEN"] ?>"><i class="fas fa-edit"></i></button>
-                                                            <button type="button" class="btn btn-link py-0 px-1 text-end text-primary" data-bs-toggle="modal" data-bs-target="#EngravedActivities" data-eccode="<?= $row["EC_Code"] ?>"><i class="fa fa-plus"></i></button>
+                                                        <?php
+                                                            if ($row["US_Active"] == 1) {
+                                                                echo '<a class="btn btn-link py-0 px-1 text-end text-secondary toggleButton" id="toggleButton1" data-sendHiddenID="' . $row['US_Username'] . '"><i class="fa fa-eye"></i></a>';
+                                                            } else {
+                                                                echo '<a class="btn btn-link py-0 px-1 text-end text-secondary toggleButton" id="toggleButton0" data-sendHiddenID="' . $row['US_Username'] . '"><i class="fa fa-eye-slash"></i></a>';
+                                                            }
+                                                        ?>
+                                                            <a class="btn btn-link py-1 px-2 text-end" onclick="deleteAlertUser(<?php echo $row["US_Username"];?>)"><i class="fas fa-trash"></i></a>
+                                                            <button type="button" class="btn btn-link py-1 px-2 text-end text-warning" data-bs-toggle="modal" data-bs-target="#modaluser" data-ustype="edit" data-ususername="<?= $row["US_Username"] ?>" data-uspassword="<?= $row["US_Password"] ?>" data-usprefix="<?= $row["US_Prefix"] ?>" data-ptcode="<?= $row["PT_Code"] ?>" data-usfname="<?= $row["US_Fname"] ?>" data-uslname="<?= $row["US_Lname"] ?>"><i class="fas fa-edit"></i></button>
                                                         </div>
                                                     </li>
                                                 <?PHP
@@ -329,7 +336,7 @@ $_SESSION['PathPage'] = "Ui_AdminSetup.php";
                                                 ?>
                                             </ui>
                                             <div class="form-group text-center text-md-end">
-                                                <button type="button" class="btn btn-primary rounded-pill py-1 px-4 add-image-btn text-end" data-bs-toggle="modal" data-bs-target="#engravedcategory" data-eccode="0" data-hcname="" data-ecdescriptionth="" data-ecdescriptionen=""><i class="fa fa-plus"></i></button>
+                                                <button type="button" class="btn btn-primary rounded-pill py-1 px-4 add-image-btn text-end" data-bs-toggle="modal" data-bs-target="#modaluser" data-ustype="add" data-ususername="" data-uspassword="" data-usprefix="" data-ptcode="" data-usfname="" data-uslname=""><i class="fa fa-plus"></i></button>
                                             </div>
                                     </div>
                                     <!-- /.card-body -->
@@ -354,9 +361,8 @@ $_SESSION['PathPage'] = "Ui_AdminSetup.php";
                                                 <li class="my-2">
                                                     <span class="text"><?=$row["PT_Name"]?></span>
                                                     <div class="tools">
-                                                        <a class="btn btn-link py-1 px-2 text-end" onclick="deleteAlertEngravedCategory(<?php echo $row["EC_Code"];?>, '<?php echo $row["EC_Name"];?>')"><i class="fas fa-trash"></i></a>
-                                                        <button type="button" class="btn btn-link py-1 px-2 text-end text-warning" data-bs-toggle="modal" data-bs-target="#engravedcategory" data-eccode="<?= $row["EC_Code"] ?>" data-ecname="<?= $row["EC_Name"] ?>" data-ecdescriptionth="<?= $row["EC_DescriptionTH"] ?>" data-ecdescriptionen="<?= $row["EC_DescriptionEN"] ?>"><i class="fas fa-edit"></i></button>
-                                                        <button type="button" class="btn btn-link py-0 px-1 text-end text-primary" data-bs-toggle="modal" data-bs-target="#EngravedActivities" data-eccode="<?= $row["EC_Code"] ?>"><i class="fa fa-plus"></i></button>
+                                                        <a class="btn btn-link py-1 px-2 text-end" onclick="deleteAlertPosition(<?php echo $row["PT_Code"];?>, '<?php echo $row["PT_Name"];?>')"><i class="fas fa-trash"></i></a>
+                                                        <button type="button" class="btn btn-link py-1 px-2 text-end text-warning" data-bs-toggle="modal" data-bs-target="#modalposition" data-ptcode="<?= $row["PT_Code"] ?>" data-ptname="<?= $row["PT_Name"] ?>"><i class="fas fa-edit"></i></button>
                                                     </div>
                                                 </li>
                                             <?PHP
@@ -366,7 +372,7 @@ $_SESSION['PathPage'] = "Ui_AdminSetup.php";
                                             ?>
                                         </ui>
                                         <div class="form-group text-center text-md-end">
-                                            <button type="button" class="btn btn-primary rounded-pill py-1 px-4 add-image-btn text-end" data-bs-toggle="modal" data-bs-target="#engravedcategory" data-eccode="0" data-hcname="" data-ecdescriptionth="" data-ecdescriptionen=""><i class="fa fa-plus"></i></button>
+                                            <button type="button" class="btn btn-primary rounded-pill py-1 px-4 add-image-btn text-end" data-bs-toggle="modal" data-bs-target="#modalposition" data-ptcode="0" data-ptname=""><i class="fa fa-plus"></i></button>
                                         </div>
                                     </div>
                                     <!-- /.card-body -->
@@ -584,7 +590,101 @@ $_SESSION['PathPage'] = "Ui_AdminSetup.php";
         </div>
     </div>
 
+    <!-- Modal User-->
+    <div class="modal fade" id="modaluser" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="modaluserLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modaluserLabel">General User</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="modalFormmodaluser" action="Pro_Add&EditUser.php" method="post" enctype="multipart/form-data">
+                        <div class="row g-2 my-2">
+                            <input type="hidden" id="US_Type" name="US_Type" class="form-control border-1" placeholder="Code" required>
+                            <div class="col-2 col-sm-2">
+                                <h6 class="text-primary">คำนำหน้า</h6>
+                                <select class="form-select border-1" id="US_Prefix" name="US_Prefix" required>
+                                    <option value="">เลือกคำนำหน้า</option>
+                                    <option value="นาย" <?php if ('นาย' == $US_Prefix) echo 'selected'; ?>>นาย</option>
+                                    <option value="นาง" <?php if ('นาง' == $US_Prefix) echo 'selected'; ?>>นาง</option>
+                                    <option value="นางสาว" <?php if ('นางสาว' == $US_Prefix) echo 'selected'; ?>>นางสาว</option>
+                                </select>
+                            </div>
+                            <div class="col-5 col-sm-5">
+                                <h6 class="text-primary">ชื่อ</h6>
+                                <input type="Text" id="US_Fname" name="US_Fname" class="form-control border-1" placeholder="ชื่อ" required>
+                            </div>
+                            <div class="col-5 col-sm-5">
+                                <h6 class="text-primary">นามสกุล</h6>
+                                <input type="Text" id="US_Lname" name="US_Lname" class="form-control border-1" placeholder="นามสกุล" required>
+                            </div>
+                            <div class="col-4 col-sm-4">
+                                <h6 class="text-primary">ตำแหน่ง</h6>
+                                <select class="form-select border-1" id="PT_Code" name="PT_Code" required>
+                                    <option value="">เลือกตำแหน่ง</option>
+                                    <?php
+                                        $sql = "SELECT * FROM `position`;";
+                                        $result = $conn->query($sql);
+                                        if ($result->num_rows > 0) {
+                                            while ($row = $result->fetch_assoc()) {
+                                                $selected = ($row["PT_Code"] == $PT_Code) ? 'selected' : '';
+                                    ?>
+                                        <option value="<?= $row["PT_Code"] ?>" <?= $selected ?>><?= $row["PT_Name"] ?></option>
+                                    <?php
+                                            }
+                                        }
+                                    ?>
+                                </select>
+                            </div>
+                            <div class="col-4 col-sm-4">
+                                <h6 class="text-primary">Username</h6>
+                                <input type="Text" id="US_Username" name="US_Username" class="form-control border-1" placeholder="Username" required>
+                            </div>
+                            <div class="col-4 col-sm-4">
+                                <h6 class="text-primary">Password</h6>
+                                <input type="Password" id="US_Password" name="US_Password" class="form-control border-1" placeholder="Password" required>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">ยกเลิก</button>
+                            <button type="submit" class="btn btn-primary">บันทึก</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Position-->
+    <div class="modal fade" id="modalposition" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="modalpositionLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalpositionLabel">General Position</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="modalFormmodalposition" action="Pro_Add&EditPosition.php" method="post" enctype="multipart/form-data">
+                        <div class="row g-2 my-2">
+                            <input type="hidden" id="PT_code" name="PT_code" class="form-control border-1" placeholder="Code" required>
+                            <div class="col-12 col-sm-12">
+                                <h6 class="text-primary">ชื่อ</h6>
+                                <input type="Text" id="PT_name" name="PT_name" class="form-control border-1" placeholder="ชื่อ" required>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">ยกเลิก</button>
+                            <button type="submit" class="btn btn-primary">บันทึก</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
 <?php include("Ma_Footer.php"); ?>
+<!-- เมื่อโหลดหน้าใหม่ให้เลื่อนลงมากลางจอ -->
 <script>
     function redirectToPage() {
         // หากต้องการเลื่อนลงมากลางหน้าต่างใหม่ที่เปิด คุณสามารถใช้ตำแหน่ง scrollTop
@@ -593,11 +693,9 @@ $_SESSION['PathPage'] = "Ui_AdminSetup.php";
         const halfWindowHeight = windowHeight / 2;
         window.scrollTo(0, halfWindowHeight);
     }
-
-    // ให้เรียกใช้ฟังก์ชัน redirectToPage เมื่อโหลดหน้าใหม่
     setTimeout(redirectToPage, 0);
 </script>
-    <!-- Show Image -->
+<!-- Show Image -->
 <script>
     document.getElementById('image').addEventListener('change', function (e) {
         var file = e.target.files[0];
@@ -618,7 +716,7 @@ $_SESSION['PathPage'] = "Ui_AdminSetup.php";
 </script>
 <!-- sweetalert -->
 <script>
-        // ตรวจสอบว่ามีข้อความใน Session หรือไม่
+    // ตรวจสอบว่ามีข้อความใน Session หรือไม่
     <?php if (isset($_SESSION['StatusMessage'])) : ?>
         // แสดงข้อความแจ้งเตือนเมื่อโหลดหน้า
         window.onload = function() {
@@ -858,6 +956,78 @@ $(document).ready(function() {
             console.error("Error displaying SweetAlert:", error);
         });
     }
+    function deleteAlertUser(UserID) {
+        swal({
+            title: "คุณต้องการที่จะลบหรือไม่?",
+            text: `${UserID}\nเมื่อกดลบไปแล้วจะไม่สามารถนำข้อมูลกลับมาได้!`,
+            icon: "warning",
+            buttons: {
+                cancel: {
+                    text: "ยกเลิก",
+                    value: false,
+                    visible: true,
+                    className: "",
+                    closeModal: true,
+                },
+                confirm: {
+                    text: "ลบ",
+                    value: true,
+                    visible: true,
+                    className: "",
+                    closeModal: true,
+                },
+            },
+            dangerMode: true,
+        })
+        .then((willDelete) => {
+            if (willDelete) {
+                // เมื่อกดตกลง ทำการเปลี่ยนหน้า
+                window.location.replace(`Pro_DeleteUser.php?Send_ID=${UserID}`);
+            } else {
+                // เมื่อกดยกเลิก ไม่ต้องทำอะไร
+            }
+        })
+        .catch((error) => {
+            // เกิดข้อผิดพลาดในกรณีที่ไม่สามารถแสดงกล่อง SweetAlert ได้
+            console.error("Error displaying SweetAlert:", error);
+        });
+    }
+    function deleteAlertPosition(PositionID, PositionName) {
+        swal({
+            title: "คุณต้องการที่จะลบหรือไม่?",
+            text: `${PositionID}\nเมื่อกดลบไปแล้วจะไม่สามารถนำข้อมูลกลับมาได้!`,
+            icon: "warning",
+            buttons: {
+                cancel: {
+                    text: "ยกเลิก",
+                    value: false,
+                    visible: true,
+                    className: "",
+                    closeModal: true,
+                },
+                confirm: {
+                    text: "ลบ",
+                    value: true,
+                    visible: true,
+                    className: "",
+                    closeModal: true,
+                },
+            },
+            dangerMode: true,
+        })
+        .then((willDelete) => {
+            if (willDelete) {
+                // เมื่อกดตกลง ทำการเปลี่ยนหน้า
+                window.location.replace(`Pro_DeletePosition.php?Send_ID=${PositionID}&Send_Name=${PositionName}`);
+            } else {
+                // เมื่อกดยกเลิก ไม่ต้องทำอะไร
+            }
+        })
+        .catch((error) => {
+            // เกิดข้อผิดพลาดในกรณีที่ไม่สามารถแสดงกล่อง SweetAlert ได้
+            console.error("Error displaying SweetAlert:", error);
+        });
+    }
 </script>
 <!-- category Edit -->
 <script>
@@ -990,5 +1160,89 @@ $(document).ready(function() {
             }
         });
     });
+
+    // เมื่อ Modal User ถูกเปิดขึ้นมา
+    $('#modaluser').on('show.bs.modal', function(event) {
+        const button = $(event.relatedTarget);
+        const usType = button.data('ustype');
+        const usUsername = button.data('ususername');
+        const usPassword = button.data('uspassword');
+        const usPrefix = button.data('usprefix');
+        const ptCode = button.data('ptcode');
+        const usFname = button.data('usfname');
+        const usLname = button.data('uslname');
+
+        console.log(usPrefix);
+
+        // กำหนดค่าให้กับช่อง input ใน Modal
+        document.getElementById("US_Type").value = usType;
+        document.getElementById("US_Username").value = usUsername;
+        document.getElementById("US_Password").value = usPassword;
+        document.getElementById("US_Prefix").value = usPrefix;
+        document.getElementById("PT_Code").value = ptCode;
+        if (usFname === undefined) {
+            document.getElementById("US_Fname").value = '';
+        } else {
+            document.getElementById("US_Fname").value = usFname;
+        }
+        if (usLname === undefined) {
+            document.getElementById("US_Lname").value = '';
+        } else {
+            document.getElementById("US_Lname").value = usLname;
+        }
+    });
+
+    // เมื่อ Modal Position ถูกเปิดขึ้นมา
+    $('#modalposition').on('show.bs.modal', function(event) {
+        const button = $(event.relatedTarget);
+        const ptCode = button.data('ptcode');
+        const ptName = button.data('ptname');
+
+        // กำหนดค่าให้กับช่อง input ใน Modal
+        document.getElementById("PT_code").value = ptCode;
+        if (ptName === undefined) {
+            document.getElementById("PT_name").value = '';
+        } else {
+            document.getElementById("PT_name").value = ptName;
+        }
+    });
+</script>
+<script>
+// ดักจับเหตุการณ์คลิกที่ปุ่มที่มีคลาส toggleButton
+const toggleButtons = document.querySelectorAll(".toggleButton");
+toggleButtons.forEach(button => {
+  button.addEventListener("click", function() {
+    const icon = this.querySelector("i");
+    let sendStatus; // ประกาศตัวแปร sendStatus ที่เห้นใช้ได้ทั่วกับทุกส่วนของฟังก์ชัน
+    if (icon.classList.contains("fa-eye")) {
+      icon.classList.remove("fa-eye");
+      icon.classList.add("fa-eye-slash");
+      sendStatus = 0; // กำหนดค่าให้กับตัวแปร sendStatus
+    } else if (icon.classList.contains("fa-eye-slash")){
+      icon.classList.remove("fa-eye-slash");
+      icon.classList.add("fa-eye");
+      sendStatus = 1; // กำหนดค่าให้กับตัวแปร sendStatus
+    }
+    const sendID = this.getAttribute("data-sendHiddenID");
+    sendDataToPHP(sendStatus, sendID); // ส่งค่าไปยัง PHP
+  });
+});
+
+function sendDataToPHP(status, id) {
+  // ส่งข้อมูลไปยัง PHP โดยใช้ AJAX
+  const xhr = new XMLHttpRequest();
+  const url = "DB_UserHidden.php"; // เปลี่ยนเป็นชื่อไฟล์ PHP ที่คุณต้องการใช้งาน
+  const params = "status=" + status + "&id=" + id; // ส่งค่าตัวแปรไปยัง PHP
+  console.log(params);
+  xhr.open("POST", url, true);
+  xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+  xhr.onreadystatechange = function() {
+    if (xhr.readyState == 4 && xhr.status == 200) {
+      // ทำสิ่งที่คุณต้องการหลังจากที่ส่งข้อมูลเสร็จสิ้น (หากต้องการ)
+      console.log(xhr.responseText); // ตัวอย่างการแสดงผล response ที่ได้จาก PHP
+    }
+  };
+  xhr.send(params);
+}
 </script>
 <?php include("Ma_Footer_Script.php"); ?>

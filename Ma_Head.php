@@ -233,6 +233,7 @@
                                 class="fa fa-cogs text-primary"></i> ระบบ Dev e-Doc JV</a></li>
                             </ul>
                         </nav>
+                        <?php if(isset($_SESSION['User']) && !empty($_SESSION['User'])) : ?>
                         <nav>
                             <a href="" class="dropdown-item">จัดการ&nbsp;&nbsp;<i class="fa fa-angle-down text-secondary2"></i></a>
                             <ul class="dropdown-menu-submenu submenu submenu-left">
@@ -249,6 +250,7 @@
                         </nav>
                         <a href="Ui_AdminSetup.php" class="dropdown-item">Setup</a>
                         <a href="Ui_Activity.php" class="dropdown-item">Activity</a>
+                        <?php endif; ?>
                     </div>
                 </div>
             </div>

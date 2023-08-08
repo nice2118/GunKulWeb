@@ -18,10 +18,12 @@ $(document).ready(function() {
             data: { user: username, password: password },
             dataType: "json",
             success: function(response) {
-                console.log("Data sent successfully:", response); // แสดงข้อมูลที่ถูกส่งไปในคอนโซล
+                // console.log("Data sent successfully:", response); // แสดงข้อมูลที่ถูกส่งไปในคอนโซล
                 if (response.isValidUser) {
-                    swal("Success", "Login successful!", "success");
-                    window.location.reload(); // รีเฟรชหน้าปัจจุบัน
+                    swal("Success", "Login successful!", "success")
+                    .then(() => {
+                        window.location.reload();
+                    });
                 } else {
                     swal("Warning", "Invalid username or password!", "warning");
                 }

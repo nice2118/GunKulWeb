@@ -299,14 +299,17 @@ const toggleButtons = document.querySelectorAll(".toggleButton");
 toggleButtons.forEach(button => {
   button.addEventListener("click", function() {
     const icon = this.querySelector("i");
+    let sendStatus; // ประกาศตัวแปร sendStatus ที่เห้นใช้ได้ทั่วกับทุกส่วนของฟังก์ชัน
     if (icon.classList.contains("fa-eye")) {
       icon.classList.remove("fa-eye");
       icon.classList.add("fa-eye-slash");
+      sendStatus = 0; // กำหนดค่าให้กับตัวแปร sendStatus
     } else if (icon.classList.contains("fa-eye-slash")){
       icon.classList.remove("fa-eye-slash");
       icon.classList.add("fa-eye");
+      sendStatus = 1; // กำหนดค่าให้กับตัวแปร sendStatus
     }
-    const sendStatus = this.getAttribute("data-sendHiddenStatus");
+    // const sendStatus = this.getAttribute("data-sendHiddenStatus");
     const sendType = this.getAttribute("data-sendHiddenType");
     const sendID = this.getAttribute("data-sendHiddenID");
     sendDataToPHP(sendStatus, sendType, sendID); // ส่งค่าไปยัง PHP
@@ -316,7 +319,7 @@ toggleButtons.forEach(button => {
 function sendDataToPHP(status, type, id) {
   // ส่งข้อมูลไปยัง PHP โดยใช้ AJAX
   const xhr = new XMLHttpRequest();
-  const url = "MenuCategoryHidden.php"; // เปลี่ยนเป็นชื่อไฟล์ PHP ที่คุณต้องการใช้งาน
+  const url = "DB_MenuCategoryHidden.php"; // เปลี่ยนเป็นชื่อไฟล์ PHP ที่คุณต้องการใช้งาน
   const params = "status=" + status + "&type=" + type + "&id=" + id; // ส่งค่าตัวแปรไปยัง PHP
   console.log(params);
   xhr.open("POST", url, true);
@@ -324,7 +327,7 @@ function sendDataToPHP(status, type, id) {
   xhr.onreadystatechange = function() {
     if (xhr.readyState == 4 && xhr.status == 200) {
       // ทำสิ่งที่คุณต้องการหลังจากที่ส่งข้อมูลเสร็จสิ้น (หากต้องการ)
-      console.log(xhr.responseText); // ตัวอย่างการแสดงผล response ที่ได้จาก PHP
+    //   console.log(xhr.responseText); // ตัวอย่างการแสดงผล response ที่ได้จาก PHP
     }
   };
   xhr.send(params);
