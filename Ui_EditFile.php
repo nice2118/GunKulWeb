@@ -58,8 +58,8 @@ if (isset($_GET['Send_IDNews']) && $_GET['Send_IDNews'] !== '') {
                         $DescriptionEN = $row["CG_DescriptionEN"];
                     }
                 ?>
-                <h6 class="text-primary">Form <?= $DescriptionEN ?></h6>
-                <h2 class="mb-4">สร้าง<?= $DescriptionTH ?></h2>
+                <h6 class="text-primary"><?= $DescriptionEN ?></h6>
+                <h2 class="mb-4"><?= $DescriptionTH ?></h2>
             </div>
         </div>
         <div class="text-start mx-auto mb-2 wow fadeInUp" data-wow-delay="0.1s">

@@ -297,6 +297,80 @@ $_SESSION['PathPage'] = "Ui_AdminSetup.php";
                                     <!-- /.card-body -->
                                 </div>
                                 <!-- /.card -->
+                                <div class="card card-navy collapsed-card">
+                                    <div class="card-header">
+                                        <h3 class="card-title text-white">User Setup</h3>
+                                        <div class="card-tools">
+                                            <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+                                            <i class="fas fa-plus"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="card-body">
+                                        <ul class="todo-list" data-widget="todo-list">
+                                                <?PHP
+                                                        $sql = "SELECT * FROM `User` ORDER BY `US_Username`;";
+                                                        $result = $conn->query($sql);
+                                                        if ($result->num_rows > 0) {
+                                                            while ($row = $result->fetch_assoc()) {
+                                                    ?>
+                                                    <li class="my-2">
+                                                        <span class="text"><?=$row["US_Username"]?></span>
+                                                        <div class="tools">
+                                                            <a class="btn btn-link py-1 px-2 text-end" onclick="deleteAlertEngravedCategory(<?php echo $row["EC_Code"];?>, '<?php echo $row["EC_Name"];?>')"><i class="fas fa-trash"></i></a>
+                                                            <button type="button" class="btn btn-link py-1 px-2 text-end text-warning" data-bs-toggle="modal" data-bs-target="#engravedcategory" data-eccode="<?= $row["EC_Code"] ?>" data-ecname="<?= $row["EC_Name"] ?>" data-ecdescriptionth="<?= $row["EC_DescriptionTH"] ?>" data-ecdescriptionen="<?= $row["EC_DescriptionEN"] ?>"><i class="fas fa-edit"></i></button>
+                                                            <button type="button" class="btn btn-link py-0 px-1 text-end text-primary" data-bs-toggle="modal" data-bs-target="#EngravedActivities" data-eccode="<?= $row["EC_Code"] ?>"><i class="fa fa-plus"></i></button>
+                                                        </div>
+                                                    </li>
+                                                <?PHP
+                                                        }
+                                                    }
+                                                    unset($sql);
+                                                ?>
+                                            </ui>
+                                            <div class="form-group text-center text-md-end">
+                                                <button type="button" class="btn btn-primary rounded-pill py-1 px-4 add-image-btn text-end" data-bs-toggle="modal" data-bs-target="#engravedcategory" data-eccode="0" data-hcname="" data-ecdescriptionth="" data-ecdescriptionen=""><i class="fa fa-plus"></i></button>
+                                            </div>
+                                    </div>
+                                    <!-- /.card-body -->
+                                </div>
+                                <div class="card card-olive collapsed-card">
+                                    <div class="card-header">
+                                        <h3 class="card-title text-white">Position Setup</h3>
+                                        <div class="card-tools">
+                                            <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+                                            <i class="fas fa-plus"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="card-body">
+                                        <ul class="todo-list" data-widget="todo-list">
+                                            <?PHP
+                                                $sql = "SELECT * FROM `Position` ORDER BY `PT_Code`;";
+                                                $result = $conn->query($sql);
+                                                if ($result->num_rows > 0) {
+                                                    while ($row = $result->fetch_assoc()) {
+                                            ?>
+                                                <li class="my-2">
+                                                    <span class="text"><?=$row["PT_Name"]?></span>
+                                                    <div class="tools">
+                                                        <a class="btn btn-link py-1 px-2 text-end" onclick="deleteAlertEngravedCategory(<?php echo $row["EC_Code"];?>, '<?php echo $row["EC_Name"];?>')"><i class="fas fa-trash"></i></a>
+                                                        <button type="button" class="btn btn-link py-1 px-2 text-end text-warning" data-bs-toggle="modal" data-bs-target="#engravedcategory" data-eccode="<?= $row["EC_Code"] ?>" data-ecname="<?= $row["EC_Name"] ?>" data-ecdescriptionth="<?= $row["EC_DescriptionTH"] ?>" data-ecdescriptionen="<?= $row["EC_DescriptionEN"] ?>"><i class="fas fa-edit"></i></button>
+                                                        <button type="button" class="btn btn-link py-0 px-1 text-end text-primary" data-bs-toggle="modal" data-bs-target="#EngravedActivities" data-eccode="<?= $row["EC_Code"] ?>"><i class="fa fa-plus"></i></button>
+                                                    </div>
+                                                </li>
+                                            <?PHP
+                                                    }
+                                                }
+                                                unset($sql);
+                                            ?>
+                                        </ui>
+                                        <div class="form-group text-center text-md-end">
+                                            <button type="button" class="btn btn-primary rounded-pill py-1 px-4 add-image-btn text-end" data-bs-toggle="modal" data-bs-target="#engravedcategory" data-eccode="0" data-hcname="" data-ecdescriptionth="" data-ecdescriptionen=""><i class="fa fa-plus"></i></button>
+                                        </div>
+                                    </div>
+                                    <!-- /.card-body -->
+                                </div>
                             </div>
                         </div>
                         <div class="row">

@@ -7,7 +7,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $password = $_POST['password'];
 
     // ป้องกันการ SQL Injection โดยใช้ prepared statement
-    $sql = "SELECT * FROM `user` WHERE `US_Username` = ? AND `US_Password` = ?";
+    $sql = "SELECT * FROM `user` WHERE `US_Username` = ? AND `US_Password` = ? AND `US_Active` = 1";
+
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("ss", $username, $password);
     $stmt->execute();
