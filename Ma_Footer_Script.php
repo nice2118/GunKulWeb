@@ -84,6 +84,54 @@ function logoutAlert() {
         });
     }
 </script>
+<script>
+    <?php if(isset($_SESSION['User']) && !empty($_SESSION['User'])) { ?>
+    var sessionTimeout = 30 * 60 * 1000; // 30 นาทีในมิลลิวินาที
+    // var sessionTimeout = 10 * 1000; // 10 วิในมิลลิวินาที
+
+    var lastActivity = new Date().getTime();
+    var timeout;
+
+    function resetSessionTimeout() {
+        clearTimeout(timeout);
+        lastActivity = new Date().getTime();
+        startSessionTimeout();
+    }
+
+    function startSessionTimeout() {
+        timeout = setTimeout(function() {
+            // หมดเวลาเซสชัน ทำการลบค่าเซสชันและอื่นๆ ตามที่คุณต้องการ
+            // ตัวอย่างเช่น redirect ไปยังหน้าหลัก
+            window.location.href = "index.php";
+            <?php
+                // $_SESSION['User'] = '';
+                // $_SESSION['StatusTitle'] = "Warning";
+                // $_SESSION['StatusMessage'] = "หมดอายุการเข้าใช้งาน";
+                // $_SESSION['StatusAlert'] = "warning";
+            ?>
+        }, sessionTimeout);
+    }
+
+    // ตรวจสอบการไม่มีการขยับเม้าทุก 10 วินาที
+    setInterval(function() {
+        var currentTime = new Date().getTime();
+        if (currentTime - lastActivity > sessionTimeout) {
+            // หมดเวลาเซสชัน ทำการลบค่าเซสชันและอื่นๆ ตามที่คุณต้องการ
+            // ตัวอย่างเช่น redirect ไปยังหน้าหลัก
+            location.reload();
+        }
+    }, 10000);
+
+    // เริ่มต้นตรวจสอบการไม่มีการขยับเม้า
+    startSessionTimeout();
+
+    // เมื่อมีการขยับเม้าในหน้าเว็บ เรียกใช้ฟังก์ชัน resetSessionTimeout เพื่อรีเซตเวลา
+    document.addEventListener("mousemove", resetSessionTimeout);
+    document.addEventListener("keydown", resetSessionTimeout);
+    <?php
+        }
+    ?>
+</script>
     <!-- JavaScript Libraries -->
     <!-- <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script> -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>

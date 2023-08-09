@@ -4,8 +4,15 @@
             <?php 
                 $folderPath = 'Default/PageHeader/';
                 $files = scandir($folderPath);
-                $imageFiles = array_diff($files, array('.', '..'));
+
+                $imageExtensions = array('jpg', 'jpeg', 'png', 'gif');
+                $imageFiles = array_filter($files, function($file) use ($imageExtensions) {
+                    $extension = pathinfo($file, PATHINFO_EXTENSION);
+                    return in_array(strtolower($extension), $imageExtensions);
+                });
+
                 $numImages = count($imageFiles);
+
                 foreach ($imageFiles as $imageFile) {
             ?>
             <div class="owl-carousel-item position-relative" data-dot="<img src='<?= $folderPath.$imageFile ?>'>">

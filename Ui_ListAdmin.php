@@ -31,7 +31,7 @@ if (isset($_GET['Send_Category']) && $_GET['Send_Category'] !== '') {
                         $IsFile = $row["CG_IsFile"];
                     }
                 ?>
-                <h6 class="small text-primary mb-0 mt-0"><?= $DescriptionEN ?></h6>
+                <h6 class="text-primary mb-0 mt-0"><?= $DescriptionEN ?></h6>
                 <h2 class="mb-0 mt-0"><?= $DescriptionTH ?></h2>
             </div>
         </div>
@@ -136,11 +136,11 @@ if (isset($_GET['Send_Category']) && $_GET['Send_Category'] !== '') {
                                                 <?php if ($IsFile == 0): ?>
                                                     <a class="btn btn-primary2 btn-sm" href="Ui_ShowDetail.php?Send_IDNews=<?= $reqCode;?>"><i class="fas fa-folder"></i></a>
                                                     <a class="btn btn-warning btn-sm" href="Ui_Edit.php?Send_IDNews=<?= urlencode($reqCode); ?>&Send_Title=<?= urlencode($reqTitle); ?>&Send_Category=<?= $Category_id ; ?>"><i class="fas fa-pencil-alt"></i></a>
-                                                    <a class="btn btn-danger btn-sm" onclick="deleteAlert(<?php echo $reqCode;?>, '<?php echo $reqTitle;?>',<?php echo $Category_id;?>)"><i class="fas fa-trash"></i></a>
+                                                    <a class="btn btn-danger btn-sm" onclick="deleteAlert(<?php echo $reqCode;?>, '<?php echo addslashes(htmlspecialchars($reqTitle, ENT_QUOTES));?>',<?php echo $Category_id;?>)"><i class="fas fa-trash"></i></a>
                                                 <?php elseif ($IsFile == 1): ?>
                                                     <a class="btn btn-primary2 btn-sm" href="<?= $reqFile ?>"><i class="fas fa-folder"></i></a>
                                                     <a class="btn btn-warning btn-sm" href="Ui_EditFile.php?Send_IDNews=<?= urlencode($reqCode); ?>&Send_Title=<?= urlencode($reqTitle); ?>&Send_Category=<?= $Category_id ; ?>"><i class="fas fa-pencil-alt"></i></a>
-                                                    <a class="btn btn-danger btn-sm" onclick="deleteAlertFile(<?php echo $reqCode;?>, '<?php echo $reqTitle;?>',<?php echo $Category_id;?>)"><i class="fas fa-trash"></i></a>
+                                                    <a class="btn btn-danger btn-sm" onclick="deleteAlertFile(<?php echo $reqCode;?>, '<?php echo addslashes(htmlspecialchars($reqTitle, ENT_QUOTES));?>',<?php echo $Category_id;?>)"><i class="fas fa-trash"></i></a>
                                                 <?php endif; ?>
                                             </td>
                                         </tr>

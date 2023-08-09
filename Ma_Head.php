@@ -257,7 +257,7 @@
             <?php if(!isset($_SESSION['User']) || $_SESSION['User'] === '') : ?>
             <button class="btn btn-white rounded-0 py-4 px-lg-3 d-none d-lg-block" data-bs-toggle="modal" data-bs-target="#LoginModal"><i class="fa fa-user-circle ms-auto fs-4"></i></button>
             <?php else: ?>
-            <a class="btn btn-white rounded-0 py-4 px-lg-3 d-none d-lg-block" onclick="logoutAlert()"><i class="fas fa-sign-out-alt ms-auto fs-4"></i></a>
+            <a class="btn btn-white rounded-0 py-4 px-lg-3 d-none d-lg-block" onclick="logoutAlert()"><i class="fas fa-sign-out-alt ms-auto fs-5"></i></a>
             <?php endif; ?>
         </div>
     </nav>
@@ -265,7 +265,7 @@
 
 <!-- Modal Login-->
 <div class="modal fade" id="LoginModal" tabindex="-1" aria-labelledby="LoginModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
+  <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="LoginModalLabel">Login</h5>

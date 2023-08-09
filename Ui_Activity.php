@@ -10,7 +10,7 @@ include("DB_Include.php");
     <div class="container-xxl py-5">
         <div class="container">
             <div class="text-center mx-auto mb-2 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 600px;">
-                <h6 class="text-primary">Activity</h6>
+                <h3 class="text-primary">Activity</h3>
                 <h2 class="mb-4">กิจกรรม</h2>
             </div>
         </div>

@@ -42,7 +42,7 @@ $US_Prefix = "";
     <div class="container-xxl py-5">
         <div class="container">
             <div class="text-center mx-auto mb-2 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 600px;">
-                <h6 class="text-primary">Setup & Set system defaults.</h6>
+                <h3 class="text-primary">Setup & Set system defaults.</h3>
                 <h2 class="mb-4">ตั้งค่าและเซ็ตค่าเริ่มต้นระบบ</h2>
             </div>
         </div>
@@ -50,6 +50,11 @@ $US_Prefix = "";
             <div class="col-lg-12 col-md-12 wow fadeInUp" data-wow-delay="0.1s">
                 <section class="content">
                     <form action="Pro_EditSetup.php" method="post" enctype="multipart/form-data">
+                        <div class="row my-3">
+                            <div class="col-12 text-center text-md-end">
+                                <button type="submit" class="btn btn-success rounded-pill py-2 px-5 add-image-btn text-end"><i class="fa fa-save"></i></button>
+                            </div>
+                        </div>
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="card card-primary">
@@ -379,12 +384,11 @@ $US_Prefix = "";
                                 </div>
                             </div>
                         </div>
-                        <div class="row">
+                        <!-- <div class="row">
                             <div class="col-12 text-center text-md-end">
-                                <!-- <input type="submit" value="บันทึก" class="btn btn-success rounded-pill py-2 px-3 add-image-btn text-end"> -->
                                 <button type="submit" class="btn btn-success rounded-pill py-2 px-5 add-image-btn text-end"><i class="fa fa-save"></i></button>
                             </div>
-                        </div>
+                        </div> -->
                     </form>
                 </section>
             </div>
@@ -995,7 +999,7 @@ $(document).ready(function() {
     function deleteAlertPosition(PositionID, PositionName) {
         swal({
             title: "คุณต้องการที่จะลบหรือไม่?",
-            text: `${PositionID}\nเมื่อกดลบไปแล้วจะไม่สามารถนำข้อมูลกลับมาได้!`,
+            text: `${PositionName} เมื่อกดลบไปแล้วจะไม่สามารถนำข้อมูลกลับมาได้!`,
             icon: "warning",
             buttons: {
                 cancel: {

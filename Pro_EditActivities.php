@@ -100,6 +100,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   // echo $newnFullNameImage;
 
   // ทำอย่างอื่นๆ เช่นบันทึกข้อมูลลงฐานข้อมูล
+  $Title = mysqli_real_escape_string($conn, $Title);
+  $Summary = mysqli_real_escape_string($conn, $Summary);
   if (!empty($newnFullNameImage) && $newnFullNameImage !== '') {
     $sql = "UPDATE `Activities` SET `AT_Entity No.` = $CategoryID, `AT_Date` = '$DateAddNewsFormatted', `AT_Title` = '$Title', `AT_Description` = '$Summary', `AT_Note` = '$Summernote', `AT_Image` = '$newnFullNameImage', `AT_ModifyDate` = CURRENT_TIMESTAMP WHERE `Activities`.`AT_Code` = $ID;";
   } else {    
@@ -114,7 +116,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $_SESSION['StatusTitle'] = "ดำเนินการเรียบร้อยแล้ว";
     $_SESSION['StatusMessage'] = "ทำการแก้เอกสารให้หัวข้อ ".$Title." เรียบร้อบแล้ว";
     $_SESSION['StatusAlert'] = "success";
-    generateGallery($_FILES['ImageGallery'],$ID);
+    if (isset($_FILES['ImageGallery']['name'][0]) && $_FILES['ImageGallery']['name'][0] !== '') {
+      generateGallery($_FILES['ImageGallery'],$ID);
+    }
   } else {
     if (!empty($newnFullNameImage)) {
       $filePath = $PathFolderNews . $newnFullNameImage;

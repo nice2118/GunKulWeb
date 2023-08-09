@@ -130,7 +130,7 @@
             <div id="portfolio-container" class="row">
                 <div class="col-lg-3 col-md-4 portfolio-item <?= SearchCategoryReturnNotBegin($row['AT_Entity No.']) ?>" style="min-height: 400px;">
                     <div class="portfolio-img rounded overflow-hidden">
-                        <img class="img-fluid w-100" src="<?= $PathFolderNews.$AT_Image;?>" style="height:275px;" alt="">
+                        <img class="img-fluid w-100" src="<?= $PathFolderNews.$AT_Image;?>" style="height:280px;" alt="">
                         <div class="portfolio-btn">
                             <a class="btn btn-lg-square btn-outline-light rounded-circle mx-1"
                                 href="<?= $PathFolderNews.$AT_Image;?>" data-lightbox="portfolio"><i class="fa fa-eye"></i></a>

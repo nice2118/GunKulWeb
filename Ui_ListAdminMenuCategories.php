@@ -37,7 +37,7 @@ th {
                     $DescriptionEN = $row["HC_DescriptionEN"];
                 }
             ?>
-            <h6 class="small text-primary mb-0 mt-0"><?= $DescriptionEN ?></h6>
+            <h3 class="text-primary mb-0 mt-0"><?= $DescriptionEN ?></h3>
             <h2 class="mb-0 mt-0"><?= $DescriptionTH ?></h2>
         </div>
     </div>

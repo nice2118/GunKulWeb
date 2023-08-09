@@ -29,7 +29,7 @@
                 if ($result->num_rows > 0) {
                     $row = $result->fetch_assoc();
             ?>
-                <h6 class="text-primary"><?= $row["CG_DescriptionEN"] ?></h6>
+                <h3 class="text-primary"><?= $row["CG_DescriptionEN"] ?></h3>
                 <h2 class="mb-4"><?= $row["CG_DescriptionTH"] ?></h2>
             </div>
         </div>
@@ -94,7 +94,7 @@
                                                             <div class="embed-responsive embed-responsive-16by9">
                                                                 <div class="embed-responsive-item">
                                                                     <div class="video-container text-center">
-                                                                        <iframe src="<?= $PathFolderGallery . $row["GR_Name"] ?>" allowfullscreen autoplay></iframe>
+                                                                        <iframe src="<?= $PathFolderGallery . $row["GR_Name"] ?>" allowfullscreen autoplay muted></iframe>
                                                                     </div>
                                                                 </div>
                                                             </div>

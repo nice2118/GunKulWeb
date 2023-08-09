@@ -36,7 +36,7 @@
                     $DescriptionEN = '';
                 }
             ?>
-            <h6 class="text-primary"><?= $DescriptionEN ?></h6>
+            <h3 class="text-primary"><?= $DescriptionEN ?></h3>
             <h2 class="mb-4"><?= $DescriptionTH ?></h2>
         </div>
     </div>

@@ -22,9 +22,9 @@ echo '<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script
             for ($i = 0; $i < count($inputNames); $i++) {
                 if ($inputNames[$i] != '') {
                     if ($inputcode[$i] == 0 || $inputcode[$i] == '') {
-                        $sql = "INSERT INTO `masterheadingcategories` (`MC_Code`, `MC_Text`, `HC_Code`, `MC_UserCreate`, `MC_CreateDate`, `MC_ModifyDate`) VALUES (NULL, '$inputNames[$i]', '$inputMastercode', '{$_SESSION['User']}', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);";
+                        $sql = "INSERT INTO `newsandactivities`.`masterheadingcategories` (`MC_Code`, `MC_Text`, `HC_Code`, `MC_UserCreate`, `MC_CreateDate`, `MC_ModifyDate`) VALUES ('', '$inputNames[$i]', '$inputMastercode', '{$_SESSION['User']}', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);";
                     } else {    
-                        $sql = "UPDATE `masterheadingcategories` SET `MC_Text` = '$inputNames[$i]' WHERE `masterheadingcategories`.`MC_Code` = $inputcode[$i];";
+                        $sql = "UPDATE `newsandactivities`.`masterheadingcategories` SET `MC_Text` = '$inputNames[$i]' WHERE `masterheadingcategories`.`MC_Code` = $inputcode[$i];";
                     }
                     if ($conn->query($sql) === true) {
                         $_SESSION['StatusTitle'] = "ดำเนินการเรียบร้อยแล้ว";

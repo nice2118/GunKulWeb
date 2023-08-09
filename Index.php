@@ -9,12 +9,12 @@ include("DB_Setup.php");
     <div class="container-xxl py-5">
         <div class="container">
             <div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 600px;">
-                <h6 class="text-primary">News & Activities</h6>
+                <h3 class="text-primary">News & Activities</h3>
                 <h2 class="mb-4">ข่าวสารและกิจกรรม</h2>
             </div>
 
             <?php
-                $sql = "SELECT * FROM `Activities` WHERE `Activities`.`AT_Entity No.` = 1 ORDER BY `Activities`.`AT_Date` DESC , `Activities`.`AT_Time` DESC LIMIT 0,6";
+                $sql = "SELECT * FROM `Activities` WHERE `Activities`.`AT_Entity No.` = 1 ORDER BY `Activities`.`AT_Date` DESC , `Activities`.`AT_Time` DESC LIMIT 0,5";
                 $result = $conn->query($sql);
                 $isFirstRow = true;
                 $isTwoRow = false;
@@ -69,7 +69,7 @@ include("DB_Setup.php");
                 <div class="col-lg-3 col-md-6 wow fadeInUp portfolio-item first" data-wow-delay="0.1s">
                     <div class="service-item rounded overflow-hidden">
                         <div class="portfolio-img rounded overflow-hidden">
-                            <img class="img-fluid w-100" src="<?= $PathFolderNews.$AT_Image;?>" style="height:250px;" alt="">
+                            <img class="img-fluid w-100" src="<?= $PathFolderNews.$AT_Image;?>" style="height:280px;" alt="">
                             <div class="portfolio-btn">
                                 <a class="btn btn-lg-square btn-outline-light rounded-circle mx-1" href="<?= $PathFolderNews.$AT_Image;?>"
                                     data-lightbox="portfolio"><i class="fa fa-eye"></i></a>
@@ -89,8 +89,30 @@ include("DB_Setup.php");
                 </div>
                 <!-- Loop -->
             <?php
+                                    // $counter++;
                                 } else {
             ?>
+                <div class="col-lg-3 col-md-6 wow fadeInUp portfolio-item first" data-wow-delay="0.1s">
+                    <div class="service-item rounded overflow-hidden">
+                        <div class="portfolio-img rounded overflow-hidden">
+                            <img class="img-fluid w-100" src="<?= $PathFolderNews.$AT_Image;?>" style="height:280px;" alt="">
+                            <div class="portfolio-btn">
+                                <a class="btn btn-lg-square btn-outline-light rounded-circle mx-1" href="<?= $PathFolderNews.$AT_Image;?>"
+                                    data-lightbox="portfolio"><i class="fa fa-eye"></i></a>
+                                <a class="btn btn-lg-square btn-outline-light rounded-circle mx-1" href="Ui_ShowDetail.php?Send_IDNews=<?= $row["AT_Code"];?>"><i
+                                        class="fa fa-link"></i></a>
+                            </div>
+                        </div>
+                        <div class="position-relative p-4 pt-0">
+                            <div class="service-icon">
+                                <i class="fa fa-newspaper fa-3x"></i>
+                            </div>
+                            <h4 class="mb-3"><?= $row['AT_Title'];?></h4>
+                            <p class=""><?= $row['AT_Description'];?></p>
+                            <a class="small fw-medium" href="Ui_ShowDetail.php?Send_IDNews=<?= $row["AT_Code"];?>">อ่านเพิ่มเติม<i class="fa fa-arrow-right ms-2"></i></a>
+                        </div>
+                    </div>
+                </div>
             </div>
             <div class="row g-1">
                 <div class="wow fadeInUp portfolio-item first my-4" data-wow-delay="0.6s">
@@ -112,5 +134,33 @@ include("DB_Setup.php");
 <?php // include("Error/Test.php"); ?>
     
 <?php include("Ma_Footer.php"); ?>
+<!-- sweetalert -->
+<script>
+        // ตรวจสอบว่ามีข้อความใน Session หรือไม่
+    <?php if (isset($_SESSION['StatusMessage'])) : ?>
+        // แสดงข้อความแจ้งเตือนเมื่อโหลดหน้า
+        window.onload = function() {
+            swal("<?php echo $_SESSION['StatusTitle']; ?>", "<?php echo $_SESSION['StatusMessage']; ?>", "<?php echo $_SESSION['StatusAlert']; ?>");
+            <?php unset($_SESSION['StatusTitle'], $_SESSION['StatusMessage'], $_SESSION['StatusAlert']); ?> // ลบค่าใน Session เพื่อไม่ให้แสดงซ้ำ
+        };
+    <?php endif; ?>
+</script>
 <?php include("Ma_FirstFooter_Script.php"); ?>
+<!-- เก็บประวัติการเข้าใช้งาน -->
+<script>
+$(document).ready(function() {
+    $.ajax({
+        url: "DB_CountPage.php",
+        type: "POST",
+        data: { Type: 'setup', Code: 1 },
+        dataType: "json",
+        success: function(response) {
+            console.log("Data sent successfully:", response);
+        },
+        error: function() {
+            console.log("Error occurred");
+        }
+    });
+});
+</script>
 <?php include("Ma_Footer_Script.php"); ?>

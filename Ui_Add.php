@@ -39,7 +39,8 @@ if (isset($_GET['Send_Category']) && $_GET['Send_Category'] !== '') {
                         $DescriptionEN = $row["CG_DescriptionEN"];
                     }
                 ?>
-                <h6 class="small text-primary mb-0 mt-0"><?= $DescriptionEN ?></h6>
+                <!-- <h3 class="small text-primary mb-0 mt-0"></h3> -->
+                <h3 class="text-primary mb-0 mt-0"><?= $DescriptionEN ?></h3>
                 <h2 class="mb-0 mt-0"><?= $DescriptionTH ?></h2>
             </div>
         </div>
