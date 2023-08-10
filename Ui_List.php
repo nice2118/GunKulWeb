@@ -69,16 +69,19 @@ if (isset($_GET['Send_Category']) && $_GET['Send_Category'] !== '') {
                                                 $reqTitle = '';
                                                 $reqDescription = '';
                                                 $reqFile = '';
+                                                $fullName = '';
                                                 if ($IsFile == 0){
                                                     $reqCode = $row['AT_Code'];
                                                     $reqDate = $row['AT_Date'];
                                                     $reqTitle = $row['AT_Title'];
                                                     $reqDescription = $row['AT_Description'];
+                                                    $fullName = $row['US_Fname'].' '.$row['US_Lname'];
                                                 } elseif ($IsFile == 1) {
                                                     $reqCode = $row['FA_Code'];
                                                     $reqDate = $row['FA_Date'];
                                                     $reqTitle = $row['FA_Title'];
                                                     $reqDescription = $row['FA_Description'];
+                                                    $fullName = $row['US_Fname'].' '.$row['US_Lname'];
                                                     
                                                     $sqlSetup = "SELECT * FROM Setup";
                                                     $resultSetup = $conn->query($sqlSetup);
@@ -102,7 +105,7 @@ if (isset($_GET['Send_Category']) && $_GET['Send_Category'] !== '') {
                                                 </small> -->
                                             </td>
                                             <td>
-                                                <img class="img-fluid rounded-circle mx-1 mb-1" src="<?php echo "img/testimonial-1.jpg"; ?>" style="width: 40px; height: 40px;">
+                                                <img class="img-fluid rounded-circle mx-1 mb-1" src="Default/DefaultUser/0.png" alt="User Image" style="width: 40px; height: 40px;" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="<?= $fullName;?>">
                                             </td>
                                             <td class="project-actions text-right">
                                                 <?php if ($IsFile == 0): ?>

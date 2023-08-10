@@ -106,6 +106,7 @@ if (isset($_GET['Send_IDNews']) && $_GET['Send_IDNews'] !== '') {
                                 <input type="file" class="form-control border-1" name="file" id="file" accept=".pdf, .doc, .docx, .ppt, .pptx, .xls, .xlsx">
                             </div>
                             <div class="text-center col-12">
+                                <button class="btn btn-danger rounded-pill py-2 px-5" type="button" onclick="window.history.back();">ยกเลิก</button>
                                 <button class="btn btn-primary rounded-pill py-2 px-5" type="submit">บันทึก</button>
                             </div>
                         </div>

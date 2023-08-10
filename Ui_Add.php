@@ -135,7 +135,7 @@ if (isset($_GET['Send_Category']) && $_GET['Send_Category'] !== '') {
                                 </div>
                             </div>
                             <div class="text-center col-12">
-                                <!-- <button class="btn btn-danger rounded-pill py-2 px-5" type="reset">รีเซ็ต</button> -->
+                                <button class="btn btn-danger rounded-pill py-2 px-5" type="button" onclick="window.history.back();">ยกเลิก</button>
                                 <button class="btn btn-primary rounded-pill py-2 px-5" type="submit">บันทึก</button>
                             </div>
                         </div>

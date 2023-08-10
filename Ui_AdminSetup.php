@@ -7,7 +7,7 @@ $US_Prefix = "";
 <?php include("Ma_Head_Link.php"); ?>
 <link href="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap5.min.css" rel="stylesheet">
 <style>
-  #image {
+  #image, #imageCategory {
     display: none;
   }
 </style>
@@ -42,7 +42,7 @@ $US_Prefix = "";
     <div class="container-xxl py-5">
         <div class="container">
             <div class="text-center mx-auto mb-2 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 600px;">
-                <h3 class="text-primary">Setup & Set system defaults.</h3>
+                <h3 class="text-primary">Setup & Set system defaults</h3>
                 <h2 class="mb-4">ตั้งค่าและเซ็ตค่าเริ่มต้นระบบ</h2>
             </div>
         </div>
@@ -145,7 +145,7 @@ $US_Prefix = "";
                                                     <span class="text"><?=$row["CG_Name"]?></span>
                                                     <div class="tools">
                                                         <a class="btn btn-link py-1 px-2 text-end" onclick="deleteAlertCategory(<?php echo $row["CG_Entity No."];?>, '<?php echo $row["CG_Name"];?>')"><i class="fas fa-trash"></i></a>
-                                                        <button type="button" class="btn btn-link py-1 px-2 text-end text-warning" data-bs-toggle="modal" data-bs-target="#Category" data-entityno="<?= $row["CG_Entity No."] ?>" data-isfile="<?= $row["CG_IsFile"] ?>" data-entityrelationno="<?= $row["CG_Entity Relation No."] ?>" data-name="<?= $row["CG_Name"]; ?>" data-descriptionth="<?= $row["CG_DescriptionTH"] ?>" data-descriptionen="<?= $row["CG_DescriptionEN"] ?>"><i class="fas fa-edit"></i> </button>
+                                                        <button type="button" class="btn btn-link py-1 px-2 text-end text-warning" data-bs-toggle="modal" data-bs-target="#Category" data-entityno="<?= $row["CG_Entity No."] ?>" data-isfile="<?= $row["CG_IsFile"] ?>" data-entityrelationno="<?= $row["CG_Entity Relation No."] ?>" data-name="<?= $row["CG_Name"]; ?>" data-descriptionth="<?= $row["CG_DescriptionTH"] ?>" data-descriptionen="<?= $row["CG_DescriptionEN"] ?>" data-ecimage="<?= $row["CG_DefaultImage"]; ?>"><i class="fas fa-edit"></i> </button>
                                                     </div>
                                                 <?php
                                                     $sql = "SELECT *
@@ -185,7 +185,7 @@ $US_Prefix = "";
                                             </ul>
                                         </div>
                                         <div class="form-group text-center text-md-end">
-                                            <button type="button" class="btn btn-primary rounded-pill py-1 px-4 add-image-btn text-end" data-bs-toggle="modal" data-bs-target="#Category" data-entityno="0" data-isfile="0" data-entityrelationno="0" data-name="" data-descriptionth="" data-descriptionen=""><i class="fa fa-plus"></i></button>
+                                            <button type="button" class="btn btn-primary rounded-pill py-1 px-4 add-image-btn text-end" data-bs-toggle="modal" data-bs-target="#Category" data-entityno="0" data-isfile="0" data-entityrelationno="0" data-name="" data-descriptionth="" data-descriptionen="" data-ecimage=""><i class="fa fa-plus"></i></button>
                                         </div>
                                     </div>
                                     <!-- /.card-body -->
@@ -410,6 +410,7 @@ $US_Prefix = "";
                             <!-- <div class="col-3 col-sm-2"> -->
                                 <!-- <h6 class="text-primary">รหัส</h6> -->
                                 <input type="hidden" id="CG_EntityNo" name="CG_EntityNo" class="form-control border-1" placeholder="0" readonly>
+                                <input type="hidden" id="CG_OldImage" name="CG_OldImage" class="form-control border-1" placeholder="0" readonly>
                             <!-- </div> -->
                             <div class="col-5 col-sm-5">
                                 <h6 class="text-primary">ลำดับชั้นที่จะต่อ</h6>
@@ -452,6 +453,13 @@ $US_Prefix = "";
                             <div class="col-6 col-sm-6">
                                 <h6 class="text-primary">ชื่อภาษาอังกฤษ</h6>
                                 <input type="Text" id="CG_DescriptionEN" name="CG_DescriptionEN" class="form-control border-1" placeholder="ชื่อภาษาอังกฤษ" required>
+                            </div>
+                            <div class="col-12 col-sm-12">
+                                <h6 class="text-primary">ภาพเริ่มต้น</h6>
+                                <input type="file" class="form-control border-1" name="imageCategory" id="imageCategory" accept="image/*">
+                                <label for="imageCategory" style="cursor: pointer;">
+                                    <div id="modalPreviewImageCategory"></div>
+                                </label>
                             </div>
                         </div>
                         <div class="modal-footer">
@@ -715,6 +723,20 @@ $US_Prefix = "";
         } else {
             var defaultImagePath = document.getElementById('DefaultNameImageNews').value;
             previewImage.src = defaultImagePath;
+        }
+    });
+
+    document.getElementById('imageCategory').addEventListener('change', function (e) {
+        var file = e.target.files[0];
+        var reader = new FileReader();
+
+        reader.onload = function (e) {
+            var previewImageCategory = document.getElementById('previewImageCategory');
+            previewImageCategory.src = e.target.result;
+        };
+
+        if (file) {
+            reader.readAsDataURL(file);
         }
     });
 </script>
@@ -1044,6 +1066,9 @@ $(document).ready(function() {
         const name = button.data('name');
         const descriptionTH = button.data('descriptionth');
         const descriptionEN = button.data('descriptionen');
+        const ecImage = button.data('ecimage') !== '' ? 'img/DefaultImageCategory/' + button.data('ecimage') : 'Default/DefaultImage/DefaultImage.png';
+        const oldImage = button.data('ecimage');
+
 
         // กำหนดค่าให้กับช่อง input ใน Modal
         document.getElementById("CG_EntityNo").value = entityNo;
@@ -1052,6 +1077,11 @@ $(document).ready(function() {
         document.getElementById("CG_Name").value = name;
         document.getElementById("CG_DescriptionTH").value = descriptionTH;
         document.getElementById("CG_DescriptionEN").value = descriptionEN;
+        document.getElementById("CG_OldImage").value = oldImage;
+
+        var modalContentMasterMenuCategory = document.getElementById("modalPreviewImageCategory");
+        var contentHTML = '<img id="previewImageCategory" class="img-fluid rounded" src="' + ecImage + '" alt="" style="width: 200px; height: 200px;">';
+        modalContentMasterMenuCategory.innerHTML = contentHTML;
     });
 
     // เมื่อ Modal MenuCategory ถูกเปิดขึ้นมา
@@ -1121,7 +1151,7 @@ $(document).ready(function() {
             document.getElementById("EC_name").value = ecName;
         }
         document.getElementById("EC_descriptionth").value = ecDescriptionTH;
-        document.getElementById("EC_descriptionen").value = ecDescriptionEN;
+        document.getElementById("EC_descriptionen").value = ecDescriptionEN;      
     });
 
     // เมื่อ Modal EngravedActivities ถูกเปิดขึ้นมา
