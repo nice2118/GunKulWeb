@@ -38,6 +38,27 @@ $(document).ready(function() {
             }
         });
     });
+
+    $(document).ready(function() {
+        $("#countengravedactivities").click(function(event) {
+            event.preventDefault(); 
+            var code = $(this).data("code");
+            var url = $(this).attr("href");
+            $.ajax({
+                url: "DB_CountPage.php",
+                type: "POST",
+                data: { Type: 'engravedactivities', Code: code },
+                dataType: "json",
+                success: function(response) {
+                    console.log("Data sent successfully:", response);
+                    window.location.href = url;
+                },
+                error: function() {
+                    console.log("Error occurred");
+                }
+            });
+        });
+    });
 });
 
 function logoutAlert() {

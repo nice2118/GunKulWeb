@@ -21,13 +21,78 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   $Type = $_POST['Send_MenuCategoryType'];
 
   // echo '-----'.$Send_Code.'++++'.$Send_Relation.'****'.$Send_Text.'////'.$Type;
-
-  // ทำอย่างอื่นๆ เช่นบันทึกข้อมูลลงฐานข้อมูล
+  $FullNameImage = '';
   $TypeLower = strtolower($Type);
+  if ($TypeLower == 'headingcategories') {
+      if (isset($_FILES['imageMenuCategory']) && $_FILES['imageMenuCategory']['error'] === UPLOAD_ERR_OK) {
+        $Send_OldImage = isset($_POST['Send_OldImage']) ? $_POST['Send_OldImage'] : '';
+        $PathFolderMenuCategory = 'img/DefaultImageHeadingCategory/';
+
+        $file = $_FILES['imageMenuCategory'];
+        $fileName = $file['name'];
+        $fileTmpName = $file['tmp_name'];
+        $fileSize = $file['size'];
+        $fileError = $file['error'];
+    
+        // ตรวจสอบว่าเป็นไฟล์รูปภาพหรือไม่
+        $allowedExtensions = ['jpg', 'jpeg', 'png', 'gif'];
+        $fileExtension = strtolower(pathinfo($fileName, PATHINFO_EXTENSION));
+        if (in_array($fileExtension, $allowedExtensions)) {
+          if ($Send_Code == 0 || $Send_Code == '') {
+            $sql = "SHOW TABLE STATUS LIKE 'headingcategories'";
+            $result = $conn->query($sql);
+            if ($result->num_rows > 0) {
+                $row = $result->fetch_assoc();
+                $maxCode = $row['Auto_increment'];
+    
+                if (!empty($maxCode)) {
+                    $newnNameImage = $maxCode;
+                } else {
+                    $newnNameImage = 1;
+                }
+            } else {
+                $newnNameImage = 1;
+            }
+          } else {
+            $newnNameImage = $Send_Code;
+          }
+    
+          $FullNameImage = $newnNameImage.'.'.$fileExtension;
+          unset($sql);
+    
+          if ($Send_OldImage != ''){
+            $filePath = $PathFolderMenuCategory . $Send_OldImage;
+            if (file_exists($filePath)) {
+              if (unlink($filePath)) {
+              }
+            }
+          }
+    
+          $destination = $PathFolderMenuCategory . $FullNameImage;
+          if (!file_exists($PathFolderMenuCategory)) {
+            mkdir($PathFolderMenuCategory, 0777, true); // สร้างโฟลเดอร์ถ้ายังไม่มี
+          }
+          move_uploaded_file($fileTmpName, $destination);
+        } else {
+          $_SESSION['StatusTitle'] = "Error!"; // รูปแบบไฟล์ไม่ถูกต้อง
+          $_SESSION['StatusMessage'] = "Invalid file format.";
+          $_SESSION['StatusAlert'] = "error";
+          if (isset($_SESSION['PathPage']) && $_SESSION['PathPage'] !== '') {
+            header("Location: ".$_SESSION['PathPage']);
+            unset($_SESSION['PathPage']);
+          }
+        }
+    }
+  }
+
   if ($Send_Code == 0 || $Send_Code == '') {
     switch ($TypeLower) {
       case "headingcategories":
-        $sql = "INSERT INTO `newsandactivities`.`headingcategories` (`HC_Code`, `HC_Text`, `HC_descriptionth`, `HC_descriptionen`, `HC_UserCreate`, `HC_CreateDate`, `HC_ModifyDate`) VALUES (NULL, '$Send_Text', '$Send_descriptionth', '$Send_descriptionen', '{$_SESSION['User']}', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);";
+        if ($FullNameImage == '') {
+          $sql = "INSERT INTO `newsandactivities`.`headingcategories` (`HC_Code`, `HC_Text`, `HC_descriptionth`, `HC_descriptionen`, `HC_UserCreate`, `HC_CreateDate`, `HC_ModifyDate`) VALUES (NULL, '$Send_Text', '$Send_descriptionth', '$Send_descriptionen', '{$_SESSION['User']}', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);";
+        } else {
+          $sql = "INSERT INTO `newsandactivities`.`headingcategories` (`HC_Code`, `HC_Text`, `HC_descriptionth`, `HC_descriptionen`, `HC_UserCreate`, `HC_DefaultImage`, `HC_CreateDate`, `HC_ModifyDate`) VALUES (NULL, '$Send_Text', '$Send_descriptionth', '$Send_descriptionen', '{$_SESSION['User']}', '$FullNameImage', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);";
+        }
         // echo 'a';
         break;
       case "headinggroup":
@@ -71,7 +136,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   } else {    
     switch ($TypeLower) {
       case "headingcategories":
+        if ($FullNameImage == '') {
           $sql = "UPDATE `newsandactivities`.`headingcategories` SET `HC_Text` = '$Send_Text', `HC_descriptionth` = '$Send_descriptionth', `HC_descriptionen` = '$Send_descriptionen',`HC_ModifyDate` = CURRENT_TIMESTAMP WHERE `headingcategories`.`HC_Code` = $Send_Code;";
+        } else {
+          $sql = "UPDATE `newsandactivities`.`headingcategories` SET `HC_Text` = '$Send_Text', `HC_descriptionth` = '$Send_descriptionth', `HC_descriptionen` = '$Send_descriptionen',`HC_ModifyDate` = CURRENT_TIMESTAMP, `HC_DefaultImage` = '$FullNameImage' WHERE `headingcategories`.`HC_Code` = $Send_Code;";
+        }
           // echo 'aa';
           break;
       case "headinggroup":

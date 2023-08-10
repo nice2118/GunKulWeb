@@ -130,4 +130,20 @@
 <?php include("Ma_FirstFooter_Script.php"); ?>
 <script src="js/jquery.min.js"></script>
 <script src="js/adminlte.min.js"></script>
+<script>
+$(document).ready(function() {
+    $.ajax({
+        url: "DB_CountPage.php",
+        type: "POST",
+        data: { Type: 'activities', Code: <?=$t_id?> },
+        dataType: "json",
+        success: function(response) {
+            console.log("Data sent successfully:", response);
+        },
+        error: function() {
+            console.log("Error occurred");
+        }
+    });
+});
+</script>
 <?php include("Ma_Footer_Script.php"); ?>

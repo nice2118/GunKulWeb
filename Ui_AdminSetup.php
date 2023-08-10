@@ -7,7 +7,7 @@ $US_Prefix = "";
 <?php include("Ma_Head_Link.php"); ?>
 <link href="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap5.min.css" rel="stylesheet">
 <style>
-  #image, #imageCategory {
+  #image, #imageCategory, #imageMenuCategory {
     display: none;
   }
 </style>
@@ -248,7 +248,7 @@ $US_Prefix = "";
                                                     <span class="text"><?=$row["HC_Text"]?></span>
                                                     <div class="tools">
                                                         <a class="btn btn-link py-1 px-2 text-end" onclick="deleteAlertMenuCategory(<?php echo $row["HC_Code"];?>, '<?php echo $row["HC_Text"];?>', 'headingcategories')"><i class="fas fa-trash"></i></a>
-                                                        <button type="button" class="btn btn-link py-1 px-2 text-end text-warning" data-bs-toggle="modal" data-bs-target="#MenuCategory" data-hcCode="<?= $row["HC_Code"] ?>" data-hcText="<?= $row["HC_Text"] ?>" data-hcdescriptionth="<?= $row["HC_DescriptionTH"] ?>" data-hcdescriptionen="<?= $row["HC_DescriptionEN"] ?>"><i class="fas fa-edit"></i> </button>
+                                                        <button type="button" class="btn btn-link py-1 px-2 text-end text-warning" data-bs-toggle="modal" data-bs-target="#MenuCategory" data-hcCode="<?= $row["HC_Code"] ?>" data-hcText="<?= $row["HC_Text"] ?>" data-hcdescriptionth="<?= $row["HC_DescriptionTH"] ?>" data-hcdescriptionen="<?= $row["HC_DescriptionEN"] ?>" data-hcimage="<?= $row["HC_DefaultImage"] ?>"><i class="fas fa-edit"></i> </button>
                                                         <button type="button" class="btn btn-link py-0 px-1 text-end text-primary" data-bs-toggle="modal" data-bs-target="#MasterMenuCategory" data-hccode="<?= $row["HC_Code"] ?>"><i class="fas fa-graduation-cap"></i></button>
                                                     </div>
                                                 </li>
@@ -259,7 +259,7 @@ $US_Prefix = "";
                                             ?>
                                         </ui>
                                         <div class="form-group text-center text-md-end">
-                                            <button type="button" class="btn btn-primary rounded-pill py-1 px-4 add-image-btn text-end" data-bs-toggle="modal" data-bs-target="#MenuCategory" data-hcCode="0" data-hcText="" data-hcdescriptionth="" data-hcdescriptionen=""><i class="fa fa-plus"></i></button>
+                                            <button type="button" class="btn btn-primary rounded-pill py-1 px-4 add-image-btn text-end" data-bs-toggle="modal" data-bs-target="#MenuCategory" data-hcCode="0" data-hcText="" data-hcdescriptionth="" data-hcdescriptionen="" data-hcimage=""><i class="fa fa-plus"></i></button>
                                         </div>
                                     </div>
                                     <!-- /.card-body -->
@@ -486,6 +486,7 @@ $US_Prefix = "";
                             <!-- <div class="col-3 col-sm-2"> -->
                                 <!-- <h6 class="text-primary">รหัส</h6> -->
                                 <input type="hidden" name="Send_MenuCategoryType" value="headingcategories">
+                                <input type="hidden" id="Send_OldImage" name="Send_OldImage" value="headingcategories">
                                 <input type="hidden" id="Send_Relation" name="Send_Relation" value="0">
                                 <input type="hidden" id="Send_Code" name="Send_Code" class="form-control border-1" placeholder="0" readonly>
                             <!-- </div> -->
@@ -500,6 +501,13 @@ $US_Prefix = "";
                             <div class="col-6 col-sm-6">
                                 <h6 class="text-primary">ชื่อภาษาอังกฤษ</h6>
                                 <input type="Text" id="Send_descriptionen" name="Send_descriptionen" class="form-control border-1" placeholder="ชื่อภาษาอังกฤษ" required>
+                            </div>
+                            <div class="col-12 col-sm-12">
+                                <h6 class="text-primary">ภาพเริ่มต้น</h6>
+                                <input type="file" class="form-control border-1" name="imageMenuCategory" id="imageMenuCategory" accept="image/*">
+                                <label for="imageMenuCategory" style="cursor: pointer;">
+                                    <div id="modalPreviewImageMenuCategory"></div>
+                                </label>
                             </div>
                         </div>
                         <div class="modal-footer">
@@ -733,6 +741,20 @@ $US_Prefix = "";
         reader.onload = function (e) {
             var previewImageCategory = document.getElementById('previewImageCategory');
             previewImageCategory.src = e.target.result;
+        };
+
+        if (file) {
+            reader.readAsDataURL(file);
+        }
+    });
+
+    document.getElementById('imageMenuCategory').addEventListener('change', function (e) {
+        var file = e.target.files[0];
+        var reader = new FileReader();
+
+        reader.onload = function (e) {
+            var previewImageMenuCategory = document.getElementById('previewImageMenuCategory');
+            previewImageMenuCategory.src = e.target.result;
         };
 
         if (file) {
@@ -1091,12 +1113,19 @@ $(document).ready(function() {
         const hcText = button.data('hctext');
         const hcDescriptionTH = button.data('hcdescriptionth');
         const hcDescriptionEN = button.data('hcdescriptionen');
+        const hcImage = button.data('hcimage') !== '' ? 'img/DefaultImageHeadingCategory/' + button.data('hcimage') : 'Default/DefaultImage/DefaultImage.png';
+        const hcOldImage = button.data('hcimage');
 
         // กำหนดค่าให้กับช่อง input ใน Modal
         document.getElementById("Send_Code").value = hcCode;
         document.getElementById("Send_Text").value = hcText;
         document.getElementById("Send_descriptionth").value = hcDescriptionTH;
         document.getElementById("Send_descriptionen").value = hcDescriptionEN;
+        document.getElementById("Send_OldImage").value = hcOldImage;
+
+        var modalContentMasterMenuCategory = document.getElementById("modalPreviewImageMenuCategory");
+        var contentHTML = '<img id="previewImageMenuCategory" class="img-fluid rounded" src="' + hcImage + '" alt="" style="width: 200px; height: 200px;">';
+        modalContentMasterMenuCategory.innerHTML = contentHTML;
     });
 
     // เมื่อ Modal MasterMenuCategory ถูกเปิดขึ้นมา

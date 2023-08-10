@@ -28,7 +28,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   $fileSize = $file['size'];
   $fileError = $file['error'];
   // echo $CG_EntityNo.'--'.$CG_EntityRelationNo.'++'.$CG_Name.'//'.$CG_DescriptionTH.'=='.$CG_DescriptionEN.'..'.$CG_IsFile;
-  $newnFullNameImage = '';
+  $FullNameImage = '';
 
   // เช็คว่ามีข้อผิดพลาดในการอัปโหลดไฟล์หรือไม่
   if ($fileError === UPLOAD_ERR_OK) {
@@ -39,7 +39,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if (in_array($fileType, $allowedExtensions)) {
       if ($CG_EntityNo == 0 || $CG_EntityNo == '') {
-      $sql = "SHOW TABLE STATUS LIKE 'category'";
+        $sql = "SHOW TABLE STATUS LIKE 'category'";
         $result = $conn->query($sql);
         if ($result->num_rows > 0) {
             $row = $result->fetch_assoc();
@@ -57,22 +57,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $newnNameImage = $CG_EntityNo;
       }
 
-      $newnFullNameImage = $newnNameImage.'.'.$fileType;
+      $FullNameImage = $newnNameImage.'.'.$fileType;
       unset($sql);
 
-      
-      $filePath = $PathFolderCategory . $CG_OldImage;
-      if (file_exists($filePath)) {
-        if (unlink($filePath)) {
+      if ($CG_OldImage != ''){
+        $filePath = $PathFolderCategory . $CG_OldImage;
+        if (file_exists($filePath)) {
+          if (unlink($filePath)) {
+          }
         }
       }
 
-      $destination = $PathFolderCategory . $newnFullNameImage;
+      $destination = $PathFolderCategory . $FullNameImage;
       if (!file_exists($PathFolderCategory)) {
         mkdir($PathFolderCategory, 0777, true); // สร้างโฟลเดอร์ถ้ายังไม่มี
       }
       move_uploaded_file($fileTmpName, $destination);
-      // echo 'The file has been uploaded successfully. Its name is: ' . $newnFullNameImage; // ไฟล์ถูกอัปโหลดเรียบร้อยแล้วชื่อว่า
+      // echo 'The file has been uploaded successfully. Its name is: ' . $FullNameImage; // ไฟล์ถูกอัปโหลดเรียบร้อยแล้วชื่อว่า
     } else {
       $_SESSION['StatusTitle'] = "Error!"; // รูปแบบไฟล์ไม่ถูกต้อง
       $_SESSION['StatusMessage'] = "Invalid file format.";
@@ -86,10 +87,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
   // ทำอย่างอื่นๆ เช่นบันทึกข้อมูลลงฐานข้อมูล
   if ($CG_EntityNo == 0 || $CG_EntityNo == '') {
-    if ($newnFullNameImage == '') {
+    if ($FullNameImage == '') {
       $sql = "INSERT INTO `newsandactivities`.`category` (`CG_Entity No.`, `CG_IsFile`, `CG_Entity Relation No.`, `CG_Name`, `CG_DescriptionTH`, `CG_DescriptionEN`, `CG_CreateDate`, `CG_ModifyDate`) VALUES (NULL, $CG_IsFile, $CG_EntityRelationNo, '$CG_Name', '$CG_DescriptionTH', '$CG_DescriptionEN', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);";
     } else {
-      $sql = "INSERT INTO `newsandactivities`.`category` (`CG_Entity No.`, `CG_IsFile`, `CG_Entity Relation No.`, `CG_Name`, `CG_DescriptionTH`, `CG_DescriptionEN`, `CG_DefaultImage`, `CG_CreateDate`, `CG_ModifyDate`) VALUES (NULL, $CG_IsFile, $CG_EntityRelationNo, '$CG_Name', '$CG_DescriptionTH', '$CG_DescriptionEN', '$newnFullNameImage', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);";
+      $sql = "INSERT INTO `newsandactivities`.`category` (`CG_Entity No.`, `CG_IsFile`, `CG_Entity Relation No.`, `CG_Name`, `CG_DescriptionTH`, `CG_DescriptionEN`, `CG_DefaultImage`, `CG_CreateDate`, `CG_ModifyDate`) VALUES (NULL, $CG_IsFile, $CG_EntityRelationNo, '$CG_Name', '$CG_DescriptionTH', '$CG_DescriptionEN', '$FullNameImage', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);";
     }
   } else {
     $sqlCheck = "SELECT * FROM `category` WHERE `category`.`CG_Name` = '$CG_Name';";
@@ -107,10 +108,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
       }
     }
-      if ($newnFullNameImage == '') {
+      if ($FullNameImage == '') {
         $sql = "UPDATE `newsandactivities`.`category` SET `CG_IsFile` = $CG_IsFile, `CG_Entity Relation No.` = $CG_EntityRelationNo, `CG_Name` = '$CG_Name', `CG_DescriptionTH` = '$CG_DescriptionTH', `CG_DescriptionEN` = '$CG_DescriptionEN',`CG_ModifyDate` = CURRENT_TIMESTAMP WHERE `category`.`CG_Entity No.` = $CG_EntityNo;";
       } else {
-        $sql = "UPDATE `newsandactivities`.`category` SET `CG_IsFile` = $CG_IsFile, `CG_Entity Relation No.` = $CG_EntityRelationNo, `CG_Name` = '$CG_Name', `CG_DescriptionTH` = '$CG_DescriptionTH', `CG_DescriptionEN` = '$CG_DescriptionEN',`CG_ModifyDate` = CURRENT_TIMESTAMP, `CG_DefaultImage` = '$newnFullNameImage' WHERE `category`.`CG_Entity No.` = $CG_EntityNo;";
+        $sql = "UPDATE `newsandactivities`.`category` SET `CG_IsFile` = $CG_IsFile, `CG_Entity Relation No.` = $CG_EntityRelationNo, `CG_Name` = '$CG_Name', `CG_DescriptionTH` = '$CG_DescriptionTH', `CG_DescriptionEN` = '$CG_DescriptionEN',`CG_ModifyDate` = CURRENT_TIMESTAMP, `CG_DefaultImage` = '$FullNameImage' WHERE `category`.`CG_Entity No.` = $CG_EntityNo;";
       }
   }
   if ($conn->query($sql) === true) {

@@ -117,7 +117,7 @@
                                 if ($resultengravedactivities->num_rows > 0) {
                                     while ($rowengravedactivities = $resultengravedactivities->fetch_assoc()) {
                             ?>
-                                <li><a href="<?= PDFNamePathLast($rowengravedactivities["EA_Path"]) ?>" target="_blank" class="dropdown-item"><?= $rowengravedactivities["EA_Name"] ?></a></li>
+                                <li><a href="<?= PDFNamePathLast($rowengravedactivities["EA_Path"]) ?>" id="countengravedactivities" data-code="<?= $rowengravedactivities["EA_Code"] ?>" target="_blank" class="dropdown-item"><?= $rowengravedactivities["EA_Name"] ?></a></li>
                             <?php
                                     }
                                 }

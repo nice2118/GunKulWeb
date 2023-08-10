@@ -146,4 +146,20 @@
 <?php include("Ma_Footer.php"); ?>
 <?php include("Ma_FirstFooter_Script.php"); ?>
 <script src="js/bootstrap.bundle.min.js"></script>
+<script>
+$(document).ready(function() {
+    $.ajax({
+        url: "DB_CountPage.php",
+        type: "POST",
+        data: { Type: 'headingcategories', Code: <?=$Send_MoreMenu?> },
+        dataType: "json",
+        success: function(response) {
+            console.log("Data sent successfully:", response);
+        },
+        error: function() {
+            console.log("Error occurred");
+        }
+    });
+});
+</script>
 <?php include("Ma_Footer_Script.php"); ?>

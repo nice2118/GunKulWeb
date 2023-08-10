@@ -111,7 +111,7 @@ if (isset($_GET['Send_Category']) && $_GET['Send_Category'] !== '') {
                                                 <?php if ($IsFile == 0): ?>
                                                     <a class="btn btn-primary2 btn-sm" href="Ui_ShowDetail.php?Send_IDNews=<?= $reqCode?>"><i class="fas fa-folder"></i></a>
                                                 <?php elseif ($IsFile == 1): ?>
-                                                    <a class="btn btn-primary2 btn-sm" href="<?= $reqFile ?>"><i class="fas fa-folder"></i></a>
+                                                    <a class="btn btn-primary2 btn-sm" href="<?= $reqFile ?>" data-code="<?= urlencode($reqCode) ?>"><i class="fas fa-folder"></i></a>
                                                 <?php endif; ?>
                                             </td>
                                         </tr>
@@ -157,4 +157,26 @@ if (isset($_GET['Send_Category']) && $_GET['Send_Category'] !== '') {
 <?php include("Ma_Footer.php"); ?>
 <?php include("Ma_FirstFooter_Script.php"); ?>
 <?php include("Ma_ScriptDatatable.php"); ?>
+<script>
+$(document).ready(function() {
+    $(".btn-primary2").click(function(event) {
+        event.preventDefault(); 
+        var code = $(this).data("code");
+        var url = $(this).attr("href");
+        $.ajax({
+            url: "DB_CountPage.php",
+            type: "POST",
+            data: { Type: 'fileactivities', Code: code },
+            dataType: "json",
+            success: function(response) {
+                console.log("Data sent successfully:", response);
+                window.location.href = url;
+            },
+            error: function() {
+                console.log("Error occurred");
+            }
+        });
+    });
+});
+</script>
 <?php include("Ma_Footer_Script.php"); ?>

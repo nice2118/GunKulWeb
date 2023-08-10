@@ -141,7 +141,7 @@ if (isset($_GET['Send_Category']) && $_GET['Send_Category'] !== '') {
                                                     <a class="btn btn-warning btn-sm" href="Ui_Edit.php?Send_IDNews=<?= urlencode($reqCode); ?>&Send_Title=<?= urlencode($reqTitle); ?>&Send_Category=<?= $Category_id ; ?>"><i class="fas fa-pencil-alt"></i></a>
                                                     <a class="btn btn-danger btn-sm" onclick="deleteAlert(<?php echo $reqCode;?>, '<?= addslashes(htmlspecialchars_decode($reqTitle, ENT_QUOTES)) ?>',<?php echo $Category_id;?>)"><i class="fas fa-trash"></i></a>
                                                 <?php elseif ($IsFile == 1): ?>
-                                                    <a class="btn btn-primary2 btn-sm" href="<?= $reqFile ?>"><i class="fas fa-folder"></i></a>
+                                                    <a class="btn btn-primary2 btn-sm" href="<?= $reqFile ?>" data-code="<?= urlencode($reqCode) ?>"><i class="fas fa-folder"></i></a>
                                                     <a class="btn btn-warning btn-sm" href="Ui_EditFile.php?Send_IDNews=<?= urlencode($reqCode); ?>&Send_Title=<?= urlencode($reqTitle); ?>&Send_Category=<?= $Category_id ; ?>"><i class="fas fa-pencil-alt"></i></a>
                                                     <a class="btn btn-danger btn-sm" onclick="deleteAlertFile(<?php echo $reqCode;?>, '<?php echo addslashes(htmlspecialchars_decode($reqTitle, ENT_QUOTES));?>',<?php echo $Category_id;?>)"><i class="fas fa-trash"></i></a>
                                                 <?php endif; ?>
@@ -262,4 +262,26 @@ if (isset($_GET['Send_Category']) && $_GET['Send_Category'] !== '') {
     </script>
 <?php include("Ma_FirstFooter_Script.php"); ?>
 <?php include("Ma_ScriptDatatable.php"); ?>
+<script>
+$(document).ready(function() {
+    $(".btn-primary2").click(function(event) {
+        event.preventDefault(); 
+        var code = $(this).data("code");
+        var url = $(this).attr("href");
+        $.ajax({
+            url: "DB_CountPage.php",
+            type: "POST",
+            data: { Type: 'fileactivities', Code: code },
+            dataType: "json",
+            success: function(response) {
+                console.log("Data sent successfully:", response);
+                window.location.href = url;
+            },
+            error: function() {
+                console.log("Error occurred");
+            }
+        });
+    });
+});
+</script>
 <?php include("Ma_Footer_Script.php"); ?>
