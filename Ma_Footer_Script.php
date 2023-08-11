@@ -1,8 +1,8 @@
-<script>
+<!-- <script>
     $(document).ready(function() {
         $('[data-bs-toggle="tooltip"]').tooltip();
     });
-</script>
+</script> -->
 <script>
 $(document).ready(function() {
 

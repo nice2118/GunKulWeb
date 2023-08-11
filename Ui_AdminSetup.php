@@ -16,7 +16,6 @@ $US_Prefix = "";
 <?PHP
     $sql = "SELECT * FROM Setup";
     $result = $conn->query($sql);
-
     if ($result->num_rows > 0) {
         $row = $result->fetch_assoc();
         $CodeSetup = $row["SU_Code"];
@@ -36,6 +35,39 @@ $US_Prefix = "";
         }
     }
     unset($sql);
+    $sql = "SELECT * FROM IndexSetup";
+    $result = $conn->query($sql);
+    if ($result->num_rows > 0) {
+        $row = $result->fetch_assoc();
+        $ISCode = $row["IS_Code"];
+        $ISGroupCategory1 = $row["IS_GroupCategory1"];
+        $ISGroupCategory2 = $row["IS_GroupCategory2"];
+        $ISGroupMenu1 = $row["IS_GroupMenu1"];
+        $ISGroupMenu1_Box1 = $row["IS_GroupMenu1_Box1"];
+        $ISGroupMenu2 = $row["IS_GroupMenu2"];
+        $ISGroupMenu2_Box2 = $row["IS_GroupMenu2_Box2"];
+        $ISGroupMenu3 = $row["IS_GroupMenu3"];
+        $ISGroupMenu3_Box3 = $row["IS_GroupMenu3_Box3"];
+        $ISGroupMenu4 = $row["IS_GroupMenu4"];
+        $ISGroupMenu4_Box4 = $row["IS_GroupMenu4_Box4"];
+    } else {
+        unset($sql);
+        $sql = "INSERT INTO `IndexSetup` (`IS_Code`,`IS_CreateDate`) VALUES (1, CURRENT_TIMESTAMP)";
+        if ($conn->query($sql) === true) {
+            $ISCode = 1;
+            $ISGroupCategory1 = "";
+            $ISGroupCategory2 = "";
+            $ISGroupMenu1 = "";
+            $ISGroupMenu1_Box1 = "";
+            $ISGroupMenu2 = "";
+            $ISGroupMenu2_Box2 = "";
+            $ISGroupMenu3 = "";
+            $ISGroupMenu3_Box3 = "";
+            $ISGroupMenu4 = "";
+            $ISGroupMenu4_Box4 = "";
+        }
+    }
+    unset($sql);
 ?>
 
     <!-- Content -->
@@ -49,12 +81,12 @@ $US_Prefix = "";
         <div class="row g-4">
             <div class="col-lg-12 col-md-12 wow fadeInUp" data-wow-delay="0.1s">
                 <section class="content">
-                    <form action="Pro_EditSetup.php" method="post" enctype="multipart/form-data">
+                    <!-- <form action="Pro_EditSetup.php" method="post" enctype="multipart/form-data">
                         <div class="row my-3">
                             <div class="col-12 text-center text-md-end">
                                 <button type="submit" class="btn btn-success rounded-pill py-2 px-5 add-image-btn text-end"><i class="fa fa-save"></i></button>
                             </div>
-                        </div>
+                        </div> -->
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="card card-primary">
@@ -65,65 +97,72 @@ $US_Prefix = "";
                                         </div>
                                     </div>
                                     <div class="card-body">
-                                        <div class="form-group">
-                                            <label for="inputName">รูปเริ่มต้นของข่าวและกิจกรรม</label>
-                                            <div class="container-fluid bg-light overflow-hidden px-lg-0">
-                                                <div class="container quote px-lg-0">
-                                                    <div class="row g-0 mx-lg-0">
-                                                        <div class="col-lg-4 quote-text py-0 wow fadeIn" data-wow-delay="0.5s"></div>
-                                                        <div class="col-lg-4 ps-lg-0 wow fadeIn" data-wow-delay="0.1s" style="max-height: 200px; max-width: 200px; min-height: 100px; min-width: 100px;">
-                                                            <div class="position-relative">
-                                                                <input type="file" class="form-control border-1" name="image" id="image" accept="image/*">
-                                                                <input type="hidden" name="ID" value="<?= $CodeSetup ?>" class="form-control">
-                                                                <input type="hidden" name="DefaultNameImageNews" value="0" class="form-control">
-                                                                <input type="hidden" name="OldNameImageNews" value="<?= $DefaultImageNews ?>" class="form-control">
-                                                                <label for="image" style="cursor: pointer;">
-                                                                    <?php
-                                                                        if (isset($DefaultImageNews) && $DefaultImageNews !== '') {
-                                                                            $PathDefaultImage = $PathFolderNews . $DefaultImageNews;
-                                                                        } else {
-                                                                            $folderPath = 'Default/DefaultImage/';
-                                                                            $files = scandir($folderPath);
-                                                                            $imageFiles = array_diff($files, array('.', '..'));
-                                                                            $latestImage = '';
-                                                                            $latestTimestamp = 0;
-                                                                            foreach ($imageFiles as $imageFile) {
-                                                                                $filePath = $folderPath . $imageFile;
-                                                                                $timestamp = filemtime($filePath);
+                                        <form action="Pro_EditSetup.php" method="post" enctype="multipart/form-data">
+                                            <div class="form-group">
+                                                <label for="inputName">รูปเริ่มต้นของข่าวและกิจกรรม</label>
+                                                <div class="container-fluid bg-light overflow-hidden px-lg-0">
+                                                    <div class="container quote px-lg-0">
+                                                        <div class="row g-0 mx-lg-0">
+                                                            <div class="col-lg-4 quote-text py-0 wow fadeIn" data-wow-delay="0.5s"></div>
+                                                            <div class="col-lg-4 ps-lg-0 wow fadeIn" data-wow-delay="0.1s" style="max-height: 200px; max-width: 200px; min-height: 100px; min-width: 100px;">
+                                                                <div class="position-relative">
+                                                                    <input type="file" class="form-control border-1" name="image" id="image" accept="image/*">
+                                                                    <input type="hidden" name="ID" value="<?= $CodeSetup ?>" class="form-control">
+                                                                    <input type="hidden" name="DefaultNameImageNews" value="0" class="form-control">
+                                                                    <input type="hidden" name="OldNameImageNews" value="<?= $DefaultImageNews ?>" class="form-control">
+                                                                    <label for="image" style="cursor: pointer;">
+                                                                        <?php
+                                                                            if (isset($DefaultImageNews) && $DefaultImageNews !== '') {
+                                                                                $PathDefaultImage = $PathFolderNews . $DefaultImageNews;
+                                                                            } else {
+                                                                                $folderPath = 'Default/DefaultImage/';
+                                                                                $files = scandir($folderPath);
+                                                                                $imageFiles = array_diff($files, array('.', '..'));
+                                                                                $latestImage = '';
+                                                                                $latestTimestamp = 0;
+                                                                                foreach ($imageFiles as $imageFile) {
+                                                                                    $filePath = $folderPath . $imageFile;
+                                                                                    $timestamp = filemtime($filePath);
 
-                                                                                if ($timestamp > $latestTimestamp) {
-                                                                                    $latestTimestamp = $timestamp;
-                                                                                    $latestImage = $imageFile;
+                                                                                    if ($timestamp > $latestTimestamp) {
+                                                                                        $latestTimestamp = $timestamp;
+                                                                                        $latestImage = $imageFile;
+                                                                                    }
+                                                                                }
+                                                                                if (!empty($latestImage)) {
+                                                                                    $PathDefaultImage = $folderPath . $latestImage;
+                                                                                } else {
+                                                                                    echo "ไม่พบภาพในโฟลเดอร์";
                                                                                 }
                                                                             }
-                                                                            if (!empty($latestImage)) {
-                                                                                $PathDefaultImage = $folderPath . $latestImage;
-                                                                            } else {
-                                                                                echo "ไม่พบภาพในโฟลเดอร์";
-                                                                            }
-                                                                        }
-                                                                    ?>
-                                                                    <img id="previewImage" class="img-fluid rounded" src="<?= $PathDefaultImage ?>" alt="">
-                                                                </label>
+                                                                        ?>
+                                                                        <img id="previewImage" class="img-fluid rounded" src="<?= $PathDefaultImage ?>" alt="">
+                                                                    </label>
+                                                                </div>
                                                             </div>
+                                                            <div class="col-lg-4 quote-text py-0 wow fadeIn" data-wow-delay="0.5s"></div>
                                                         </div>
-                                                        <div class="col-lg-4 quote-text py-0 wow fadeIn" data-wow-delay="0.5s"></div>
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                        <div class="form-group my-3">
-                                            <label for="PathFolderNews">ที่เก็บที่อยู่รูปข่าว</label>
-                                            <input type="text" name="PathFolderNews" value="<?= $PathFolderNews; ?>" class="form-control">
-                                        </div>
-                                        <div class="form-group my-3">
-                                            <label for="PathFolderNews">ที่เก็บแกลลอรี่</label>
-                                            <input type="text" name="PathFolderGallery" value="<?= $PathFolderGallery; ?>" class="form-control">
-                                        </div>
-                                        <div class="form-group my-3">
-                                            <label for="PathFolderNews">ที่เก็บไฟล์</label>
-                                            <input type="text" name="PathDefaultFile" value="<?= $PathDefaultFile; ?>" class="form-control">
-                                        </div>
+                                            <div class="form-group my-3">
+                                                <label for="PathFolderNews">ที่เก็บที่อยู่รูปข่าว</label>
+                                                <input type="text" name="PathFolderNews" value="<?= $PathFolderNews; ?>" class="form-control">
+                                            </div>
+                                            <div class="form-group my-3">
+                                                <label for="PathFolderNews">ที่เก็บแกลลอรี่</label>
+                                                <input type="text" name="PathFolderGallery" value="<?= $PathFolderGallery; ?>" class="form-control">
+                                            </div>
+                                            <div class="form-group my-3">
+                                                <label for="PathFolderNews">ที่เก็บไฟล์</label>
+                                                <input type="text" name="PathDefaultFile" value="<?= $PathDefaultFile; ?>" class="form-control">
+                                            </div>
+                                            <div class="row my-3">
+                                                <div class="col-12 text-center text-md-end">
+                                                    <button type="submit" class="btn btn-success rounded-pill py-2 px-5 add-image-btn text-end"><i class="fa fa-save"></i></button>
+                                                </div>
+                                            </div>
+                                        </form>
                                     </div>
                                     <!-- /.card-body -->
                                 </div>
@@ -203,26 +242,33 @@ $US_Prefix = "";
                                         </div>
                                     </div>
                                     <div class="card-body">
-                                        <div id="form-container">
-                                        <?PHP
-                                            $sql = "SELECT * FROM SetupGames;";
-                                            $result = $conn->query($sql);
-                                            
-                                            if ($result->num_rows > 0) {
-                                                while ($row = $result->fetch_assoc()) {
-                                        ?>
-                                            <div class="form-group">
-                                                <textarea name="Games[]" class="form-control border-1 my-2" placeholder="iframe" style="height: 110px;"><?php echo htmlspecialchars($row['GA_Iframe'], ENT_QUOTES); ?></textarea>
-                                            </div>
-                                        <?PHP
+                                        <form action="Pro_EditSetup.php" method="post" enctype="multipart/form-data">
+                                            <div id="form-container">
+                                            <?PHP
+                                                $sql = "SELECT * FROM SetupGames;";
+                                                $result = $conn->query($sql);
+                                                
+                                                if ($result->num_rows > 0) {
+                                                    while ($row = $result->fetch_assoc()) {
+                                            ?>
+                                                <div class="form-group">
+                                                    <textarea name="Games[]" class="form-control border-1 my-2" placeholder="iframe" style="height: 110px;"><?php echo htmlspecialchars($row['GA_Iframe'], ENT_QUOTES); ?></textarea>
+                                                </div>
+                                            <?PHP
+                                                    }
                                                 }
-                                            }
-                                        ?>
-                                        </div>
-                                        <div class="form-group text-center text-md-end">
-                                            <button type="button" class="btn btn-danger rounded-pill py-2 px-3 add-image-btn text-end" id="deleteButton"><i class="fas fa-trash"></i></button>
-                                            <button type="button" class="btn btn-primary rounded-pill py-2 px-3 add-image-btn text-end" id="addButton"><i class="fa fa-plus"></i></button>
-                                        </div>
+                                            ?>
+                                            </div>
+                                            <div class="form-group text-center text-md-end">
+                                                <button type="button" class="btn btn-danger rounded-pill py-2 px-3 add-image-btn text-end" id="deleteButton"><i class="fas fa-trash"></i></button>
+                                                <button type="button" class="btn btn-primary rounded-pill py-2 px-3 add-image-btn text-end" id="addButton"><i class="fa fa-plus"></i></button>
+                                            </div>
+                                            <div class="row my-3">
+                                                <div class="col-12 text-center text-md-end">
+                                                    <button type="submit" class="btn btn-success rounded-pill py-2 px-5 add-image-btn text-end"><i class="fa fa-save"></i></button>
+                                                </div>
+                                            </div>
+                                        </form>
                                     </div>
                                     <!-- /.card-body -->
                                 </div>
@@ -382,6 +428,98 @@ $US_Prefix = "";
                                     </div>
                                     <!-- /.card-body -->
                                 </div>
+                                <div class="card card-maroon collapsed-card">
+                                    <div class="card-header">
+                                        <h3 class="card-title text-white">Index Setup</h3>
+                                        <div class="card-tools">
+                                            <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+                                            <i class="fas fa-plus"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="card-body">
+                                        <form action="Pro_EditIndexSetup.php" method="post" enctype="multipart/form-data">
+                                            <div class="form-group">
+                                                <label for="PathFolderNews">กลุ่มที่ 1</label>
+                                                <select class="form-select border-1" id="IS_GroupCategory1" name="IS_GroupCategory1">
+                                                    <option></option>
+                                                    <?php
+                                                        $sql = "SELECT * FROM `category` WHERE `CG_Entity Relation No.` = 0;";
+                                                        $result = $conn->query($sql);
+                                                        if ($result->num_rows > 0) {
+                                                            while ($row = $result->fetch_assoc()) {
+                                                                $selected = ($row["CG_Entity No."] == $ISGroupCategory1) ? 'selected' : '';
+                                                    ?>
+                                                        <option value="<?= $row["CG_Entity No."] ?>" <?= $selected ?>><?= $row["CG_Name"] ?></option>
+                                                    <?php
+                                                            }
+                                                        }
+                                                    ?>
+                                                </select>
+                                            </div>
+                                            <div class="form-group my-3">
+                                                <label for="PathFolderNews">กลุ่มที่ 2</label>
+                                                <select class="form-select border-1" id="IS_GroupCategory2" name="IS_GroupCategory2">
+                                                    <option></option>
+                                                    <?php
+                                                        $sql = "SELECT * FROM `category` WHERE `CG_Entity Relation No.` = 0;";
+                                                        $result = $conn->query($sql);
+                                                        if ($result->num_rows > 0) {
+                                                            while ($row = $result->fetch_assoc()) {
+                                                                $selected = ($row["CG_Entity No."] == $ISGroupCategory2) ? 'selected' : '';
+                                                    ?>
+                                                        <option value="<?= $row["CG_Entity No."] ?>" <?= $selected ?>><?= $row["CG_Name"] ?></option>
+                                                    <?php
+                                                            }
+                                                        }
+                                                    ?>
+                                                </select>
+                                            </div>
+                                            <div class="form-group my-3">
+                                                <label for="PathFolderNews">หมวดที่ 1</label>
+                                                <select class="form-select border-1" id="IS_GroupMenu1" name="IS_GroupMenu1">
+                                                    <option></option>
+                                                    <option value="category" <?= ("category" == $ISGroupMenu1) ? 'selected' : '' ?>>Category</option>
+                                                    <option value="headingcategories" <?= ("headingcategories" == $ISGroupMenu1) ? 'selected' : '' ?>>Menu Categories</option>
+                                                </select>
+                                            </div>
+                                            <div id="IS_Box1"></div>
+                                            <div class="form-group my-3">
+                                                <label for="PathFolderNews">หมวดที่ 2</label>
+                                                <select class="form-select border-1" id="IS_GroupMenu2" name="IS_GroupMenu2">
+                                                    <option></option>
+                                                    <option value="category" <?= ("category" == $ISGroupMenu2) ? 'selected' : '' ?>>Category</option>
+                                                    <option value="headingcategories" <?= ("headingcategories" == $ISGroupMenu2) ? 'selected' : '' ?>>Menu Categories</option>
+                                                </select>
+                                            </div>
+                                            <div id="IS_Box2"></div>
+                                            <div class="form-group my-3">
+                                                <label for="PathFolderNews">หมวดที่ 3</label>
+                                                <select class="form-select border-1" id="IS_GroupMenu3" name="IS_GroupMenu3">
+                                                    <option></option>
+                                                    <option value="category" <?= ("category" == $ISGroupMenu3) ? 'selected' : '' ?>>Category</option>
+                                                    <option value="headingcategories" <?= ("headingcategories" == $ISGroupMenu3) ? 'selected' : '' ?>>Menu Categories</option>
+                                                </select>
+                                            </div>
+                                            <div id="IS_Box3"></div>
+                                            <div class="form-group my-3">
+                                                <label for="PathFolderNews">หมวดที่ 4</label>
+                                                <select class="form-select border-1" id="IS_GroupMenu4" name="IS_GroupMenu4">
+                                                    <option></option>
+                                                    <option value="category" <?= ("category" == $ISGroupMenu4) ? 'selected' : '' ?>>Category</option>
+                                                    <option value="headingcategories" <?= ("headingcategories" == $ISGroupMenu4) ? 'selected' : '' ?>>Menu Categories</option>
+                                                </select>
+                                            </div>
+                                            <div id="IS_Box4"></div>
+                                            <div class="row my-3">
+                                                <div class="col-12 text-center text-md-end">
+                                                    <button type="submit" class="btn btn-success rounded-pill py-2 px-5 add-image-btn text-end"><i class="fa fa-save"></i></button>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <!-- /.card-body -->
+                                </div>
                             </div>
                         </div>
                         <!-- <div class="row">
@@ -389,7 +527,7 @@ $US_Prefix = "";
                                 <button type="submit" class="btn btn-success rounded-pill py-2 px-5 add-image-btn text-end"><i class="fa fa-save"></i></button>
                             </div>
                         </div> -->
-                    </form>
+                    <!-- </form> -->
                 </section>
             </div>
         </div>
@@ -1308,4 +1446,5 @@ function sendDataToPHP(status, id) {
   xhr.send(params);
 }
 </script>
+<?php include("Fn_IndexSetup.php"); ?>
 <?php include("Ma_Footer_Script.php"); ?>

@@ -111,7 +111,7 @@ if (isset($_GET['Send_Category']) && $_GET['Send_Category'] !== '') {
                                                 <?php if ($IsFile == 0): ?>
                                                     <a class="btn btn-primary2 btn-sm" href="Ui_ShowDetail.php?Send_IDNews=<?= $reqCode?>"><i class="fas fa-folder"></i></a>
                                                 <?php elseif ($IsFile == 1): ?>
-                                                    <a class="btn btn-primary2 btn-sm" href="<?= $reqFile ?>" data-code="<?= urlencode($reqCode) ?>"><i class="fas fa-folder"></i></a>
+                                                    <a class="btn btn-primary2 btn-sm" id="btnShowFile" href="<?= $reqFile ?>" target="_blank" data-code="<?= urlencode($reqCode) ?>"><i class="fas fa-folder"></i></a>
                                                 <?php endif; ?>
                                             </td>
                                         </tr>
@@ -159,7 +159,7 @@ if (isset($_GET['Send_Category']) && $_GET['Send_Category'] !== '') {
 <?php include("Ma_ScriptDatatable.php"); ?>
 <script>
 $(document).ready(function() {
-    $(".btn-primary2").click(function(event) {
+    $("#btnShowFile").click(function(event) {
         event.preventDefault(); 
         var code = $(this).data("code");
         var url = $(this).attr("href");
@@ -170,7 +170,8 @@ $(document).ready(function() {
             dataType: "json",
             success: function(response) {
                 console.log("Data sent successfully:", response);
-                window.location.href = url;
+                // window.location.href = url;
+                window.open(url, '_blank');
             },
             error: function() {
                 console.log("Error occurred");

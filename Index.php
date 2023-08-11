@@ -1,14 +1,38 @@
 <?php 
 include("DB_Include.php");
 include("DB_Setup.php");
-$Category1_id = 1;
-$Category2_id = 19;
+include("Fn_RecursiveCategory.php");
+$Category1_id = 0;
+$Category2_id = 0;
 $Category3_id = 0;
+$Category3 = '';
+$Category4_id = 0;
+$Category4 = '';
+$Category5_id = 0;
+$Category5 = '';
+$Category6_id = 0;
+$Category6 = '';
+$sql = "SELECT * FROM `indexsetup`";
+$result = $conn->query($sql);
+if ($result->num_rows > 0) {
+    $row = $result->fetch_assoc();
+    $Category1_id = $row["IS_GroupCategory1"];
+    $Category2_id = $row["IS_GroupCategory2"];
+    $Category3_id = $row["IS_GroupMenu1_Box1"];
+    $Category3 = $row["IS_GroupMenu1"];
+    $Category4_id = $row["IS_GroupMenu2_Box2"];
+    $Category4 = $row["IS_GroupMenu2"];
+    $Category5_id = $row["IS_GroupMenu3_Box3"];
+    $Category5 = $row["IS_GroupMenu3"];
+    $Category6_id = $row["IS_GroupMenu4_Box4"];
+    $Category6 = $row["IS_GroupMenu4"];
+}
 ?>
 <?php  include("Ma_Head_Link.php"); ?>
 <?php  include("Ma_Head.php"); ?>
 <?php  include("Ma_Carousel.php"); ?>
     <!-- Content -->
+    <?php if ($Category1_id !== 0 && $Category1_id !== '') { ?>
     <div class="container-xxl py-5">
         <div class="container">
             <div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 600px;">
@@ -22,14 +46,15 @@ $Category3_id = 0;
                         $IsTypeGroup1 = $row["CG_IsFile"];
                     }
                 ?>
-                <h6 class="text-primary"><?= $DescriptionENGroup1 ?></h6>
+                <h3 class="text-primary"><?= $DescriptionENGroup1 ?></h3>
                 <h2 class="mb-4"><?= $DescriptionTHGroup1 ?></h2>
             </div>
             <?php
+                $SelectFilterCategoryEntityNoTotal1 = SearchCategory($Category1_id);
                 if ($IsTypeGroup1 == 0):
-                    $sql = "SELECT * FROM `Activities` WHERE `Activities`.`AT_Entity No.` = $Category1_id ORDER BY `Activities`.`AT_Date` DESC , `Activities`.`AT_Time` DESC LIMIT 0,5";
+                    $sql = "SELECT * FROM `Activities` WHERE `Activities`.`AT_Entity No.` IN ($SelectFilterCategoryEntityNoTotal1) ORDER BY `Activities`.`AT_Date` DESC , `Activities`.`AT_Time` DESC LIMIT 0,5";
                 elseif ($IsTypeGroup1 == 1):
-                    $sql = "SELECT * FROM `FileActivities` WHERE `FileActivities`.`FA_Entity No.` = $Category1_id ORDER BY `FileActivities`.`FA_Date` DESC , `FileActivities`.`FA_Time` DESC LIMIT 0,5";
+                    $sql = "SELECT * FROM `FileActivities` WHERE `FileActivities`.`FA_Entity No.` IN ($SelectFilterCategoryEntityNoTotal1) ORDER BY `FileActivities`.`FA_Date` DESC , `FileActivities`.`FA_Time` DESC LIMIT 0,5";
                 endif;
                 $result = $conn->query($sql);
                 $isFirstRow = true;
@@ -143,6 +168,7 @@ $Category3_id = 0;
             ?>
         </div>
     </div>
+    <?php } ?>
     <!-- Content -->
     <!-- Content 2 -->
     <?php if ($Category2_id !== 0 && $Category2_id !== '') { ?>
@@ -159,15 +185,16 @@ $Category3_id = 0;
                         $IsTypeGroup2 = $row["CG_IsFile"];
                     }
                 ?>
-                <h6 class="text-primary"><?= $DescriptionENGroup2 ?></h6>
+                <h3 class="text-primary"><?= $DescriptionENGroup2 ?></h3>
                 <h2 class="mb-4"><?= $DescriptionTHGroup2 ?></h2>
             </div>
 
             <?php
+                $SelectFilterCategoryEntityNoTotal2 = SearchCategory($Category2_id);
                 if ($IsTypeGroup2 == 0):
-                    $sql = "SELECT * FROM `Activities` WHERE `Activities`.`AT_Entity No.` = $Category2_id ORDER BY `Activities`.`AT_Date` DESC , `Activities`.`AT_Time` DESC LIMIT 0,5";
+                    $sql = "SELECT * FROM `Activities` WHERE `Activities`.`AT_Entity No.` IN ($SelectFilterCategoryEntityNoTotal2) ORDER BY `Activities`.`AT_Date` DESC , `Activities`.`AT_Time` DESC LIMIT 0,5";
                 elseif ($IsTypeGroup2 == 1):
-                    $sql = "SELECT * FROM `FileActivities` WHERE `FileActivities`.`FA_Entity No.` = $Category2_id ORDER BY `FileActivities`.`FA_Date` DESC , `FileActivities`.`FA_Time` DESC LIMIT 0,5";
+                    $sql = "SELECT * FROM `FileActivities` WHERE `FileActivities`.`FA_Entity No.` IN ($SelectFilterCategoryEntityNoTotal2) ORDER BY `FileActivities`.`FA_Date` DESC , `FileActivities`.`FA_Time` DESC LIMIT 0,5";
                 endif;
                 $result = $conn->query($sql);
                 $isFirstRow = true;
@@ -284,7 +311,7 @@ $Category3_id = 0;
     <?php } ?>
     <!-- Content 2 -->
     <!-- Team Start -->
-    <?php if ($Category3_id !== 0 && $Category3_id !== '') { ?>
+    <?php if ($Category3_id !== 0 && $Category4_id !== 0 && $Category5_id !== 0 && $Category6_id !== 0) { ?>
     <div class="container-xxl py-5">
         <div class="container">
             <div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 600px;">
@@ -292,58 +319,215 @@ $Category3_id = 0;
                 <h1 class="mb-4">เมนูทั่วไป</h1>
             </div>
             <div class="row g-4">
-                <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
-                    <div class="team-item rounded overflow-hidden">
-                        <a class="small fw-medium" href="#">
-                            <div class="d-flex">
-                                <img class="img-fluid w-100" src="Default/DefaultImage/DefaultImage.png" alt="" style="height:280px;">
-                            </div>
-                            <div class="p-4 text-center">
-                                <h5>Full Name</h5>
-                                <span>Designation</span>
-                            </div>
-                        </a>
-                    </div>
-                </div>
+            <?php if ($Category3_id != 0) { ?>
                 <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
                     <div class="team-item rounded overflow-hidden">
-                        <a class="small fw-medium" href="#">
+                    <?php 
+                        if ($Category3 === 'category') {
+                            $sql = "SELECT * FROM `category` WHERE `CG_Entity No.` = '$Category3_id';";
+                        } elseif ($Category3 === 'headingcategories') {
+                            $sql = "SELECT * FROM `HeadingCategories` WHERE `HC_Code` = '$Category3_id';";
+                        }
+                            $result = $conn->query($sql);
+                            if ($result->num_rows > 0) {
+                                $row = $result->fetch_assoc();
+                                if ($Category3 === 'category') {
+                                    $Name01 = $row['CG_DescriptionTH'];
+                                    $Designation01 = $row['CG_DescriptionEN'];
+                                    if ($row['CG_DefaultImage'] !== '') {
+                                        $Image01 = 'img/DefaultImageCategory/' . $row['CG_DefaultImage'];
+                                    } else {
+                                        $Image01 = 'Default/DefaultImage/DefaultImage.png'; 
+                                    }
+                                    $Href01 = 'Ui_List.php?Send_Category=' . $Category3_id;
+                                } elseif ($Category3 === 'headingcategories'){
+                                    $Name01 = $row['HC_DescriptionTH'];
+                                    $Designation01 = $row['HC_DescriptionEN'];
+                                    if ($row['HC_DefaultImage'] !== '') {
+                                        $Image01 = 'img/DefaultImageHeadingCategory/' . $row['HC_DefaultImage'];
+                                    } else {
+                                        $Image01 = 'Default/DefaultImage/DefaultImage.png'; 
+                                    }
+                                    $Href01 = 'Ui_ShowPageMenu.php?Send_MoreMenu='. $Category3_id;
+                                } else { 
+                                    $Name01 = '';
+                                    $Designation01 = '';
+                                    $Image01 = '';
+                                    $Href01 = '#';
+                                }
+                                if ($Image01 == '') {
+                                    $Image01 = 'Default/DefaultImage/DefaultImage.png';
+                                }
+                    ?>
+                        <a class="small fw-medium" href="<?=$Href01?>">
                             <div class="d-flex">
-                                <img class="img-fluid w-100" src="Default/DefaultImage/DefaultImage.png" alt="" style="height:280px;">
+                                <img class="img-fluid w-100" src="<?=$Image01?>" alt="" style="height:280px;">
                             </div>
                             <div class="p-4 text-center">
-                                <h5>Full Name</h5>
-                                <span>Designation</span>
+                                <h5><?=$Name01?></h5>
+                                <span><?=$Designation01?></span>
                             </div>
                         </a>
+                    <?php } ?>
                     </div>
                 </div>
-                <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.5s">
+                <?php } if ($Category4_id != 0) {?>
+                <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
                     <div class="team-item rounded overflow-hidden">
-                        <a class="small fw-medium" href="#">
+                    <?php 
+                    if ($Category4 === 'category') {
+                        $sql = "SELECT * FROM `category` WHERE `CG_Entity No.` = '$Category4_id';";
+                    } elseif ($Category4 === 'headingcategories'){
+                        $sql = "SELECT * FROM `HeadingCategories` WHERE `HC_Code` = '$Category4_id';";
+                    }
+                        $result = $conn->query($sql);
+                        if ($result->num_rows > 0) {
+                           $row = $result->fetch_assoc();
+                        if ($Category4 === 'category') {
+                            $Name02 = $row['CG_DescriptionTH'];
+                            $Designation02 = $row['CG_DescriptionEN'];
+                            if ($row['CG_DefaultImage'] !== '') {
+                                $Image02 = 'img/DefaultImageCategory/' . $row['CG_DefaultImage'];
+                            } else {
+                                $Image02 = 'Default/DefaultImage/DefaultImage.png'; 
+                            }
+                            $Href02 = 'Ui_List.php?Send_Category=' . $Category4_id;
+                        } elseif ($Category4 === 'headingcategories'){
+                            $Name02 = $row['HC_DescriptionTH'];
+                            $Designation02 = $row['HC_DescriptionEN'];
+                            if ($row['HC_DefaultImage'] !== '') {
+                                $Image02 = 'img/DefaultImageHeadingCategory/' . $row['HC_DefaultImage'];
+                            } else {
+                                $Image02 = 'Default/DefaultImage/DefaultImage.png'; 
+                            }
+                            $Href02 = 'Ui_ShowPageMenu.php?Send_MoreMenu='. $Category4_id;
+                        } else { 
+                            $Name02 = '';
+                            $Designation02 = '';
+                            $Image02 = '';
+                            $Href02 = '#';
+                        }
+                        if ($Image02 == '') {
+                            $Image02 = 'Default/DefaultImage/DefaultImage.png';
+                        }
+                    ?>
+                        <a class="small fw-medium" href="<?=$Href02?>">
                             <div class="d-flex">
-                                <img class="img-fluid w-100" src="Default/DefaultImage/DefaultImage.png" alt="" style="height:280px;">
+                                <img class="img-fluid w-100" src="<?=$Image02?>" alt="" style="height:280px;">
                             </div>
                             <div class="p-4 text-center">
-                                <h5>Full Name</h5>
-                                <span>Designation</span>
+                                <h5><?=$Name02?></h5>
+                                <span><?=$Designation02?></span>
                             </div>
                         </a>
+                    <?php } ?>
                     </div>
                 </div>
-                <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.5s">
+            <?php } if ($Category5_id != 0) {?>
+                <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
                     <div class="team-item rounded overflow-hidden">
-                        <a class="small fw-medium" href="#">
+                    <?php 
+                    if ($Category5 === 'category') {
+                        $sql = "SELECT * FROM `category` WHERE `CG_Entity No.` = '$Category5_id';";
+                    } elseif ($Category5 === 'headingcategories'){
+                        $sql = "SELECT * FROM `HeadingCategories` WHERE `HC_Code` = '$Category5_id';";
+                    }
+                        $result = $conn->query($sql);
+                        if ($result->num_rows > 0) {
+                           $row = $result->fetch_assoc();
+                        if ($Category5 === 'category') {
+                            $Name03 = $row['CG_DescriptionTH'];
+                            $Designation03 = $row['CG_DescriptionEN'];
+                            if ($row['CG_DefaultImage'] !== '') {
+                                $Image03 = 'img/DefaultImageCategory/' . $row['CG_DefaultImage'];
+                            } else {
+                                $Image03 = 'Default/DefaultImage/DefaultImage.png'; 
+                            }
+                            $Href03 = 'Ui_List.php?Send_Category=' . $Category5_id;
+                        } elseif ($Category5 === 'headingcategories'){
+                            $Name03 = $row['HC_DescriptionTH'];
+                            $Designation03 = $row['HC_DescriptionEN'];
+                            if ($row['HC_DefaultImage'] !== '') {
+                                $Image03 = 'img/DefaultImageHeadingCategory/' . $row['HC_DefaultImage'];
+                            } else {
+                                $Image03 = 'Default/DefaultImage/DefaultImage.png'; 
+                            }
+                            $Href03 = 'Ui_ShowPageMenu.php?Send_MoreMenu='. $Category5_id;
+                        } else { 
+                            $Name03 = '';
+                            $Designation03 = '';
+                            $Image03 = '';
+                            $Href03 = '#';
+                        }
+                        if ($Image03 == '') {
+                            $Image03 = 'Default/DefaultImage/DefaultImage.png';
+                        }
+                    ?>
+                        <a class="small fw-medium" href="<?=$Href03?>">
                             <div class="d-flex">
-                                <img class="img-fluid w-100" src="Default/DefaultImage/DefaultImage.png" alt="" style="height:280px;">
+                                <img class="img-fluid w-100" src="<?=$Image03?>" alt="" style="height:280px;">
                             </div>
                             <div class="p-4 text-center">
-                                <h5>Full Name</h5>
-                                <span>Designation</span>
+                                <h5><?=$Name03?></h5>
+                                <span><?=$Designation03?></span>
                             </div>
                         </a>
+                    <?php } ?>
                     </div>
                 </div>
+            <?php } if ($Category6_id != 0) {?>
+                <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
+                    <div class="team-item rounded overflow-hidden">
+                    <?php 
+                    if ($Category6 === 'category') {
+                        $sql = "SELECT * FROM `category` WHERE `CG_Entity No.` = '$Category6_id';";
+                    } elseif ($Category6 === 'headingcategories'){
+                        $sql = "SELECT * FROM `HeadingCategories` WHERE `HC_Code` = '$Category6_id';";
+                    }
+                        $result = $conn->query($sql);
+                        if ($result->num_rows > 0) {
+                           $row = $result->fetch_assoc();
+                        if ($Category6 === 'category') {
+                            $Name04 = $row['CG_DescriptionTH'];
+                            $Designation04 = $row['CG_DescriptionEN'];
+                            if ($row['CG_DefaultImage'] !== '') {
+                                $Image04 = 'img/DefaultImageCategory/' . $row['CG_DefaultImage'];
+                            } else {
+                                $Image04 = 'Default/DefaultImage/DefaultImage.png'; 
+                            }
+                            $Href04 = 'Ui_List.php?Send_Category=' . $Category6_id;
+                        } elseif ($Category6 === 'headingcategories'){
+                            $Name04 = $row['HC_DescriptionTH'];
+                            $Designation04 = $row['HC_DescriptionEN'];
+                            if ($row['HC_DefaultImage'] !== '') {
+                                $Image04 = 'img/DefaultImageHeadingCategory/' . $row['HC_DefaultImage'];
+                            } else {
+                                $Image04 = 'Default/DefaultImage/DefaultImage.png'; 
+                            }
+                            $Href04 = 'Ui_ShowPageMenu.php?Send_MoreMenu='. $Category6_id;
+                        } else { 
+                            $Name04 = '';
+                            $Designation04 = '';
+                            $Image04 = '';
+                            $Href04 = '#';
+                        }
+                        if ($Image04 == '') {
+                            $Image04 = 'Default/DefaultImage/DefaultImage.png';
+                        }
+                    ?>
+                        <a class="small fw-medium" href="<?=$Href04?>">
+                            <div class="d-flex">
+                                <img class="img-fluid w-100" src="<?=$Image04?>" alt="" style="height:280px;">
+                            </div>
+                            <div class="p-4 text-center">
+                                <h5><?=$Name04?></h5>
+                                <span><?=$Designation04?></span>
+                            </div>
+                        </a>
+                    <?php } ?>
+                    </div>
+                </div>
+            <?php } ?>
             </div>
         </div>
     </div>
