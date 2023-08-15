@@ -5,7 +5,7 @@ $_SESSION["ip"] = "10.10.9.65";
 //------------------------------------------
 $servername="localhost";
 $username="root";
-$password="admin";
+$password="";
 $dbname="newsandactivities";
 $conn = new mysqli($servername, $username, $password, $dbname);
 

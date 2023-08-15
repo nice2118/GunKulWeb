@@ -283,7 +283,11 @@
 
 .service-item {
     box-shadow: 0 0 45px rgba(0, 0, 0, .08);
-    /* height: 650px; */
+}
+
+.service-item2 {
+    box-shadow: 0 0 45px rgba(0, 0, 0, .08);
+    height: 650px;
 }
 
 .service-icon {
@@ -301,7 +305,8 @@
     transition: .5s;
 }
 
-.service-item:hover .service-icon {
+.service-item:hover .service-icon,
+.service-item2:hover .service-icon {
     color: #FFFFFF;
     background: var(--primary);
 }

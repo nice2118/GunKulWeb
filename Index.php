@@ -126,7 +126,7 @@ if ($result->num_rows > 0) {
             ?>
                 <!-- Loop -->
                 <div class="col-lg-3 col-md-6 wow fadeInUp portfolio-item first" data-wow-delay="0.1s">
-                    <div class="service-item rounded overflow-hidden">
+                    <div class="service-item2 rounded overflow-hidden">
                         <div class="portfolio-img rounded overflow-hidden">
                             <img class="img-fluid w-100" src="<?= $AT_Image;?>" style="height:280px;" alt="">
                             <div class="portfolio-btn">
@@ -170,6 +170,7 @@ if ($result->num_rows > 0) {
     </div>
     <?php } ?>
     <!-- Content -->
+    
     <!-- Content 2 -->
     <?php if ($Category2_id !== 0 && $Category2_id !== '') { ?>
     <div class="container-xxl py-2">
@@ -310,6 +311,7 @@ if ($result->num_rows > 0) {
     </div>
     <?php } ?>
     <!-- Content 2 -->
+
     <!-- Team Start -->
     <?php if ($Category3_id !== 0 && $Category4_id !== 0 && $Category5_id !== 0 && $Category6_id !== 0) { ?>
     <div class="container-xxl py-5">
