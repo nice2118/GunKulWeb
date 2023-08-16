@@ -392,6 +392,7 @@ $US_Prefix = "";
                                     </div>
                                     <!-- /.card-body -->
                                 </div>
+                                 <!-- /.card -->
                                 <div class="card card-olive collapsed-card">
                                     <div class="card-header">
                                         <h3 class="card-title text-white">Position Setup</h3>
@@ -428,6 +429,7 @@ $US_Prefix = "";
                                     </div>
                                     <!-- /.card-body -->
                                 </div>
+                                 <!-- /.card -->
                                 <div class="card card-maroon collapsed-card">
                                     <div class="card-header">
                                         <h3 class="card-title text-white">Index Setup</h3>
@@ -520,6 +522,45 @@ $US_Prefix = "";
                                     </div>
                                     <!-- /.card-body -->
                                 </div>
+                                <!-- /.card -->
+                                <div class="card card-purple">
+                                    <div class="card-header">
+                                        <h3 class="card-title text-white">Menu</h3>
+                                        <div class="card-tools">
+                                            <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+                                            <i class="fas fa-minus"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="card-body">
+                                        <ul class="todo-list" data-widget="todo-list">
+                                            <?PHP
+                                                    $sql = "SELECT * FROM `Menu`;";
+                                                    $result = $conn->query($sql);
+                                                    if ($result->num_rows > 0) {
+                                                        while ($row = $result->fetch_assoc()) {
+                                                ?>
+                                                <li class="my-2">
+                                                    <span class="text"><?=$row["MN_Name"]?></span>
+                                                    <div class="tools">
+                                                        <a class="btn btn-link py-1 px-2 text-end" onclick="deleteAlertMenu(<?php echo $row["MN_Code"];?>, '<?php echo $row["MN_Name"];?>')"><i class="fas fa-trash"></i></a>
+                                                        <button type="button" class="btn btn-link py-1 px-2 text-end text-warning" data-bs-toggle="modal" data-bs-target="#modalmenu" data-mncode="<?= $row["MN_Code"] ?>" data-mnname="<?= $row["MN_Name"] ?>"><i class="fas fa-edit"></i></button>
+                                                        <button type="button" class="btn btn-link py-0 px-1 text-end text-primary" data-bs-toggle="modal" data-bs-target="#modalmenusub" data-mncodesub="<?= $row["MN_Code"] ?>" data-pmtype="menu"><i class="fa fa-plus"></i></button>
+                                                    </div>
+                                                </li>
+                                            <?PHP
+                                                    }
+                                                }
+                                                unset($sql);
+                                            ?>
+                                        </ui>
+                                        <div class="form-group text-center text-md-end">
+                                            <button type="button" class="btn btn-primary rounded-pill py-1 px-4 add-image-btn text-end" data-bs-toggle="modal" data-bs-target="#modalmenu" data-mncode="0" data-mnname=""><i class="fa fa-plus"></i></button>
+                                        </div>
+                                    </div>
+                                    <!-- /.card-body -->
+                                </div>
+                                <!-- /.card -->
                             </div>
                         </div>
                         <!-- <div class="row">
@@ -689,7 +730,7 @@ $US_Prefix = "";
         <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="engravedcategoryLabel">Menu Category</h5>
+                    <h5 class="modal-title" id="engravedcategoryLabel">Engraved Category</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
@@ -841,6 +882,86 @@ $US_Prefix = "";
         </div>
     </div>
 
+    <!-- Modal Menu-->
+    <div class="modal fade" id="modalmenu" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="modalmenuLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalmenuabel">Menu</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form action="Pro_Add&EditMenu.php" method="post" enctype="multipart/form-data">
+                        <div class="row g-2 my-2">
+                            <!-- <div class="col-3 col-sm-2"> -->
+                                <!-- <h6 class="text-primary">รหัส</h6> -->
+                                <input type="hidden" id="MN_Code" name="MN_Code" value="">
+                            <!-- </div> -->
+                            <div class="col-12 col-sm-12">
+                                <h6 class="text-primary">ชื่อ</h6>
+                                <input type="Text" id="MN_Name" name="MN_Name" class="form-control border-1" placeholder="ชื่อหัวข้อ" required>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">ยกเลิก</button>
+                            <button type="submit" class="btn btn-primary">บันทึก</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Menu Sub-->
+    <div class="modal fade" id="modalmenusub" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="modalmenusubLabel" aria-hidden="true">
+        <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalmenusubabel">Menu Sub</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="modalFormMenu" action="Pro_Add&EditPermissionMenu.php" method="post" enctype="multipart/form-data">
+                        <div id="modalContentMenuDB"></div>    
+                        <div id="modalContentMenu"></div>
+                        <div class="form-group text-center text-md-end my-2">
+                                <button type="button" class="btn btn-primary rounded-pill py-2 px-3 add-image-btn text-end" id="addButtonMenu"><i class="fa fa-plus"></i></button>
+                            </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">ยกเลิก</button>
+                            <button type="submit" class="btn btn-primary">บันทึก</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+        <!-- Modal Menu Sub2-->
+        <div class="modal fade" id="modalmenusub2" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="modalmenusub2Label" aria-hidden="true">
+        <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalmenusub2abel">Menu Sub2</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="modalFormMenu2" action="Pro_Add&EditPermissionMenu.php" method="post" enctype="multipart/form-data">
+                        <div id="modalContentMenu2DB"></div>    
+                        <div id="modalContentMenu2"></div>
+                        <div class="form-group text-center text-md-end my-2">
+                                <button type="button" class="btn btn-primary rounded-pill py-2 px-3 add-image-btn text-end" id="addButtonMenuSub2"><i class="fa fa-plus"></i></button>
+                            </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">ยกเลิก</button>
+                            <button type="submit" class="btn btn-primary">บันทึก</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
 <?php include("Ma_Footer.php"); ?>
 <!-- เมื่อโหลดหน้าใหม่ให้เลื่อนลงมากลางจอ -->
 <script>
@@ -957,6 +1078,120 @@ $(document).ready(function() {
                     '</div>' +
                     '</div>');
         $('#modalContent').append(formGroup);
+    });
+
+    $('#addButtonMenu').click(function() {
+        var formGroup = $('<div class="row g-2 my-2 col-12 dynamic-content">' + 
+                    '<input type="hidden" name="PM_Code[]" value="0" class="form-control">' +
+                    '<div class="col-3 col-sm-3">' +
+                    '<h6 class="text-primary">ชื่อ</h6>' +
+                    '<input type="Text" id="PM_Name" name="PM_Name[]" class="form-control border-1" placeholder="ชื่อหัวข้อ" required>' +
+                    '</div>' +
+                    '<div class="col-2 col-sm-2">' +
+                    '<h6 class="text-primary">ประเภท</h6>' +
+                    '<select class="form-select border-1 pm-relation-type" id="PM_RelationType" name="PM_RelationType[]" required>' +
+                    '<option value="NoType">ไม่มีประเภท</option>' +
+                    '<option value="Category">Category</option>' +
+                    '<option value="HeadingCategories">HeadingCategories</option>' +
+                    '<option value="EngravedCategory">EngravedCategory</option>' +
+                    '<option value="SetupGames">SetupGames</option>' +
+                    '<option value="Setup">Setup</option>' +
+                    '</select>' +
+                    '</div>' +
+                    '<div class="col-2 col-sm-2 dynamic-select-container" id="dynamicSelectContainer">' +
+                    '<h6 class="text-primary">หน้า</h6>' +
+                    '<select class="form-select border-1 pm-relation-code" id="PM_RelationCode" name="PM_RelationCode[]">' +
+                    '<option value="NoType">ไม่มีข้อมูล</option>' +
+                    '</select>' +
+                    '</div>' +
+                    '<div class="col-1 col-sm-1">' +
+                    '<h6 class="text-primary">ทิศทาง</h6>' +
+                    '<select class="form-select border-1" id="PM_Direction" name="PM_Direction[]" required>' +
+                    '<option value="left">ซ้าย</option>' +
+                    '<option value="right">ขวา</option>' +
+                    '</select>' +
+                    '</div>' +
+                    '<div class="col-1 col-sm-1 text-center">' +
+                    '<h6 class="text-primary">เส้นขั้น</h6>' +
+                    '<select class="form-select border-1" id="PM_Draw" name="PM_Draw[]" required>' +
+                    '<option value="0">ไม่มี</option>' +
+                    '<option value="1">มี</option>' +
+                    '</select>' +
+                    '</div>' +
+                    '<div class="col-1 col-sm-1 text-center">' +
+                    '<h6 class="text-primary">เพิ่มขั้น</h6>' +
+                    // '<button type="button" class="btn btn-link py-1 px-2 text-end text-danger" data-bs-toggle="modal" data-bs-target="#"></button>' +
+                    '</div>' +
+                    '<div class="col-1 col-sm-1 text-center">' +
+                    '<h6 class="text-primary">ตำแหน่ง</h6>' +
+                    // '<button type="button" class="btn btn-link py-1 px-2 text-end text-danger" data-bs-toggle="modal" data-bs-target="#"></button>' +
+                    '</div>' +
+                    '<div class="col-1 col-sm-1 text-center">' +
+                    '<h6 class="text-primary">ลบ</h6>' +
+                    '<button type="button" class="btn btn-link py-1 px-2 text-end text-danger btn-delete-row"><i class="fa fa-trash"></i></button>' +
+                    '</div>' +
+                    '</div>');
+        $('#modalContentMenu').append(formGroup);
+    });
+    $(document).on('click', '.btn-delete-row', function() {
+        $(this).closest('.dynamic-content').remove();
+    });
+
+    $('#addButtonMenuSub2').click(function() {
+        var formGroup = $('<div class="row g-2 my-2 col-12 dynamic2-content">' + 
+                    '<input type="hidden" name="PM_Code[]" value="0" class="form-control">' +
+                    '<div class="col-3 col-sm-3">' +
+                    '<h6 class="text-primary">ชื่อ</h6>' +
+                    '<input type="Text" id="PM_Name" name="PM_Name[]" class="form-control border-1" placeholder="ชื่อหัวข้อ" required>' +
+                    '</div>' +
+                    '<div class="col-2 col-sm-2">' +
+                    '<h6 class="text-primary">ประเภท</h6>' +
+                    '<select class="form-select border-1 pm-relation-type" id="PM_RelationType" name="PM_RelationType[]" required>' +
+                    '<option value="NoType">ไม่มีประเภท</option>' +
+                    '<option value="Category">Category</option>' +
+                    '<option value="HeadingCategories">HeadingCategories</option>' +
+                    '<option value="EngravedCategory">EngravedCategory</option>' +
+                    '<option value="SetupGames">SetupGames</option>' +
+                    '<option value="Setup">Setup</option>' +
+                    '</select>' +
+                    '</div>' +
+                    '<div class="col-2 col-sm-2 dynamic-select-container" id="dynamicSelectContainer">' +
+                    '<h6 class="text-primary">หน้า</h6>' +
+                    '<select class="form-select border-1 pm-relation-code" id="PM_RelationCode" name="PM_RelationCode[]">' +
+                    '<option value="NoType">ไม่มีข้อมูล</option>' +
+                    '</select>' +
+                    '</div>' +
+                    '<div class="col-1 col-sm-1">' +
+                    '<h6 class="text-primary">ทิศทาง</h6>' +
+                    '<select class="form-select border-1" id="PM_Direction" name="PM_Direction[]" required>' +
+                    '<option value="left">ซ้าย</option>' +
+                    '<option value="right">ขวา</option>' +
+                    '</select>' +
+                    '</div>' +
+                    '<div class="col-1 col-sm-1 text-center">' +
+                    '<h6 class="text-primary">เส้นขั้น</h6>' +
+                    '<select class="form-select border-1" id="PM_Draw" name="PM_Draw[]" required>' +
+                    '<option value="0">ไม่มี</option>' +
+                    '<option value="1">มี</option>' +
+                    '</select>' +
+                    '</div>' +
+                    '<div class="col-1 col-sm-1 text-center">' +
+                    '<h6 class="text-primary">เพิ่มขั้น</h6>' +
+                    // '<button type="button" class="btn btn-link py-1 px-2 text-end text-danger" data-bs-toggle="modal" data-bs-target="#"></button>' +
+                    '</div>' +
+                    '<div class="col-1 col-sm-1 text-center">' +
+                    '<h6 class="text-primary">ตำแหน่ง</h6>' +
+                    // '<button type="button" class="btn btn-link py-1 px-2 text-end text-danger" data-bs-toggle="modal" data-bs-target="#"></button>' +
+                    '</div>' +
+                    '<div class="col-1 col-sm-1 text-center">' +
+                    '<h6 class="text-primary">ลบ</h6>' +
+                    '<button type="button" class="btn btn-link py-1 px-2 text-end text-danger btn-delete-row2"><i class="fa fa-trash"></i></button>' +
+                    '</div>' +
+                    '</div>');
+        $('#modalContentMenu2').append(formGroup);
+    });
+    $(document).on('click', '.btn-delete-row2', function() {
+        $(this).closest('.dynamic2-content').remove();
     });
 });
 </script>
@@ -1214,6 +1449,78 @@ $(document).ready(function() {
             console.error("Error displaying SweetAlert:", error);
         });
     }
+    function deleteAlertMenu(MenuID, MenuName) {
+        swal({
+            title: "คุณต้องการที่จะลบหรือไม่?",
+            text: `${MenuName} เมื่อกดลบไปแล้วจะไม่สามารถนำข้อมูลกลับมาได้!`,
+            icon: "warning",
+            buttons: {
+                cancel: {
+                    text: "ยกเลิก",
+                    value: false,
+                    visible: true,
+                    className: "",
+                    closeModal: true,
+                },
+                confirm: {
+                    text: "ลบ",
+                    value: true,
+                    visible: true,
+                    className: "",
+                    closeModal: true,
+                },
+            },
+            dangerMode: true,
+        })
+        .then((willDelete) => {
+            if (willDelete) {
+                // เมื่อกดตกลง ทำการเปลี่ยนหน้า
+                window.location.replace(`Pro_DeleteMenu.php?Send_ID=${MenuID}&Send_Name=${MenuName}`);
+            } else {
+                // เมื่อกดยกเลิก ไม่ต้องทำอะไร
+            }
+        })
+        .catch((error) => {
+            // เกิดข้อผิดพลาดในกรณีที่ไม่สามารถแสดงกล่อง SweetAlert ได้
+            console.error("Error displaying SweetAlert:", error);
+        });
+    }
+    function deleteAlertMenuSub(MenuSubID, MenuSubName) {
+        swal({
+            title: "คุณต้องการที่จะลบหรือไม่?",
+            text: `${MenuSubName} เมื่อกดลบไปแล้วจะไม่สามารถนำข้อมูลกลับมาได้!`,
+            icon: "warning",
+            buttons: {
+                cancel: {
+                    text: "ยกเลิก",
+                    value: false,
+                    visible: true,
+                    className: "",
+                    closeModal: true,
+                },
+                confirm: {
+                    text: "ลบ",
+                    value: true,
+                    visible: true,
+                    className: "",
+                    closeModal: true,
+                },
+            },
+            dangerMode: true,
+        })
+        .then((willDelete) => {
+            if (willDelete) {
+                // เมื่อกดตกลง ทำการเปลี่ยนหน้า
+                window.location.replace(`Pro_DeleteMenuSub.php?Send_ID=${MenuSubID}&Send_Name=${MenuSubName}`);
+            } else {
+                // เมื่อกดยกเลิก ไม่ต้องทำอะไร
+            }
+        })
+        .catch((error) => {
+            // เกิดข้อผิดพลาดในกรณีที่ไม่สามารถแสดงกล่อง SweetAlert ได้
+            console.error("Error displaying SweetAlert:", error);
+        });
+    }
 </script>
 <!-- category Edit -->
 <script>
@@ -1407,6 +1714,109 @@ $(document).ready(function() {
             document.getElementById("PT_name").value = ptName;
         }
     });
+
+    // เมื่อ Modal Menu ถูกเปิดขึ้นมา
+    $('#modalmenu').on('show.bs.modal', function(event) {
+        const button = $(event.relatedTarget);
+        const mnCode = button.data('mncode');
+        const mnName = button.data('mnname');
+
+        // กำหนดค่าให้กับช่อง input ใน Modal
+        document.getElementById("MN_Code").value = mnCode;
+        document.getElementById("MN_Name").value = mnName;
+    });
+
+    // เมื่อ Modal Menu ถูกเปิดขึ้นมา
+    $('#modalmenusub').on('show.bs.modal', function(event) {
+        $('.dynamic-content').empty();
+        const button = $(event.relatedTarget);
+        const mnCodeSub = button.data('mncodesub');
+        const pmType = button.data('pmtype');
+
+        // ส่งค่าตัวกรองไปยังหน้า PHP ดึงข้อมูล
+        $.ajax({
+            url: "DB_SubMenu.php",
+            type: "POST",
+            data: { pmcode: mnCodeSub, pmtype: pmType},
+            dataType: "json",
+            success: function(response) {
+                // ดำเนินการแสดงผลข้อมูลที่ได้รับใน Modal
+                var modalContentMenuDB = document.getElementById("modalContentMenuDB");
+                var contentHTML = '<input type="hidden" name="MN_CodeSub" value="' + mnCodeSub + '" class="form-control">';
+                contentHTML += '<input type="hidden" name="PM_Type" value="' + pmType + '" class="form-control">';
+
+                // ใช้ Loop เพื่อแสดงข้อมูลใน Modal
+                for (var i = 0; i < response.length; i++) {
+                    contentHTML +=
+                        '<div class="row g-2 my-2 col-12 dynamic-content">' +
+                        '<input type="hidden" name="PM_Code[]" value="' + response[i].PM_Code + '" class="form-control">' +
+                        '<div class="col-3 col-sm-3">' +
+                        '<h6 class="text-primary">ชื่อ</h6>' +
+                        '<input type="Text" id="PM_Name" name="PM_Name[]" class="form-control border-1" value="' + response[i].PM_Name + '" placeholder="ชื่อหัวข้อ" required>' +
+                        '</div>' +
+                        '<div class="col-2 col-sm-2">' +
+                        '<h6 class="text-primary">ประเภท</h6>' +
+                        '<select class="form-select border-1 pm-relation-type" id="PM_RelationType" name="PM_RelationType[]" required>' +
+                        '<option value="NoType" ' + (response[i].PM_RelationType === '' ? 'selected' : '') + '>ไม่มีประเภท</option>' +
+                        '<option value="Category" ' + (response[i].PM_RelationType === 'Category' ? 'selected' : '') + '>Category</option>' +
+                        '<option value="HeadingCategories" ' + (response[i].PM_RelationType === 'HeadingCategories' ? 'selected' : '') + '>HeadingCategories</option>' +
+                        '<option value="EngravedCategory" ' + (response[i].PM_RelationType === 'EngravedCategory' ? 'selected' : '') + '>EngravedCategory</option>' +
+                        '<option value="SetupGames" ' + (response[i].PM_RelationType === 'SetupGames' ? 'selected' : '') + '>SetupGames</option>' +
+                        '<option value="Setup" ' + (response[i].PM_RelationType === 'Setup' ? 'selected' : '') + '>Setup</option>' +
+                        '</select>' +
+                        '</div>' +
+                        '<div class="col-2 col-sm-2 dynamic-select-container">' +
+                        '<h6 class="text-primary">หน้า</h6>' +
+                        '<select class="form-select border-1 pm-relation-code" name="PM_RelationCode[]" required>';
+                       if (response[i].dataFromDBSub.length === 0) {
+                            contentHTML += '<option value="0" selecte>ไม่มีข้อมูล</option>';
+                       } else {
+                            for (var x = 0; x < response[i].dataFromDBSub.length; x++) {
+                                contentHTML +=
+                                    '<option value="' + response[i].dataFromDBSub[x].SubCode + '" ' + (response[i].dataFromDBSub[x].SubCode === response[i].PM_RelationCode ? 'selected' : '') + '>' +
+                                    response[i].dataFromDBSub[x].Subname +
+                                    '</option>';
+                            }
+                       }
+                    contentHTML +=
+                        '</select>' +
+                        '</div>' +
+                        '<div class="col-1 col-sm-1">' +
+                        '<h6 class="text-primary">ทิศทาง</h6>' +
+                        '<select class="form-select border-1" id="PM_Direction" name="PM_Direction[]" required>' +
+                        '<option value="left" ' + (response[i].PM_Direction === 'left' ? 'selected' : '') + '>ซ้าย</option>' +
+                        '<option value="right" ' + (response[i].PM_Direction === 'right' ? 'selected' : '') + '>ขวา</option>' +
+                        '</select>' +
+                        '</div>' +
+                        '<div class="col-1 col-sm-1 text-center">' +
+                        '<h6 class="text-primary">เส้นขั้น</h6>' + 
+                        '<select class="form-select border-1" id="PM_Draw" name="PM_Draw[]" required>' +
+                        '<option value="0" ' + (response[i].PM_Draw == 0 ? 'selected' : '') + '>ไม่มี</option>' +
+                        '<option value="1" ' + (response[i].PM_Draw == 1 ? 'selected' : '') + '>มี</option>' +
+                        '</select>' +                       
+                        '</div>' +
+                        '<div class="col-1 col-sm-1 text-center">' +
+                        '<h6 class="text-primary">เพิ่มขั้น</h6>' +
+                        '<button type="button" class="btn btn-link py-1 px-2 text-end text-primary" data-bs-toggle="modal" data-bs-target="#modalmenusub2" data-mncodesub="' + response[i].PM_Code + '" data-pmtype="submenu"><i class="fa fa-plus"></i></button>' +
+                        '</div>' +
+                        '<div class="col-1 col-sm-1 text-center">' +
+                        '<h6 class="text-primary">ตำแหน่ง</h6>' +
+                        '<button type="button" class="btn btn-link py-1 px-2 text-end text-warning" data-bs-toggle="modal" data-bs-target="#modalmenusub"><i class="fa fa-address-book"></i></button>' +
+                        '</div>' +
+                        '<div class="col-1 col-sm-1 text-center">' +
+                        '<h6 class="text-primary">ลบ</h6>' +
+                        '<a class="btn btn-link py-1 px-2 text-end" onclick="deleteAlertMenuSub(' + response[i].PM_Code + ', \'' + response[i].PM_Name + '\')"><i class="fas fa-trash"></i></a>' +
+                        '</div>' +
+                        '</div>';
+                }
+                modalContentMenuDB.innerHTML = contentHTML;
+            },
+            error: function() {
+                console.log("เกิดข้อผิดพลาดกับการเชื่อมต่อ");
+            }
+        });
+    });
+    
 </script>
 <script>
 // ดักจับเหตุการณ์คลิกที่ปุ่มที่มีคลาส toggleButton
@@ -1447,4 +1857,43 @@ function sendDataToPHP(status, id) {
 }
 </script>
 <?php include("Fn_IndexSetup.php"); ?>
+<!-- Menu -->
+<script>
+$(document).ready(function() {
+    function handleRelationTypeChange(selectElement) {
+        const selectedType = selectElement.val();
+        const dynamicSelectContainer = selectElement.closest('.dynamic-content').find('.dynamic-select-container');
+
+        if (selectedType) {
+            $.ajax({
+                url: 'DB_GetPermissionMenu.php',
+                method: 'POST',
+                data: { type: selectedType },
+                success: function(response) {
+                    const title = $('<h6 class="text-primary">หน้า</h6>');
+                    const select = $('<select>', { class: 'form-select border-1 pm-relation-code', name: 'PM_RelationCode[]' });
+                    if (response.length === 0) {
+                        select.append($('<option>', { value: 0, text: 'ไม่มีข้อมูล' }));
+                    } else {
+                        response.forEach(function(item) {
+                            select.append($('<option>', { value: item.id, text: item.name }));
+                        });
+                    }
+                    dynamicSelectContainer.empty().append(title, select);
+                },
+                error: function(xhr, status, error) {
+                    console.error('Ajax request error:', error);
+                }
+            });
+        } else {
+            dynamicSelectContainer.empty();
+        }
+    }
+
+    $(document).on('change', '.pm-relation-type', function() {
+        handleRelationTypeChange($(this));
+    });
+});
+
+</script>
 <?php include("Ma_Footer_Script.php"); ?>

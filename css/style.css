@@ -290,6 +290,11 @@
     height: 650px;
 }
 
+.service-item3 {
+    box-shadow: 0 0 45px rgba(0, 0, 0, .08);
+    height: 550px;
+}
+
 .service-icon {
     position: relative;
     margin: -50px 0 25px 0;
@@ -306,7 +311,8 @@
 }
 
 .service-item:hover .service-icon,
-.service-item2:hover .service-icon {
+.service-item2:hover .service-icon,
+.service-item3:hover .service-icon {
     color: #FFFFFF;
     background: var(--primary);
 }
@@ -436,11 +442,18 @@
     box-shadow: 0 0 45px rgba(0, 0, 0, .08);
 }
 
-.team-item img {
+.team-item2 {
+    box-shadow: 0 0 45px rgba(0, 0, 0, .08);
+    height: 400px;
+}
+
+.team-item img,
+.team-item2 img {
     border-radius: 8px 60px 0 0;
 }
 
-.team-item .team-social {
+.team-item .team-social,
+.team-item2 .team-social {
     display: flex;
     flex-direction: column;
     align-items: center;

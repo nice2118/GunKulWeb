@@ -33,8 +33,8 @@ if ($result->num_rows > 0) {
 <?php  include("Ma_Carousel.php"); ?>
     <!-- Content -->
     <?php if ($Category1_id !== 0 && $Category1_id !== '') { ?>
-    <div class="container-xxl py-5">
-        <div class="container">
+    <div class="container-xxl2 py-5">
+        <div class="container2">
             <div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 600px;">
                 <?php
                     $sql = "SELECT * FROM `Category` WHERE `Category`.`CG_Entity No.` = $Category1_id;";
@@ -91,13 +91,13 @@ if ($result->num_rows > 0) {
                         $counter++;
                         if ($isFirstRow) {
             ?>
-            <div class="container-fluid bg-light overflow-hidden my-5 px-lg-0">
-                <div class="container about px-lg-0">
+            <div class="container-fluid2 bg-light overflow-hidden my-5 px-lg-0">
+                <div class="container2 about px-lg-0">
                     <div class="row g-0 mx-lg-0">
                         <div class="col-lg-4 ps-lg-0 wow fadeIn" data-wow-delay="0.1s" style="min-height: 300px;">
                             <div class="position-relative h-100">
                                 <a href="<?= $AT_Image;?>" data-lightbox="portfolio"> 
-                                <img class="position-absolute img-fluid w-100 h-100" src="<?= $AT_Image;?>"
+                                <img class="position-absolute img-fluid2 w-100 h-100" src="<?= $AT_Image;?>"
                                     style="object-fit: cover;" alt="">
                                 </a>
                             </div>
@@ -173,8 +173,8 @@ if ($result->num_rows > 0) {
     
     <!-- Content 2 -->
     <?php if ($Category2_id !== 0 && $Category2_id !== '') { ?>
-    <div class="container-xxl py-2">
-        <div class="container">
+    <div class="container-xxl2 py-2">
+        <div class="container2">
             <div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 600px;">
             <?php
                     $sql = "SELECT * FROM `Category` WHERE `Category`.`CG_Entity No.` = $Category2_id;";
@@ -232,13 +232,13 @@ if ($result->num_rows > 0) {
                         $counter++;
                         if ($isFirstRow) {
             ?>
-            <div class="container-fluid bg-light overflow-hidden my-5 px-lg-0">
-                <div class="container about px-lg-0">
+            <div class="container-fluid2 bg-light overflow-hidden my-5 px-lg-0">
+                <div class="container2 about px-lg-0">
                     <div class="row g-0 mx-lg-0">
                         <div class="col-lg-4 ps-lg-0 wow fadeIn" data-wow-delay="0.1s" style="min-height: 300px;">
                             <div class="position-relative h-100">
                                 <a href="<?= $AT_Image;?>" data-lightbox="portfolio"> 
-                                <img class="position-absolute img-fluid w-100 h-100" src="<?= $AT_Image;?>"
+                                <img class="position-absolute img-fluid2 w-100 h-100" src="<?= $AT_Image;?>"
                                     style="object-fit: cover;" alt="">
                                 </a>
                             </div>
@@ -267,7 +267,7 @@ if ($result->num_rows > 0) {
             ?>
                 <!-- Loop -->
                 <div class="col-lg-3 col-md-6 wow fadeInUp portfolio-item first" data-wow-delay="0.1s">
-                    <div class="service-item rounded overflow-hidden">
+                    <div class="service-item3 rounded overflow-hidden">
                         <div class="portfolio-img rounded overflow-hidden">
                             <img class="img-fluid w-100" src="<?= $AT_Image;?>" style="height:280px;" alt="">
                             <div class="portfolio-btn">
@@ -323,7 +323,8 @@ if ($result->num_rows > 0) {
             <div class="row g-4">
             <?php if ($Category3_id != 0) { ?>
                 <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
-                    <div class="team-item rounded overflow-hidden">
+                    <div class="team-item2 rounded overflow-hidden">
+                    
                     <?php 
                         if ($Category3 === 'category') {
                             $sql = "SELECT * FROM `category` WHERE `CG_Entity No.` = '$Category3_id';";
@@ -375,7 +376,7 @@ if ($result->num_rows > 0) {
                 </div>
                 <?php } if ($Category4_id != 0) {?>
                 <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
-                    <div class="team-item rounded overflow-hidden">
+                    <div class="team-item2 rounded overflow-hidden">
                     <?php 
                     if ($Category4 === 'category') {
                         $sql = "SELECT * FROM `category` WHERE `CG_Entity No.` = '$Category4_id';";
@@ -427,7 +428,7 @@ if ($result->num_rows > 0) {
                 </div>
             <?php } if ($Category5_id != 0) {?>
                 <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
-                    <div class="team-item rounded overflow-hidden">
+                    <div class="team-item2 rounded overflow-hidden">
                     <?php 
                     if ($Category5 === 'category') {
                         $sql = "SELECT * FROM `category` WHERE `CG_Entity No.` = '$Category5_id';";
@@ -479,7 +480,7 @@ if ($result->num_rows > 0) {
                 </div>
             <?php } if ($Category6_id != 0) {?>
                 <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
-                    <div class="team-item rounded overflow-hidden">
+                    <div class="team-item2 rounded overflow-hidden">
                     <?php 
                     if ($Category6 === 'category') {
                         $sql = "SELECT * FROM `category` WHERE `CG_Entity No.` = '$Category6_id';";

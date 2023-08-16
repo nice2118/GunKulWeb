@@ -25,8 +25,13 @@ $(document).ready(function() {
             success: function(response) {
                 // console.log("Data sent successfully:", response); // แสดงข้อมูลที่ถูกส่งไปในคอนโซล
                 if (response.isValidUser) {
-                    swal("Success", "Login successful!", "success")
-                    .then(() => {
+                    swal({
+                        title: "Success",
+                        text: "Login successful!",
+                        icon: "success",
+                        timer: 1000, // 1 วินาที
+                        buttons: false // ไม่แสดงปุ่ม
+                    }).then(() => {
                         window.location.reload();
                     });
                 } else {
@@ -112,48 +117,34 @@ function logoutAlert() {
 </script>
 <script>
     <?php if(isset($_SESSION['User']) && !empty($_SESSION['User'])) { ?>
-    var sessionTimeout = 30 * 60 * 1000; // 30 นาทีในมิลลิวินาที
-    // var sessionTimeout = 10 * 1000; // 10 วิในมิลลิวินาที
+        let timeout;
 
-    var lastActivity = new Date().getTime();
-    var timeout;
-
-    function resetSessionTimeout() {
-        clearTimeout(timeout);
-        lastActivity = new Date().getTime();
-        startSessionTimeout();
-    }
-
-    function startSessionTimeout() {
-        timeout = setTimeout(function() {
-            // หมดเวลาเซสชัน ทำการลบค่าเซสชันและอื่นๆ ตามที่คุณต้องการ
-            // ตัวอย่างเช่น redirect ไปยังหน้าหลัก
-            window.location.href = "index.php";
-            <?php
-                // $_SESSION['User'] = '';
-                // $_SESSION['StatusTitle'] = "Warning";
-                // $_SESSION['StatusMessage'] = "หมดอายุการเข้าใช้งาน";
-                // $_SESSION['StatusAlert'] = "warning";
-            ?>
-        }, sessionTimeout);
-    }
-
-    // ตรวจสอบการไม่มีการขยับเม้าทุก 10 วินาที
-    setInterval(function() {
-        var currentTime = new Date().getTime();
-        if (currentTime - lastActivity > sessionTimeout) {
-            // หมดเวลาเซสชัน ทำการลบค่าเซสชันและอื่นๆ ตามที่คุณต้องการ
-            // ตัวอย่างเช่น redirect ไปยังหน้าหลัก
-            location.reload();
+        // ฟังก์ชันสำหรับแสดงแจ้งเตือนเมื่อไม่มีการขยับเมาส์เป็นเวลา 30 นาที
+        function showMouseInactiveAlert() {
+            var data = {
+                user: "",
+                title: "Warning",
+                message: "หมดอายุการเข้าใช้งาน",
+                alertType: "warning"
+            };
+            $.ajax({
+                type: "POST",
+                url: "DB_ExpiryOFAccess.php",
+                data: data,
+                success: function(response) {
+                    window.location.href = "index.php";
+                },
+                error: function(xhr, status, error) {
+                    console.error("Ajax request error:", error);
+                }
+            });
         }
-    }, 10000);
 
-    // เริ่มต้นตรวจสอบการไม่มีการขยับเม้า
-    startSessionTimeout();
-
-    // เมื่อมีการขยับเม้าในหน้าเว็บ เรียกใช้ฟังก์ชัน resetSessionTimeout เพื่อรีเซตเวลา
-    document.addEventListener("mousemove", resetSessionTimeout);
-    document.addEventListener("keydown", resetSessionTimeout);
+        // ใช้งาน event listener เพื่อตรวจสอบการขยับเมาส์
+        document.addEventListener("mousemove", function() {
+            clearTimeout(timeout); // รีเซ็ต timeout ก่อน
+            timeout = setTimeout(showMouseInactiveAlert, 1800000); // เริ่มนับเวลาใหม่
+        });
     <?php
         }
     ?>

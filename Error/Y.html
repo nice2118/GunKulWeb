@@ -1,58 +1,65 @@
-<div class="form-group">
-    <label for="PathFolderNews">วันหยุดประจำปี</label>
-    <div class="row my-3">
-        <div class="col-5">
-            <label>สำนักงานใหญ่ GKE</label>
-        </div>
-        <div class="col-5">
-            <input type="text" class="form-control">
-        </div>
-        <div class="col-2">
-            <input class="form-control form-control-sm" id="HeadOfficeGKE" type="file">response[i].EC_Name
-        </div>
-    </div>
-    <div class="row my-3">
-        <div class="col-5">
-            <label>ไซต์งานก่อสร้าง และ O&M GKE</label>
-        </div>
-        <div class="col-5">
-            <input type="text" class="form-control">
-        </div>
-        <div class="col-2">
-            <input class="form-control form-control-sm" id="ConstructionSiteGKE" type="file">
-        </div>
-    </div>
-    <div class="row my-3">
-        <div class="col-5">
-            <label>โรงงาน GKA & GKP</label>
-        </div>
-        <div class="col-5">
-            <input type="text" class="form-control">
-        </div>
-        <div class="col-2">
-            <input class="form-control form-control-sm" id="FactoryGKAGKP" type="file">
-        </div>
-    </div>
-    <div class="row my-3">
-        <div class="col-5">
-            <label>สำนักงานใหญ่ GPD</label>
-        </div>
-        <div class="col-5">
-            <input type="text" class="form-control">
-        </div>
-        <div class="col-2">
-            <input class="form-control form-control-sm" id="HeadOfficeGPD" type="file">
-        </div>
-    </div>
-    <div class="row my-3">
-        <div class="col-5">
-            <label>ไซต์งานก่อสร้าง GPD</label>
-        </div>
-        <div class="col-5">
-            <input type="text" class="form-control">
-        </div>
-        <div class="col-2">
-            <input class="form-control form-control-sm" id="ConstructionSiteGPD" type="file">
-        </div>
-    </div>
-</div>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Province and District</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+
+<body>
+    <select id="provinceSelect">
+        <option value="">เลือกจังหวัด</option>
+        <!-- จังหวัดต่าง ๆ -->
+    </select>
+
+    <select id="districtSelect">
+        <option value="">เลือกอำเภอ</option>
+        <!-- อำเภอต่าง ๆ จะถูกเติมโดย Ajax -->
+    </select>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
+<script>
+    $(document).ready(function() {
+        // ข้อมูลจังหวัดและอำเภอ
+        const data = {
+            "Bangkok": ["ภาคเหนือ", "ภาคกลาง", "ภาคใต้"],
+            "Chiang Mai": ["เมืองเชียงใหม่", "เมืองลำปาง", "เมืองลำพูน"],
+            // ข้อมูลจังหวัดและอำเภออื่น ๆ
+        };
+
+        const provinceSelect = $('#provinceSelect');
+        const districtSelect = $('#districtSelect');
+
+        // เมื่อเลือกจังหวัดเปลี่ยน
+        provinceSelect.change(function() {
+            const selectedProvince = $(this).val();
+            const districts = data[selectedProvince] || [];
+
+            // เปลี่ยนเลือกอำเภอ
+            districtSelect.empty();
+            districtSelect.append($('<option>', {
+                value: '',
+                text: 'เลือกอำเภอ'
+            }));
+            districts.forEach(function(district) {
+                districtSelect.append($('<option>', {
+                    value: district,
+                    text: district
+                }));
+            });
+        });
+
+        // เติมตัวเลือกจังหวัดเริ่มต้น
+        Object.keys(data).forEach(function(province) {
+            provinceSelect.append($('<option>', {
+                value: province,
+                text: province
+            }));
+        });
+    });
+</script>
