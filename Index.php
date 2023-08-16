@@ -156,7 +156,11 @@ if ($result->num_rows > 0) {
             <div class="row g-1">
                 <div class="wow fadeInUp portfolio-item first my-4" data-wow-delay="0.6s">
                     <div align="right">
-                        <a class="small fw-medium" href="Ui_List.php?Send_Category=<?= $Category1_id ?>"><?= $DescriptionTHGroup1 ?>ทั้งหมด<i class="fa fa-arrow-right ms-2"></i></a>  
+                        <?php if ($IsTypeGroup1 == 0): ?>
+                            <a class="small fw-medium" href="Ui_ShowPage.php?Send_Category=<?= $Category1_id ?>&Multiplier=1&Search="><?= $DescriptionTHGroup1 ?>ทั้งหมด<i class="fa fa-arrow-right ms-2"></i></a>
+                        <?php elseif ($IsTypeGroup1 == 1): ?>
+                            <a class="small fw-medium" href="Ui_List.php?Send_Category=<?= $Category1_id ?>"><?= $DescriptionTHGroup1 ?>ทั้งหมด<i class="fa fa-arrow-right ms-2"></i></a>
+                        <?php endif; ?>  
                     </div>
                 </div>
             </div>
@@ -297,7 +301,11 @@ if ($result->num_rows > 0) {
             <div class="row g-1">
                 <div class="wow fadeInUp portfolio-item first my-4" data-wow-delay="0.6s">
                     <div align="right">
-                        <a class="small fw-medium" href="Ui_List.php?Send_Category=<?= $Category2_id ?>"><?= $DescriptionTHGroup2 ?>ทั้งหมด<i class="fa fa-arrow-right ms-2"></i></a>  
+                        <?php if ($IsTypeGroup1 == 0): ?>
+                            <a class="small fw-medium" href="Ui_ShowPage.php?Send_Category=<?= $Category2_id ?>&Multiplier=1&Search="><?= $DescriptionTHGroup2 ?>ทั้งหมด<i class="fa fa-arrow-right ms-2"></i></a>
+                        <?php elseif ($IsTypeGroup1 == 1): ?>
+                            <a class="small fw-medium" href="Ui_List.php?Send_Category=<?= $Category2_id ?>"><?= $DescriptionTHGroup2 ?>ทั้งหมด<i class="fa fa-arrow-right ms-2"></i></a>
+                        <?php endif; ?> 
                     </div>
                 </div>
             </div>

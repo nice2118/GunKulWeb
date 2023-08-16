@@ -43,7 +43,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                         $dataFromDBSub[] = array('SubCode' => $row2["EC_Code"], 'Subname' => $row2["EC_Name"]);
                     }
                 }
-            } elseif ($typeLower === 'detupgames') {
+            } elseif ($typeLower === 'setupgames') {
                 
             } elseif ($typeLower === 'setup') {
                 

@@ -35,7 +35,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                 $data[] = array('id' => $row["EC_Code"], 'name' => $row["EC_Name"]);
             }
         }
-    } elseif ($typeLower === 'detupgames') {
+    } elseif ($typeLower === 'setupgames') {
 
     } elseif ($typeLower === 'setup') {
 
