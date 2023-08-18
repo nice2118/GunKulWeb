@@ -2131,8 +2131,8 @@ progress {
     padding: .375rem .75rem;
     margin: -.375rem -.75rem;
     margin-inline-end: .75rem;
-    color: #9B9B9B;
-    /* color: #000000; */
+    /* color: #9B9B9B; */
+    color: #000000;
     background-color: #e9ecef;
     pointer-events: none;
     border-color: inherit;

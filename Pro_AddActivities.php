@@ -82,9 +82,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   
   $Title = mysqli_real_escape_string($conn, $Title);
   $Summary = mysqli_real_escape_string($conn, $Summary);
-    // ทำอย่างอื่นๆ เช่นบันทึกข้อมูลลงฐานข้อมูล
-    $sql = "INSERT INTO `Activities` (`AT_Code`, `AT_Entity No.`, `AT_Date`, `AT_Time`, `AT_Title`, `AT_Description`, `AT_Note`, `AT_Image`,`AT_UserCreate` , `AT_CreateDate`, `AT_ModifyDate`) VALUES (NULL, $CategoryID, '$DateAddNewsFormatted', CURRENT_TIME(), '$Title', '$Summary', '$Summernote', '$newnFullNameImage','{$_SESSION['User']}' , CURRENT_TIMESTAMP,CURRENT_TIMESTAMP)";
-    // ดำเนินการ INSERT ข้อมูล
+  // ทำอย่างอื่นๆ เช่นบันทึกข้อมูลลงฐานข้อมูล
+  $sql = "INSERT INTO `Activities` (`AT_Code`, `AT_Entity No.`, `AT_Date`, `AT_Time`, `AT_Title`, `AT_Description`, `AT_Note`, `AT_Image`,`AT_UserCreate` , `AT_CreateDate`, `AT_ModifyDate`) VALUES (NULL, $CategoryID, '$DateAddNewsFormatted', CURRENT_TIME(), '$Title', '$Summary', '$Summernote', '$newnFullNameImage','{$_SESSION['User']}' , CURRENT_TIMESTAMP,CURRENT_TIMESTAMP)";
+  // ดำเนินการ INSERT ข้อมูล
   if ($conn->query($sql) === true) {
     // $_SESSION['StatusMessage'] = 'กรุณากลับไป Setup ก่อน';
     //     header("Location: ".$_SESSION['PathPage']);

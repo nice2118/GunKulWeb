@@ -79,14 +79,15 @@
                                             echo '<a href="" class="dropdown-item">'.$rowSub['PM_Name'].'&nbsp;&nbsp;<i class="fa fa-angle-down text-secondary2"></i></a>';
                                             echo '<ul class="dropdown-menu-submenu submenu submenu-'.$rowSub['PM_Direction'].'">';
                                             while ($rowengravedactivities = $resultengravedactivities->fetch_assoc()){
-                                                echo "<a href=\"$link\" class=\"dropdown-item\">{$rowengravedactivities['EA_Name']}</a>";  
+                                                $link = PDFNamePathLast($rowengravedactivities["EA_Path"]);
+                                                echo "<a href=\"$link\" target=\"_blank\" class=\"dropdown-item\">{$rowengravedactivities['EA_Name']}</a>";  
                                             }  
                                             echo '</ul>';
                                             echo '</nav>';
                                         } else {
                                             $rowengravedactivities = $resultengravedactivities->fetch_assoc();
                                             $link = PDFNamePathLast($rowengravedactivities["EA_Path"]);
-                                            echo "<a href=\"$link\" class=\"dropdown-item\">{$rowengravedactivities['EA_Name']}</a>";  
+                                            echo "<a href=\"$link\" target=\"_blank\" class=\"dropdown-item\">{$rowengravedactivities['EA_Name']}</a>";  
                                         }                                    
                                     }
                                 } elseif ($typeLower === 'setupgames') {

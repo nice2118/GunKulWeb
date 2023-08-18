@@ -1186,11 +1186,11 @@ $(document).ready(function() {
         count--; // ลดค่านับเมื่อกดปุ่ม "ลบ"
     });
     
-    $('#addButtonMasterMenuCategory').click(function() {
+    $('#addButtonMasterMenuCategory').click(function() { 
         var formGroup = $('<div class="row my-3">' +
                     '<div class="col-11">' +
-                    '<input type="hidden" name="mcinputcode[]" class="form-control">' +
-                    '<input type="text" name="mcinputname[]" class="form-control">' +
+                    '<input type="hidden" name="mcinputcode[]" class="form-control border-1">' +
+                    '<input type="text" name="mcinputname[]" class="form-control border-1">' +
                     '</div>' +
                     '<div class="col-1">' +
                     '</div>' +
@@ -1202,14 +1202,14 @@ $(document).ready(function() {
         var formGroup = $('<div class="row my-3">' +
                     '<div class="col-4">' +
                     '<input type="hidden" name="inputcode[]" class="form-control">' +
-                    '<input type="text" name="inputname[]" class="form-control">' +
+                    '<input type="text" name="inputname[]" class="form-control" placeholder="ชื่อหัวข้อ">' +
                     '</div>' +
                     '<div class="col-5">' +
-                    '<input type="text" name="inputvalue[]" class="form-control">' +
+                    '<input type="text" name="inputvalue[]" class="form-control" placeholder="ที่อยู่ไฟล์หรือลิ้ง">' +
                     '</div>' +
-                    '<div class="col-2">' +
-                    '<input class="form-control" name="inputvaluefile[]" type="file" accept=".pdf, .doc, .docx, .xls, .xlsx, .ppt, .pptx">' +
-                    '</div>' +
+                    // '<div class="col-2">' +
+                    // '<input class="form-control" name="inputvaluefile[]" type="file" accept=".pdf, .doc, .docx, .xls, .xlsx, .ppt, .pptx">' +
+                    // '</div>' +
                     '<div class="col-1">' +
                     '</div>' +
                     '</div>');
@@ -1725,9 +1725,9 @@ $(document).ready(function() {
         document.getElementById("CG_DescriptionEN").value = descriptionEN;
         document.getElementById("CG_OldImage").value = oldImage;
 
-        var modalContentMasterMenuCategory = document.getElementById("modalPreviewImageCategory");
+        var modalContentMasterCategory = document.getElementById("modalPreviewImageCategory");
         var contentHTML = '<img id="previewImageCategory" class="img-fluid rounded" src="' + ecImage + '" alt="" style="width: 200px; height: 200px;">';
-        modalContentMasterMenuCategory.innerHTML = contentHTML;
+        modalContentMasterCategory.innerHTML = contentHTML;
     });
 
     // เมื่อ Modal MenuCategory ถูกเปิดขึ้นมา
@@ -1772,8 +1772,8 @@ $(document).ready(function() {
                     contentHTML +=
                         '<div class="row my-3">' +
                         '<div class="col-11">' +
-                        '<input type="hidden" name="mcinputcode[]" value="' + response[i].MC_Code + '" class="form-control">' +
-                        '<input type="text" name="mcinputname[]" value="' + response[i].MC_Text + '" class="form-control">' +
+                        '<input type="hidden" name="mcinputcode[]" value="' + response[i].MC_Code + '" class="form-control border-1">' +
+                        '<input type="text" name="mcinputname[]" value="' + response[i].MC_Text + '" class="form-control border-1">' +
                         '</div>' +
                         '<div class="col-1">' +
                         '<button type="button" class="btn btn-danger rounded-pill py-1 px-2 add-image-btn text-end" onclick="deleteAlertMasterMenuCategory(\'' + response[i].MC_Code + '\', \'' + response[i].MC_Text + '\')"><i class="fas fa-trash"></i></button>' +
@@ -1827,10 +1827,10 @@ $(document).ready(function() {
                         '<div class="row my-3">' +
                         '<div class="col-4">' +
                         '<input type="hidden" name="inputcode[]" value="' + response[i].EA_Code + '" class="form-control">' +
-                        '<input type="text" name="inputname[]" value="' + response[i].EA_Name + '" class="form-control">' +
+                        '<input type="text" name="inputname[]" value="' + response[i].EA_Name + '" class="form-control" placeholder="ชื่อหัวข้อ">' +
                         '</div>' +
                         '<div class="col-5">' +
-                        '<input type="text" name="inputvalue[]" value="' + response[i].EA_Path + '" class="form-control">' +
+                        '<input type="text" name="inputvalue[]" value="' + response[i].EA_Path + '" class="form-control" placeholder="ที่อยู่ไฟล์หรือลิ้ง">' +
                         '</div>' +
                         '<div class="col-2">' +
                         '<input class="form-control" name="inputvaluefile[]" type="file" accept=".pdf, .doc, .docx, .xls, .xlsx, .ppt, .pptx">' +
