@@ -31,7 +31,7 @@ if ($result->num_rows > 0) {
 <?php  include("Ma_Head_Link.php"); ?>
 <?php  include("Ma_Head.php"); ?>
 <?php  include("Ma_Carousel.php"); ?>
-<div id="yourModal" class="modal"></div>
+    <div id="popupModal"></div>
     <!-- Content -->
     <?php if ($Category1_id !== 0 && $Category1_id !== '') { ?>
     <div class="container-xxl2 py-5">
@@ -564,6 +564,12 @@ if ($result->num_rows > 0) {
 <!-- เก็บประวัติการเข้าใช้งาน -->
 <script>
 $(document).ready(function() {
+    // เพิ่มการตรวจสอบการคลิกพื้นหลังนอกโมดัล
+    $('.modal').on('click', function(e) {
+        if ($(e.target).hasClass('modal')) {
+            $(this).modal('hide');
+        }
+    });
     $.ajax({
         url: "DB_CountPage.php",
         type: "POST",
@@ -576,8 +582,10 @@ $(document).ready(function() {
             console.log("Error occurred");
         }
     });
-
-    // Show Popup
+});
+</script>
+<script>
+    $(document).ready(function() {
     $.ajax({
         url: "DB_PopupShow.php",
         type: "POST",
@@ -586,26 +594,37 @@ $(document).ready(function() {
         },
         dataType: "json",
         success: function(response) {
+            var PopupModal = document.getElementById("popupModal");
             var modalContent = '';
+            
             for (var i = 0; i < response.length; i++) {
+                var modalId = 'modalPopup' + i;
                 modalContent +=
+                    '<div class="modal fade" id="' + modalId + '" data-bs-backdrop="static" data-bs-keyboard="true" tabindex="-1" aria-labelledby="' + modalId + 'Label" aria-hidden="true">' +
+                    '<div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable">' +
                     '<div class="modal-content">' +
-                    '<button type="button" class="close ml-auto pr-2" data-dismiss="modal" aria-label="Close"> <span aria-hidden="true">×</span> </button>' +
-                    '<div class="modal-body text-center pt-0">' +
-                    '<div class="row no-gutters ">' +
-                    '<div class="col-md-12"><a href="' + response[i].image + '" data-lightbox="portfolio"><img src="' + response[i].image + '" alt="Image" class="img-fluid"></a></div>' +
+                    '<div class="modal-body">' +
+                    '<img src="' + response[i].image + '" alt="Image" class="img-fluid">' +
+                    '</div>' +
                     '</div>' +
                     '</div>' +
                     '</div>';
             }
-            // นำเนื้อหา HTML ที่สร้างไปแสดงผลในตัวแปร Modal
-            $('#yourModal').html(modalContent);
+            
+            PopupModal.innerHTML = modalContent;
 
-            // เรียกใช้ Lightbox
-            lightbox.option({
-                'resizeDuration': 200,
-                'wrapAround': true
-            });
+            // Triggering the modals
+            for (var i = 0; i < response.length; i++) {
+                var modalId = 'modalPopup' + i;
+                var modal = new bootstrap.Modal(document.getElementById(modalId));
+                
+                // Assuming you have a button or trigger for each modal, adjust the selector accordingly
+                var modalTrigger = document.getElementById('modalTriggerButton' + i);
+                
+                modalTrigger.addEventListener('click', function() {
+                    modal.show();
+                });
+            }
 
             console.log("Data Popup sent successfully:", response);
         },
@@ -613,7 +632,6 @@ $(document).ready(function() {
             console.log("Error occurred");
         }
     });
-
 });
 </script>
 <?php include("Ma_Footer_Script.php"); ?>
