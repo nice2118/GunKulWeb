@@ -1998,8 +1998,8 @@ $(document).ready(function() {
                         // '</div>' +
                         '<div class="col-2 col-sm-2 text-center">' +
                         '<h6 class="text-primary">จัดการ</h6>' +
-                        '<button type="button" class="btn btn-link py-1 px-2 text-end text-primary" data-bs-toggle="modal" data-bs-target="#modalmenusub2" data-mncodesub="' + response[i].PM_Code + '" data-pmtype="submenu"><i class="fa fa-plus"></i></button>' +
-                        '<button type="button" class="btn btn-link py-1 px-2 text-end text-warning" data-bs-toggle="modal" data-bs-target="#modalmenusub"><i class="fa fa-address-book"></i></button>' +
+                        // '<button type="button" class="btn btn-link py-1 px-2 text-end text-primary" data-bs-toggle="modal" data-bs-target="#modalmenusub2" data-mncodesub="' + response[i].PM_Code + '" data-pmtype="submenu"><i class="fa fa-plus"></i></button>' +
+                        // '<button type="button" class="btn btn-link py-1 px-2 text-end text-warning" data-bs-toggle="modal" data-bs-target="#modalmenusub"><i class="fa fa-address-book"></i></button>' +
                         '<a class="btn btn-link py-1 px-2 text-end" onclick="deleteAlertMenuSub(' + response[i].PM_Code + ', \'' + response[i].PM_Name + '\')"><i class="fas fa-trash"></i></a>' +
                         '</div>' +
                         '</div>';
