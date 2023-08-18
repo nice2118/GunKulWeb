@@ -7,7 +7,7 @@ $US_Prefix = "";
 <?php include("Ma_Head_Link.php"); ?>
 <link href="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap5.min.css" rel="stylesheet">
 <style>
-  #image, #imageCategory, #imageMenuCategory {
+  #image, #imageCategory, #imageMenuCategory, #imageUser, #imagePopup {
     display: none;
   }
 </style>
@@ -22,7 +22,9 @@ $US_Prefix = "";
         $DefaultImageNews = $row["SU_DefaultImageNews"];
         $PathFolderNews = $row["SU_PathDefaultImageNews"];
         $PathFolderGallery = $row["SU_PathDefaultImageGallery"];
-        $PathDefaultFile= $row["SU_PathDefaultFile"];
+        $PathDefaultFile = $row["SU_PathDefaultFile"];
+        $HeaderDescriptionTH = $row["SU_HeaderDescriptionTH"];
+        $HeaderDescriptionEN = $row["SU_HeaderDescriptionEN"];
     } else {
         unset($sql);
         $sql = "INSERT INTO `Setup` (`CG_Entity No.`,`CG_CreateDate`) VALUES (1, CURRENT_TIMESTAMP)";
@@ -31,7 +33,9 @@ $US_Prefix = "";
             $DefaultImageNews = "";
             $PathFolderNews = "";
             $PathFolderGallery = "";
-            $PathDefaultFile= "";
+            $PathDefaultFile = "";
+            $HeaderDescriptionTH = "";
+            $HeaderDescriptionEN = "";
         }
     }
     unset($sql);
@@ -157,6 +161,14 @@ $US_Prefix = "";
                                                 <label for="PathFolderNews">ที่เก็บไฟล์</label>
                                                 <input type="text" name="PathDefaultFile" value="<?= $PathDefaultFile; ?>" class="form-control">
                                             </div>
+                                            <div class="form-group my-3">
+                                                <label for="PathFolderNews">รายละเอียดไทย</label>
+                                                <input type="text" name="HeaderDescriptionTH" value="<?= $HeaderDescriptionTH; ?>" class="form-control">
+                                            </div>
+                                            <div class="form-group my-3">
+                                                <label for="PathFolderNews">รายละเอียดอังกฤษ</label>
+                                                <input type="text" name="HeaderDescriptionEN" value="<?= $HeaderDescriptionEN; ?>" class="form-control">
+                                            </div>
                                             <div class="row my-3">
                                                 <div class="col-12 text-center text-md-end">
                                                     <button type="submit" class="btn btn-success rounded-pill py-2 px-5 add-image-btn text-end"><i class="fa fa-save"></i></button>
@@ -228,7 +240,52 @@ $US_Prefix = "";
                                         </div>
                                     </div>
                                     <!-- /.card-body -->
-                                </div>                                
+                                </div>
+                                <!-- /.card -->
+                                <div class="card card-teal collapsed-card">
+                                    <div class="card-header">
+                                        <h3 class="card-title text-white">Entry Popup</h3>
+                                        <div class="card-tools">
+                                            <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+                                            <i class="fas fa-plus"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="card-body">
+                                        <ul class="todo-list" data-widget="todo-list">
+                                                <?PHP
+                                                        $sql = "SELECT * FROM `alertpopup` ORDER BY `AP_Code`;";
+                                                        $result = $conn->query($sql);
+                                                        if ($result->num_rows > 0) {
+                                                            while ($row = $result->fetch_assoc()) {
+                                                    ?>
+                                                    <li class="my-2">
+                                                        <span class="text"><?=$row["AP_Name"]?></span>
+                                                        <div class="tools">
+                                                        <?php
+                                                            if ($row["AP_Active"] == 1) {
+                                                                echo '<a class="btn btn-link py-0 px-1 text-end text-secondary toggleButtonPopup" id="toggleButtonPopup1" data-sendHiddenPopupID="' . $row['AP_Code'] . '"><i class="fa fa-eye"></i></a>';
+                                                            } else {
+                                                                echo '<a class="btn btn-link py-0 px-1 text-end text-secondary toggleButtonPopup" id="toggleButtonPopup0" data-sendHiddenPopupID="' . $row['AP_Code'] . '"><i class="fa fa-eye-slash"></i></a>';
+                                                            }
+                                                        ?>
+                                                            <a class="btn btn-link py-1 px-2 text-end" onclick="deleteAlertPopup(<?php echo $row["AP_Code"];?>, '<?php echo $row["AP_Image"];?>')"><i class="fas fa-trash"></i></a>  	 
+                                                            <button type="button" class="btn btn-link py-1 px-2 text-end text-warning" data-bs-toggle="modal" data-bs-target="#modalpopup" data-apcode="<?= $row["AP_Code"] ?>" data-apname="<?= $row["AP_Name"] ?>" data-apimage="<?= $row["AP_Image"] ?>" data-apdatestart="<?= $row["AP_DateStart"] ?>" data-apdateend="<?= $row["AP_DateEnd"] ?>"><i class="fas fa-edit"></i></button>
+                                                        </div>
+                                                    </li>
+                                                <?PHP
+                                                        }
+                                                    }
+                                                    unset($sql);
+                                                ?>
+                                            </ui>
+                                            <div class="form-group text-center text-md-end">
+                                                <button type="button" class="btn btn-primary rounded-pill py-1 px-4 add-image-btn text-end" data-bs-toggle="modal" data-bs-target="#modalpopup" data-apcode="" data-apname="" data-apimage="" data-apdatestart="" data-apdateend=""><i class="fa fa-plus"></i></button>
+                                            </div>
+                                    </div>
+                                    <!-- /.card-body -->
+                                </div>
+                                <!-- /.card -->                         
                             </div>
 
                             <div class="col-md-6">
@@ -367,7 +424,7 @@ $US_Prefix = "";
                                                             while ($row = $result->fetch_assoc()) {
                                                     ?>
                                                     <li class="my-2">
-                                                        <span class="text"><?=$row["US_Username"]?></span>
+                                                        <span class="text"><?=$row["US_Username"]?> / <?=$row["US_Fname"]?></span>
                                                         <div class="tools">
                                                         <?php
                                                             if ($row["US_Active"] == 1) {
@@ -377,7 +434,7 @@ $US_Prefix = "";
                                                             }
                                                         ?>
                                                             <a class="btn btn-link py-1 px-2 text-end" onclick="deleteAlertUser(<?php echo $row["US_Username"];?>)"><i class="fas fa-trash"></i></a>
-                                                            <button type="button" class="btn btn-link py-1 px-2 text-end text-warning" data-bs-toggle="modal" data-bs-target="#modaluser" data-ustype="edit" data-ususername="<?= $row["US_Username"] ?>" data-uspassword="<?= $row["US_Password"] ?>" data-usprefix="<?= $row["US_Prefix"] ?>" data-ptcode="<?= $row["PT_Code"] ?>" data-usfname="<?= $row["US_Fname"] ?>" data-uslname="<?= $row["US_Lname"] ?>"><i class="fas fa-edit"></i></button>
+                                                            <button type="button" class="btn btn-link py-1 px-2 text-end text-warning" data-bs-toggle="modal" data-bs-target="#modaluser" data-ustype="edit" data-ususername="<?= $row["US_Username"] ?>" data-uspassword="<?= $row["US_Password"] ?>" data-usprefix="<?= $row["US_Prefix"] ?>" data-ptcode="<?= $row["PT_Code"] ?>" data-usfname="<?= $row["US_Fname"] ?>" data-uslname="<?= $row["US_Lname"] ?>" data-usimage="<?= $row["US_Image"] ?>"><i class="fas fa-edit"></i></button>
                                                         </div>
                                                     </li>
                                                 <?PHP
@@ -387,7 +444,7 @@ $US_Prefix = "";
                                                 ?>
                                             </ui>
                                             <div class="form-group text-center text-md-end">
-                                                <button type="button" class="btn btn-primary rounded-pill py-1 px-4 add-image-btn text-end" data-bs-toggle="modal" data-bs-target="#modaluser" data-ustype="add" data-ususername="" data-uspassword="" data-usprefix="" data-ptcode="" data-usfname="" data-uslname=""><i class="fa fa-plus"></i></button>
+                                                <button type="button" class="btn btn-primary rounded-pill py-1 px-4 add-image-btn text-end" data-bs-toggle="modal" data-bs-target="#modaluser" data-ustype="add" data-ususername="" data-uspassword="" data-usprefix="" data-ptcode="" data-usfname="" data-uslname="" data-usimage=""><i class="fa fa-plus"></i></button>
                                             </div>
                                     </div>
                                     <!-- /.card-body -->
@@ -801,6 +858,7 @@ $US_Prefix = "";
                     <form id="modalFormmodaluser" action="Pro_Add&EditUser.php" method="post" enctype="multipart/form-data">
                         <div class="row g-2 my-2">
                             <input type="hidden" id="US_Type" name="US_Type" class="form-control border-1" placeholder="Code" required>
+                            <input type="hidden" id="US_Image" name="US_Image" class="form-control border-1" placeholder="0" readonly>
                             <div class="col-2 col-sm-2">
                                 <h6 class="text-primary">คำนำหน้า</h6>
                                 <select class="form-select border-1" id="US_Prefix" name="US_Prefix" required>
@@ -816,7 +874,7 @@ $US_Prefix = "";
                             </div>
                             <div class="col-5 col-sm-5">
                                 <h6 class="text-primary">นามสกุล</h6>
-                                <input type="Text" id="US_Lname" name="US_Lname" class="form-control border-1" placeholder="นามสกุล" required>
+                                <input type="Text" id="US_Lname" name="US_Lname" class="form-control border-1" placeholder="นามสกุล">
                             </div>
                             <div class="col-4 col-sm-4">
                                 <h6 class="text-primary">ตำแหน่ง</h6>
@@ -843,6 +901,13 @@ $US_Prefix = "";
                             <div class="col-4 col-sm-4">
                                 <h6 class="text-primary">Password</h6>
                                 <input type="Password" id="US_Password" name="US_Password" class="form-control border-1" placeholder="Password" required>
+                            </div>
+                            <div class="col-12 col-sm-12">
+                                <h6 class="text-primary">ภาพเริ่มต้น</h6>
+                                <input type="file" class="form-control border-1" name="imageUser" id="imageUser" accept="image/*">
+                                <label for="imageUser" style="cursor: pointer;">
+                                    <div id="modalPreviewImageUser"></div>
+                                </label>
                             </div>
                         </div>
                         <div class="modal-footer">
@@ -937,8 +1002,8 @@ $US_Prefix = "";
         </div>
     </div>
 
-        <!-- Modal Menu Sub2-->
-        <div class="modal fade" id="modalmenusub2" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="modalmenusub2Label" aria-hidden="true">
+    <!-- Modal Menu Sub2-->
+    <div class="modal fade" id="modalmenusub2" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="modalmenusub2Label" aria-hidden="true">
         <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable">
             <div class="modal-content">
                 <div class="modal-header">
@@ -952,6 +1017,49 @@ $US_Prefix = "";
                         <div class="form-group text-center text-md-end my-2">
                                 <button type="button" class="btn btn-primary rounded-pill py-2 px-3 add-image-btn text-end" id="addButtonMenuSub2"><i class="fa fa-plus"></i></button>
                             </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">ยกเลิก</button>
+                            <button type="submit" class="btn btn-primary">บันทึก</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Popup-->
+    <div class="modal fade" id="modalpopup" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="modalupopupLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalpopupLabel">General Popup</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="modalFormmodalpopup" action="Pro_Add&Editpopup.php" method="post" enctype="multipart/form-data">
+                        <div class="row g-2 my-2">
+                            <input type="hidden" id="AP_Code" name="AP_Code" class="form-control border-1" placeholder="Code" required>
+                            <input type="hidden" id="AP_OldImage" name="AP_OldImage" class="form-control border-1" placeholder="0" readonly>
+                            <div class="col-12 col-sm-12">
+                                <h6 class="text-primary">ชื่อ</h6>
+                                <input type="Text" id="AP_Name" name="AP_Name" class="form-control border-1" placeholder="ชื่อ" required>
+                            </div>
+                            <div class="col-6 col-sm-6">
+                                <h6 class="text-primary">วันที่เริ่มแสดง</h6>
+                                <input type="Date" id="AP_DateStart" name="AP_DateStart" class="form-control border-1" placeholder="วันที่เริ่มแสดง" required>
+                            </div>
+                            <div class="col-6 col-sm-6">
+                                <h6 class="text-primary">วันที่สิ้นสุดแสดง</h6>
+                                <input type="Date" id="AP_DateEnd" name="AP_DateEnd" class="form-control border-1" placeholder="วันที่สิ้นสุดแสดง" required>
+                            </div>
+                            <div class="col-12 col-sm-12">
+                                <h6 class="text-primary">ภาพที่ให้แสดง</h6>
+                                <input type="file" class="form-control border-1" name="imagePopup" id="imagePopup" accept="image/*">
+                                <label for="imagePopup" style="cursor: pointer;">
+                                    <div id="modalPreviewImagePopup"></div>
+                                </label>
+                            </div>
+                        </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">ยกเลิก</button>
                             <button type="submit" class="btn btn-primary">บันทึก</button>
@@ -1014,6 +1122,34 @@ $US_Prefix = "";
         reader.onload = function (e) {
             var previewImageMenuCategory = document.getElementById('previewImageMenuCategory');
             previewImageMenuCategory.src = e.target.result;
+        };
+
+        if (file) {
+            reader.readAsDataURL(file);
+        }
+    });
+
+    document.getElementById('imageUser').addEventListener('change', function (e) {
+        var file = e.target.files[0];
+        var reader = new FileReader();
+
+        reader.onload = function (e) {
+            var previewImageUser = document.getElementById('previewImageUser');
+            previewImageUser.src = e.target.result;
+        };
+
+        if (file) {
+            reader.readAsDataURL(file);
+        }
+    });
+
+    document.getElementById('imagePopup').addEventListener('change', function (e) {
+        var file = e.target.files[0];
+        var reader = new FileReader();
+
+        reader.onload = function (e) {
+            var previewImageUser = document.getElementById('previewImagePopup');
+            previewImageUser.src = e.target.result;
         };
 
         if (file) {
@@ -1119,15 +1255,22 @@ $(document).ready(function() {
                     '</select>' +
                     '</div>' +
                     '<div class="col-1 col-sm-1 text-center">' +
-                    '<h6 class="text-primary">เพิ่มขั้น</h6>' +
-                    // '<button type="button" class="btn btn-link py-1 px-2 text-end text-danger" data-bs-toggle="modal" data-bs-target="#"></button>' +
+                    '<h6 class="text-primary">เส้นขั้น</h6>' +
+                    '<select class="form-select border-1" id="PM_Setup" name="PM_Setup[]" required>' +
+                    '<option value="0">ไม่มี</option>' +
+                    '<option value="1">มี</option>' +
+                    '</select>' +
                     '</div>' +
-                    '<div class="col-1 col-sm-1 text-center">' +
-                    '<h6 class="text-primary">ตำแหน่ง</h6>' +
+                    // '<div class="col-1 col-sm-1 text-center">' +
+                    // '<h6 class="text-primary">เพิ่มขั้น</h6>' +
                     // '<button type="button" class="btn btn-link py-1 px-2 text-end text-danger" data-bs-toggle="modal" data-bs-target="#"></button>' +
-                    '</div>' +
-                    '<div class="col-1 col-sm-1 text-center">' +
-                    '<h6 class="text-primary">ลบ</h6>' +
+                    // '</div>' +
+                    // '<div class="col-1 col-sm-1 text-center">' +
+                    // '<h6 class="text-primary">ตำแหน่ง</h6>' +
+                    // '<button type="button" class="btn btn-link py-1 px-2 text-end text-danger" data-bs-toggle="modal" data-bs-target="#"></button>' +
+                    // '</div>' +
+                    '<div class="col-2 col-sm-2 text-center">' +
+                    '<h6 class="text-primary">จัดการ</h6>' +
                     '<button type="button" class="btn btn-link py-1 px-2 text-end text-danger btn-delete-row"><i class="fa fa-trash"></i></button>' +
                     '</div>' +
                     '</div>');
@@ -1521,6 +1664,42 @@ $(document).ready(function() {
             console.error("Error displaying SweetAlert:", error);
         });
     }
+    function deleteAlertPopup(PopupID,PopupName) {
+        swal({
+            title: "คุณต้องการที่จะลบหรือไม่?",
+            text: `${PopupID}\nเมื่อกดลบไปแล้วจะไม่สามารถนำข้อมูลกลับมาได้!`,
+            icon: "warning",
+            buttons: {
+                cancel: {
+                    text: "ยกเลิก",
+                    value: false,
+                    visible: true,
+                    className: "",
+                    closeModal: true,
+                },
+                confirm: {
+                    text: "ลบ",
+                    value: true,
+                    visible: true,
+                    className: "",
+                    closeModal: true,
+                },
+            },
+            dangerMode: true,
+        })
+        .then((willDelete) => {
+            if (willDelete) {
+                // เมื่อกดตกลง ทำการเปลี่ยนหน้า
+                window.location.replace(`Pro_DeletePopup.php?Send_ID=${PopupID}&Send_Name=${PopupName}`);
+            } else {
+                // เมื่อกดยกเลิก ไม่ต้องทำอะไร
+            }
+        })
+        .catch((error) => {
+            // เกิดข้อผิดพลาดในกรณีที่ไม่สามารถแสดงกล่อง SweetAlert ได้
+            console.error("Error displaying SweetAlert:", error);
+        });
+    }
 </script>
 <!-- category Edit -->
 <script>
@@ -1679,8 +1858,10 @@ $(document).ready(function() {
         const ptCode = button.data('ptcode');
         const usFname = button.data('usfname');
         const usLname = button.data('uslname');
+        const usImage = button.data('usimage') !== '' ? 'img/User/' + button.data('usimage') : 'Default/DefaultUser/0.png';
+        const usOldImage = button.data('usimage');
 
-        console.log(usPrefix);
+        // console.log(usPrefix);
 
         // กำหนดค่าให้กับช่อง input ใน Modal
         document.getElementById("US_Type").value = usType;
@@ -1698,6 +1879,11 @@ $(document).ready(function() {
         } else {
             document.getElementById("US_Lname").value = usLname;
         }
+        document.getElementById("US_Image").value = usOldImage;
+
+        var modalContentMasterMenuUser = document.getElementById("modalPreviewImageUser");
+        var contentHTML = '<img id="previewImageUser" class="img-fluid rounded" src="' + usImage + '" alt="" style="width: 50px; height: 50px;">';
+        modalContentMasterMenuUser.innerHTML = contentHTML;
     });
 
     // เมื่อ Modal Position ถูกเปิดขึ้นมา
@@ -1796,15 +1982,24 @@ $(document).ready(function() {
                         '</select>' +                       
                         '</div>' +
                         '<div class="col-1 col-sm-1 text-center">' +
-                        '<h6 class="text-primary">เพิ่มขั้น</h6>' +
+                        '<h6 class="text-primary">ตั้งค่า</h6>' + 
+                        '<select class="form-select border-1" id="PM_Setup" name="PM_Setup[]" required>' +
+                        '<option value="0" ' + (response[i].PM_Setup == 0 ? 'selected' : '') + '>ไม่มี</option>' +
+                        '<option value="1" ' + (response[i].PM_Setup == 1 ? 'selected' : '') + '>มี</option>' +
+                        '</select>' +                       
+                        '</div>' +
+                        // '<div class="col-1 col-sm-1 text-center">' +
+                        // '<h6 class="text-primary">เพิ่มขั้น</h6>' +
+                        // '<button type="button" class="btn btn-link py-1 px-2 text-end text-primary" data-bs-toggle="modal" data-bs-target="#modalmenusub2" data-mncodesub="' + response[i].PM_Code + '" data-pmtype="submenu"><i class="fa fa-plus"></i></button>' +
+                        // '</div>' +
+                        // '<div class="col-1 col-sm-1 text-center">' +
+                        // '<h6 class="text-primary">ตำแหน่ง</h6>' +
+                        // '<button type="button" class="btn btn-link py-1 px-2 text-end text-warning" data-bs-toggle="modal" data-bs-target="#modalmenusub"><i class="fa fa-address-book"></i></button>' +
+                        // '</div>' +
+                        '<div class="col-2 col-sm-2 text-center">' +
+                        '<h6 class="text-primary">จัดการ</h6>' +
                         '<button type="button" class="btn btn-link py-1 px-2 text-end text-primary" data-bs-toggle="modal" data-bs-target="#modalmenusub2" data-mncodesub="' + response[i].PM_Code + '" data-pmtype="submenu"><i class="fa fa-plus"></i></button>' +
-                        '</div>' +
-                        '<div class="col-1 col-sm-1 text-center">' +
-                        '<h6 class="text-primary">ตำแหน่ง</h6>' +
                         '<button type="button" class="btn btn-link py-1 px-2 text-end text-warning" data-bs-toggle="modal" data-bs-target="#modalmenusub"><i class="fa fa-address-book"></i></button>' +
-                        '</div>' +
-                        '<div class="col-1 col-sm-1 text-center">' +
-                        '<h6 class="text-primary">ลบ</h6>' +
                         '<a class="btn btn-link py-1 px-2 text-end" onclick="deleteAlertMenuSub(' + response[i].PM_Code + ', \'' + response[i].PM_Name + '\')"><i class="fas fa-trash"></i></a>' +
                         '</div>' +
                         '</div>';
@@ -1816,8 +2011,34 @@ $(document).ready(function() {
             }
         });
     });
-    
+
+    // เมื่อ Modal Popup ถูกเปิดขึ้นมา
+    $('#modalpopup').on('show.bs.modal', function(event) {
+        const button = $(event.relatedTarget);
+        const apCode = button.data('apcode');
+        const apName = button.data('apname');
+        const apImage = button.data('apimage') !== '' ? 'img/Popup/' + button.data('apimage') : 'Default/DefaultImage/DefaultImage.png';
+        const apOldImage = button.data('apimage');
+        const apDateStart = button.data('apdatestart');
+        const apDateEnd = button.data('apdateend');
+
+        // กำหนดค่าให้กับช่อง input ใน Modal
+        document.getElementById("AP_Code").value = apCode;
+        if (apName === undefined) {
+            document.getElementById("AP_Name").value = '';
+        } else {
+            document.getElementById("AP_Name").value = apName;
+        }
+        document.getElementById("AP_OldImage").value = apOldImage;
+        document.getElementById("AP_DateStart").value = apDateStart;
+        document.getElementById("AP_DateEnd").value = apDateEnd;
+
+        var modalContentMasterMenuPopup = document.getElementById("modalPreviewImagePopup");
+        var contentHTML = '<img id="previewImagePopup" class="img-fluid rounded" src="' + apImage + '" alt="" style="width: 200px; height: 200px;">';
+        modalContentMasterMenuPopup.innerHTML = contentHTML;
+    });    
 </script>
+<!-- Hidden -->
 <script>
 // ดักจับเหตุการณ์คลิกที่ปุ่มที่มีคลาส toggleButton
 const toggleButtons = document.querySelectorAll(".toggleButton");
@@ -1843,6 +2064,43 @@ function sendDataToPHP(status, id) {
   // ส่งข้อมูลไปยัง PHP โดยใช้ AJAX
   const xhr = new XMLHttpRequest();
   const url = "DB_UserHidden.php"; // เปลี่ยนเป็นชื่อไฟล์ PHP ที่คุณต้องการใช้งาน
+  const params = "status=" + status + "&id=" + id; // ส่งค่าตัวแปรไปยัง PHP
+  console.log(params);
+  xhr.open("POST", url, true);
+  xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+  xhr.onreadystatechange = function() {
+    if (xhr.readyState == 4 && xhr.status == 200) {
+      // ทำสิ่งที่คุณต้องการหลังจากที่ส่งข้อมูลเสร็จสิ้น (หากต้องการ)
+      console.log(xhr.responseText); // ตัวอย่างการแสดงผล response ที่ได้จาก PHP
+    }
+  };
+  xhr.send(params);
+}
+
+// ดักจับเหตุการณ์คลิกที่ปุ่มที่มีคลาส toggleButtonPopup
+const toggleButtonsUser = document.querySelectorAll(".toggleButtonPopup");
+toggleButtonsUser.forEach(button => {
+  button.addEventListener("click", function() {
+    const iconPopup = this.querySelector("i");
+    let sendStatusPopup; // ประกาศตัวแปร sendStatusPopup ที่เห้นใช้ได้ทั่วกับทุกส่วนของฟังก์ชัน
+    if (iconPopup.classList.contains("fa-eye")) {
+      iconPopup.classList.remove("fa-eye");
+      iconPopup.classList.add("fa-eye-slash");
+      sendStatusPopup = 0; // กำหนดค่าให้กับตัวแปร sendStatusPopup
+    } else if (iconPopup.classList.contains("fa-eye-slash")){
+      iconPopup.classList.remove("fa-eye-slash");
+      iconPopup.classList.add("fa-eye");
+      sendStatusPopup = 1; // กำหนดค่าให้กับตัวแปร sendStatusPopup
+    }
+    const sendPopupID = this.getAttribute("data-sendHiddenPopupID");
+    sendDataToPopupPHP(sendStatusPopup, sendPopupID); // ส่งค่าไปยัง PHP
+  });
+});
+
+function sendDataToPopupPHP(status, id) {
+  // ส่งข้อมูลไปยัง PHP โดยใช้ AJAX
+  const xhr = new XMLHttpRequest();
+  const url = "DB_PopupHidden.php"; // เปลี่ยนเป็นชื่อไฟล์ PHP ที่คุณต้องการใช้งาน
   const params = "status=" + status + "&id=" + id; // ส่งค่าตัวแปรไปยัง PHP
   console.log(params);
   xhr.open("POST", url, true);

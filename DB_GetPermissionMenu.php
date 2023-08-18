@@ -11,7 +11,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     if ($typeLower === 'category') {
         $sql = "SELECT * FROM `category` WHERE `CG_Entity Relation No.` = 0;";
         $result = $conn->query($sql);
-        $dataFromDB = array();
         if ($result->num_rows > 0) {
             while ($row = $result->fetch_assoc()) {
                 $data[] = array('id' => $row["CG_Entity No."], 'name' => $row["CG_Name"]);
@@ -20,7 +19,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     } elseif ($typeLower === 'headingcategories') {
         $sql = "SELECT * FROM `headingcategories`;";
         $result = $conn->query($sql);
-        $dataFromDB = array();
         if ($result->num_rows > 0) {
             while ($row = $result->fetch_assoc()) {
                 $data[] = array('id' => $row["HC_Code"], 'name' => $row["HC_Text"]);
@@ -29,7 +27,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     } elseif ($typeLower === 'engravedcategory') {
         $sql = "SELECT * FROM `engravedcategory`;";
         $result = $conn->query($sql);
-        $dataFromDB = array();
         if ($result->num_rows > 0) {
             while ($row = $result->fetch_assoc()) {
                 $data[] = array('id' => $row["EC_Code"], 'name' => $row["EC_Name"]);

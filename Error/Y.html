@@ -1,65 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Province and District</title>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-</head>
-
-<body>
-    <select id="provinceSelect">
-        <option value="">เลือกจังหวัด</option>
-        <!-- จังหวัดต่าง ๆ -->
-    </select>
-
-    <select id="districtSelect">
-        <option value="">เลือกอำเภอ</option>
-        <!-- อำเภอต่าง ๆ จะถูกเติมโดย Ajax -->
-    </select>
-
-    <script src="script.js"></script>
-</body>
-
-</html>
-<script>
-    $(document).ready(function() {
-        // ข้อมูลจังหวัดและอำเภอ
-        const data = {
-            "Bangkok": ["ภาคเหนือ", "ภาคกลาง", "ภาคใต้"],
-            "Chiang Mai": ["เมืองเชียงใหม่", "เมืองลำปาง", "เมืองลำพูน"],
-            // ข้อมูลจังหวัดและอำเภออื่น ๆ
-        };
-
-        const provinceSelect = $('#provinceSelect');
-        const districtSelect = $('#districtSelect');
-
-        // เมื่อเลือกจังหวัดเปลี่ยน
-        provinceSelect.change(function() {
-            const selectedProvince = $(this).val();
-            const districts = data[selectedProvince] || [];
-
-            // เปลี่ยนเลือกอำเภอ
-            districtSelect.empty();
-            districtSelect.append($('<option>', {
-                value: '',
-                text: 'เลือกอำเภอ'
-            }));
-            districts.forEach(function(district) {
-                districtSelect.append($('<option>', {
-                    value: district,
-                    text: district
-                }));
-            });
-        });
-
-        // เติมตัวเลือกจังหวัดเริ่มต้น
-        Object.keys(data).forEach(function(province) {
-            provinceSelect.append($('<option>', {
-                value: province,
-                text: province
-            }));
-        });
-    });
-</script>
+<div class="modal-content"><button type="button" class="close ml-auto pr-2" data-dismiss="modal" aria-label="Close"> <span aria-hidden="true">×</span> </button>
+    <div class="modal-body text-center pt-0">
+        <div class="row no-gutters ">
+            <div class="col-md-12"><img src="/storage/popup/other/2022601-gunkul-popup.jpg" alt="" class="img-fluid"></div>
+        </div>
+    </div>
+</div>

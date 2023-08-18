@@ -24,10 +24,26 @@
         <div class="container">
             <div class="text-center mx-auto mb-2 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 600px;">
             <?php
-                $sql = "SELECT * FROM `Activities` LEFT JOIN `Category` ON `Activities`.`AT_Entity No.` = `Category`.`CG_Entity No.` WHERE `Activities`.`AT_Code` = $t_id;";     
+                $countPage = '';
+                $fullName = '';
+                $sql = "SELECT * FROM `Activities` LEFT JOIN `Category` ON `Activities`.`AT_Entity No.` = `Category`.`CG_Entity No.` LEFT JOIN user ON `Activities`.AT_UserCreate = User.US_Username WHERE `Activities`.`AT_Code` = $t_id;";     
                 $result = $conn->query($sql);        
                 if ($result->num_rows > 0) {
                     $row = $result->fetch_assoc();
+                    function formatNumber($number) {
+                        if ($number >= 1000000000) {
+                            return number_format($number / 1000000000, 2) . 'B';
+                        } elseif ($number >= 1000000) {
+                            return number_format($number / 1000000, 2) . 'M';
+                        } elseif ($number >= 1000) {
+                            return number_format($number / 1000) . 'K';
+                        } else {
+                            return number_format($number);
+                        }
+                    }
+                    $countPage = formatNumber($row["CountPage"]);
+                    $fullName = $row['US_Fname'];
+                    
             ?>
                 <h3 class="text-primary"><?= $row["CG_DescriptionEN"] ?></h3>
                 <h2 class="mb-4"><?= $row["CG_DescriptionTH"] ?></h2>
@@ -122,6 +138,7 @@
                     }
                 ?>
             </div>
+            <div class="text-center">ผู้จัดทำ <?=$fullName?> จำนวนผู้เข้าชม <?=$countPage?></div>
         </div>
     </div>
     <!-- Content -->

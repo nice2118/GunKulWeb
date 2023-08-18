@@ -10,11 +10,6 @@ if (isset($_GET['Send_Category']) && $_GET['Send_Category'] !== '') {
 
 <?php include("Fn_RecursiveCategory.php"); ?>
 <?php include("Ma_Head_Link.php"); ?>
-<script>
-    $(document).ready(function() {
-        $('[data-bs-toggle="tooltip"]').tooltip();
-    });
-</script>
 <!-- Icon Font Stylesheet -->
 <!-- <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.2.0/css/bootstrap.min.css" rel="stylesheet"> -->
 <link href="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap5.min.css" rel="stylesheet">
@@ -96,6 +91,7 @@ if (isset($_GET['Send_Category']) && $_GET['Send_Category'] !== '') {
                                                 $reqDescription = '';
                                                 $reqFile = '';
                                                 $fullName = '';
+                                                $imgShow = '';
                                                 if ($IsFile == 0){
                                                     $reqCode = $row['AT_Code'];
                                                     $reqDate = $row['AT_Date'];
@@ -116,6 +112,12 @@ if (isset($_GET['Send_Category']) && $_GET['Send_Category'] !== '') {
                                                         $reqFile = $rowSetup['SU_PathDefaultFile'].$row['FA_File'];
                                                     }
                                                     
+                                                }
+                                                if ($row['US_Image'] != ''){
+                                                    $imgShow = 'img/User/'.$row['US_Image'];
+                                                }
+                                                if ($imgShow == '') {
+                                                    $imgShow = 'Default/DefaultUser/0.png';
                                                 }
                                         ?>
                                         <tr>
@@ -138,7 +140,7 @@ if (isset($_GET['Send_Category']) && $_GET['Send_Category'] !== '') {
                                                 </small> -->
                                             </td>
                                             <td>
-                                            <img class="img-fluid rounded-circle mx-1 mb-1" src="Default/DefaultUser/0.png" alt="User Image" style="width: 40px; height: 40px;" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="<?= $fullName;?>">
+                                            <img class="img-fluid rounded-circle mx-1 mb-1" src="<?=$imgShow?>" alt="User Image" style="width: 40px; height: 40px;" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="<?= $fullName;?>">
                                             </td>
                                             <td class="project-actions text-right">
                                                 <?php if ($IsFile == 0): ?>
@@ -289,5 +291,10 @@ $(document).ready(function() {
         });
     });
 });
+</script>
+<script>
+    $(document).ready(function() {
+        $('[data-bs-toggle="tooltip"]').tooltip();
+    });
 </script>
 <?php include("Ma_Footer_Script.php"); ?>

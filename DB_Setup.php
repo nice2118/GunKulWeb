@@ -2,8 +2,7 @@
     $DefaultImageNews = '';
     $PathFolderNews = '';
     $PathFolderGallery = '';
-    $PathDefaultFile = '';
-    
+    $PathDefaultFile = '';   
 
     function handleSetupData($row) {
         global $DefaultImageNews, $PathFolderNews, $PathFolderGallery, $PathDefaultFile;

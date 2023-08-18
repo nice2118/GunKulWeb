@@ -31,6 +31,7 @@ if ($result->num_rows > 0) {
 <?php  include("Ma_Head_Link.php"); ?>
 <?php  include("Ma_Head.php"); ?>
 <?php  include("Ma_Carousel.php"); ?>
+<div id="yourModal" class="modal"></div>
     <!-- Content -->
     <?php if ($Category1_id !== 0 && $Category1_id !== '') { ?>
     <div class="container-xxl2 py-5">
@@ -130,7 +131,7 @@ if ($result->num_rows > 0) {
                         <div class="portfolio-img rounded overflow-hidden">
                             <img class="img-fluid w-100" src="<?= $AT_Image;?>" style="height:280px;" alt="">
                             <div class="portfolio-btn">
-                                <a class="btn btn-lg-square btn-outline-light rounded-circle mx-1" href="<?= $$AT_Image;?>"
+                                <a class="btn btn-lg-square btn-outline-light rounded-circle mx-1" href="<?= $AT_Image;?>"
                                     data-lightbox="portfolio"><i class="fa fa-eye"></i></a>
                                 <a class="btn btn-lg-square btn-outline-light rounded-circle mx-1" href="Ui_ShowDetail.php?Send_IDNews=<?= $row["AT_Code"];?>"><i
                                         class="fa fa-link"></i></a>
@@ -394,33 +395,33 @@ if ($result->num_rows > 0) {
                         $result = $conn->query($sql);
                         if ($result->num_rows > 0) {
                            $row = $result->fetch_assoc();
-                        if ($Category4 === 'category') {
-                            $Name02 = $row['CG_DescriptionTH'];
-                            $Designation02 = $row['CG_DescriptionEN'];
-                            if ($row['CG_DefaultImage'] !== '') {
-                                $Image02 = 'img/DefaultImageCategory/' . $row['CG_DefaultImage'];
-                            } else {
-                                $Image02 = 'Default/DefaultImage/DefaultImage.png'; 
+                            if ($Category4 === 'category') {
+                                $Name02 = $row['CG_DescriptionTH'];
+                                $Designation02 = $row['CG_DescriptionEN'];
+                                if ($row['CG_DefaultImage'] !== '') {
+                                    $Image02 = 'img/DefaultImageCategory/' . $row['CG_DefaultImage'];
+                                } else {
+                                    $Image02 = 'Default/DefaultImage/DefaultImage.png'; 
+                                }
+                                $Href02 = 'Ui_List.php?Send_Category=' . $Category4_id;
+                            } elseif ($Category4 === 'headingcategories'){
+                                $Name02 = $row['HC_DescriptionTH'];
+                                $Designation02 = $row['HC_DescriptionEN'];
+                                if ($row['HC_DefaultImage'] !== '') {
+                                    $Image02 = 'img/DefaultImageHeadingCategory/' . $row['HC_DefaultImage'];
+                                } else {
+                                    $Image02 = 'Default/DefaultImage/DefaultImage.png'; 
+                                }
+                                $Href02 = 'Ui_ShowPageMenu.php?Send_MoreMenu='. $Category4_id;
+                            } else { 
+                                $Name02 = '';
+                                $Designation02 = '';
+                                $Image02 = '';
+                                $Href02 = '#';
                             }
-                            $Href02 = 'Ui_List.php?Send_Category=' . $Category4_id;
-                        } elseif ($Category4 === 'headingcategories'){
-                            $Name02 = $row['HC_DescriptionTH'];
-                            $Designation02 = $row['HC_DescriptionEN'];
-                            if ($row['HC_DefaultImage'] !== '') {
-                                $Image02 = 'img/DefaultImageHeadingCategory/' . $row['HC_DefaultImage'];
-                            } else {
-                                $Image02 = 'Default/DefaultImage/DefaultImage.png'; 
+                            if ($Image02 == '') {
+                                $Image02 = 'Default/DefaultImage/DefaultImage.png';
                             }
-                            $Href02 = 'Ui_ShowPageMenu.php?Send_MoreMenu='. $Category4_id;
-                        } else { 
-                            $Name02 = '';
-                            $Designation02 = '';
-                            $Image02 = '';
-                            $Href02 = '#';
-                        }
-                        if ($Image02 == '') {
-                            $Image02 = 'Default/DefaultImage/DefaultImage.png';
-                        }
                     ?>
                         <a class="small fw-medium" href="<?=$Href02?>">
                             <div class="d-flex">
@@ -446,33 +447,33 @@ if ($result->num_rows > 0) {
                         $result = $conn->query($sql);
                         if ($result->num_rows > 0) {
                            $row = $result->fetch_assoc();
-                        if ($Category5 === 'category') {
-                            $Name03 = $row['CG_DescriptionTH'];
-                            $Designation03 = $row['CG_DescriptionEN'];
-                            if ($row['CG_DefaultImage'] !== '') {
-                                $Image03 = 'img/DefaultImageCategory/' . $row['CG_DefaultImage'];
-                            } else {
-                                $Image03 = 'Default/DefaultImage/DefaultImage.png'; 
+                            if ($Category5 === 'category') {
+                                $Name03 = $row['CG_DescriptionTH'];
+                                $Designation03 = $row['CG_DescriptionEN'];
+                                if ($row['CG_DefaultImage'] !== '') {
+                                    $Image03 = 'img/DefaultImageCategory/' . $row['CG_DefaultImage'];
+                                } else {
+                                    $Image03 = 'Default/DefaultImage/DefaultImage.png'; 
+                                }
+                                $Href03 = 'Ui_List.php?Send_Category=' . $Category5_id;
+                            } elseif ($Category5 === 'headingcategories'){
+                                $Name03 = $row['HC_DescriptionTH'];
+                                $Designation03 = $row['HC_DescriptionEN'];
+                                if ($row['HC_DefaultImage'] !== '') {
+                                    $Image03 = 'img/DefaultImageHeadingCategory/' . $row['HC_DefaultImage'];
+                                } else {
+                                    $Image03 = 'Default/DefaultImage/DefaultImage.png'; 
+                                }
+                                $Href03 = 'Ui_ShowPageMenu.php?Send_MoreMenu='. $Category5_id;
+                            } else { 
+                                $Name03 = '';
+                                $Designation03 = '';
+                                $Image03 = '';
+                                $Href03 = '#';
                             }
-                            $Href03 = 'Ui_List.php?Send_Category=' . $Category5_id;
-                        } elseif ($Category5 === 'headingcategories'){
-                            $Name03 = $row['HC_DescriptionTH'];
-                            $Designation03 = $row['HC_DescriptionEN'];
-                            if ($row['HC_DefaultImage'] !== '') {
-                                $Image03 = 'img/DefaultImageHeadingCategory/' . $row['HC_DefaultImage'];
-                            } else {
-                                $Image03 = 'Default/DefaultImage/DefaultImage.png'; 
+                            if ($Image03 == '') {
+                                $Image03 = 'Default/DefaultImage/DefaultImage.png';
                             }
-                            $Href03 = 'Ui_ShowPageMenu.php?Send_MoreMenu='. $Category5_id;
-                        } else { 
-                            $Name03 = '';
-                            $Designation03 = '';
-                            $Image03 = '';
-                            $Href03 = '#';
-                        }
-                        if ($Image03 == '') {
-                            $Image03 = 'Default/DefaultImage/DefaultImage.png';
-                        }
                     ?>
                         <a class="small fw-medium" href="<?=$Href03?>">
                             <div class="d-flex">
@@ -498,33 +499,33 @@ if ($result->num_rows > 0) {
                         $result = $conn->query($sql);
                         if ($result->num_rows > 0) {
                            $row = $result->fetch_assoc();
-                        if ($Category6 === 'category') {
-                            $Name04 = $row['CG_DescriptionTH'];
-                            $Designation04 = $row['CG_DescriptionEN'];
-                            if ($row['CG_DefaultImage'] !== '') {
-                                $Image04 = 'img/DefaultImageCategory/' . $row['CG_DefaultImage'];
-                            } else {
-                                $Image04 = 'Default/DefaultImage/DefaultImage.png'; 
+                            if ($Category6 === 'category') {
+                                $Name04 = $row['CG_DescriptionTH'];
+                                $Designation04 = $row['CG_DescriptionEN'];
+                                if ($row['CG_DefaultImage'] !== '') {
+                                    $Image04 = 'img/DefaultImageCategory/' . $row['CG_DefaultImage'];
+                                } else {
+                                    $Image04 = 'Default/DefaultImage/DefaultImage.png'; 
+                                }
+                                $Href04 = 'Ui_List.php?Send_Category=' . $Category6_id;
+                            } elseif ($Category6 === 'headingcategories'){
+                                $Name04 = $row['HC_DescriptionTH'];
+                                $Designation04 = $row['HC_DescriptionEN'];
+                                if ($row['HC_DefaultImage'] !== '') {
+                                    $Image04 = 'img/DefaultImageHeadingCategory/' . $row['HC_DefaultImage'];
+                                } else {
+                                    $Image04 = 'Default/DefaultImage/DefaultImage.png'; 
+                                }
+                                $Href04 = 'Ui_ShowPageMenu.php?Send_MoreMenu='. $Category6_id;
+                            } else { 
+                                $Name04 = '';
+                                $Designation04 = '';
+                                $Image04 = '';
+                                $Href04 = '#';
                             }
-                            $Href04 = 'Ui_List.php?Send_Category=' . $Category6_id;
-                        } elseif ($Category6 === 'headingcategories'){
-                            $Name04 = $row['HC_DescriptionTH'];
-                            $Designation04 = $row['HC_DescriptionEN'];
-                            if ($row['HC_DefaultImage'] !== '') {
-                                $Image04 = 'img/DefaultImageHeadingCategory/' . $row['HC_DefaultImage'];
-                            } else {
-                                $Image04 = 'Default/DefaultImage/DefaultImage.png'; 
+                            if ($Image04 == '') {
+                                $Image04 = 'Default/DefaultImage/DefaultImage.png';
                             }
-                            $Href04 = 'Ui_ShowPageMenu.php?Send_MoreMenu='. $Category6_id;
-                        } else { 
-                            $Name04 = '';
-                            $Designation04 = '';
-                            $Image04 = '';
-                            $Href04 = '#';
-                        }
-                        if ($Image04 == '') {
-                            $Image04 = 'Default/DefaultImage/DefaultImage.png';
-                        }
                     ?>
                         <a class="small fw-medium" href="<?=$Href04?>">
                             <div class="d-flex">
@@ -569,12 +570,50 @@ $(document).ready(function() {
         data: { Type: 'setup', Code: 1 },
         dataType: "json",
         success: function(response) {
-            console.log("Data sent successfully:", response);
+            console.log("Data Count Page sent successfully:", response);
         },
         error: function() {
             console.log("Error occurred");
         }
     });
+
+    // Show Popup
+    $.ajax({
+        url: "DB_PopupShow.php",
+        type: "POST",
+        data: {
+            currentDate: new Date().toISOString()
+        },
+        dataType: "json",
+        success: function(response) {
+            var modalContent = '';
+            for (var i = 0; i < response.length; i++) {
+                modalContent +=
+                    '<div class="modal-content">' +
+                    '<button type="button" class="close ml-auto pr-2" data-dismiss="modal" aria-label="Close"> <span aria-hidden="true">×</span> </button>' +
+                    '<div class="modal-body text-center pt-0">' +
+                    '<div class="row no-gutters ">' +
+                    '<div class="col-md-12"><a href="' + response[i].image + '" data-lightbox="portfolio"><img src="' + response[i].image + '" alt="Image" class="img-fluid"></a></div>' +
+                    '</div>' +
+                    '</div>' +
+                    '</div>';
+            }
+            // นำเนื้อหา HTML ที่สร้างไปแสดงผลในตัวแปร Modal
+            $('#yourModal').html(modalContent);
+
+            // เรียกใช้ Lightbox
+            lightbox.option({
+                'resizeDuration': 200,
+                'wrapAround': true
+            });
+
+            console.log("Data Popup sent successfully:", response);
+        },
+        error: function() {
+            console.log("Error occurred");
+        }
+    });
+
 });
 </script>
 <?php include("Ma_Footer_Script.php"); ?>

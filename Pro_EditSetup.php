@@ -13,6 +13,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $PathFolderNews = $_POST['PathFolderNews'];
     $PathFolderGallery = $_POST['PathFolderGallery'];
     $PathDefaultFile = $_POST['PathDefaultFile'];
+    $HeaderDescriptionTH = $_POST['HeaderDescriptionTH'];
+    $HeaderDescriptionEN = $_POST['HeaderDescriptionEN'];
   
     // เก็บข้อมูลไฟล์
     $file = $_FILES['image'];
@@ -80,7 +82,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       $newnFullNameImage = '';
     }
   
-    $sql = "UPDATE `newsandactivities`.`Setup` SET `SU_PathDefaultImageNews` = '$PathFolderNews', `SU_PathDefaultImageGallery` = '$PathFolderGallery', `SU_PathDefaultFile` = '$PathDefaultFile'";
+    $sql = "UPDATE `newsandactivities`.`Setup` SET `SU_PathDefaultImageNews` = '$PathFolderNews', `SU_PathDefaultImageGallery` = '$PathFolderGallery', `SU_PathDefaultFile` = '$PathDefaultFile',`SU_HeaderDescriptionTH` = '$HeaderDescriptionTH',`SU_HeaderDescriptionEN` = '$HeaderDescriptionEN'";
   
     if (!empty($newnFullNameImage) && $newnFullNameImage !== '') { 
         $sql .= ", `SU_DefaultImageNews` = '$newnFullNameImage'";

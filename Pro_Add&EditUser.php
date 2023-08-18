@@ -20,8 +20,52 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $PT_Code = $_POST['PT_Code'];
     $US_Username = $_POST['US_Username'];
     $US_Password = $_POST['US_Password'];
+    $US_Password = $_POST['US_Password'];
 
     $TypeLower = strtolower($US_Type);
+
+    $FullNameImage = '';
+    if (isset($_FILES['imageUser']) && $_FILES['imageUser']['error'] === UPLOAD_ERR_OK) {
+        $Send_OldImage = isset($_POST['US_Image']) ? $_POST['US_Image'] : '';
+        $PathFolderUser = 'img/User/';
+
+        $file = $_FILES['imageUser'];
+        $fileName = $file['name'];
+        $fileTmpName = $file['tmp_name'];
+        $fileSize = $file['size'];
+        $fileError = $file['error'];
+    
+        // ตรวจสอบว่าเป็นไฟล์รูปภาพหรือไม่
+        $allowedExtensions = ['jpg', 'jpeg', 'png', 'gif'];
+        $fileExtension = strtolower(pathinfo($fileName, PATHINFO_EXTENSION));
+        if (in_array($fileExtension, $allowedExtensions)) {
+            $newnNameImage = $US_Username;
+            $FullNameImage = $newnNameImage.'.'.$fileExtension;
+    
+            if ($Send_OldImage != ''){
+                $filePath = $PathFolderUser . $Send_OldImage;
+                if (file_exists($filePath)) {
+                if (unlink($filePath)) {
+                }
+                }
+            }
+    
+          $destination = $PathFolderUser . $FullNameImage;
+          if (!file_exists($PathFolderUser)) {
+            mkdir($PathFolderUser, 0777, true); // สร้างโฟลเดอร์ถ้ายังไม่มี
+          }
+          move_uploaded_file($fileTmpName, $destination);
+        } else {
+          $_SESSION['StatusTitle'] = "Error!"; // รูปแบบไฟล์ไม่ถูกต้อง
+          $_SESSION['StatusMessage'] = "Invalid file format.";
+          $_SESSION['StatusAlert'] = "error";
+          if (isset($_SESSION['PathPage']) && $_SESSION['PathPage'] !== '') {
+            header("Location: ".$_SESSION['PathPage']);
+            unset($_SESSION['PathPage']);
+          }
+        }
+    }
+
     switch ($TypeLower) {
         case "add":
             $sql = "SELECT * FROM `user` WHERE `user`.`US_Username` = '$US_Username';";
@@ -36,11 +80,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 }
                 exit;
             }
-            $sql = "INSERT INTO `user` (`US_Username`, `US_Password`, `US_Prefix`, `US_Fname`, `US_Lname`, `US_Image`, `US_Active`, `PT_Code`, `US_CreateDate`, `US_ModifyDate`) VALUES ('$US_Username', '$US_Password', '$US_Prefix', '$US_Fname', '$US_Lname', '', '1', '$PT_Code', current_timestamp(), current_timestamp());";
+            $sql = "INSERT INTO `user` (`US_Username`, `US_Password`, `US_Prefix`, `US_Fname`, `US_Lname`, `US_Image`, `US_Active`, `PT_Code`, `US_CreateDate`, `US_ModifyDate`) VALUES ('$US_Username', '$US_Password', '$US_Prefix', '$US_Fname', '$US_Lname', '$FullNameImage', '1', '$PT_Code', current_timestamp(), current_timestamp());";
             break;
     
         case "edit":
-            $sql = "UPDATE `user` SET `US_Password` = '$US_Password', `US_Prefix` = '$US_Prefix', `US_Fname` = '$US_Fname', `US_Lname` = '$US_Lname', `PT_Code` = '$PT_Code', `US_ModifyDate` = CURRENT_TIMESTAMP WHERE `user`.`US_Username` = '$US_Username';";
+            if ($FullNameImage == '') {
+                $sql = "UPDATE `user` SET `US_Password` = '$US_Password', `US_Prefix` = '$US_Prefix', `US_Fname` = '$US_Fname', `US_Lname` = '$US_Lname', `PT_Code` = '$PT_Code', `US_ModifyDate` = CURRENT_TIMESTAMP WHERE `user`.`US_Username` = '$US_Username';";
+            } else {
+                $sql = "UPDATE `user` SET `US_Password` = '$US_Password', `US_Prefix` = '$US_Prefix', `US_Fname` = '$US_Fname', `US_Lname` = '$US_Lname', `PT_Code` = '$PT_Code', `US_Image` = '$FullNameImage', `US_ModifyDate` = CURRENT_TIMESTAMP WHERE `user`.`US_Username` = '$US_Username';";
+            }
             break;
     
         default:
