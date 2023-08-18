@@ -46,7 +46,11 @@
                                     if ($resultcategory->num_rows > 0) {
                                         while ($rowcategory = $resultcategory->fetch_assoc()){
                                             if ($rowSub["PM_Setup"] == 1) {
-                                                echo '<a href="Ui_ListAdmin.php?Send_Category=' . $rowSub["PM_RelationCode"] . '" class="dropdown-item">' . $rowSub["PM_Name"] . '</a>';
+                                                if(!isset($_SESSION['User']) || $_SESSION['User'] === '') {
+                                        
+                                                } else {
+                                                    echo '<a href="Ui_ListAdmin.php?Send_Category=' . $rowSub["PM_RelationCode"] . '" class="dropdown-item">' . $rowSub["PM_Name"] . '</a>';
+                                                }
                                             } elseif ($rowSub["PM_Setup"] == 0) {
                                                 if ($rowcategory["CG_IsFile"] == 0) {
                                                     echo '<a href="Ui_ShowPage.php?Send_Category=' . $rowSub["PM_RelationCode"] . '&Multiplier=1&Search=" class="dropdown-item">' . $rowSub["PM_Name"] . '</a>';
@@ -58,7 +62,11 @@
                                     }
                                 } elseif ($typeLower === 'headingcategories') {
                                     if ($rowSub["PM_Setup"] == 1) {
-                                        echo '<a href="Ui_ListAdminMenuCategories.php?Send_MenuCategory=' . $rowSub["PM_RelationCode"] . '" class="dropdown-item">' . $rowSub["PM_Name"] . '</a>';
+                                        if(!isset($_SESSION['User']) || $_SESSION['User'] === '') {
+                                        
+                                        } else {
+                                            echo '<a href="Ui_ListAdminMenuCategories.php?Send_MenuCategory=' . $rowSub["PM_RelationCode"] . '" class="dropdown-item">' . $rowSub["PM_Name"] . '</a>';
+                                        }
                                     } elseif ($rowSub["PM_Setup"] == 0) {  
                                         echo '<a href="Ui_ShowPageMenu.php?Send_MoreMenu=' . $rowSub["PM_RelationCode"] . '" class="dropdown-item">' . $rowSub["PM_Name"] . '</a>';
                                     }
@@ -84,7 +92,11 @@
                                 } elseif ($typeLower === 'setupgames') {
                                     echo "<a href=\"Ui_Activity.php\" class=\"dropdown-item\">{$rowSub['PM_Name']}</a>";
                                 } elseif ($typeLower === 'setup') {
-                                    echo "<a href=\"Ui_AdminSetup.php\" class=\"dropdown-item\">{$rowSub['PM_Name']}</a>";
+                                    if(!isset($_SESSION['User']) || $_SESSION['User'] === '') {
+
+                                    } else {
+                                        echo "<a href=\"Ui_AdminSetup.php\" class=\"dropdown-item\">{$rowSub['PM_Name']}</a>";
+                                    }
                                 }
                                 if ($rowSub["PM_Draw"] == 1) { echo '<li><hr class="dropdown-divider"></li>'; }
                             }
