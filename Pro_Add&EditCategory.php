@@ -88,9 +88,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   // ทำอย่างอื่นๆ เช่นบันทึกข้อมูลลงฐานข้อมูล
   if ($CG_EntityNo == 0 || $CG_EntityNo == '') {
     if ($FullNameImage == '') {
-      $sql = "INSERT INTO `newsandactivities`.`category` (`CG_Entity No.`, `CG_IsFile`, `CG_Entity Relation No.`, `CG_Name`, `CG_DescriptionTH`, `CG_DescriptionEN`, `CG_CreateDate`, `CG_ModifyDate`) VALUES (NULL, $CG_IsFile, $CG_EntityRelationNo, '$CG_Name', '$CG_DescriptionTH', '$CG_DescriptionEN', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);";
+      $sql = "INSERT INTO `category` (`CG_Entity No.`, `CG_IsFile`, `CG_Entity Relation No.`, `CG_Name`, `CG_DescriptionTH`, `CG_DescriptionEN`, `CG_CreateDate`, `CG_ModifyDate`) VALUES (NULL, $CG_IsFile, $CG_EntityRelationNo, '$CG_Name', '$CG_DescriptionTH', '$CG_DescriptionEN', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);";
     } else {
-      $sql = "INSERT INTO `newsandactivities`.`category` (`CG_Entity No.`, `CG_IsFile`, `CG_Entity Relation No.`, `CG_Name`, `CG_DescriptionTH`, `CG_DescriptionEN`, `CG_DefaultImage`, `CG_CreateDate`, `CG_ModifyDate`) VALUES (NULL, $CG_IsFile, $CG_EntityRelationNo, '$CG_Name', '$CG_DescriptionTH', '$CG_DescriptionEN', '$FullNameImage', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);";
+      $sql = "INSERT INTO `category` (`CG_Entity No.`, `CG_IsFile`, `CG_Entity Relation No.`, `CG_Name`, `CG_DescriptionTH`, `CG_DescriptionEN`, `CG_DefaultImage`, `CG_CreateDate`, `CG_ModifyDate`) VALUES (NULL, $CG_IsFile, $CG_EntityRelationNo, '$CG_Name', '$CG_DescriptionTH', '$CG_DescriptionEN', '$FullNameImage', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);";
     }
   } else {
     $sqlCheck = "SELECT * FROM `category` WHERE `category`.`CG_Name` = '$CG_Name';";
@@ -109,9 +109,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       }
     }
       if ($FullNameImage == '') {
-        $sql = "UPDATE `newsandactivities`.`category` SET `CG_IsFile` = $CG_IsFile, `CG_Entity Relation No.` = $CG_EntityRelationNo, `CG_Name` = '$CG_Name', `CG_DescriptionTH` = '$CG_DescriptionTH', `CG_DescriptionEN` = '$CG_DescriptionEN',`CG_ModifyDate` = CURRENT_TIMESTAMP WHERE `category`.`CG_Entity No.` = $CG_EntityNo;";
+        $sql = "UPDATE `category` SET `CG_IsFile` = $CG_IsFile, `CG_Entity Relation No.` = $CG_EntityRelationNo, `CG_Name` = '$CG_Name', `CG_DescriptionTH` = '$CG_DescriptionTH', `CG_DescriptionEN` = '$CG_DescriptionEN',`CG_ModifyDate` = CURRENT_TIMESTAMP WHERE `category`.`CG_Entity No.` = $CG_EntityNo;";
       } else {
-        $sql = "UPDATE `newsandactivities`.`category` SET `CG_IsFile` = $CG_IsFile, `CG_Entity Relation No.` = $CG_EntityRelationNo, `CG_Name` = '$CG_Name', `CG_DescriptionTH` = '$CG_DescriptionTH', `CG_DescriptionEN` = '$CG_DescriptionEN',`CG_ModifyDate` = CURRENT_TIMESTAMP, `CG_DefaultImage` = '$FullNameImage' WHERE `category`.`CG_Entity No.` = $CG_EntityNo;";
+        $sql = "UPDATE `category` SET `CG_IsFile` = $CG_IsFile, `CG_Entity Relation No.` = $CG_EntityRelationNo, `CG_Name` = '$CG_Name', `CG_DescriptionTH` = '$CG_DescriptionTH', `CG_DescriptionEN` = '$CG_DescriptionEN',`CG_ModifyDate` = CURRENT_TIMESTAMP, `CG_DefaultImage` = '$FullNameImage' WHERE `category`.`CG_Entity No.` = $CG_EntityNo;";
       }
   }
   if ($conn->query($sql) === true) {

@@ -9,20 +9,20 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
     $TypeLower = strtolower($Type);
     switch ($TypeLower) {
-        case "setup":   //
-            $sql = "UPDATE `newsandactivities`.`setup` SET `CountPage` = `CountPage` + $PlusNum WHERE `setup`.`SU_Code` = $Code";
+        case "setup":  
+            $sql = "UPDATE `setup` SET `CountPage` = `CountPage` + $PlusNum WHERE `setup`.`SU_Code` = $Code";
             break;
         case "headingcategories":   
-            $sql = "UPDATE `newsandactivities`.`headingcategories` SET `CountPage` = `CountPage` + $PlusNum WHERE `headingcategories`.`HC_Code` = $Code";
+            $sql = "UPDATE `headingcategories` SET `CountPage` = `CountPage` + $PlusNum WHERE `headingcategories`.`HC_Code` = $Code";
             break;
-        case "activities":  //
-            $sql = "UPDATE `newsandactivities`.`activities` SET `CountPage` = `CountPage` + $PlusNum WHERE  `activities`.`AT_Code` = $Code";
+        case "activities": 
+            $sql = "UPDATE `activities` SET `CountPage` = `CountPage` + $PlusNum WHERE  `activities`.`AT_Code` = $Code";
             break;
-        case "engravedactivities":  //
-            $sql = "UPDATE `newsandactivities`.`engravedactivities` SET `CountPage` = `CountPage` + $PlusNum WHERE `engravedactivities`.`EA_Code` = $Code";
+        case "engravedactivities": 
+            $sql = "UPDATE `engravedactivities` SET `CountPage` = `CountPage` + $PlusNum WHERE `engravedactivities`.`EA_Code` = $Code";
             break;
-        case "fileactivities":  //
-            $sql = "UPDATE `newsandactivities`.`fileactivities` SET `CountPage` = `CountPage` + $PlusNum WHERE `fileactivities`.`FA_Code` = $Code";
+        case "fileactivities": 
+            $sql = "UPDATE `fileactivities` SET `CountPage` = `CountPage` + $PlusNum WHERE `fileactivities`.`FA_Code` = $Code";
             break;
     }
     $isValidUser = false;

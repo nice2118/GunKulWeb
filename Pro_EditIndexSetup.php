@@ -26,7 +26,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 // echo "IS_GroupMenu4_Box4: " . $IS_GroupMenu4_Box4 . "<br>";
 
   // สร้างคำสั่ง SQL UPDATE
-  $sql = "UPDATE `newsandactivities`.`indexsetup` SET
+  $sql = "UPDATE `indexsetup` SET
     `IS_GroupCategory1` = '$IS_GroupCategory1',
     `IS_GroupCategory2` = '$IS_GroupCategory2',
     `IS_GroupMenu1` = '$IS_GroupMenu1',

@@ -38,15 +38,15 @@ if (isset($_POST['status']) && isset($_POST['type']) && isset($_POST['id'])) {
     $TypeLower = strtolower($type);
     switch ($TypeLower) {
         case "headinggroup":
-            $sql1 = "UPDATE `newsandactivities`.`headinggroup` SET `HG_Active` = '$status' WHERE `headinggroup`.`HG_Code` = $id;";
+            $sql1 = "UPDATE `headinggroup` SET `HG_Active` = '$status' WHERE `headinggroup`.`HG_Code` = $id;";
             $conn->query($sql1);
             break;
         case "heading":
-            $sql1 = "UPDATE `newsandactivities`.`heading` SET `HD_Active` = '$status' WHERE `heading`.`HD_Code` = $id;";
+            $sql1 = "UPDATE `heading` SET `HD_Active` = '$status' WHERE `heading`.`HD_Code` = $id;";
             $conn->query($sql1);
             break;
         case "details":
-            $sql1 = "UPDATE `newsandactivities`.`details` SET `DT_Active` = '$status' WHERE `details`.`DT_Code` = $id;";
+            $sql1 = "UPDATE `details` SET `DT_Active` = '$status' WHERE `details`.`DT_Code` = $id;";
             $conn->query($sql1);
             break;
     }

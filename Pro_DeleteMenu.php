@@ -15,7 +15,7 @@ if (isset($_GET['Send_ID']) && $_GET['Send_ID'] !== '') {
     exit();
 }
 
-$sql1 = "DELETE FROM `newsandactivities`.`Menu` WHERE `Menu`.`MN_Code` = $Menu_id;";
+$sql1 = "DELETE FROM `Menu` WHERE `Menu`.`MN_Code` = $Menu_id;";
 $conn->query($sql1);
 
 if ($conn->query($sql1) === TRUE) {

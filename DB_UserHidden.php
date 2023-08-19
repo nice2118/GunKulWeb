@@ -25,7 +25,7 @@ if (isset($_POST['status']) && isset($_POST['id'])) {
         exit;
     }
 
-    $sql = "UPDATE `newsandactivities`.`user` SET `US_Active` = '$status' WHERE `user`.`US_Username` = '$id';";
+    $sql = "UPDATE `user` SET `US_Active` = '$status' WHERE `user`.`US_Username` = '$id';";
     if ($conn->query($sql) === true) {
         $response = array(
             'status' => $status,

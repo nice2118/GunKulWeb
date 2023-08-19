@@ -82,7 +82,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       $newnFullNameImage = '';
     }
   
-    $sql = "UPDATE `newsandactivities`.`Setup` SET `SU_PathDefaultImageNews` = '$PathFolderNews', `SU_PathDefaultImageGallery` = '$PathFolderGallery', `SU_PathDefaultFile` = '$PathDefaultFile',`SU_HeaderDescriptionTH` = '$HeaderDescriptionTH',`SU_HeaderDescriptionEN` = '$HeaderDescriptionEN'";
+    $sql = "UPDATE `Setup` SET `SU_PathDefaultImageNews` = '$PathFolderNews', `SU_PathDefaultImageGallery` = '$PathFolderGallery', `SU_PathDefaultFile` = '$PathDefaultFile',`SU_HeaderDescriptionTH` = '$HeaderDescriptionTH',`SU_HeaderDescriptionEN` = '$HeaderDescriptionEN'";
   
     if (!empty($newnFullNameImage) && $newnFullNameImage !== '') { 
         $sql .= ", `SU_DefaultImageNews` = '$newnFullNameImage'";
@@ -160,14 +160,14 @@ function AddSetupGames($GamesArray) {
       foreach ($GamesArray as $index => $gram) {
         if ($gram != '') {
           // echo "Gram[$index]: $gram<br>";
-          $query = "INSERT INTO `newsandactivities`.`SetupGames` (`GA_Code`, `GA_Iframe`, `GA_CreateDate`, `GA_ModifyDate`) VALUES (NULL, '$gram', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)";
+          $query = "INSERT INTO `SetupGames` (`GA_Code`, `GA_Iframe`, `GA_CreateDate`, `GA_ModifyDate`) VALUES (NULL, '$gram', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)";
           if ($conn->query($query) !== true) {
               echo "Error: " . $query . "<br>" . $conn->error;
           }
         }
       }
   } else {
-      echo "ไม่พบข้อมูล Gram ที่ถูกส่งมา";
+      echo "ไม่พบข้อมูล Grams ที่ถูกส่งมา";
   }
 }
 ?>

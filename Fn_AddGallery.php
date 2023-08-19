@@ -21,7 +21,7 @@ function generateGallery($fileArray,$idActivities) {
           move_uploaded_file($fileTmp, $destination);
           
           // เพิ่มข้อมูลลงในฐานข้อมูล
-          $query = "INSERT INTO `newsandactivities`.`gallery` (`GR_Entity No.`, `GR_Activities Code`, `GR_Name`, `GR_CreateDate`, `GR_ModifyDate`) VALUES (NULL, '$idActivities', '$newFileName', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)";
+          $query = "INSERT INTO `gallery` (`GR_Entity No.`, `GR_Activities Code`, `GR_Name`, `GR_CreateDate`, `GR_ModifyDate`) VALUES (NULL, '$idActivities', '$newFileName', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)";
           if ($conn->query($query) !== true) {
             echo "Error: " . $query . "<br>" . $conn->error;
           }

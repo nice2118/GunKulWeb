@@ -15,7 +15,7 @@ if (isset($_GET['Send_ID']) && $_GET['Send_ID'] !== '') {
     exit();
 }
 
-$sql1 = "DELETE FROM `newsandactivities`.`alertpopup` WHERE `alertpopup`.`AP_Code` = $Popup_id;";
+$sql1 = "DELETE FROM `alertpopup` WHERE `alertpopup`.`AP_Code` = $Popup_id;";
 $conn->query($sql1);
 
 if ($conn->query($sql1) === TRUE) {

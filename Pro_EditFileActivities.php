@@ -91,7 +91,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   // ทำอย่างอื่นๆ เช่นบันทึกข้อมูลลงฐานข้อมูล
   $Title = mysqli_real_escape_string($conn, $Title);
   $Summary = mysqli_real_escape_string($conn, $Summary);
-  $sql = "UPDATE `newsandactivities`.`fileactivities` SET `FA_Title` = '$Title', `FA_Description` = '$Summary', `FA_ModifyDate` = CURRENT_TIMESTAMP";
+  $sql = "UPDATE `fileactivities` SET `FA_Title` = '$Title', `FA_Description` = '$Summary', `FA_ModifyDate` = CURRENT_TIMESTAMP";
   if (!empty($OldNameFile) && $OldNameFile !== '') {
     $sql .= ", `FA_File` = '$OldNameFile'";
   } 

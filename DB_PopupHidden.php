@@ -25,7 +25,7 @@ if (isset($_POST['status']) && isset($_POST['id'])) {
         exit;
     }
 
-    $sql = "UPDATE `newsandactivities`.`alertpopup` SET `AP_Active` = '$status' WHERE `alertpopup`.`AP_Code` = '$id';";
+    $sql = "UPDATE `alertpopup` SET `AP_Active` = '$status' WHERE `alertpopup`.`AP_Code` = '$id';";
     if ($conn->query($sql) === true) {
         $response = array(
             'status' => $status,
