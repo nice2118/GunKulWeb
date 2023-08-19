@@ -761,7 +761,7 @@ $US_Prefix = "";
         <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="MasterMenuCategoryLabel">General Settings</h5>
+                    <h5 class="modal-title" id="MasterMenuCategoryLabel">General Master Menu Category</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
@@ -831,7 +831,7 @@ $US_Prefix = "";
                 <div class="modal-body">
                     <form id="modalFormEngravedActivities" action="Pro_Add&EditEngravedActivities.php" method="post" enctype="multipart/form-data">
                         <div class="form-group">
-                            <div id="modalContent"></div>
+                            <div id="modalContentEngravedActivities"></div>
                             <div class="form-group text-center text-md-end my-2">
                                 <button type="button" class="btn btn-primary rounded-pill py-2 px-3 add-image-btn text-end" id="addButtonGeneralSettings"><i class="fa fa-plus"></i></button>
                             </div>
@@ -1199,7 +1199,7 @@ $(document).ready(function() {
     });
 
     $('#addButtonGeneralSettings').click(function() {
-        var formGroup = $('<div class="row my-3">' +
+        var formGroup = $('<div class="row my-2">' +
                     '<div class="col-4">' +
                     '<input type="hidden" name="inputcode[]" class="form-control">' +
                     '<input type="text" name="inputname[]" class="form-control" placeholder="ชื่อหัวข้อ">' +
@@ -1213,7 +1213,7 @@ $(document).ready(function() {
                     '<div class="col-1">' +
                     '</div>' +
                     '</div>');
-        $('#modalContent').append(formGroup);
+        $('#modalContentEngravedActivities').append(formGroup);
     });
 
     $('#addButtonMenu').click(function() {
@@ -1747,9 +1747,9 @@ $(document).ready(function() {
         document.getElementById("Send_descriptionen").value = hcDescriptionEN;
         document.getElementById("Send_OldImage").value = hcOldImage;
 
-        var modalContentMasterMenuCategory = document.getElementById("modalPreviewImageMenuCategory");
+        var modalContentMenuCategory = document.getElementById("modalPreviewImageMenuCategory");
         var contentHTML = '<img id="previewImageMenuCategory" class="img-fluid rounded" src="' + hcImage + '" alt="" style="width: 200px; height: 200px;">';
-        modalContentMasterMenuCategory.innerHTML = contentHTML;
+        modalContentMenuCategory.innerHTML = contentHTML;
     });
 
     // เมื่อ Modal MasterMenuCategory ถูกเปิดขึ้นมา
@@ -1818,13 +1818,28 @@ $(document).ready(function() {
             dataType: "json",
             success: function(response) {
                 // ดำเนินการแสดงผลข้อมูลที่ได้รับใน Modal
-                var modalContent = document.getElementById("modalContent");
-                var contentHTML = '<input type="hidden" name="inputMastercode" value="' + ecCode + '" class="form-control">';
+                var modalContentEngravedActivities = document.getElementById("modalContentEngravedActivities");
+                var contentHTML = 
+                '<div class="row">' +
+                '<div class="col-4">' +
+                '<h6 class="text-primary">ชื่อหัวข้อ</h6>' +
+                '</div>' +
+                '<div class="col-5">' +
+                '<h6 class="text-primary">ที่อยู่ไฟล์หรือลิ้ง</h6>' +
+                '</div>' +
+                '<div class="col-2">' +
+                '<h6 class="text-primary">เพิ่มไฟล์</h6>' +
+                '</div>' +
+                '<div class="col-1">' +
+                '<h6 class="text-primary">ลบ</h6>' +
+                '</div>' +
+                '</div>';
+                '<input type="hidden" name="inputMastercode" value="' + ecCode + '" class="form-control">';
 
                 // ใช้ Loop เพื่อแสดงข้อมูลใน Modal
                 for (var i = 0; i < response.length; i++) {
                     contentHTML +=
-                        '<div class="row my-3">' +
+                        '<div class="row my-2">' +
                         '<div class="col-4">' +
                         '<input type="hidden" name="inputcode[]" value="' + response[i].EA_Code + '" class="form-control">' +
                         '<input type="text" name="inputname[]" value="' + response[i].EA_Name + '" class="form-control" placeholder="ชื่อหัวข้อ">' +
@@ -1840,7 +1855,7 @@ $(document).ready(function() {
                         '</div>' +
                         '</div>';
                 }
-                modalContent.innerHTML = contentHTML;
+                modalContentEngravedActivities.innerHTML = contentHTML;
             },
             error: function() {
                 console.log("เกิดข้อผิดพลาดกับการเชื่อมต่อ");

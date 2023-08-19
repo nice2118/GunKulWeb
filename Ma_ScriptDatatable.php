@@ -16,9 +16,10 @@
             columnDefs: [
                 { "width": "10%", "targets": 0 },
                 { "width": "15%", "targets": 1 },
-                { "width": "60%", "targets": 2 },
-                { "width": "5%", "targets": 3 },
-                { "width": "10%", "targets": 4 },
+                { "width": "15%", "targets": 2 },
+                { "width": "45%", "targets": 3 },
+                { "width": "5%", "targets": 4 },
+                { "width": "10%", "targets": 5 },
                 {
                     "targets": 0, // คอลัมน์ที่มีวันที่
                     "render": function(data, type, row) {

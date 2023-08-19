@@ -46,6 +46,7 @@ if (isset($_GET['Send_Category']) && $_GET['Send_Category'] !== '') {
                                     <thead>
                                     <tr>
                                     <th>วันที่ลง</th>
+                                    <th>ประเภท</th>
                                     <th>หัวเรื่อง</th>
                                     <th>เนื่อหาโดยย่อ</th>
                                     <th>เจ้าของ</th>
@@ -56,9 +57,9 @@ if (isset($_GET['Send_Category']) && $_GET['Send_Category'] !== '') {
                                         <?php
                                         $SelectFilterCategoryEntityNo = SearchCategory($Category_id);
                                         if ($IsFile == 0):
-                                            $sql = "SELECT * FROM Activities LEFT JOIN user ON `Activities`.AT_UserCreate = User.US_Username WHERE (`Activities`.`AT_Entity No.` IN ($SelectFilterCategoryEntityNo)) ORDER BY `Activities`.`AT_Date` DESC , `Activities`.`AT_Time` DESC;";
+                                            $sql = "SELECT * FROM `Activities` LEFT JOIN `user` ON `Activities`.`AT_UserCreate` = `User`.`US_Username` LEFT JOIN `Category` ON `Activities`.`AT_Entity No.` = `Category`.`CG_Entity No.` WHERE (`Activities`.`AT_Entity No.` IN ($SelectFilterCategoryEntityNo)) ORDER BY `Activities`.`AT_Date` DESC , `Activities`.`AT_Time` DESC;";
                                         elseif ($IsFile == 1):
-                                            $sql = "SELECT * FROM FileActivities LEFT JOIN user ON `FileActivities`.FA_UserCreate = User.US_Username WHERE (`FileActivities`.`FA_Entity No.` IN ($SelectFilterCategoryEntityNo)) ORDER BY `FileActivities`.`FA_Date` DESC , `FileActivities`.`FA_Time` DESC;";
+                                            $sql = "SELECT * FROM `FileActivities` LEFT JOIN `user` ON `FileActivities`.`FA_UserCreate` = `User`.`US_Username` LEFT JOIN `Category` ON `Activities`.`AT_Entity No.` = `Category`.`CG_Entity No.` WHERE (`FileActivities`.`FA_Entity No.` IN ($SelectFilterCategoryEntityNo)) ORDER BY `FileActivities`.`FA_Date` DESC , `FileActivities`.`FA_Time` DESC;";
                                         endif;
                                         $result = $conn->query($sql);
                                         
@@ -71,18 +72,21 @@ if (isset($_GET['Send_Category']) && $_GET['Send_Category'] !== '') {
                                                 $reqFile = '';
                                                 $fullName = '';
                                                 $imgShow = '';
+                                                $reqType= '';
                                                 if ($IsFile == 0){
                                                     $reqCode = $row['AT_Code'];
                                                     $reqDate = $row['AT_Date'];
                                                     $reqTitle = $row['AT_Title'];
                                                     $reqDescription = $row['AT_Description'];
                                                     $fullName = $row['US_Fname'].' '.$row['US_Lname'];
+                                                    $reqType= $row['CG_DescriptionTH'];
                                                 } elseif ($IsFile == 1) {
                                                     $reqCode = $row['FA_Code'];
                                                     $reqDate = $row['FA_Date'];
                                                     $reqTitle = $row['FA_Title'];
                                                     $reqDescription = $row['FA_Description'];
                                                     $fullName = $row['US_Fname'].' '.$row['US_Lname'];
+                                                    $reqType= $row['CG_DescriptionTH'];
                                                     
                                                     $sqlSetup = "SELECT * FROM Setup";
                                                     $resultSetup = $conn->query($sqlSetup);
@@ -100,6 +104,7 @@ if (isset($_GET['Send_Category']) && $_GET['Send_Category'] !== '') {
                                         ?>
                                         <tr>
                                             <td><?php echo $reqDate; ?></td>
+                                            <td><?php echo $reqType; ?></td>
                                             <td><?php echo $reqTitle; ?></td>
                                             <td class="project_progress">
                                                 <?php echo $reqDescription; ?>
@@ -131,6 +136,7 @@ if (isset($_GET['Send_Category']) && $_GET['Send_Category'] !== '') {
                                     <tfoot>
                                     <tr>
                                     <th>วันที่ลง</th>
+                                    <th>ประเภท</th>
                                     <th>หัวเรื่อง</th>
                                     <th>เนื่อหาโดยย่อ</th>
                                     <th>เจ้าของ</th>
