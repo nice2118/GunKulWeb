@@ -564,12 +564,13 @@ if ($result->num_rows > 0) {
 <!-- เก็บประวัติการเข้าใช้งาน -->
 <script>
 $(document).ready(function() {
+
     // เพิ่มการตรวจสอบการคลิกพื้นหลังนอกโมดัล
-    $('.modal').on('click', function(e) {
-        if ($(e.target).hasClass('modal')) {
-            $(this).modal('hide');
-        }
-    });
+    // $('.modal').on('click', function(e) {
+    //     if ($(e.target).hasClass('modal')) {
+    //         $(this).modal('hide');
+    //     }
+    // });
     $.ajax({
         url: "DB_CountPage.php",
         type: "POST",
@@ -583,9 +584,7 @@ $(document).ready(function() {
         }
     });
 });
-</script>
-<script>
-    $(document).ready(function() {
+document.addEventListener("DOMContentLoaded", function() {
     $.ajax({
         url: "DB_PopupShow.php",
         type: "POST",
@@ -606,25 +605,25 @@ $(document).ready(function() {
                     '<div class="modal-body">' +
                     '<img src="' + response[i].image + '" alt="Image" class="img-fluid">' +
                     '</div>' +
+                    '<div class="modal-header">' +
+                    '<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>' +
+                    '</div>' +
                     '</div>' +
                     '</div>' +
                     '</div>';
             }
             
-            PopupModal.innerHTML = modalContent;
+            <?php if(!isset($_SESSION['User']) || $_SESSION['User'] === '') : ?>
+                PopupModal.innerHTML = modalContent;
 
-            // Triggering the modals
-            for (var i = 0; i < response.length; i++) {
-                var modalId = 'modalPopup' + i;
-                var modal = new bootstrap.Modal(document.getElementById(modalId));
-                
-                // Assuming you have a button or trigger for each modal, adjust the selector accordingly
-                var modalTrigger = document.getElementById('modalTriggerButton' + i);
-                
-                modalTrigger.addEventListener('click', function() {
+                // Triggering the modals
+                for (var i = 0; i < response.length; i++) {
+                    var modalId = 'modalPopup' + i;
+                    var modal = new bootstrap.Modal(document.getElementById(modalId));
                     modal.show();
-                });
-            }
+                }
+            <?php else: ?>
+            <?php endif; ?>
 
             console.log("Data Popup sent successfully:", response);
         },

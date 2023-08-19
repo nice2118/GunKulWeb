@@ -44,36 +44,41 @@
                                     $sql = "SELECT * FROM `category` WHERE `CG_Entity No.` =" . $rowSub["PM_RelationCode"];
                                     $resultcategory = $conn->query($sql);
                                     if ($resultcategory->num_rows > 0) {
-                                        while ($rowcategory = $resultcategory->fetch_assoc()){
+                                        $rowcategory = $resultcategory->fetch_assoc();
                                             if ($rowSub["PM_Setup"] == 1) {
                                                 if(!isset($_SESSION['User']) || $_SESSION['User'] === '') {
                                         
                                                 } else {
+                                                    if ($rowSub["PM_Draw"] == 1) { echo '<li><hr class="dropdown-divider"></li>'; }
                                                     echo '<a href="Ui_ListAdmin.php?Send_Category=' . $rowSub["PM_RelationCode"] . '" class="dropdown-item">' . $rowSub["PM_Name"] . '</a>';
                                                 }
                                             } elseif ($rowSub["PM_Setup"] == 0) {
                                                 if ($rowcategory["CG_IsFile"] == 0) {
+                                                    if ($rowSub["PM_Draw"] == 1) { echo '<li><hr class="dropdown-divider"></li>'; }
                                                     echo '<a href="Ui_ShowPage.php?Send_Category=' . $rowSub["PM_RelationCode"] . '&Multiplier=1&Search=" class="dropdown-item">' . $rowSub["PM_Name"] . '</a>';
                                                 } elseif ($rowcategory["CG_IsFile"] == 1) {
+                                                    if ($rowSub["PM_Draw"] == 1) { echo '<li><hr class="dropdown-divider"></li>'; }
                                                     echo '<a href="Ui_List.php?Send_Category=' . $rowSub["PM_RelationCode"] . '" class="dropdown-item">' . $rowSub["PM_Name"] . '</a>';
                                                 }
                                             }
-                                        }
                                     }
                                 } elseif ($typeLower === 'headingcategories') {
                                     if ($rowSub["PM_Setup"] == 1) {
                                         if(!isset($_SESSION['User']) || $_SESSION['User'] === '') {
                                         
                                         } else {
+                                            if ($rowSub["PM_Draw"] == 1) { echo '<li><hr class="dropdown-divider"></li>'; }
                                             echo '<a href="Ui_ListAdminMenuCategories.php?Send_MenuCategory=' . $rowSub["PM_RelationCode"] . '" class="dropdown-item">' . $rowSub["PM_Name"] . '</a>';
                                         }
                                     } elseif ($rowSub["PM_Setup"] == 0) {  
+                                        if ($rowSub["PM_Draw"] == 1) { echo '<li><hr class="dropdown-divider"></li>'; }
                                         echo '<a href="Ui_ShowPageMenu.php?Send_MoreMenu=' . $rowSub["PM_RelationCode"] . '" class="dropdown-item">' . $rowSub["PM_Name"] . '</a>';
                                     }
                                 } elseif ($typeLower === 'engravedcategory') {
                                     $sql = "SELECT * FROM `engravedactivities` WHERE `EC_Code` =" . $rowSub["PM_RelationCode"];
                                     $resultengravedactivities = $conn->query($sql);
                                     if ($resultengravedactivities->num_rows > 0) {
+                                        if ($rowSub["PM_Draw"] == 1) { echo '<li><hr class="dropdown-divider"></li>'; }
                                         if ($resultengravedactivities->num_rows > 1) {
                                             echo '<nav>';
                                             echo '<a href="" class="dropdown-item">'.$rowSub['PM_Name'].'&nbsp;&nbsp;<i class="fa fa-angle-down text-secondary2"></i></a>';
@@ -91,15 +96,17 @@
                                         }                                    
                                     }
                                 } elseif ($typeLower === 'setupgames') {
+                                    if ($rowSub["PM_Draw"] == 1) { echo '<li><hr class="dropdown-divider"></li>'; }
                                     echo "<a href=\"Ui_Activity.php\" class=\"dropdown-item\">{$rowSub['PM_Name']}</a>";
                                 } elseif ($typeLower === 'setup') {
                                     if(!isset($_SESSION['User']) || $_SESSION['User'] === '') {
 
                                     } else {
+                                        if ($rowSub["PM_Draw"] == 1) { echo '<li><hr class="dropdown-divider"></li>'; }
                                         echo "<a href=\"Ui_AdminSetup.php\" class=\"dropdown-item\">{$rowSub['PM_Name']}</a>";
                                     }
                                 }
-                                if ($rowSub["PM_Draw"] == 1) { echo '<li><hr class="dropdown-divider"></li>'; }
+                                // if ($rowSub["PM_Draw"] == 1) { echo '<li><hr class="dropdown-divider"></li>'; }
                             }
                             echo '</div>';
                         }
@@ -111,9 +118,9 @@
                 ?>
             </div>
             <?php if(!isset($_SESSION['User']) || $_SESSION['User'] === '') : ?>
-            <button class="btn btn-white rounded-0 py-4 px-lg-3 d-none d-lg-block" data-bs-toggle="modal" data-bs-target="#LoginModal"><i class="fa fa-user-circle ms-auto fs-4"></i></button>
+                <button class="btn btn-white rounded-0 py-4 px-lg-3 d-none d-lg-block" data-bs-toggle="modal" data-bs-target="#LoginModal"><i class="fa fa-user-circle ms-auto fs-4"></i></button>
             <?php else: ?>
-            <a class="btn btn-white rounded-0 py-4 px-lg-3 d-none d-lg-block" onclick="logoutAlert()"><i class="fas fa-sign-out-alt ms-auto fs-5"></i></a>
+                <a class="btn btn-white rounded-0 py-4 px-lg-3 d-none d-lg-block" onclick="logoutAlert()"><i class="fas fa-sign-out-alt ms-auto fs-5"></i></a>
             <?php endif; ?>
         </div>
     </nav>
