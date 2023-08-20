@@ -19,8 +19,10 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $_SESSION['User'] = '';
     if ($result->num_rows > 0) {
         $row = $result->fetch_assoc();
-        $_SESSION['User'] = $row['US_Username'];
-        $isValidUser = true;
+        if ($username === $row['US_Username'] && $password === $row['US_Password']){
+            $_SESSION['User'] = $row['US_Username'];
+            $isValidUser = true;
+        }
     }
     
     // เตรียมข้อมูลเพื่อส่งกลับให้กับ Ajax
