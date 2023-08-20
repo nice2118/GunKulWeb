@@ -1255,7 +1255,7 @@ $(document).ready(function() {
                     '</select>' +
                     '</div>' +
                     '<div class="col-1 col-sm-1 text-center">' +
-                    '<h6 class="text-primary">เส้นขั้น</h6>' +
+                    '<h6 class="text-primary">ตั้งค่า</h6>' +
                     '<select class="form-select border-1" id="PM_Setup" name="PM_Setup[]" required>' +
                     '<option value="0">ไม่มี</option>' +
                     '<option value="1">มี</option>' +
@@ -1282,52 +1282,51 @@ $(document).ready(function() {
 
     $('#addButtonMenuSub2').click(function() {
         var formGroup = $('<div class="row g-2 my-2 col-12 dynamic2-content">' + 
-                    '<input type="hidden" name="PM_Code[]" value="0" class="form-control">' +
+        '<input type="hidden" name="PM_Code[]" value="0" class="form-control">' +
                     '<div class="col-3 col-sm-3">' +
                     '<h6 class="text-primary">ชื่อ</h6>' +
                     '<input type="Text" id="PM_Name" name="PM_Name[]" class="form-control border-1" placeholder="ชื่อหัวข้อ" required>' +
                     '</div>' +
                     '<div class="col-2 col-sm-2">' +
                     '<h6 class="text-primary">ประเภท</h6>' +
-                    '<select class="form-select border-1 pm-relation-type" id="PM_RelationType" name="PM_RelationType[]" required>' +
+                    '<select class="form-select border-1 pm-relation-type2" id="PM_RelationType2" name="PM_RelationType[]" required>' +
                     '<option value="NoType">ไม่มีประเภท</option>' +
                     '<option value="Category">Category</option>' +
                     '<option value="HeadingCategories">HeadingCategories</option>' +
-                    '<option value="EngravedCategory">EngravedCategory</option>' +
+                    // '<option value="EngravedCategory">EngravedCategory</option>' +
                     '<option value="SetupGames">SetupGames</option>' +
                     '<option value="Setup">Setup</option>' +
                     '</select>' +
                     '</div>' +
-                    '<div class="col-2 col-sm-2 dynamic-select-container" id="dynamicSelectContainer">' +
+                    '<div class="col-2 col-sm-2 dynamic-select-container2" id="dynamicSelectContainer2">' +
                     '<h6 class="text-primary">หน้า</h6>' +
-                    '<select class="form-select border-1 pm-relation-code" id="PM_RelationCode" name="PM_RelationCode[]">' +
+                    '<select class="form-select border-1 pm-relation-code" id="PM_RelationCode2" name="PM_RelationCode[]">' +
                     '<option value="NoType">ไม่มีข้อมูล</option>' +
                     '</select>' +
                     '</div>' +
                     '<div class="col-1 col-sm-1">' +
                     '<h6 class="text-primary">ทิศทาง</h6>' +
-                    '<select class="form-select border-1" id="PM_Direction" name="PM_Direction[]" required>' +
+                    '<select class="form-select border-1" id="PM_Direction2" name="PM_Direction[]" required>' +
                     '<option value="left">ซ้าย</option>' +
                     '<option value="right">ขวา</option>' +
                     '</select>' +
                     '</div>' +
                     '<div class="col-1 col-sm-1 text-center">' +
                     '<h6 class="text-primary">เส้นขั้น</h6>' +
-                    '<select class="form-select border-1" id="PM_Draw" name="PM_Draw[]" required>' +
+                    '<select class="form-select border-1" id="PM_Draw2" name="PM_Draw[]" required>' +
                     '<option value="0">ไม่มี</option>' +
                     '<option value="1">มี</option>' +
                     '</select>' +
                     '</div>' +
                     '<div class="col-1 col-sm-1 text-center">' +
-                    '<h6 class="text-primary">เพิ่มขั้น</h6>' +
-                    // '<button type="button" class="btn btn-link py-1 px-2 text-end text-danger" data-bs-toggle="modal" data-bs-target="#"></button>' +
+                    '<h6 class="text-primary">ตั้งค่า</h6>' +
+                    '<select class="form-select border-1" id="PM_Setup2" name="PM_Setup[]" required>' +
+                    '<option value="0">ไม่มี</option>' +
+                    '<option value="1">มี</option>' +
+                    '</select>' +
                     '</div>' +
-                    '<div class="col-1 col-sm-1 text-center">' +
-                    '<h6 class="text-primary">ตำแหน่ง</h6>' +
-                    // '<button type="button" class="btn btn-link py-1 px-2 text-end text-danger" data-bs-toggle="modal" data-bs-target="#"></button>' +
-                    '</div>' +
-                    '<div class="col-1 col-sm-1 text-center">' +
-                    '<h6 class="text-primary">ลบ</h6>' +
+                    '<div class="col-2 col-sm-2 text-center">' +
+                    '<h6 class="text-primary">จัดการ</h6>' +
                     '<button type="button" class="btn btn-link py-1 px-2 text-end text-danger btn-delete-row2"><i class="fa fa-trash"></i></button>' +
                     '</div>' +
                     '</div>');
@@ -1958,7 +1957,7 @@ $(document).ready(function() {
                         '<div class="col-2 col-sm-2">' +
                         '<h6 class="text-primary">ประเภท</h6>' +
                         '<select class="form-select border-1 pm-relation-type" id="PM_RelationType" name="PM_RelationType[]" required>' +
-                        '<option value="NoType" ' + (response[i].PM_RelationType === '' ? 'selected' : '') + '>ไม่มีประเภท</option>' +
+                        '<option value="NoType" ' + (response[i].PM_RelationType === 'NoType' ? 'selected' : '') + '>ไม่มีประเภท</option>' +
                         '<option value="Category" ' + (response[i].PM_RelationType === 'Category' ? 'selected' : '') + '>Category</option>' +
                         '<option value="HeadingCategories" ' + (response[i].PM_RelationType === 'HeadingCategories' ? 'selected' : '') + '>HeadingCategories</option>' +
                         '<option value="EngravedCategory" ' + (response[i].PM_RelationType === 'EngravedCategory' ? 'selected' : '') + '>EngravedCategory</option>' +
@@ -2012,14 +2011,122 @@ $(document).ready(function() {
                         // '<button type="button" class="btn btn-link py-1 px-2 text-end text-warning" data-bs-toggle="modal" data-bs-target="#modalmenusub"><i class="fa fa-address-book"></i></button>' +
                         // '</div>' +
                         '<div class="col-2 col-sm-2 text-center">' +
-                        '<h6 class="text-primary">จัดการ</h6>' +
-                        // '<button type="button" class="btn btn-link py-1 px-2 text-end text-primary" data-bs-toggle="modal" data-bs-target="#modalmenusub2" data-mncodesub="' + response[i].PM_Code + '" data-pmtype="submenu"><i class="fa fa-plus"></i></button>' +
-                        // '<button type="button" class="btn btn-link py-1 px-2 text-end text-warning" data-bs-toggle="modal" data-bs-target="#modalmenusub"><i class="fa fa-address-book"></i></button>' +
+                        '<h6 class="text-primary">จัดการ</h6>';
+                        if (response[i].PM_RelationType === 'NoType') {
+                            contentHTML += '<button type="button" class="btn btn-link py-1 px-2 text-end text-primary" data-bs-toggle="modal" data-bs-target="#modalmenusub2" data-mncodesub2="' + response[i].PM_Code + '" data-pmtype2="submenu"><i class="fa fa-plus"></i></button>';
+                        } else {
+                            // contentHTML += '<button type="button" class="btn btn-link py-1 px-2 text-end text-warning" data-bs-toggle="modal" data-bs-target="#modalmenusub"><i class="fa fa-address-book"></i></button>';
+                        }
+                    contentHTML += 
                         '<a class="btn btn-link py-1 px-2 text-end" onclick="deleteAlertMenuSub(' + response[i].PM_Code + ', \'' + response[i].PM_Name + '\')"><i class="fas fa-trash"></i></a>' +
                         '</div>' +
                         '</div>';
                 }
                 modalContentMenuDB.innerHTML = contentHTML;
+            },
+            error: function() {
+                console.log("เกิดข้อผิดพลาดกับการเชื่อมต่อ");
+            }
+        });
+    });
+
+        // เมื่อ Modal Menu ถูกเปิดขึ้นมา
+        $('#modalmenusub2').on('show.bs.modal', function(event) {
+        $('.dynamic2-content').empty();
+        const button = $(event.relatedTarget);
+        const mnCodeSub2 = button.data('mncodesub2');
+        const pmType2 = button.data('pmtype2');
+
+        // ส่งค่าตัวกรองไปยังหน้า PHP ดึงข้อมูล
+        $.ajax({
+            url: "DB_SubMenu.php",
+            type: "POST",
+            data: { pmcode: mnCodeSub2, pmtype: pmType2},
+            dataType: "json",
+            success: function(response) {
+                // ดำเนินการแสดงผลข้อมูลที่ได้รับใน Modal
+                var modalContentMenu2DB = document.getElementById("modalContentMenu2DB");
+                var contentHTML = '<input type="hidden" name="MN_CodeSub" value="' + mnCodeSub2 + '" class="form-control">';
+                contentHTML += '<input type="hidden" name="PM_Type" value="' + pmType2 + '" class="form-control">';
+
+                // ใช้ Loop เพื่อแสดงข้อมูลใน Modal
+                for (var i = 0; i < response.length; i++) {
+                    contentHTML +=
+                        '<div class="row g-2 my-2 col-12 dynamic-content">' +
+                        '<input type="hidden" name="PM_Code[]" value="' + response[i].PM_Code + '" class="form-control">' +
+                        '<div class="col-3 col-sm-3">' +
+                        '<h6 class="text-primary">ชื่อ</h6>' +
+                        '<input type="Text" id="PM_Name2" name="PM_Name[]" class="form-control border-1" value="' + response[i].PM_Name + '" placeholder="ชื่อหัวข้อ" required>' +
+                        '</div>' +
+                        '<div class="col-2 col-sm-2">' +
+                        '<h6 class="text-primary">ประเภท</h6>' +
+                        '<select class="form-select border-1 pm-relation-type" id="PM_RelationType2" name="PM_RelationType[]" required>' +
+                        '<option value="NoType" ' + (response[i].PM_RelationType === 'NoType' ? 'selected' : '') + '>ไม่มีประเภท</option>' +
+                        '<option value="Category" ' + (response[i].PM_RelationType === 'Category' ? 'selected' : '') + '>Category</option>' +
+                        '<option value="HeadingCategories" ' + (response[i].PM_RelationType === 'HeadingCategories' ? 'selected' : '') + '>HeadingCategories</option>' +
+                        // '<option value="EngravedCategory" ' + (response[i].PM_RelationType === 'EngravedCategory' ? 'selected' : '') + '>EngravedCategory</option>' +
+                        '<option value="SetupGames" ' + (response[i].PM_RelationType === 'SetupGames' ? 'selected' : '') + '>SetupGames</option>' +
+                        '<option value="Setup" ' + (response[i].PM_RelationType === 'Setup' ? 'selected' : '') + '>Setup</option>' +
+                        '</select>' +
+                        '</div>' +
+                        '<div class="col-2 col-sm-2 dynamic-select-container">' +
+                        '<h6 class="text-primary">หน้า</h6>' +
+                        '<select class="form-select border-1 pm-relation-code" name="PM_RelationCode[]" required>';
+                       if (response[i].dataFromDBSub.length === 0) {
+                            contentHTML += '<option value="0" selecte>ไม่มีข้อมูล</option>';
+                       } else {
+                            for (var x = 0; x < response[i].dataFromDBSub.length; x++) {
+                                contentHTML +=
+                                    '<option value="' + response[i].dataFromDBSub[x].SubCode + '" ' + (response[i].dataFromDBSub[x].SubCode === response[i].PM_RelationCode ? 'selected' : '') + '>' +
+                                    response[i].dataFromDBSub[x].Subname +
+                                    '</option>';
+                            }
+                       }
+                    contentHTML +=
+                        '</select>' +
+                        '</div>' +
+                        '<div class="col-1 col-sm-1">' +
+                        '<h6 class="text-primary">ทิศทาง</h6>' +
+                        '<select class="form-select border-1" id="PM_Direction2" name="PM_Direction[]" required>' +
+                        '<option value="left" ' + (response[i].PM_Direction === 'left' ? 'selected' : '') + '>ซ้าย</option>' +
+                        '<option value="right" ' + (response[i].PM_Direction === 'right' ? 'selected' : '') + '>ขวา</option>' +
+                        '</select>' +
+                        '</div>' +
+                        '<div class="col-1 col-sm-1 text-center">' +
+                        '<h6 class="text-primary">เส้นขั้น</h6>' + 
+                        '<select class="form-select border-1" id="PM_Draw2" name="PM_Draw[]" required>' +
+                        '<option value="0" ' + (response[i].PM_Draw == 0 ? 'selected' : '') + '>ไม่มี</option>' +
+                        '<option value="1" ' + (response[i].PM_Draw == 1 ? 'selected' : '') + '>มี</option>' +
+                        '</select>' +                       
+                        '</div>' +
+                        '<div class="col-1 col-sm-1 text-center">' +
+                        '<h6 class="text-primary">ตั้งค่า</h6>' + 
+                        '<select class="form-select border-1" id="PM_Setup2" name="PM_Setup[]" required>' +
+                        '<option value="0" ' + (response[i].PM_Setup == 0 ? 'selected' : '') + '>ไม่มี</option>' +
+                        '<option value="1" ' + (response[i].PM_Setup == 1 ? 'selected' : '') + '>มี</option>' +
+                        '</select>' +                       
+                        '</div>' +
+                        // '<div class="col-1 col-sm-1 text-center">' +
+                        // '<h6 class="text-primary">เพิ่มขั้น</h6>' +
+                        // '<button type="button" class="btn btn-link py-1 px-2 text-end text-primary" data-bs-toggle="modal" data-bs-target="#modalmenusub2" data-mncodesub="' + response[i].PM_Code + '" data-pmtype="submenu"><i class="fa fa-plus"></i></button>' +
+                        // '</div>' +
+                        // '<div class="col-1 col-sm-1 text-center">' +
+                        // '<h6 class="text-primary">ตำแหน่ง</h6>' +
+                        // '<button type="button" class="btn btn-link py-1 px-2 text-end text-warning" data-bs-toggle="modal" data-bs-target="#modalmenusub"><i class="fa fa-address-book"></i></button>' +
+                        // '</div>' +
+                        '<div class="col-2 col-sm-2 text-center">' +
+                        '<h6 class="text-primary">จัดการ</h6>';
+                        if (response[i].PM_RelationType === 'NoType') {
+                            
+                        } else {
+                            // contentHTML += '<button type="button" class="btn btn-link py-1 px-2 text-end text-warning" data-bs-toggle="modal" data-bs-target="#modalmenusub"><i class="fa fa-address-book"></i></button>';
+                        }
+                    contentHTML += 
+                        '<a class="btn btn-link py-1 px-2 text-end" onclick="deleteAlertMenuSub(' + response[i].PM_Code + ', \'' + response[i].PM_Name + '\')"><i class="fas fa-trash"></i></a>' +
+                        '</div>' +
+                        '</div>';
+                }
+                modalContentMenu2DB.innerHTML = contentHTML;
             },
             error: function() {
                 console.log("เกิดข้อผิดพลาดกับการเชื่อมต่อ");
@@ -2133,9 +2240,9 @@ function sendDataToPopupPHP(status, id) {
 <!-- Menu -->
 <script>
 $(document).ready(function() {
-    function handleRelationTypeChange(selectElement) {
+    function handleRelationTypeChange(selectElement,sendDdynamicContent,sendDynamicSelectContainer) {
         const selectedType = selectElement.val();
-        const dynamicSelectContainer = selectElement.closest('.dynamic-content').find('.dynamic-select-container');
+        const dynamicSelectContainer = selectElement.closest(sendDdynamicContent).find(sendDynamicSelectContainer);
 
         if (selectedType) {
             $.ajax({
@@ -2164,7 +2271,11 @@ $(document).ready(function() {
     }
 
     $(document).on('change', '.pm-relation-type', function() {
-        handleRelationTypeChange($(this));
+        handleRelationTypeChange($(this),'.dynamic-content','.dynamic-select-container');
+    });
+
+    $(document).on('change', '.pm-relation-type2', function() {
+        handleRelationTypeChange($(this),'.dynamic2-content','.dynamic-select-container2');
     });
 });
 

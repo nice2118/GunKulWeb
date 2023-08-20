@@ -7,7 +7,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
     if ($pmType === 'menu') {
         $sql = "SELECT * FROM `permissionmenu` WHERE `PM_Menu` = $pmCode;";
-    } elseif ($CategpmTypeory6 === 'submenu'){
+    } elseif ($pmType === 'submenu'){
         $sql = "SELECT * FROM `permissionmenu` WHERE `PM_RelationPermission` = $pmCode;";
     } else {
         exit;
