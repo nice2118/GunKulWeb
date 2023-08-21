@@ -93,21 +93,24 @@ if (isset($_GET['Send_Category']) && $_GET['Send_Category'] !== '') {
                                                 $reqFile = '';
                                                 $fullName = '';
                                                 $imgShow = '';
-                                                $reqType= '';
+                                                $reqType = '';
+                                                $UserCreate = '';
                                                 if ($IsFile == 0){
                                                     $reqCode = $row['AT_Code'];
                                                     $reqDate = $row['AT_Date'];
                                                     $reqTitle = $row['AT_Title'];
                                                     $reqDescription = $row['AT_Description'];
-                                                    $fullName = $row['US_Fname'].' '.$row['US_Lname'];
+                                                    $fullName = $row['US_Fname'];
                                                     $reqType= $row['CG_DescriptionTH'];
+                                                    $UserCreate = $row['AT_UserCreate'];
                                                 } elseif ($IsFile == 1) {
                                                     $reqCode = $row['FA_Code'];
                                                     $reqDate = $row['FA_Date'];
                                                     $reqTitle = $row['FA_Title'];
                                                     $reqDescription = $row['FA_Description'];
-                                                    $fullName = $row['US_Fname'].' '.$row['US_Lname'];
+                                                    $fullName = $row['US_Fname'];
                                                     $reqType= $row['CG_DescriptionTH'];
+                                                    $UserCreate = $row['AT_UserCreate'];
                                                     
                                                     $sqlSetup = "SELECT * FROM Setup";
                                                     $resultSetup = $conn->query($sqlSetup);
@@ -146,13 +149,17 @@ if (isset($_GET['Send_Category']) && $_GET['Send_Category'] !== '') {
                                             <td class="project-actions text-right">
                                                 <?php if ($IsFile == 0): ?>
                                                     <a class="btn btn-primary2 btn-sm" href="Ui_ShowDetail.php?Send_IDNews=<?= $reqCode;?>"><i class="fas fa-folder"></i></a>
-                                                    <a class="btn btn-warning btn-sm" href="Ui_Edit.php?Send_IDNews=<?= urlencode($reqCode); ?>&Send_Title=<?= urlencode($reqTitle); ?>&Send_Category=<?= $Category_id ; ?>"><i class="fas fa-pencil-alt"></i></a>
-                                                    <a class="btn btn-danger btn-sm" onclick="deleteAlert(<?php echo $reqCode;?>, '<?= addslashes(htmlspecialchars_decode($reqTitle, ENT_QUOTES)) ?>',<?php echo $Category_id;?>)"><i class="fas fa-trash"></i></a>
+                                                    <?php if ($UserCreate == $_SESSION['User'] || $_SESSION['User'] == 'aaa'){ ?>
+                                                        <a class="btn btn-warning btn-sm" href="Ui_Edit.php?Send_IDNews=<?= urlencode($reqCode); ?>&Send_Title=<?= urlencode($reqTitle); ?>&Send_Category=<?= $Category_id ; ?>"><i class="fas fa-pencil-alt"></i></a>
+                                                        <a class="btn btn-danger btn-sm" onclick="deleteAlert(<?php echo $reqCode;?>, '<?= addslashes(htmlspecialchars_decode($reqTitle, ENT_QUOTES)) ?>',<?php echo $Category_id;?>)"><i class="fas fa-trash"></i></a>
+                                                    <?php }  ?>
                                                 <?php elseif ($IsFile == 1): ?>
                                                     <a class="btn btn-primary2 btn-sm" id="btnShowFile" href="<?= $reqFile ?>" data-code="<?= urlencode($reqCode) ?>"><i class="fas fa-folder"></i></a>
-                                                    <a class="btn btn-warning btn-sm" href="Ui_EditFile.php?Send_IDNews=<?= urlencode($reqCode); ?>&Send_Title=<?= urlencode($reqTitle); ?>&Send_Category=<?= $Category_id ; ?>"><i class="fas fa-pencil-alt"></i></a>
-                                                    <a class="btn btn-danger btn-sm" onclick="deleteAlertFile(<?php echo $reqCode;?>, '<?php echo addslashes(htmlspecialchars_decode($reqTitle, ENT_QUOTES));?>',<?php echo $Category_id;?>)"><i class="fas fa-trash"></i></a>
-                                                <?php endif; ?>
+                                                    <?php if ($UserCreate == $_SESSION['User'] || $_SESSION['User'] == 'aaa'){ ?>
+                                                        <a class="btn btn-warning btn-sm" href="Ui_EditFile.php?Send_IDNews=<?= urlencode($reqCode); ?>&Send_Title=<?= urlencode($reqTitle); ?>&Send_Category=<?= $Category_id ; ?>"><i class="fas fa-pencil-alt"></i></a>
+                                                        <a class="btn btn-danger btn-sm" onclick="deleteAlertFile(<?php echo $reqCode;?>, '<?php echo addslashes(htmlspecialchars_decode($reqTitle, ENT_QUOTES));?>',<?php echo $Category_id;?>)"><i class="fas fa-trash"></i></a>
+                                                    <?php }  ?>
+                                                <?php endif;  ?>
                                             </td>
                                         </tr>
                                         <?php

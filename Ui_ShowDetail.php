@@ -138,7 +138,7 @@
                     }
                 ?>
             </div>
-            <div class="text-center">ผู้จัดทำ <?=$fullName?> จำนวนผู้เข้าชม <?=$countPage?></div>
+            <div class="text-center my-3">ผู้จัดทำ <?=$fullName?> จำนวนผู้เข้าชม <?=$countPage?></div>
         </div>
     </div>
     <!-- Content -->

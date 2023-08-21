@@ -78,14 +78,14 @@ if (isset($_GET['Send_Category']) && $_GET['Send_Category'] !== '') {
                                                     $reqDate = $row['AT_Date'];
                                                     $reqTitle = $row['AT_Title'];
                                                     $reqDescription = $row['AT_Description'];
-                                                    $fullName = $row['US_Fname'].' '.$row['US_Lname'];
+                                                    $fullName = $row['US_Fname'];
                                                     $reqType= $row['CG_DescriptionTH'];
                                                 } elseif ($IsFile == 1) {
                                                     $reqCode = $row['FA_Code'];
                                                     $reqDate = $row['FA_Date'];
                                                     $reqTitle = $row['FA_Title'];
                                                     $reqDescription = $row['FA_Description'];
-                                                    $fullName = $row['US_Fname'].' '.$row['US_Lname'];
+                                                    $fullName = $row['US_Fname'];
                                                     $reqType= $row['CG_DescriptionTH'];
                                                     
                                                     $sqlSetup = "SELECT * FROM Setup";

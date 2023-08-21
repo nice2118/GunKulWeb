@@ -351,7 +351,11 @@ if ($result->num_rows > 0) {
                                     } else {
                                         $Image01 = 'Default/DefaultImage/DefaultImage.png'; 
                                     }
-                                    $Href01 = 'Ui_List.php?Send_Category=' . $Category3_id;
+                                    if ($row['CG_IsFile'] == 0) {
+                                        $Href01 = 'Ui_ShowPage.php?Send_Category='. $Category3_id.'&Multiplier=1&Search=';
+                                    } else if ($row['CG_IsFile'] == 1){
+                                        $Href01 = 'Ui_List.php?Send_Category=' . $Category3_id;
+                                    }
                                 } elseif ($Category3 === 'headingcategories'){
                                     $Name01 = $row['HC_DescriptionTH'];
                                     $Designation01 = $row['HC_DescriptionEN'];
@@ -403,7 +407,11 @@ if ($result->num_rows > 0) {
                                 } else {
                                     $Image02 = 'Default/DefaultImage/DefaultImage.png'; 
                                 }
-                                $Href02 = 'Ui_List.php?Send_Category=' . $Category4_id;
+                                if ($row['CG_IsFile'] == 0) {
+                                    $Href02 = 'Ui_ShowPage.php?Send_Category='. $Category4_id.'&Multiplier=1&Search=';
+                                } else if ($row['CG_IsFile'] == 1){
+                                    $Href02 = 'Ui_List.php?Send_Category=' . $Category4_id;
+                                }
                             } elseif ($Category4 === 'headingcategories'){
                                 $Name02 = $row['HC_DescriptionTH'];
                                 $Designation02 = $row['HC_DescriptionEN'];
@@ -455,7 +463,11 @@ if ($result->num_rows > 0) {
                                 } else {
                                     $Image03 = 'Default/DefaultImage/DefaultImage.png'; 
                                 }
-                                $Href03 = 'Ui_List.php?Send_Category=' . $Category5_id;
+                                if ($row['CG_IsFile'] == 0) {
+                                    $Href03 = 'Ui_ShowPage.php?Send_Category='. $Category5_id.'&Multiplier=1&Search=';
+                                } else if ($row['CG_IsFile'] == 1){
+                                    $Href03 = 'Ui_List.php?Send_Category=' . $Category5_id;
+                                }
                             } elseif ($Category5 === 'headingcategories'){
                                 $Name03 = $row['HC_DescriptionTH'];
                                 $Designation03 = $row['HC_DescriptionEN'];
@@ -507,7 +519,11 @@ if ($result->num_rows > 0) {
                                 } else {
                                     $Image04 = 'Default/DefaultImage/DefaultImage.png'; 
                                 }
-                                $Href04 = 'Ui_List.php?Send_Category=' . $Category6_id;
+                                if ($row['CG_IsFile'] == 0) {
+                                    $Href04 = 'Ui_ShowPage.php?Send_Category='. $Category6_id.'&Multiplier=1&Search=';
+                                } else if ($row['CG_IsFile'] == 1){
+                                    $Href04 = 'Ui_List.php?Send_Category=' . $Category6_id;
+                                }
                             } elseif ($Category6 === 'headingcategories'){
                                 $Name04 = $row['HC_DescriptionTH'];
                                 $Designation04 = $row['HC_DescriptionEN'];
@@ -603,7 +619,7 @@ document.addEventListener("DOMContentLoaded", function() {
                     '<div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable">' +
                     '<div class="modal-content">' +
                     '<div class="modal-body">' +
-                    '<img src="' + response[i].image + '" alt="Image" class="img-fluid">' +
+                    '<img src="' + response[i].image + '" alt="Image" class="img-fluid w-100 h-auto">' +
                     '</div>' +
                     '<div class="modal-header">' +
                     '<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>' +

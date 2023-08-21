@@ -1027,6 +1027,30 @@ $US_Prefix = "";
         </div>
     </div>
 
+    <!-- Modal Permission Position-->
+    <div class="modal fade" id="modalpermissionposition" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="modalpermissionpositionLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalpermissionpositionabel">Permission Position</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="modalFormPermissionPosition" action="Pro_Add&EditPermissionPosition.php" method="post" enctype="multipart/form-data">
+                        <div id="modalContentPermissionPosition"></div>    
+                        <div class="form-group text-center text-md-end my-2">
+                                <button type="button" class="btn btn-primary rounded-pill py-2 px-3 add-image-btn text-end" id="addButtonPermissionPosition"><i class="fa fa-plus"></i></button>
+                            </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">ยกเลิก</button>
+                            <button type="submit" class="btn btn-primary">บันทึก</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Modal Popup-->
     <div class="modal fade" id="modalpopup" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="modalupopupLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
@@ -1207,9 +1231,10 @@ $(document).ready(function() {
                     '<div class="col-5">' +
                     '<input type="text" name="inputvalue[]" class="form-control" placeholder="ที่อยู่ไฟล์หรือลิ้ง">' +
                     '</div>' +
-                    // '<div class="col-2">' +
+                    '<div class="col-2">' +
                     // '<input class="form-control" name="inputvaluefile[]" type="file" accept=".pdf, .doc, .docx, .xls, .xlsx, .ppt, .pptx">' +
-                    // '</div>' +
+                    '<input class="form-control" name="inputvaluefile[]" type="hidden">' +
+                    '</div>' +
                     '<div class="col-1">' +
                     '</div>' +
                     '</div>');
@@ -1283,7 +1308,7 @@ $(document).ready(function() {
     $('#addButtonMenuSub2').click(function() {
         var formGroup = $('<div class="row g-2 my-2 col-12 dynamic2-content">' + 
         '<input type="hidden" name="PM_Code[]" value="0" class="form-control">' +
-                    '<div class="col-3 col-sm-3">' +
+                    '<div class="col-5 col-sm-5">' +
                     '<h6 class="text-primary">ชื่อ</h6>' +
                     '<input type="Text" id="PM_Name" name="PM_Name[]" class="form-control border-1" placeholder="ชื่อหัวข้อ" required>' +
                     '</div>' +
@@ -1304,13 +1329,14 @@ $(document).ready(function() {
                     '<option value="NoType">ไม่มีข้อมูล</option>' +
                     '</select>' +
                     '</div>' +
-                    '<div class="col-1 col-sm-1">' +
-                    '<h6 class="text-primary">ทิศทาง</h6>' +
-                    '<select class="form-select border-1" id="PM_Direction2" name="PM_Direction[]" required>' +
-                    '<option value="left">ซ้าย</option>' +
-                    '<option value="right">ขวา</option>' +
-                    '</select>' +
-                    '</div>' +
+                    // '<div class="col-1 col-sm-1">' +
+                    // '<h6 class="text-primary">ทิศทาง</h6>' +
+                    // '<select class="form-select border-1" id="PM_Direction2" name="PM_Direction[]" required>' +
+                    // '<option value="left">ซ้าย</option>' +
+                    // '<option value="right">ขวา</option>' +
+                    // '</select>' +
+                    // '</div>' +
+                    '<input type="hidden" name="PM_Direction[]" value="left" class="form-control">' +
                     '<div class="col-1 col-sm-1 text-center">' +
                     '<h6 class="text-primary">เส้นขั้น</h6>' +
                     '<select class="form-select border-1" id="PM_Draw2" name="PM_Draw[]" required>' +
@@ -1325,7 +1351,7 @@ $(document).ready(function() {
                     '<option value="1">มี</option>' +
                     '</select>' +
                     '</div>' +
-                    '<div class="col-2 col-sm-2 text-center">' +
+                    '<div class="col-1 col-sm-1 text-center">' +
                     '<h6 class="text-primary">จัดการ</h6>' +
                     '<button type="button" class="btn btn-link py-1 px-2 text-end text-danger btn-delete-row2"><i class="fa fa-trash"></i></button>' +
                     '</div>' +
@@ -1832,7 +1858,7 @@ $(document).ready(function() {
                 '<div class="col-1">' +
                 '<h6 class="text-primary">ลบ</h6>' +
                 '</div>' +
-                '</div>';
+                '</div>' +
                 '<input type="hidden" name="inputMastercode" value="' + ecCode + '" class="form-control">';
 
                 // ใช้ Loop เพื่อแสดงข้อมูลใน Modal
@@ -2015,7 +2041,7 @@ $(document).ready(function() {
                         if (response[i].PM_RelationType === 'NoType') {
                             contentHTML += '<button type="button" class="btn btn-link py-1 px-2 text-end text-primary" data-bs-toggle="modal" data-bs-target="#modalmenusub2" data-mncodesub2="' + response[i].PM_Code + '" data-pmtype2="submenu"><i class="fa fa-plus"></i></button>';
                         } else {
-                            // contentHTML += '<button type="button" class="btn btn-link py-1 px-2 text-end text-warning" data-bs-toggle="modal" data-bs-target="#modalmenusub"><i class="fa fa-address-book"></i></button>';
+                            contentHTML += '<button type="button" class="btn btn-link py-1 px-2 text-end text-warning" data-bs-toggle="modal" data-bs-target="#modalpermissionposition" data-sendpmcode="' + response[i].PM_Code + '"><i class="fa fa-address-book"></i></button>';
                         }
                     contentHTML += 
                         '<a class="btn btn-link py-1 px-2 text-end" onclick="deleteAlertMenuSub(' + response[i].PM_Code + ', \'' + response[i].PM_Name + '\')"><i class="fas fa-trash"></i></a>' +
@@ -2054,9 +2080,9 @@ $(document).ready(function() {
                     contentHTML +=
                         '<div class="row g-2 my-2 col-12 dynamic-content">' +
                         '<input type="hidden" name="PM_Code[]" value="' + response[i].PM_Code + '" class="form-control">' +
-                        '<div class="col-3 col-sm-3">' +
+                        '<div class="col-5 col-sm-5">' +
                         '<h6 class="text-primary">ชื่อ</h6>' +
-                        '<input type="Text" id="PM_Name2" name="PM_Name[]" class="form-control border-1" value="' + response[i].PM_Name + '" placeholder="ชื่อหัวข้อ" required>' +
+                        '<input type="Text" id="PM_Name2" name="PM_Name[]" class="form-control border-1 " value="' + response[i].PM_Name + '" placeholder="ชื่อหัวข้อ" required>' +
                         '</div>' +
                         '<div class="col-2 col-sm-2">' +
                         '<h6 class="text-primary">ประเภท</h6>' +
@@ -2085,13 +2111,14 @@ $(document).ready(function() {
                     contentHTML +=
                         '</select>' +
                         '</div>' +
-                        '<div class="col-1 col-sm-1">' +
-                        '<h6 class="text-primary">ทิศทาง</h6>' +
-                        '<select class="form-select border-1" id="PM_Direction2" name="PM_Direction[]" required>' +
-                        '<option value="left" ' + (response[i].PM_Direction === 'left' ? 'selected' : '') + '>ซ้าย</option>' +
-                        '<option value="right" ' + (response[i].PM_Direction === 'right' ? 'selected' : '') + '>ขวา</option>' +
-                        '</select>' +
-                        '</div>' +
+                        // '<div class="col-1 col-sm-1">' +
+                        // '<h6 class="text-primary">ทิศทาง</h6>' +
+                        // '<select class="form-select border-1" id="PM_Direction2" name="PM_Direction[]" required>' +
+                        // '<option value="left" ' + (response[i].PM_Direction === 'left' ? 'selected' : '') + '>ซ้าย</option>' +
+                        // '<option value="right" ' + (response[i].PM_Direction === 'right' ? 'selected' : '') + '>ขวา</option>' +
+                        // '</select>' +
+                        // '</div>' +
+                        '<input type="hidden" name="PM_Direction[]" value="left" class="form-control">' +
                         '<div class="col-1 col-sm-1 text-center">' +
                         '<h6 class="text-primary">เส้นขั้น</h6>' + 
                         '<select class="form-select border-1" id="PM_Draw2" name="PM_Draw[]" required>' +
@@ -2114,12 +2141,12 @@ $(document).ready(function() {
                         // '<h6 class="text-primary">ตำแหน่ง</h6>' +
                         // '<button type="button" class="btn btn-link py-1 px-2 text-end text-warning" data-bs-toggle="modal" data-bs-target="#modalmenusub"><i class="fa fa-address-book"></i></button>' +
                         // '</div>' +
-                        '<div class="col-2 col-sm-2 text-center">' +
+                        '<div class="col-1 col-sm-1 text-center">' +
                         '<h6 class="text-primary">จัดการ</h6>';
                         if (response[i].PM_RelationType === 'NoType') {
                             
                         } else {
-                            // contentHTML += '<button type="button" class="btn btn-link py-1 px-2 text-end text-warning" data-bs-toggle="modal" data-bs-target="#modalmenusub"><i class="fa fa-address-book"></i></button>';
+                            contentHTML += '<button type="button" class="btn btn-link py-1 px-2 text-end text-warning" data-bs-toggle="modal" data-bs-target="#modalpermissionposition" data-sendpmcode="' + response[i].PM_Code + '"><i class="fa fa-address-book"></i></button>';
                         }
                     contentHTML += 
                         '<a class="btn btn-link py-1 px-2 text-end" onclick="deleteAlertMenuSub(' + response[i].PM_Code + ', \'' + response[i].PM_Name + '\')"><i class="fas fa-trash"></i></a>' +
@@ -2127,6 +2154,34 @@ $(document).ready(function() {
                         '</div>';
                 }
                 modalContentMenu2DB.innerHTML = contentHTML;
+            },
+            error: function() {
+                console.log("เกิดข้อผิดพลาดกับการเชื่อมต่อ");
+            }
+        });
+    });
+
+    // เมื่อ modal Permission Position ถูกเปิดขึ้นมา
+    $('#modalpermissionposition').on('show.bs.modal', function(event) {
+        const button = $(event.relatedTarget);
+        const sendPMCode = button.data('sendpmcode');
+
+        // ส่งค่าตัวกรองไปยังหน้า PHP ดึงข้อมูล
+        $.ajax({
+            url: "DB_PermissionPosition.php",
+            type: "POST",
+            data: { sendpmcode: sendPMCode },
+            dataType: "json",
+            success: function(response) {
+                // ดำเนินการแสดงผลข้อมูลที่ได้รับใน Modal
+                var modalContentPermissionPosition = document.getElementById("modalContentPermissionPosition");
+                var contentHTML = '<input type="hidden" name="Send_PM_Code" value="' + sendPMCode + '" class="form-control">';
+
+                // ใช้ Loop เพื่อแสดงข้อมูลใน Modal
+                for (var i = 0; i < response.length; i++) {
+
+                }
+                modalContentPermissionPosition.innerHTML = contentHTML;
             },
             error: function() {
                 console.log("เกิดข้อผิดพลาดกับการเชื่อมต่อ");
@@ -2278,6 +2333,5 @@ $(document).ready(function() {
         handleRelationTypeChange($(this),'.dynamic2-content','.dynamic-select-container2');
     });
 });
-
 </script>
 <?php include("Ma_Footer_Script.php"); ?>

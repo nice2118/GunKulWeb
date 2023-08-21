@@ -31,7 +31,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $sql = "INSERT INTO `permissionmenu` (`PM_Code`, `PM_RelationPermission`, `PM_Menu`, `PM_RelationType`, `PM_RelationCode`, `PM_Name`, `PM_Direction`, `PM_draw`, `PM_Setup`, `PM_UserCreate`, `PM_CreateDate`, `PM_ModifyDate`) VALUES (NULL, '$MN_CodeSub', '0', '$PM_RelationType[$i]', '$PM_RelationCode[$i]', '$PM_Name[$i]', '$PM_Direction[$i]', '$PM_Draw[$i]', '$PM_Setup[$i]', '{$_SESSION['User']}', current_timestamp(), current_timestamp());";
             }
         } else {    
-            $sql = "UPDATE `permissionmenu` SET `PM_RelationType` = '$PM_RelationType[$i]', `PM_RelationCode` = '$PM_RelationCode[$i]', `PM_Name` = '$PM_Name[$i]', `PM_Direction` = '$PM_Direction[$i]', `PM_Draw` = '$PM_Draw[$i]', `PM_Setup` = '$PM_Setup[$i]', `PM_UserCreate` = '{$_SESSION['User']}', `PM_ModifyDate` = current_timestamp() WHERE `permissionmenu`.`PM_Code` = $PM_Code[$i];";
+            $sql = "UPDATE `permissionmenu` SET `PM_RelationType` = '$PM_RelationType[$i]', `PM_RelationCode` = '$PM_RelationCode[$i]', `PM_Name` = '$PM_Name[$i]', `PM_Direction` = '$PM_Direction[$i]', `PM_Draw` = '$PM_Draw[$i]', `PM_Setup` = '$PM_Setup[$i]', `PM_UserCreate` = '{$_SESSION['User']}', `PM_ModifyDate` = current_timestamp() WHERE `permissionmenu`.`PM_Code` = '$PM_Code[$i]';";
         }
         if ($conn->query($sql) === true) {
             $_SESSION['StatusTitle'] = "ดำเนินการเรียบร้อยแล้ว";

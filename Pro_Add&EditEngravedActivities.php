@@ -19,7 +19,11 @@ echo '<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script
             $inputcode = $_POST['inputcode'];
             $inputNames = $_POST['inputname'];
             $inputValues = $_POST['inputvalue'];
-            $inputFiles = $_FILES['inputvaluefile'];
+            if (isset($_FILES['inputvaluefile'])) {
+                $inputFiles = $_FILES['inputvaluefile'];
+            } else {
+                $inputFiles ='';
+            }
 
             // ตัวอย่างการประมวลผลข้อมูลที่ได้รับมาจากฟอร์ม
             for ($i = 0; $i < count($inputNames); $i++) {
