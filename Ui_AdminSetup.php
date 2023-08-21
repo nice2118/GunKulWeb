@@ -471,7 +471,7 @@ $US_Prefix = "";
                                                     <span class="text"><?=$row["PT_Name"]?></span>
                                                     <div class="tools">
                                                         <a class="btn btn-link py-1 px-2 text-end" onclick="deleteAlertPosition(<?php echo $row["PT_Code"];?>, '<?php echo $row["PT_Name"];?>')"><i class="fas fa-trash"></i></a>
-                                                        <button type="button" class="btn btn-link py-1 px-2 text-end text-warning" data-bs-toggle="modal" data-bs-target="#modalposition" data-ptcode="<?= $row["PT_Code"] ?>" data-ptname="<?= $row["PT_Name"] ?>"><i class="fas fa-edit"></i></button>
+                                                        <button type="button" class="btn btn-link py-1 px-2 text-end text-warning" data-bs-toggle="modal" data-bs-target="#modalposition" data-ptcode="<?= $row["PT_Code"] ?>" data-ptdefault="<?= $row["PT_Default"] ?>" data-ptadmin="<?= $row["PT_Admin"] ?>"  data-ptname="<?= $row["PT_Name"] ?>"><i class="fas fa-edit"></i></button>
                                                     </div>
                                                 </li>
                                             <?PHP
@@ -481,7 +481,7 @@ $US_Prefix = "";
                                             ?>
                                         </ui>
                                         <div class="form-group text-center text-md-end">
-                                            <button type="button" class="btn btn-primary rounded-pill py-1 px-4 add-image-btn text-end" data-bs-toggle="modal" data-bs-target="#modalposition" data-ptcode="0" data-ptname=""><i class="fa fa-plus"></i></button>
+                                            <button type="button" class="btn btn-primary rounded-pill py-1 px-4 add-image-btn text-end" data-bs-toggle="modal" data-bs-target="#modalposition" data-ptcode="0" data-ptdefault="" data-ptadmin="" data-ptname=""><i class="fa fa-plus"></i></button>
                                         </div>
                                     </div>
                                     <!-- /.card-body -->
@@ -876,38 +876,43 @@ $US_Prefix = "";
                                 <h6 class="text-primary">นามสกุล</h6>
                                 <input type="Text" id="US_Lname" name="US_Lname" class="form-control border-1" placeholder="นามสกุล">
                             </div>
-                            <div class="col-4 col-sm-4">
+                            <!-- <div class="col-4 col-sm-4">
                                 <h6 class="text-primary">ตำแหน่ง</h6>
+
                                 <select class="form-select border-1" id="PT_Code" name="PT_Code" required>
                                     <option value="">เลือกตำแหน่ง</option>
                                     <?php
-                                        $sql = "SELECT * FROM `position`;";
-                                        $result = $conn->query($sql);
-                                        if ($result->num_rows > 0) {
-                                            while ($row = $result->fetch_assoc()) {
-                                                $selected = ($row["PT_Code"] == $PT_Code) ? 'selected' : '';
+                                        // $sql = "SELECT * FROM `position`;";
+                                        // $result = $conn->query($sql);
+                                        // if ($result->num_rows > 0) {
+                                        //     while ($row = $result->fetch_assoc()) {
+                                        //         $selected = ($row["PT_Code"] == $PT_Code) ? 'selected' : '';
                                     ?>
-                                        <option value="<?= $row["PT_Code"] ?>" <?= $selected ?>><?= $row["PT_Name"] ?></option>
+                                        <option value="<?php //echo $row["PT_Code"]?>" <?php //echo $selected ?>><?php //echo $row["PT_Name"] ?></option>
                                     <?php
-                                            }
-                                        }
+                                        //     }
+                                        // }
                                     ?>
                                 </select>
-                            </div>
-                            <div class="col-4 col-sm-4">
+                            </div> -->
+                            <div class="col-6 col-sm-6">
                                 <h6 class="text-primary">Username</h6>
                                 <input type="Text" id="US_Username" name="US_Username" class="form-control border-1" placeholder="Username" required>
                             </div>
-                            <div class="col-4 col-sm-4">
+                            <div class="col-6 col-sm-6">
                                 <h6 class="text-primary">Password</h6>
                                 <input type="Password" id="US_Password" name="US_Password" class="form-control border-1" placeholder="Password" required>
                             </div>
-                            <div class="col-12 col-sm-12">
+                            <div class="col-6 col-sm-6">
                                 <h6 class="text-primary">ภาพเริ่มต้น</h6>
                                 <input type="file" class="form-control border-1" name="imageUser" id="imageUser" accept="image/*">
                                 <label for="imageUser" style="cursor: pointer;">
                                     <div id="modalPreviewImageUser"></div>
                                 </label>
+                            </div>
+                            <div class="col-6 col-sm-6">
+                                <h6 class="text-primary">ตำแหน่ง</h6>
+                                <button type="button" class="btn btn-primary">บันทึก</button>
                             </div>
                         </div>
                         <div class="modal-footer">
@@ -932,9 +937,17 @@ $US_Prefix = "";
                     <form id="modalFormmodalposition" action="Pro_Add&EditPosition.php" method="post" enctype="multipart/form-data">
                         <div class="row g-2 my-2">
                             <input type="hidden" id="PT_code" name="PT_code" class="form-control border-1" placeholder="Code" required>
-                            <div class="col-12 col-sm-12">
+                            <div class="col-10 col-sm-10">
                                 <h6 class="text-primary">ชื่อ</h6>
                                 <input type="Text" id="PT_name" name="PT_name" class="form-control border-1" placeholder="ชื่อ" required>
+                            </div>
+                            <div class="col-1 col-sm-1 text-center my-2">
+                                <h6 class="text-primary">เริ่มต้น</h6>
+                                <input class="form-check-input py-2-5 px-2-5" type="checkbox" id="PT_Default" name="PT_Default" value="1">
+                            </div>
+                            <div class="col-1 col-sm-1 text-center my-2">
+                                <h6 class="text-primary">ผู้ดูแล</h6>
+                                <input class="form-check-input py-2-5 px-2-5" type="checkbox" id="PT_Admin" name="PT_Admin" value="1">
                             </div>
                         </div>
                         <div class="modal-footer">
@@ -1029,7 +1042,7 @@ $US_Prefix = "";
 
     <!-- Modal Permission Position-->
     <div class="modal fade" id="modalpermissionposition" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="modalpermissionpositionLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-dialog modal-md modal-dialog-centered modal-dialog-scrollable">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="modalpermissionpositionabel">Permission Position</h5>
@@ -1360,6 +1373,26 @@ $(document).ready(function() {
     });
     $(document).on('click', '.btn-delete-row2', function() {
         $(this).closest('.dynamic2-content').remove();
+    });
+
+    $('#addButtonPermissionPosition').click(function() {
+        var formGroup = $(
+            '<div class="row g-2 my-2 col-12 dynamic-content-PermissionPosition">' + 
+            '<input type="hidden" name="PP_Code[]" value="0" class="form-control">' +
+            '<div class="col-11 col-sm-11">' +
+            '<h6 class="text-primary">ตำแหน่ง</h6>' +
+
+            '</div>' +
+            '<div class="col-1 col-sm-1 text-center">' +
+            '<h6 class="text-primary">จัดการ</h6>' +
+            // '<button type="button" class="btn btn-link py-1 px-2 text-end text-danger btn-delete-PermissionPosition"><i class="fa fa-trash"></i></button>' +
+            '<a class="btn btn-link py-1 px-2 text-end btn-delete-PermissionPosition"><i class="fas fa-trash"></i></a>' +
+            '</div>' +
+            '</div>' );
+        $('#modalContentPermissionPosition').append(formGroup);
+    });
+    $(document).on('click', '.btn-delete-PermissionPosition', function() {
+        $(this).closest('.dynamic-content-PermissionPosition').remove();
     });
 });
 </script>
@@ -1725,6 +1758,61 @@ $(document).ready(function() {
             console.error("Error displaying SweetAlert:", error);
         });
     }
+    function deleteAlertPermissionPosition(PermissionPositionID) {
+        swal({
+            title: "คุณต้องการที่จะลบหรือไม่?",
+            text: `${PermissionPositionID}\nเมื่อกดลบไปแล้วจะไม่สามารถนำข้อมูลกลับมาได้!`,
+            icon: "warning",
+            buttons: {
+                cancel: {
+                    text: "ยกเลิก",
+                    value: false,
+                    visible: true,
+                    className: "",
+                    closeModal: true,
+                },
+                confirm: {
+                    text: "ลบ",
+                    value: true,
+                    visible: true,
+                    className: "",
+                    closeModal: true,
+                },
+            },
+            dangerMode: true,
+        })
+        .then((willDelete) => {
+            if (willDelete) {
+                // window.location.replace(`Pro_DeletePermissionPosition.php?Send_ID=${PermissionPositionID}`);
+                // ส่งค่าตัวกรองไปยังหน้า PHP ดึงข้อมูล
+                $.ajax({
+                    url: "Pro_DeletePermissionPosition.php",
+                    type: "POST",
+                    data: { Send_ID: PermissionPositionID },
+                    dataType: "json",
+                    success: function(response) {
+                        if (response === true) {
+                            console.log("Delete success");
+                            var dynamicPermissionPositionEdit = '.btn-delete-PermissionPositionEdit' + PermissionPositionID;
+                            var btnPermissionPositionEdit = '.dynamic-content-PermissionPositionEdit' + PermissionPositionID;
+                            $(dynamicPermissionPositionEdit).closest(btnPermissionPositionEdit).remove();
+                        } else {
+                            console.log("Can not delete");
+                        }
+                    },
+                    error: function() {
+                        console.log("เกิดข้อผิดพลาดกับการเชื่อมต่อ");
+                    }
+                });
+            } else {
+                // เมื่อกดยกเลิก ไม่ต้องทำอะไร
+            }
+        })
+        .catch((error) => {
+            // เกิดข้อผิดพลาดในกรณีที่ไม่สามารถแสดงกล่อง SweetAlert ได้
+            console.error("Error displaying SweetAlert:", error);
+        });
+    }
 </script>
 <!-- category Edit -->
 <script>
@@ -1908,7 +1996,7 @@ $(document).ready(function() {
         document.getElementById("US_Username").value = usUsername;
         document.getElementById("US_Password").value = usPassword;
         document.getElementById("US_Prefix").value = usPrefix;
-        document.getElementById("PT_Code").value = ptCode;
+        // document.getElementById("PT_Code").value = ptCode;
         if (usFname === undefined) {
             document.getElementById("US_Fname").value = '';
         } else {
@@ -1931,6 +2019,8 @@ $(document).ready(function() {
         const button = $(event.relatedTarget);
         const ptCode = button.data('ptcode');
         const ptName = button.data('ptname');
+        const ptDefault = button.data('ptdefault');
+        const ptAdmin = button.data('ptadmin');
 
         // กำหนดค่าให้กับช่อง input ใน Modal
         document.getElementById("PT_code").value = ptCode;
@@ -1939,6 +2029,8 @@ $(document).ready(function() {
         } else {
             document.getElementById("PT_name").value = ptName;
         }
+        document.getElementById("PT_Default").checked = ptDefault === 1;
+        document.getElementById("PT_Admin").checked = ptAdmin === 1;
     });
 
     // เมื่อ Modal Menu ถูกเปิดขึ้นมา
@@ -2056,8 +2148,8 @@ $(document).ready(function() {
         });
     });
 
-        // เมื่อ Modal Menu ถูกเปิดขึ้นมา
-        $('#modalmenusub2').on('show.bs.modal', function(event) {
+    // เมื่อ Modal Menu ถูกเปิดขึ้นมา
+    $('#modalmenusub2').on('show.bs.modal', function(event) {
         $('.dynamic2-content').empty();
         const button = $(event.relatedTarget);
         const mnCodeSub2 = button.data('mncodesub2');
@@ -2175,11 +2267,25 @@ $(document).ready(function() {
             success: function(response) {
                 // ดำเนินการแสดงผลข้อมูลที่ได้รับใน Modal
                 var modalContentPermissionPosition = document.getElementById("modalContentPermissionPosition");
-                var contentHTML = '<input type="hidden" name="Send_PM_Code" value="' + sendPMCode + '" class="form-control">';
+                // hidden
+                var contentHTML = '<input type="Text" name="Send_PM_Code" value="' + sendPMCode + '" class="form-control">';
 
                 // ใช้ Loop เพื่อแสดงข้อมูลใน Modal
                 for (var i = 0; i < response.length; i++) {
+                    var dynamicPermissionPositionEdit = 'dynamic-content-PermissionPositionEdit' + response[i].PP_Code;
+                    var btnPermissionPositionEdit = 'btn-delete-PermissionPositionEdit' + response[i].PP_Code;
+                    contentHTML +=
+                        '<div class="row g-2 my-2 col-12 ' + dynamicPermissionPositionEdit + '">' + 
+                        '<input type="hidden" name="PP_Code[]" value="' + response[i].PP_Code + '" class="form-control">' +
+                        '<div class="col-11 col-sm-11">' +
+                        '<h6 class="text-primary">ตำแหน่ง</h6>' +
 
+                        '</div>' +
+                        '<div class="col-1 col-sm-1 text-center">' +
+                        '<h6 class="text-primary">จัดการ</h6>' +
+                        '<a class="btn btn-link py-1 px-2 text-end ' + btnPermissionPositionEdit +'" onclick="deleteAlertPermissionPosition(' + response[i].PP_Code + ')"><i class="fas fa-trash"></i></a>' +
+                        '</div>' +
+                        '</div>';
                 }
                 modalContentPermissionPosition.innerHTML = contentHTML;
             },

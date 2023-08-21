@@ -17,7 +17,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $US_Prefix = $_POST['US_Prefix'];
     $US_Fname = $_POST['US_Fname'];
     $US_Lname = $_POST['US_Lname'];
-    $PT_Code = $_POST['PT_Code'];
+    // $PT_Code = $_POST['PT_Code'];
+    $PT_Code = '0';
     $US_Username = $_POST['US_Username'];
     $US_Password = $_POST['US_Password'];
     $US_Password = $_POST['US_Password'];
