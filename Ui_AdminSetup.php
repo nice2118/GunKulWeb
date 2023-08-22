@@ -6,6 +6,7 @@ $US_Prefix = "";
 ?>
 <?php include("Ma_Head_Link.php"); ?>
 <link href="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap5.min.css" rel="stylesheet">
+<link href="css/bootstrap-duallistbox.min.css" rel="stylesheet">
 <style>
   #image, #imageCategory, #imageMenuCategory, #imageUser, #imagePopup {
     display: none;
@@ -859,6 +860,7 @@ $US_Prefix = "";
                         <div class="row g-2 my-2">
                             <input type="hidden" id="US_Type" name="US_Type" class="form-control border-1" placeholder="Code" required>
                             <input type="hidden" id="US_Image" name="US_Image" class="form-control border-1" placeholder="0" readonly>
+                            <input type="hidden" id="US_UsernameOld" name="US_UsernameOld" class="form-control border-1" placeholder="" readonly>
                             <div class="col-2 col-sm-2">
                                 <h6 class="text-primary">คำนำหน้า</h6>
                                 <select class="form-select border-1" id="US_Prefix" name="US_Prefix" required>
@@ -912,7 +914,7 @@ $US_Prefix = "";
                             </div>
                             <div class="col-6 col-sm-6">
                                 <h6 class="text-primary">ตำแหน่ง</h6>
-                                <button type="button" class="btn btn-primary">บันทึก</button>
+                                <div id="editposition"></div>
                             </div>
                         </div>
                         <div class="modal-footer">
@@ -924,6 +926,29 @@ $US_Prefix = "";
             </div>
         </div>
     </div>
+
+    <!-- Modal Permission Position-->
+    <div class="modal fade" id="modaladdposition" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="modaladdpositionLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modaladdpositionLabel">Permission Position</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="modalFormadsetposition" action="Pro_Add&EditSetPosition.php" method="post" enctype="multipart/form-data">
+                        <div id="selectsetposition"></div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">ยกเลิก</button>
+                            <button type="submit" class="btn btn-primary">บันทึก</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    
 
     <!-- Modal Position-->
     <div class="modal fade" id="modalposition" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="modalpositionLabel" aria-hidden="true">
@@ -1614,6 +1639,60 @@ $(document).ready(function() {
             console.error("Error displaying SweetAlert:", error);
         });
     }
+    function deleteAlertSetPosition(SetPositionID) {
+        swal({
+            title: "คุณต้องการที่จะลบหรือไม่?",
+            text: `${SetPositionID}\nเมื่อกดลบไปแล้วจะไม่สามารถนำข้อมูลกลับมาได้!`,
+            icon: "warning",
+            buttons: {
+                cancel: {
+                    text: "ยกเลิก",
+                    value: false,
+                    visible: true,
+                    className: "",
+                    closeModal: true,
+                },
+                confirm: {
+                    text: "ลบ",
+                    value: true,
+                    visible: true,
+                    className: "",
+                    closeModal: true,
+                },
+            },
+            dangerMode: true,
+        })
+        .then((willDelete) => {
+            if (willDelete) {
+                // ส่งค่าตัวกรองไปยังหน้า PHP ดึงข้อมูล
+                $.ajax({
+                    url: "Pro_DeleteSetPosition.php",
+                    type: "POST",
+                    data: { Send_ID: SetPositionID },
+                    dataType: "json",
+                    success: function(response) {
+                        if (response === true) {
+                            console.log("Delete success");
+                            var dynamicSetPositionEdit = '.btn-delete-SetPositionEdit' + SetPositionID;
+                            var btnSetPositionEdit = '.dynamic-content-SetPositionEdit' + SetPositionID;
+                            $(dynamicSetPositionEdit).closest(btnSetPositionEdit).remove();
+                        } else {
+                            console.log("Can not delete");
+                        }
+                    },
+                    error: function() {
+                        console.log("เกิดข้อผิดพลาดกับการเชื่อมต่อ");
+                    }
+                });
+            } else {
+                // เมื่อกดยกเลิก ไม่ต้องทำอะไร
+            }
+        })
+        .catch((error) => {
+            // เกิดข้อผิดพลาดในกรณีที่ไม่สามารถแสดงกล่อง SweetAlert ได้
+            console.error("Error displaying SweetAlert:", error);
+        });
+    }
     function deleteAlertPosition(PositionID, PositionName) {
         swal({
             title: "คุณต้องการที่จะลบหรือไม่?",
@@ -2008,11 +2087,74 @@ $(document).ready(function() {
             document.getElementById("US_Lname").value = usLname;
         }
         document.getElementById("US_Image").value = usOldImage;
+        document.getElementById("US_UsernameOld").value = usUsername;
+        
 
         var modalContentMasterMenuUser = document.getElementById("modalPreviewImageUser");
         var contentHTML = '<img id="previewImageUser" class="img-fluid rounded" src="' + usImage + '" alt="" style="width: 50px; height: 50px;">';
         modalContentMasterMenuUser.innerHTML = contentHTML;
+        var editposition = document.getElementById("editposition");
+        var contentHTMLeditposition = '';
+        if (usType === 'edit') {
+            contentHTMLeditposition += '<button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#modaladdposition" data-spuser="'+ usUsername +'">เพิ่มตำแหน่ง</button>';
+        }
+        editposition.innerHTML = contentHTMLeditposition;
     });
+
+        // เมื่อ Modal Set Permision ถูกเปิดขึ้นมา
+        $('#modaladdposition').on('show.bs.modal', function(event) {
+        const button = $(event.relatedTarget);
+        const spUser = button.data('spuser');
+
+        // document.getElementById("SetPosition_US_Username").value = spUser;
+
+        // ส่งค่าตัวกรองไปยังหน้า PHP ดึงข้อมูล
+        $.ajax({
+            url: "DB_SetPosition.php",
+            type: "POST",
+            data: { sendspUser: spUser },
+            dataType: "json",
+            success: function(response) {
+                // ดำเนินการแสดงผลข้อมูลที่ได้รับใน Modal
+                var modalContentselectsetposition = document.getElementById("selectsetposition");
+                var contentHTML = '<input type="hidden" id="SetPosition_US_Username" name="SetPosition_US_Username" class="form-control" value="' + spUser + '">' +
+                    '<select class="form-select border-1 pm-relation-code duallistbox" multiple="multiple" name="SetPosition_PT_Code[]">';
+
+                // ใช้ Loop เพื่อแสดงข้อมูลใน Modal
+                for (var i = 0; i < response.length; i++) {
+                    var selectedAttribute = response[i].dataFromDBSub.length !== 0 ? 'selected' : ''; // เพิ่มเงื่อนไข selected  
+                    contentHTML +=
+                        '<option value="' + response[i].PT_Code + '" ' + selectedAttribute + '>' + response[i].PT_Name + '</option>';
+                }
+                contentHTML += '</select>';
+                modalContentselectsetposition.innerHTML = contentHTML;
+                
+                // เรียกใช้ duallistbox หลังจากเพิ่ม option เสร็จ
+                
+                $(document).ready(function() {
+                    $('.duallistbox').bootstrapDualListbox({
+                        nonSelectedListLabel: 'ตำแหน่งทั้งหมด',
+                        selectedListLabel: 'ตำแหน่งที่เลือก',
+                        preserveSelectionOnMove: 'moved',
+                        // moveOnSelect: false, // ตัวนี้ทำให้ข้อมูลซ้ำ 2 ครั้ง แต่เดียวไปลบเอาใน DB true
+                        // showFilterInputs: false,
+                        // moveOnDoubleClick: true,
+                        selectorMinimalHeight: 200,
+                        infoText: 'จำนวนที่มีอยู่ {0}',
+                        infoTextEmpty: 'รายการว่างเปล่า',
+                        filterPlaceHolder: 'กรอง',
+                        filterTextClear: 'แสดงทั้งหมด',
+                        // nonSelectedFilter: 'ion ([7-9]|[1][0-2])'
+                    });
+                });
+
+            },
+            error: function() {
+                console.log("เกิดข้อผิดพลาดกับการเชื่อมต่อ");
+            }
+        });
+    });
+
 
     // เมื่อ Modal Position ถูกเปิดขึ้นมา
     $('#modalposition').on('show.bs.modal', function(event) {
@@ -2440,4 +2582,22 @@ $(document).ready(function() {
     });
 });
 </script>
+<script>
+    // $(function() {
+    //     //Bootstrap Duallistbox
+    //     var demo2 = $('.duallistbox').bootstrapDualListbox({
+    //         nonSelectedListLabel: 'ตำแหน่งทั้งหมด',
+    //         selectedListLabel: 'ตำแหน่งที่เลือก',
+    //         preserveSelectionOnMove: 'moved',
+    //         moveOnSelect: false,
+    //         selectorMinimalHeight: 200,
+    //         infoText: 'จำนวนที่มีอยู่ {0}',
+    //         infoTextEmpty: 'รายการว่างเปล่า',
+    //         filterPlaceHolder: 'กรอง',
+    //         filterTextClear: 'แสดงทั้งหมด',
+    //         // nonSelectedFilter: 'ion ([7-9]|[1][0-2])'
+    //     });
+    // })
+</script>
+<script src="js/jquery.bootstrap-duallistbox.min.js"></script>
 <?php include("Ma_Footer_Script.php"); ?>

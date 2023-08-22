@@ -20,6 +20,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // $PT_Code = $_POST['PT_Code'];
     $PT_Code = '0';
     $US_Username = $_POST['US_Username'];
+    $Old_US_Username = isset($_POST['US_UsernameOld']) ? $_POST['US_UsernameOld'] : '';
     $US_Password = $_POST['US_Password'];
     $US_Password = $_POST['US_Password'];
 
@@ -82,13 +83,48 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 exit;
             }
             $sql = "INSERT INTO `user` (`US_Username`, `US_Password`, `US_Prefix`, `US_Fname`, `US_Lname`, `US_Image`, `US_Active`, `PT_Code`, `US_CreateDate`, `US_ModifyDate`) VALUES ('$US_Username', '$US_Password', '$US_Prefix', '$US_Fname', '$US_Lname', '$FullNameImage', '1', '$PT_Code', current_timestamp(), current_timestamp());";
+            
+            $sqlPosition = "SELECT * FROM `position` WHERE `position`.`PT_Default` = '1';";
+            $resultPosition = $conn->query($sqlPosition);
+            if ($resultPosition->num_rows > 0) {
+                while ($rowPosition = $resultPosition->fetch_assoc()) {
+                    $sqlDefaultSetPosition = "INSERT INTO `setposition` (`SP_Code`, `US_Username`, `PT_Code`, `SP_CreateDate`, `SP_ModifyDate`) VALUES (NULL,'$US_Username', '{$rowPosition["PT_Code"]}', current_timestamp(), current_timestamp());";
+                    if ($conn->query($sqlDefaultSetPosition) === true) {
+                        $_SESSION['StatusTitle'] = "ดำเนินการเรียบร้อยแล้ว";
+                        $_SESSION['StatusMessage'] = "ทำการอัพเดชเรียบร้อบแล้ว";
+                        $_SESSION['StatusAlert'] = "success";
+                    } else {
+                        $_SESSION['StatusTitle'] = "Error!";
+                        $_SESSION['StatusMessage'] = "Error: Add setposition";
+                        $_SESSION['StatusAlert'] = "error";
+                    }
+                }
+            }
             break;
     
         case "edit":
             if ($FullNameImage == '') {
-                $sql = "UPDATE `user` SET `US_Password` = '$US_Password', `US_Prefix` = '$US_Prefix', `US_Fname` = '$US_Fname', `US_Lname` = '$US_Lname', `PT_Code` = '$PT_Code', `US_ModifyDate` = CURRENT_TIMESTAMP WHERE `user`.`US_Username` = '$US_Username';";
+                $sql = "UPDATE `user` SET `US_Username` = '$US_Username', `US_Password` = '$US_Password', `US_Prefix` = '$US_Prefix', `US_Fname` = '$US_Fname', `US_Lname` = '$US_Lname', `PT_Code` = '$PT_Code', `US_ModifyDate` = CURRENT_TIMESTAMP WHERE `user`.`US_Username` = '$Old_US_Username';";
             } else {
-                $sql = "UPDATE `user` SET `US_Password` = '$US_Password', `US_Prefix` = '$US_Prefix', `US_Fname` = '$US_Fname', `US_Lname` = '$US_Lname', `PT_Code` = '$PT_Code', `US_Image` = '$FullNameImage', `US_ModifyDate` = CURRENT_TIMESTAMP WHERE `user`.`US_Username` = '$US_Username';";
+                $sql = "UPDATE `user` SET `US_Username` = '$US_Username', `US_Password` = '$US_Password', `US_Prefix` = '$US_Prefix', `US_Fname` = '$US_Fname', `US_Lname` = '$US_Lname', `PT_Code` = '$PT_Code', `US_Image` = '$FullNameImage', `US_ModifyDate` = CURRENT_TIMESTAMP WHERE `user`.`US_Username` = '$Old_US_Username';";
+            }
+            if ($Old_US_Username != $US_Username){
+                $sqlSetPosition = "SELECT * FROM `setposition` WHERE `setposition`.`US_Username` = '$Old_US_Username';";
+                $resultSetPosition = $conn->query($sqlSetPosition);
+                if ($resultSetPosition->num_rows > 0) {
+                    while ($rowSetPosition = $resultSetPosition->fetch_assoc()) {
+                        $sqlUpdateSetPosition = "UPDATE `setposition` SET `US_Username` = '$US_Username', `SP_ModifyDate` = CURRENT_TIMESTAMP WHERE `setposition`.`SP_Code` = '{$rowSetPosition["SP_Code"]}';";
+                        if ($conn->query($sqlUpdateSetPosition) === true) {
+                            $_SESSION['StatusTitle'] = "ดำเนินการเรียบร้อยแล้ว";
+                            $_SESSION['StatusMessage'] = "ทำการอัพเดชเรียบร้อบแล้ว";
+                            $_SESSION['StatusAlert'] = "success";
+                        } else {
+                            $_SESSION['StatusTitle'] = "Error!";
+                            $_SESSION['StatusMessage'] = "Error: Update setposition";
+                            $_SESSION['StatusAlert'] = "error";
+                        }
+                    }
+                }
             }
             break;
     

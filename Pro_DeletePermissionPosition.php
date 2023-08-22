@@ -4,13 +4,12 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     // รับตัวกรองที่ส่งมาจาก JavaScript
     $sendppcode = $_POST["Send_ID"];
 
-    // $sql = "DELETE FROM `permissionposition` WHERE `permissionposition`.`PP_Code` = $sendppcode;";
-    // if ($conn->query($sql) === true) {
-    //     $response = true;
-    // } else {
-    //     $response = false;
-    // }
-    $response = true;
+    $sql = "DELETE FROM `permissionposition` WHERE `permissionposition`.`PP_Code` = $sendppcode;";
+    if ($conn->query($sql) === true) {
+        $response = true;
+    } else {
+        $response = false;
+    }
 
     // ปิดการเชื่อมต่อฐานข้อมูล
     $conn->close();
