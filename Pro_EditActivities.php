@@ -23,8 +23,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   $DateAddNewsFormatted = date('Y-m-d', strtotime(str_replace('/', '-', $DateAddNews)));
   $Title = $_POST['Title'];
   $Summary = $_POST['Summary'];
-  $Summernote = base64_encode($_POST['summernote']);
-  // $Summernote = $_POST['summernote'];
+  // $Summernote = base64_encode($_POST['summernote'])/;
+  $Summernote = $_POST['summernote'];
 
   // เก็บข้อมูลไฟล์
   $file = $_FILES['image'];

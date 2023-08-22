@@ -14,7 +14,8 @@ if ($conn->connect_error) {
     die("การเชื่อมต่อฐานข้อมูลล้มเหลว: " . $conn->connect_error);
 }
 
-// ตั้งค่าภาษาให้เป็น utf8
-$conn->set_charset("utf8");
-// $conn->set_charset("utf8mb4");
+// ตั้งค่าภาษาให้เป็น utf8  
+// $conn->set_charset("utf8");
+// ตั้งค่าภาษาให้เป็น utf8mb4 เพื่ิอลองรับ Emoji เปลี่ยนตารางกับฟิวเป็น utf8mb4_general_ci	  
+$conn->set_charset("utf8mb4"); 
 ?>

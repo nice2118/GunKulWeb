@@ -37,12 +37,12 @@ if (isset($_GET['Send_IDNews']) && $_GET['Send_IDNews'] !== '') {
         $AT_Date = $row["AT_Date"];
         $AT_Title = $row["AT_Title"];
         $AT_Description = $row["AT_Description"];
-        $AT_Note = base64_decode($row["AT_Note"]);
-        if ($AT_Note !== false) {
-            $AT_Note;
-        } else {
+        // $AT_Note = base64_decode($row["AT_Note"]);
+        // if ($AT_Note !== false) {
+        //     $AT_Note;
+        // } else {
             $AT_Note = $row["AT_Note"];
-        }
+        // }
         if ($row["AT_Image"] !== '') {
             $AT_Image = $row["AT_Image"];
         } else {

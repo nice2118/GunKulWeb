@@ -57,12 +57,12 @@
                         <div class="container quote px-lg-0">
                             <div class="row g-0 mx-lg-0 py-5 px-7">
             <?php
-                    $decodedText = base64_decode($row["AT_Note"]);
-                    if ($decodedText !== false) {
-                        echo $decodedText;
-                    } else {
+                    // $decodedText = base64_decode($row["AT_Note"]);
+                    // if ($decodedText !== false) {
+                    //     echo $decodedText;
+                    // } else {
                         echo $row["AT_Note"];
-                    }
+                    // }
                 }
             ?>
                             </div>
