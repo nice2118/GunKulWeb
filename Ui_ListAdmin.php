@@ -9,6 +9,7 @@ if (isset($_GET['Send_Category']) && $_GET['Send_Category'] !== '') {
 ?>
 
 <?php include("Fn_RecursiveCategory.php"); ?>
+<?php include("Fn_Permission.php"); ?>
 <?php include("Ma_Head_Link.php"); ?>
 <!-- Icon Font Stylesheet -->
 <!-- <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.2.0/css/bootstrap.min.css" rel="stylesheet"> -->
@@ -149,13 +150,13 @@ if (isset($_GET['Send_Category']) && $_GET['Send_Category'] !== '') {
                                             <td class="project-actions text-right">
                                                 <?php if ($IsFile == 0): ?>
                                                     <a class="btn btn-primary2 btn-sm" href="Ui_ShowDetail.php?Send_IDNews=<?= $reqCode;?>"><i class="fas fa-folder"></i></a>
-                                                    <?php if ($UserCreate == $_SESSION['User'] || $_SESSION['User'] == 'aaa'){ ?>
+                                                    <?php if ($UserCreate == $_SESSION['User'] || CheckAdmin($_SESSION['User'])){ ?>
                                                         <a class="btn btn-warning btn-sm" href="Ui_Edit.php?Send_IDNews=<?= urlencode($reqCode); ?>&Send_Title=<?= urlencode($reqTitle); ?>&Send_Category=<?= $Category_id ; ?>"><i class="fas fa-pencil-alt"></i></a>
                                                         <a class="btn btn-danger btn-sm" onclick="deleteAlert(<?php echo $reqCode;?>, '<?= addslashes(htmlspecialchars_decode($reqTitle, ENT_QUOTES)) ?>',<?php echo $Category_id;?>)"><i class="fas fa-trash"></i></a>
                                                     <?php }  ?>
                                                 <?php elseif ($IsFile == 1): ?>
                                                     <a class="btn btn-primary2 btn-sm" id="btnShowFile" href="<?= $reqFile ?>" data-code="<?= urlencode($reqCode) ?>"><i class="fas fa-folder"></i></a>
-                                                    <?php if ($UserCreate == $_SESSION['User'] || $_SESSION['User'] == 'aaa'){ ?>
+                                                    <?php if ($UserCreate == $_SESSION['User'] || CheckAdmin($_SESSION['User'])){ ?>
                                                         <a class="btn btn-warning btn-sm" href="Ui_EditFile.php?Send_IDNews=<?= urlencode($reqCode); ?>&Send_Title=<?= urlencode($reqTitle); ?>&Send_Category=<?= $Category_id ; ?>"><i class="fas fa-pencil-alt"></i></a>
                                                         <a class="btn btn-danger btn-sm" onclick="deleteAlertFile(<?php echo $reqCode;?>, '<?php echo addslashes(htmlspecialchars_decode($reqTitle, ENT_QUOTES));?>',<?php echo $Category_id;?>)"><i class="fas fa-trash"></i></a>
                                                     <?php }  ?>

@@ -488,6 +488,43 @@ $US_Prefix = "";
                                     <!-- /.card-body -->
                                 </div>
                                  <!-- /.card -->
+                                 <div class="card card-orange collapsed-card">
+                                    <div class="card-header">
+                                        <h3 class="card-title text-white">Position Group</h3>
+                                        <div class="card-tools">
+                                            <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+                                            <i class="fas fa-plus"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="card-body">
+                                        <ul class="todo-list" data-widget="todo-list">
+                                            <?PHP
+                                                $sql = "SELECT * FROM `grouppositionheader` ORDER BY `GH_Code`;";
+                                                $result = $conn->query($sql);
+                                                if ($result->num_rows > 0) {
+                                                    while ($row = $result->fetch_assoc()) {
+                                            ?>
+                                                <li class="my-2">
+                                                    <span class="text"><?=$row["GH_Name"]?></span>
+                                                    <div class="tools">
+                                                        <a class="btn btn-link py-1 px-2 text-end" onclick="deleteAlertGroupPosition(<?php echo $row["GH_Code"];?>, '<?php echo $row["GH_Name"];?>')"><i class="fas fa-trash"></i></a>
+                                                        <button type="button" class="btn btn-link py-1 px-2 text-end text-warning" data-bs-toggle="modal" data-bs-target="#modalpositiongroup" data-ghcode="<?= $row["GH_Code"] ?>" data-ghname="<?= $row["GH_Name"] ?>"><i class="fas fa-edit"></i></button>
+                                                    </div>
+                                                </li>
+                                            <?PHP
+                                                    }
+                                                }
+                                                unset($sql);
+                                            ?>
+                                        </ui>
+                                        <div class="form-group text-center text-md-end">
+                                            <button type="button" class="btn btn-primary rounded-pill py-1 px-4 add-image-btn text-end" data-bs-toggle="modal" data-bs-target="#modalpositiongroup" data-ghcode="0" data-ghname=""><i class="fa fa-plus"></i></button>
+                                        </div>
+                                    </div>
+                                    <!-- /.card-body -->
+                                </div>
+                                 <!-- /.card -->
                                 <div class="card card-maroon collapsed-card">
                                     <div class="card-header">
                                         <h3 class="card-title text-white">Index Setup</h3>
@@ -948,8 +985,6 @@ $US_Prefix = "";
         </div>
     </div>
 
-    
-
     <!-- Modal Position-->
     <div class="modal fade" id="modalposition" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="modalpositionLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
@@ -975,6 +1010,32 @@ $US_Prefix = "";
                                 <input class="form-check-input py-2-5 px-2-5" type="checkbox" id="PT_Admin" name="PT_Admin" value="1">
                             </div>
                         </div>
+                        <div class="row justify-content-end my-2">
+                            <div class="col-2 col-sm2">
+                                <div id="edituser"></div>         
+                            </div>                        
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">ยกเลิก</button>
+                            <button type="submit" class="btn btn-primary">บันทึก</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Permission User-->
+    <div class="modal fade" id="modaladduser" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="modaladduserLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modaladduserLabel">Permission User</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="modalFormadsetuser" action="Pro_Add&EditSetuser.php" method="post" enctype="multipart/form-data">
+                        <div id="selectsetuser"></div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">ยกเลิก</button>
                             <button type="submit" class="btn btn-primary">บันทึก</button>
@@ -1122,6 +1183,27 @@ $US_Prefix = "";
                                 </label>
                             </div>
                         </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">ยกเลิก</button>
+                            <button type="submit" class="btn btn-primary">บันทึก</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Permission Position-->
+    <div class="modal fade" id="modalpositiongroup" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="modalpositiongroupLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalpositiongroupLabel">Permission Group</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="modalFormadpositiongroup" action="Pro_Add&EditPositionGroup.php" method="post" enctype="multipart/form-data">
+                        <div id="selectpositiongroup"></div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">ยกเลิก</button>
                             <button type="submit" class="btn btn-primary">บันทึก</button>
@@ -1892,6 +1974,42 @@ $(document).ready(function() {
             console.error("Error displaying SweetAlert:", error);
         });
     }
+    function deleteAlertGroupPosition(GroupPositionID,GroupPositionName) {
+        swal({
+            title: "คุณต้องการที่จะลบหรือไม่?",
+            text: `${GroupPositionID}\nเมื่อกดลบไปแล้วจะไม่สามารถนำข้อมูลกลับมาได้!`,
+            icon: "warning",
+            buttons: {
+                cancel: {
+                    text: "ยกเลิก",
+                    value: false,
+                    visible: true,
+                    className: "",
+                    closeModal: true,
+                },
+                confirm: {
+                    text: "ลบ",
+                    value: true,
+                    visible: true,
+                    className: "",
+                    closeModal: true,
+                },
+            },
+            dangerMode: true,
+        })
+        .then((willDelete) => {
+            if (willDelete) {
+                // เมื่อกดตกลง ทำการเปลี่ยนหน้า
+                window.location.replace(`Pro_DeleteGroupPosition.php?Send_ID=${GroupPositionID}&Send_Name=${GroupPositionName}`);
+            } else {
+                // เมื่อกดยกเลิก ไม่ต้องทำอะไร
+            }
+        })
+        .catch((error) => {
+            // เกิดข้อผิดพลาดในกรณีที่ไม่สามารถแสดงกล่อง SweetAlert ได้
+            console.error("Error displaying SweetAlert:", error);
+        });
+    }
 </script>
 <!-- category Edit -->
 <script>
@@ -2101,8 +2219,8 @@ $(document).ready(function() {
         editposition.innerHTML = contentHTMLeditposition;
     });
 
-        // เมื่อ Modal Set Permision ถูกเปิดขึ้นมา
-        $('#modaladdposition').on('show.bs.modal', function(event) {
+    // เมื่อ Modal Set Permision ถูกเปิดขึ้นมา
+    $('#modaladdposition').on('show.bs.modal', function(event) {
         const button = $(event.relatedTarget);
         const spUser = button.data('spuser');
 
@@ -2130,7 +2248,6 @@ $(document).ready(function() {
                 modalContentselectsetposition.innerHTML = contentHTML;
                 
                 // เรียกใช้ duallistbox หลังจากเพิ่ม option เสร็จ
-                
                 $(document).ready(function() {
                     $('.duallistbox').bootstrapDualListbox({
                         nonSelectedListLabel: 'ตำแหน่งทั้งหมด',
@@ -2173,6 +2290,67 @@ $(document).ready(function() {
         }
         document.getElementById("PT_Default").checked = ptDefault === 1;
         document.getElementById("PT_Admin").checked = ptAdmin === 1;
+
+        var edituser = document.getElementById("edituser");
+        var contentHTMLedituser = '';
+        if (ptCode != 0) {
+            contentHTMLedituser += '<h6 class="text-primary">เพิ่มผู้ใช้</h6>' +
+            '<button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#modaladduser" data-userptcode="'+ ptCode +'">เพิ่มผู้ใช้งาน</button>';
+        }
+        edituser.innerHTML = contentHTMLedituser;
+    });
+
+    // เมื่อ Modal Set Permision ถูกเปิดขึ้นมา
+    $('#modaladduser').on('show.bs.modal', function(event) {
+        const button = $(event.relatedTarget);
+        const userptCode = button.data('userptcode');
+
+        // document.getElementById("SetPosition_US_Username").value = spUser;
+
+        // ส่งค่าตัวกรองไปยังหน้า PHP ดึงข้อมูล
+        $.ajax({
+            url: "DB_SetUser.php",
+            type: "POST",
+            data: { sendptCode: userptCode },
+            dataType: "json",
+            success: function(response) {
+                // ดำเนินการแสดงผลข้อมูลที่ได้รับใน Modal
+                var modalContentselectsetuser = document.getElementById("selectsetuser");
+                var contentHTML = '<input type="hidden" name="Setuser_PT_Code" class="form-control" value="' + userptCode + '">' +
+                    '<select class="form-select border-1 pm-relation-code duallistboxadduser" multiple="multiple" name="Setuser_US_Username[]">';
+
+                // ใช้ Loop เพื่อแสดงข้อมูลใน Modal
+                for (var i = 0; i < response.length; i++) {
+                    var selectedAttribute = response[i].dataFromDBSub.length !== 0 ? 'selected' : ''; // เพิ่มเงื่อนไข selected  
+                    contentHTML +=
+                        '<option value="' + response[i].US_Username + '" ' + selectedAttribute + '>' + response[i].US_Fname + ' ' + response[i].US_Lname +'</option>';
+                }
+                contentHTML += '</select>';
+                modalContentselectsetuser.innerHTML = contentHTML;
+                
+                // เรียกใช้ duallistbox หลังจากเพิ่ม option เสร็จ
+                $(document).ready(function() {
+                    $('.duallistboxadduser').bootstrapDualListbox({
+                        nonSelectedListLabel: 'ตำแหน่งทั้งหมด',
+                        selectedListLabel: 'ตำแหน่งที่เลือก',
+                        preserveSelectionOnMove: 'moved',
+                        // moveOnSelect: false, // ตัวนี้ทำให้ข้อมูลซ้ำ 2 ครั้ง แต่เดียวไปลบเอาใน DB true
+                        // showFilterInputs: false,
+                        // moveOnDoubleClick: true,
+                        selectorMinimalHeight: 200,
+                        infoText: 'จำนวนที่มีอยู่ {0}',
+                        infoTextEmpty: 'รายการว่างเปล่า',
+                        filterPlaceHolder: 'กรอง',
+                        filterTextClear: 'แสดงทั้งหมด',
+                        // nonSelectedFilter: 'ion ([7-9]|[1][0-2])'
+                    });
+                });
+
+            },
+            error: function() {
+                console.log("เกิดข้อผิดพลาดกับการเชื่อมต่อ");
+            }
+        });
     });
 
     // เมื่อ Modal Menu ถูกเปิดขึ้นมา
@@ -2409,8 +2587,7 @@ $(document).ready(function() {
             success: function(response) {
                 // ดำเนินการแสดงผลข้อมูลที่ได้รับใน Modal
                 var modalContentPermissionPosition = document.getElementById("modalContentPermissionPosition");
-                // hidden
-                var contentHTML = '<input type="Text" name="Send_PM_Code" value="' + sendPMCode + '" class="form-control">';
+                var contentHTML = '<input type="hidden" name="Send_PM_Code" value="' + sendPMCode + '" class="form-control">';
 
                 // ใช้ Loop เพื่อแสดงข้อมูลใน Modal
                 for (var i = 0; i < response.length; i++) {
@@ -2430,6 +2607,62 @@ $(document).ready(function() {
                         '</div>';
                 }
                 modalContentPermissionPosition.innerHTML = contentHTML;
+            },
+            error: function() {
+                console.log("เกิดข้อผิดพลาดกับการเชื่อมต่อ");
+            }
+        });
+    });
+
+    // เมื่อ modal Permission Position ถูกเปิดขึ้นมา
+    $('#modalpositiongroup').on('show.bs.modal', function(event) {
+        const button = $(event.relatedTarget);
+        const ghCode = button.data('ghcode');
+        const ghName = button.data('ghname');
+
+        // ส่งค่าตัวกรองไปยังหน้า PHP ดึงข้อมูล
+        $.ajax({
+            url: "DB_PositionGroup.php",
+            type: "POST",
+            data: { sendghcode: ghCode },
+            dataType: "json",
+            success: function(response) {
+                // ดำเนินการแสดงผลข้อมูลที่ได้รับใน Modal
+                var modalContentsPositionGroup = document.getElementById("selectpositiongroup");
+                var contentHTML = '<div class="col-12 col-sm-12">' +
+                                '<input type="hidden" name="GH_Code" value="' + ghCode + '" class="form-control">' +
+                                '<h6 class="text-primary">ชื่อกลุ่ม</h6>' +
+                                '<input type="text" name="GH_Name" value="' + ghName + '" class="form-control border-1" placeholder="ชื่อกลุ่ม" required>' +
+                                '</div>' +
+                                '<div class="col-12 col-sm-12">' +
+                                '<select class="form-select border-1 pm-relation-code duallistboxpositiongroup" multiple="multiple" name="GL_Code[]">';
+                // ใช้ Loop เพื่อแสดงข้อมูลใน Modal
+                for (var i = 0; i < response.length; i++) {
+                    var selectedAttribute = response[i].dataFromDBSub.length !== 0 ? 'selected' : ''; // เพิ่มเงื่อนไข selected  
+                    contentHTML +=
+                        '<option value="' + response[i].PT_Code + '" ' + selectedAttribute + '>' + response[i].PT_Name + '</option>';
+                }
+                contentHTML += '</select>' +
+                            '</div>';
+                modalContentsPositionGroup.innerHTML = contentHTML;
+
+                // เรียกใช้ duallistbox หลังจากเพิ่ม option เสร็จ
+                $(document).ready(function() {
+                    $('.duallistboxpositiongroup').bootstrapDualListbox({
+                        nonSelectedListLabel: 'ตำแหน่งทั้งหมด',
+                        selectedListLabel: 'ตำแหน่งที่เลือก',
+                        preserveSelectionOnMove: 'moved',
+                        // moveOnSelect: false, // ตัวนี้ทำให้ข้อมูลซ้ำ 2 ครั้ง แต่เดียวไปลบเอาใน DB true
+                        // showFilterInputs: false,
+                        // moveOnDoubleClick: true,
+                        selectorMinimalHeight: 200,
+                        infoText: 'จำนวนที่มีอยู่ {0}',
+                        infoTextEmpty: 'รายการว่างเปล่า',
+                        filterPlaceHolder: 'กรอง',
+                        filterTextClear: 'แสดงทั้งหมด',
+                        // nonSelectedFilter: 'ion ([7-9]|[1][0-2])'
+                    });
+                });
             },
             error: function() {
                 console.log("เกิดข้อผิดพลาดกับการเชื่อมต่อ");

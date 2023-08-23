@@ -23,6 +23,7 @@ th {
 
 <?php include("Ma_Head.php"); ?>
 <?php include("Ma_Carousel.php"); ?>
+<?php include("Fn_Permission.php"); ?>
 
 <!-- Content -->
 <div class="container-xxl py-5">
@@ -45,7 +46,7 @@ th {
         <div class="text-start mx-auto mb-2 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 600px;">
             <div class="d-flex align-items-center">
                 <button type="button" class="btn btn-link rounded-pill py-1 px-4 add-image-btn text-start"
-                    data-bs-toggle="modal" data-bs-target="#AddEditHeading" data-sendCode="" data-sendText="" data-sendType="headinggroup" data-sendRelation="<?= $MenuCategory_id ?>">
+                    data-bs-toggle="modal" data-bs-target="#AddEditHeading" data-sendCode="" data-sendText="" data-sendType="headinggroup" data-sendRelation="<?= $MenuCategory_id ?>" data-sendsort="0">
                     <div class="d-flex align-items-center">
                         <div class="btn-lg-square bg-primary rounded-circle">
                             <i class="fa fa-plus text-white"></i>
@@ -69,7 +70,7 @@ th {
                             <table class="table table-hover2">
                                 <tbody>
                                 <?php
-                                        $sqlHeadingGroup = "SELECT * FROM `HeadingGroup` WHERE `HeadingGroup`.`HC_Code` = $MenuCategory_id;";
+                                        $sqlHeadingGroup = "SELECT * FROM `HeadingGroup` WHERE `HeadingGroup`.`HC_Code` = $MenuCategory_id ORDER BY `HeadingGroup`.`HG_Sort` ASC , `HeadingGroup`.`HG_CreateDate` ASC;";
                                         $resultHeadingGroup = $conn->query($sqlHeadingGroup);
                                         if ($resultHeadingGroup->num_rows > 0) {
                                             while ($rowHeadingGroup = $resultHeadingGroup->fetch_assoc()) {
@@ -81,7 +82,7 @@ th {
                                                     <div class="card-header">
                                                         <h5 class="card-title">
                                                 <?php
-                                                    $sqlHeading = "SELECT * FROM `Heading` WHERE `Heading`.`HG_Code` = '{$rowHeadingGroup["HG_Code"]}';";
+                                                    $sqlHeading = "SELECT * FROM `Heading` WHERE `Heading`.`HG_Code` = '{$rowHeadingGroup["HG_Code"]}' ORDER BY `Heading`.`HD_Sort` ASC , `Heading`.`HD_CreateDate` ASC;";
                                                     $resultHeading = $conn->query($sqlHeading);
                                                     if ($resultHeading->num_rows > 0) {  
                                                 ?>
@@ -95,15 +96,17 @@ th {
                                                         <?= $rowHeadingGroup["HG_Text"] ?></h5>
                                                         <div class="card-tools">
                                                         <?php
-                                                            if ($rowHeadingGroup["HG_Active"] == 1) {
-                                                                echo '<a class="btn btn-link py-0 px-1 text-end text-secondary toggleButton" id="toggleButton1" data-sendHiddenStatus="0" data-sendHiddenID="' . $rowHeadingGroup['HG_Code'] . '" data-sendHiddenType="headinggroup"><i class="fa fa-eye"></i></a>';
-                                                            } else {
-                                                                echo '<a class="btn btn-link py-0 px-1 text-end text-secondary toggleButton" id="toggleButton0" data-sendHiddenStatus="1" data-sendHiddenID="' . $rowHeadingGroup['HG_Code'] . '" data-sendHiddenType="headinggroup"><i class="fa fa-eye-slash"></i></a>';
-                                                            }
+                                                            if ($rowHeadingGroup["HG_UserCreate"] == $_SESSION['User'] || CheckAdmin($_SESSION['User'])){
+                                                                if ($rowHeadingGroup["HG_Active"] == 1) {
+                                                                    echo '<a class="btn btn-link py-0 px-1 text-end text-secondary toggleButton" id="toggleButton1" data-sendHiddenStatus="0" data-sendHiddenID="' . $rowHeadingGroup['HG_Code'] . '" data-sendHiddenType="headinggroup"><i class="fa fa-eye"></i></a>';
+                                                                } else {
+                                                                    echo '<a class="btn btn-link py-0 px-1 text-end text-secondary toggleButton" id="toggleButton0" data-sendHiddenStatus="1" data-sendHiddenID="' . $rowHeadingGroup['HG_Code'] . '" data-sendHiddenType="headinggroup"><i class="fa fa-eye-slash"></i></a>';
+                                                                }
                                                         ?>
                                                             <a class="btn btn-link py-1 px-2 text-end" onclick="deleteAlertMenuCategory(<?php echo $rowHeadingGroup["HG_Code"];?>, '<?php echo $rowHeadingGroup["HG_Text"];?>', 'headinggroup')"><i class="fas fa-trash"></i></a>
-                                                            <button type="button" class="btn btn-link py-0 px-1 text-end text-warning" data-bs-toggle="modal" data-bs-target="#AddEditHeading" data-sendCode="<?= $rowHeadingGroup["HG_Code"] ?>" data-sendText="<?= $rowHeadingGroup["HG_Text"] ?>" data-sendType="headinggroup" data-sendRelation=""><i class="fa fa-pencil-alt"></i></button>
-                                                            <button type="button" class="btn btn-link py-0 px-1 text-end text-primary" data-bs-toggle="modal" data-bs-target="#AddEditHeading" data-sendCode="" data-sendText="" data-sendType="heading" data-sendRelation="<?= $rowHeadingGroup["HG_Code"] ?>"><i class="fa fa-plus"></i></button>
+                                                            <button type="button" class="btn btn-link py-0 px-1 text-end text-warning" data-bs-toggle="modal" data-bs-target="#AddEditHeading" data-sendCode="<?= $rowHeadingGroup["HG_Code"] ?>" data-sendText="<?= $rowHeadingGroup["HG_Text"] ?>" data-sendType="headinggroup" data-sendRelation="" data-sendsort="<?= $rowHeadingGroup["HG_Sort"] ?>"><i class="fa fa-pencil-alt"></i></button>
+                                                            <button type="button" class="btn btn-link py-0 px-1 text-end text-primary" data-bs-toggle="modal" data-bs-target="#AddEditHeading" data-sendCode="" data-sendText="" data-sendType="heading" data-sendRelation="<?= $rowHeadingGroup["HG_Code"] ?>" data-sendsort="0"><i class="fa fa-plus"></i></button>
+                                                        <?php } ?>
                                                         </div>
                                                     </div>
                                                 </td>
@@ -119,7 +122,7 @@ th {
                                                                 <?php
                                                                     foreach ($DataHeading as $Heading) { 
                                                                         $DataDetails = array();
-                                                                        $sqlDetails = "SELECT * FROM `details` WHERE `details`.`HD_Code` = '{$Heading["HD_Code"]}';";
+                                                                        $sqlDetails = "SELECT * FROM `details` WHERE `details`.`HD_Code` = '{$Heading["HD_Code"]}' ORDER BY `details`.`DT_Sort` ASC , `details`.`DT_UserCreate` ASC;";
                                                                         $resultDetails = $conn->query($sqlDetails);
                                                                         if ($resultDetails->num_rows > 0) {
                                                                             while ($rowDetails = $resultDetails->fetch_assoc()) {
@@ -135,15 +138,17 @@ th {
                                                                             <?= $Heading["HD_Text"] ?></h6>
                                                                             <div class="card-tools">
                                                                                 <?php
-                                                                                    if ($Heading["HD_Active"] == 1) {
-                                                                                        echo '<a class="btn btn-link py-0 px-1 text-end text-secondary toggleButton" id="toggleButton1" data-sendHiddenStatus="0" data-sendHiddenID="' . $Heading['HD_Code'] . '" data-sendHiddenType="heading"><i class="fa fa-eye"></i></a>';
-                                                                                    } else {
-                                                                                        echo '<a class="btn btn-link py-0 px-1 text-end text-secondary toggleButton" id="toggleButton0" data-sendHiddenStatus="1" data-sendHiddenID="' . $Heading['HD_Code'] . '" data-sendHiddenType="heading"><i class="fa fa-eye-slash"></i></a>';
-                                                                                    }
+                                                                                    if ($Heading["HD_UserCreate"] == $_SESSION['User'] || CheckAdmin($_SESSION['User'])){
+                                                                                        if ($Heading["HD_Active"] == 1) {
+                                                                                            echo '<a class="btn btn-link py-0 px-1 text-end text-secondary toggleButton" id="toggleButton1" data-sendHiddenStatus="0" data-sendHiddenID="' . $Heading['HD_Code'] . '" data-sendHiddenType="heading"><i class="fa fa-eye"></i></a>';
+                                                                                        } else {
+                                                                                            echo '<a class="btn btn-link py-0 px-1 text-end text-secondary toggleButton" id="toggleButton0" data-sendHiddenStatus="1" data-sendHiddenID="' . $Heading['HD_Code'] . '" data-sendHiddenType="heading"><i class="fa fa-eye-slash"></i></a>';
+                                                                                        }
                                                                                 ?>
                                                                                 <a class="btn btn-link py-1 px-2 text-end" onclick="deleteAlertMenuCategory(<?php echo $Heading["HD_Code"];?>, '<?php echo $Heading["HD_Text"];?>', 'heading')"><i class="fas fa-trash"></i></a>
-                                                                                <button type="button" class="btn btn-link py-0 px-1 text-end text-warning" data-bs-toggle="modal" data-bs-target="#AddEditHeading" data-sendCode="<?= $Heading["HD_Code"] ?>" data-sendText="<?= $Heading["HD_Text"] ?>" data-sendType="heading" data-sendRelation=""><i class="fa fa-pencil-alt"></i></button>
-                                                                                <button type="button" class="btn btn-link py-0 px-1 text-end text-primary" data-bs-toggle="modal" data-bs-target="#AddEditHeading" data-sendCode="" data-sendText="" data-sendType="details" data-sendRelation="<?= $Heading["HD_Code"] ?>"><i class="fa fa-plus"></i></button>
+                                                                                <button type="button" class="btn btn-link py-0 px-1 text-end text-warning" data-bs-toggle="modal" data-bs-target="#AddEditHeading" data-sendCode="<?= $Heading["HD_Code"] ?>" data-sendText="<?= $Heading["HD_Text"] ?>" data-sendType="heading" data-sendRelation="" data-sendsort="<?= $Heading["HD_Sort"] ?>"><i class="fa fa-pencil-alt"></i></button>
+                                                                                <button type="button" class="btn btn-link py-0 px-1 text-end text-primary" data-bs-toggle="modal" data-bs-target="#AddEditHeading" data-sendCode="" data-sendText="" data-sendType="details" data-sendRelation="<?= $Heading["HD_Code"] ?>" data-sendsort="0"><i class="fa fa-plus"></i></button>
+                                                                                <?php } ?>
                                                                             </div>
                                                                         </div>
                                                                     </td>
@@ -164,14 +169,16 @@ th {
                                                                                                 <?= $Details["DT_Text"] ?>
                                                                                                 <div class="card-tools">
                                                                                                 <?php
-                                                                                                    if ($Details["DT_Active"] == 1) {
-                                                                                                        echo '<a class="btn btn-link py-0 px-1 text-end text-secondary toggleButton" id="toggleButton1" data-sendHiddenStatus="0" data-sendHiddenID="' . $Details['DT_Code'] . '" data-sendHiddenType="details"><i class="fa fa-eye"></i></a>';
-                                                                                                    } else {
-                                                                                                        echo '<a class="btn btn-link py-0 px-1 text-end text-secondary toggleButton" id="toggleButton0" data-sendHiddenStatus="1" data-sendHiddenID="' . $Details['DT_Code'] . '" data-sendHiddenType="details"><i class="fa fa-eye-slash"></i></a>';
-                                                                                                    }
+                                                                                                    if ($Details["DT_UserCreate"] == $_SESSION['User'] || CheckAdmin($_SESSION['User'])){
+                                                                                                        if ($Details["DT_Active"] == 1) {
+                                                                                                            echo '<a class="btn btn-link py-0 px-1 text-end text-secondary toggleButton" id="toggleButton1" data-sendHiddenStatus="0" data-sendHiddenID="' . $Details['DT_Code'] . '" data-sendHiddenType="details"><i class="fa fa-eye"></i></a>';
+                                                                                                        } else {
+                                                                                                            echo '<a class="btn btn-link py-0 px-1 text-end text-secondary toggleButton" id="toggleButton0" data-sendHiddenStatus="1" data-sendHiddenID="' . $Details['DT_Code'] . '" data-sendHiddenType="details"><i class="fa fa-eye-slash"></i></a>';
+                                                                                                        }
                                                                                                 ?>
                                                                                                     <a class="btn btn-link py-1 px-2 text-end" onclick="deleteAlertMenuCategory(<?php echo $Details["DT_Code"];?>, '<?php echo $Details["DT_Text"];?>', 'details')"><i class="fas fa-trash"></i></a>
-                                                                                                    <button type="button" class="btn btn-link py-0 px-1 text-end text-warning" data-bs-toggle="modal" data-bs-target="#AddEditHeading" data-sendCode="<?= $Details["DT_Code"] ?>" data-sendText="<?= $Details["DT_Text"] ?>" data-sendType="details" data-sendRelation="<?= $Heading["HD_Code"] ?>"><i class="fa fa-pencil-alt"></i></button>
+                                                                                                    <button type="button" class="btn btn-link py-0 px-1 text-end text-warning" data-bs-toggle="modal" data-bs-target="#AddEditHeading" data-sendCode="<?= $Details["DT_Code"] ?>" data-sendText="<?= $Details["DT_Text"] ?>" data-sendType="details" data-sendRelation="<?= $Heading["HD_Code"] ?>" data-sendsort="<?= $Details["DT_Sort"] ?>"><i class="fa fa-pencil-alt"></i></button>
+                                                                                                <?php } ?>
                                                                                                 </div>
                                                                                             </div>
                                                                                         </td>
@@ -221,7 +228,7 @@ th {
             <div class="modal-body">
                 <form id="modalFormMenuCategory2" action="Pro_Add&EditMenuCategory.php" method="post" enctype="multipart/form-data">
                     <div class="row g-2 my-2">
-                        <div class="col-112 col-sm-112">
+                        <div class="col-12 col-sm-12">
                             <input type="hidden" id="Send_Code" name="Send_Code">
                             <input type="hidden" id="Send_descriptionth" name="Send_descriptionth" value="">
                             <input type="hidden" id="Send_descriptionen" name="Send_descriptionen" value="">
@@ -230,6 +237,12 @@ th {
                             <h6 class="text-primary">ชื่อ</h6>
                             <textarea id="Send_Text" name="Send_Text" class="form-control border-1" style="height: 120px;" rows="5" placeholder="ชื่อหัวข้อ" required></textarea>
                         </div>
+                    </div>
+                    <div class="row justify-content-end my-2">
+                        <div class="col-2 col-sm2">
+                            <h6 class="text-primary">ลำดับ</h6>
+                            <input type="number" class="form-control border-1" id="Send_Sort" name="Send_Sort" min="0" max="99">                        
+                        </div>                        
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">ยกเลิก</button>
@@ -290,9 +303,11 @@ window.onload = function() {
 </script>
 
 <?php include("Ma_FirstFooter_Script.php"); ?>
-<?php include("Ma_ScriptDatatable.php"); ?>
+<?php // include("Ma_ScriptDatatable.php"); ?>
 <script src="js/jquery.min.js"></script>
 <script src="js/adminlte.min.js"></script>
+<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
 <script>
 // ดักจับเหตุการณ์คลิกที่ปุ่มที่มีคลาส toggleButton
 const toggleButtons = document.querySelectorAll(".toggleButton");
@@ -342,9 +357,10 @@ function sendDataToPHP(status, type, id) {
         const sendtext = button.data('sendtext');
         const sendtype = button.data('sendtype');
         const sendrelation = button.data('sendrelation');
+        const sendSort = button.data('sendsort');
 
         // console.log(sendcode);
-        // console.log(sendtext);
+        console.log(sendtext);
         // console.log(sendtype);
         // console.log(sendrelation);
 
@@ -356,6 +372,41 @@ function sendDataToPHP(status, type, id) {
             document.getElementById("Send_Text").value = '';
         } else {
             document.getElementById("Send_Text").value = sendtext;
+        }
+        document.getElementById("Send_Sort").value = sendSort;
+
+        if (sendtype === 'headinggroup') {
+            $('#Send_Text').summernote('destroy');
+            if (!sendtext) {
+            document.getElementById("Send_Text").value = '';
+            } else {
+                document.getElementById("Send_Text").value = sendtext;
+            }
+        } else if (sendtype === 'heading' || sendtype === 'details') {
+            $('#Send_Text').summernote('destroy');
+            $('#Send_Text').summernote({
+                placeholder: 'กรุณากรอกข้อมูลที่จะแสดง',
+                tabsize: 2,
+                height: 200,
+                toolbar: [
+                ['style', ['style']],
+                ['font', ['bold', 'underline', 'clear']],
+                ['color', ['color']],
+                ['para', ['ul', 'ol', 'paragraph']],
+                ['table', ['table']],
+                ['insert', ['link', 'picture', 'video']],
+                ['view', ['fullscreen', 'codeview', 'help']]
+                ],
+                callbacks: {
+                onInit: function() {
+                    if (!sendtext) {
+                        $('#Send_Text').summernote('code', '');
+                    } else {
+                        $('#Send_Text').summernote('code', sendtext);
+                    }
+                }
+            }
+            });
         }
     });
 </script>
