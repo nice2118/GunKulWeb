@@ -10,6 +10,26 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $dataFromDB = array();
     if ($result->num_rows > 0) {
         while ($row = $result->fetch_assoc()) {
+            $typeLower = strtolower($row["PP_Type"]);
+            $dataFromDBSub = array();
+            if ($typeLower === 'single') {
+                $sql2 = "SELECT * FROM `position`;";
+                $result2 = $conn->query($sql2);
+                if ($result2->num_rows > 0) {
+                    while ($row2 = $result2->fetch_assoc()) {
+                        $dataFromDBSub[] = array('id' => $row2["PT_Code"], 'name' => $row2["PT_Name"]);
+                    }
+                }
+            } elseif ($typeLower === 'multi') {
+                $sql2 = "SELECT * FROM `grouppositionheader`;";
+                $result2 = $conn->query($sql2);
+                if ($result2->num_rows > 0) {
+                    while ($row2 = $result2->fetch_assoc()) {
+                        $dataFromDBSub[] = array('id' => $row2["GH_Code"], 'name' => $row2["GH_Name"]);
+                    }
+                }
+            }
+            $row["dataFromDBSub"] = $dataFromDBSub;
             $dataFromDB[] = $row;
         }
     }

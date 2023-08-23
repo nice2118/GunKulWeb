@@ -964,12 +964,12 @@ $US_Prefix = "";
         </div>
     </div>
 
-    <!-- Modal Permission Position-->
+    <!-- Modal Permission Set Position-->
     <div class="modal fade" id="modaladdposition" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="modaladdpositionLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="modaladdpositionLabel">Permission Position</h5>
+                    <h5 class="modal-title" id="modaladdpositionLabel">Permission Set Position</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
@@ -1128,7 +1128,7 @@ $US_Prefix = "";
 
     <!-- Modal Permission Position-->
     <div class="modal fade" id="modalpermissionposition" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="modalpermissionpositionLabel" aria-hidden="true">
-        <div class="modal-dialog modal-md modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="modalpermissionpositionabel">Permission Position</h5>
@@ -1484,11 +1484,19 @@ $(document).ready(function() {
 
     $('#addButtonPermissionPosition').click(function() {
         var formGroup = $(
-            '<div class="row g-2 my-2 col-12 dynamic-content-PermissionPosition">' + 
+            '<div class="row g-2 my-2 col-12 dynamic-content-PermissionPosition dynamic-permissionposition">' + 
             '<input type="hidden" name="PP_Code[]" value="0" class="form-control">' +
-            '<div class="col-11 col-sm-11">' +
+            '<div class="col-5 col-sm-5">' +
+            '<h6 class="text-primary">ประเภท</h6>' +
+            '<select class="form-select border-1 pp-type" id="PM_Draw2" name="PP_Type[]" required>' +
+            '<option disabled selected value="">เลือกประเภท</option>' +
+            '<option value="single">ตำแหน่ง</option>' +
+            '<option value="multi">กลุ่มตำแหน่ง</option>' +
+            '</select>' +
+            '</div>' +
+            '<div class="col-6 col-sm-6">' +
             '<h6 class="text-primary">ตำแหน่ง</h6>' +
-
+            '<div class="dynamic-select-permissionposition" id="dynamicSelectpermissionposition"></div>' +
             '</div>' +
             '<div class="col-1 col-sm-1 text-center">' +
             '<h6 class="text-primary">จัดการ</h6>' +
@@ -2594,11 +2602,29 @@ $(document).ready(function() {
                     var dynamicPermissionPositionEdit = 'dynamic-content-PermissionPositionEdit' + response[i].PP_Code;
                     var btnPermissionPositionEdit = 'btn-delete-PermissionPositionEdit' + response[i].PP_Code;
                     contentHTML +=
-                        '<div class="row g-2 my-2 col-12 ' + dynamicPermissionPositionEdit + '">' + 
+                        '<div class="row g-2 my-2 col-12 ' + dynamicPermissionPositionEdit + ' dynamic-permissionposition">' + 
                         '<input type="hidden" name="PP_Code[]" value="' + response[i].PP_Code + '" class="form-control">' +
-                        '<div class="col-11 col-sm-11">' +
+                        '<div class="col-5 col-sm-5">' +
+                        '<h6 class="text-primary">ประเภท</h6>' +
+                        '<select class="form-select border-1 pp-type" name="PP_Type[]" required>' +
+                        '<option disabled selected value="">เลือกประเภท</option>' +
+                        '<option value="single" ' + (response[i].PP_Type == 'single' ? 'selected' : '') + '>ตำแหน่ง</option>' +
+                        '<option value="multi" ' + (response[i].PP_Type == 'multi' ? 'selected' : '') + '>กลุ่มตำแหน่ง</option>' +
+                        '</select>' +
+                        '</div>' +
+                        '<div class="col-6 col-sm-6">' +
                         '<h6 class="text-primary">ตำแหน่ง</h6>' +
-
+                        '<div class="dynamic-select-permissionposition" id="dynamicSelectpermissionposition">' +
+                        '<select class="form-select border-1" name="PP_PT_Code[]" required>';
+                        for (var x = 0; x < response[i].dataFromDBSub.length; x++) {
+                            contentHTML +=
+                                '<option value="' + response[i].dataFromDBSub[x].id + '" ' + (response[i].dataFromDBSub[x].id === response[i].PT_Code ? 'selected' : '') + '>' +
+                                response[i].dataFromDBSub[x].name +
+                                '</option>';
+                        }
+                    contentHTML +=
+                        '</select>' +
+                        '</div>' +
                         '</div>' +
                         '<div class="col-1 col-sm-1 text-center">' +
                         '<h6 class="text-primary">จัดการ</h6>' +
@@ -2813,24 +2839,39 @@ $(document).ready(function() {
     $(document).on('change', '.pm-relation-type2', function() {
         handleRelationTypeChange($(this),'.dynamic2-content','.dynamic-select-container2');
     });
+
+    function handleRelationTypeChangePermissionPosition(selectElement,sendDdynamicContent,sendDynamicSelectContainer) {
+        const selectedType = selectElement.val();
+        const dynamicSelectContainer = selectElement.closest(sendDdynamicContent).find(sendDynamicSelectContainer);
+        if (selectedType) {
+            $.ajax({
+                url: 'DB_GetPermissionPosition.php',
+                method: 'POST',
+                data: { type: selectedType },
+                success: function(response) {
+                    const select = $('<select>', { class: 'form-select border-1', name: 'PP_PT_Code[]' });
+                    if (response.length === 0) {
+                        select.append($('<option>', { value: 0, text: 'ไม่มีข้อมูล' }));
+                    } else {
+                        response.forEach(function(item) {
+                            select.append($('<option>', { value: item.id, text: item.name }));
+                        });
+                    }
+                    dynamicSelectContainer.empty().append(select);
+                },
+                error: function(xhr, status, error) {
+                    console.error('Ajax request error:', error);
+                }
+            });
+        } else {
+            dynamicSelectContainer.empty();
+        }
+    }
+
+    $(document).on('change', '.pp-type', function() {
+        handleRelationTypeChangePermissionPosition($(this),'.dynamic-permissionposition','.dynamic-select-permissionposition');
+    });
 });
-</script>
-<script>
-    // $(function() {
-    //     //Bootstrap Duallistbox
-    //     var demo2 = $('.duallistbox').bootstrapDualListbox({
-    //         nonSelectedListLabel: 'ตำแหน่งทั้งหมด',
-    //         selectedListLabel: 'ตำแหน่งที่เลือก',
-    //         preserveSelectionOnMove: 'moved',
-    //         moveOnSelect: false,
-    //         selectorMinimalHeight: 200,
-    //         infoText: 'จำนวนที่มีอยู่ {0}',
-    //         infoTextEmpty: 'รายการว่างเปล่า',
-    //         filterPlaceHolder: 'กรอง',
-    //         filterTextClear: 'แสดงทั้งหมด',
-    //         // nonSelectedFilter: 'ion ([7-9]|[1][0-2])'
-    //     });
-    // })
 </script>
 <script src="js/jquery.bootstrap-duallistbox.min.js"></script>
 <?php include("Ma_Footer_Script.php"); ?>

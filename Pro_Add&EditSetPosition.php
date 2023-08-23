@@ -47,7 +47,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $_SESSION['StatusAlert'] = "success";
     } else {
         $_SESSION['StatusTitle'] = "Error!";
-        $_SESSION['StatusMessage'] = "Error: " . $stmtInsert->error;
+        $_SESSION['StatusMessage'] = "Error: Not Insert";
         $_SESSION['StatusAlert'] = "error";
         if (isset($_SESSION['PathPage']) && $_SESSION['PathPage'] !== '') {
             header("Location: " . $_SESSION['PathPage']);
