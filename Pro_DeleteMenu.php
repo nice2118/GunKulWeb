@@ -15,17 +15,21 @@ if (isset($_GET['Send_ID']) && $_GET['Send_ID'] !== '') {
     exit();
 }
 
-$sql1 = "DELETE FROM `Menu` WHERE `Menu`.`MN_Code` = $Menu_id;";
-$conn->query($sql1);
+// สร้างคำสั่ง SQL ในการลบข้อมูลจากตาราง
+$sql1 = "DELETE FROM `permissionposition` WHERE `PM_Code` IN (SELECT `PM_Code` FROM `PermissionMenu` WHERE `PM_Menu` IN (SELECT `MN_Code` FROM `Menu` WHERE `MN_Code` = $Menu_id));";
+$sql2 = "DELETE FROM `PermissionMenu` WHERE `PM_RelationPermission` IN (SELECT `PM_Code` FROM `PermissionMenu` WHERE `PM_Menu` IN (SELECT `MN_Code` FROM `Menu` WHERE `MN_Code` = $Menu_id));";
+$sql3 = "DELETE FROM `PermissionMenu` WHERE `PM_Menu` IN (SELECT `MN_Code` FROM `Menu` WHERE `MN_Code` = $Menu_id);";
+$sql4 = "DELETE FROM `Menu` WHERE `MN_Code` = $Menu_id;";
 
-if ($conn->query($sql1) === TRUE) {
-  $_SESSION['StatusTitle'] = "ดำเนินการเรียบร้อยแล้ว";
-  $_SESSION['StatusMessage'] = "ทำการลบเอกสารให้หัวข้อ ".$Menu_Name." เรียบร้อบแล้ว";
-  $_SESSION['StatusAlert'] = "success";
+// ลบข้อมูลตามลำดับ และตรวจสอบผลลัพธ์
+if ($conn->query($sql1) && $conn->query($sql2) && $conn->query($sql3) && $conn->query($sql4)) {
+    $_SESSION['StatusTitle'] = "ดำเนินการเรียบร้อยแล้ว";
+    $_SESSION['StatusMessage'] = "ทำการลบเอกสารให้หัวข้อ ".$Menu_Name." เรียบร้อยแล้ว";
+    $_SESSION['StatusAlert'] = "success";
 } else {
-  $_SESSION['StatusTitle'] = "Error!";
-  $_SESSION['StatusMessage'] = "Cannot be deleted = ".$Menu_id;
-  $_SESSION['StatusAlert'] = "error";
+    $_SESSION['StatusTitle'] = "Error!";
+    $_SESSION['StatusMessage'] = "Cannot be deleted = ".$Menu_id;
+    $_SESSION['StatusAlert'] = "error";
 }
 
 
