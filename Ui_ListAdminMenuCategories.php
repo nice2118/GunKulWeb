@@ -23,7 +23,6 @@ th {
 
 <?php include("Ma_Head.php"); ?>
 <?php include("Ma_Carousel.php"); ?>
-<?php include("Fn_Permission.php"); ?>
 
 <!-- Content -->
 <div class="container-xxl py-5">

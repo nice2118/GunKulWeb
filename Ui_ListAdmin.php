@@ -9,7 +9,6 @@ if (isset($_GET['Send_Category']) && $_GET['Send_Category'] !== '') {
 ?>
 
 <?php include("Fn_RecursiveCategory.php"); ?>
-<?php include("Fn_Permission.php"); ?>
 <?php include("Ma_Head_Link.php"); ?>
 <!-- Icon Font Stylesheet -->
 <!-- <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.2.0/css/bootstrap.min.css" rel="stylesheet"> -->
