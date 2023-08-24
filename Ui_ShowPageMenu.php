@@ -95,7 +95,8 @@
                                 while ($row2 = $result2->fetch_assoc()) {
                             ?>
                                 <div class="form-group">
-                                    <h5 class="text-primary"><?php echo $row2["HD_Text"]; ?></h5>
+                                    <!-- <h5 class="text-primary"></h5>  -->
+                                    <h5><?php echo $row2["HD_Text"]; ?></h5>  
                                     <?php
                                         // ส่งคำสั่ง SQL เพื่อดึงข้อมูล
                                         $sql = "SELECT * FROM `Details` WHERE `Details`.`HD_Code` = " . $row2["HD_Code"]." AND `Details`.`DT_Active` = 1 ORDER BY `details`.`DT_Sort` ASC , `details`.`DT_UserCreate` ASC";

@@ -28,6 +28,21 @@ if (isset($_GET['Send_IDNews']) && $_GET['Send_IDNews'] !== '') {
 <?php include("Ma_Head.php"); ?>
 <?php include("Ma_Carousel.php"); ?>
 <?php
+    $CheckPage = false;
+    $sql = "SELECT * FROM `permissionmenu` WHERE `permissionmenu`.`PM_RelationType` = 'Category' AND `permissionmenu`.`PM_RelationCode` = '$Category_id' AND `permissionmenu`.`PM_Setup` = '1';";
+    $result = $conn->query($sql);
+    if ($result->num_rows > 0) {
+        while ($row = $result->fetch_assoc()) {
+            if (CheckStatus($_SESSION['User'], $row["PM_Code"])) {
+                $CheckPage = true;
+            }
+        }
+    }
+    if (!$CheckPage) {
+        echo "<script>setTimeout(function() { window.location.href = `./index.php`; }, 0); </script>";
+    }
+?>
+<?php
     $sql = "SELECT * FROM `Activities` LEFT JOIN `Setup`ON 1 = `Setup`.`SU_Code` LEFT JOIN `category` ON `Activities`.`AT_Entity No.` = `category`.`CG_Entity No.` WHERE `Activities`.`AT_Code` = $t_id;";
         
     $result = $conn->query($sql);

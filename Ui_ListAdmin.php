@@ -17,6 +17,22 @@ if (isset($_GET['Send_Category']) && $_GET['Send_Category'] !== '') {
 <?php include("Ma_Head.php"); ?>
 <?php include("Ma_Carousel.php"); ?>
 
+<?php
+    $CheckPage = false;
+    $sql = "SELECT * FROM `permissionmenu` WHERE `permissionmenu`.`PM_RelationType` = 'Category' AND `permissionmenu`.`PM_RelationCode` = '$Category_id' AND `permissionmenu`.`PM_Setup` = '1';";
+    $result = $conn->query($sql);
+    if ($result->num_rows > 0) {
+        while ($row = $result->fetch_assoc()) {
+            if (CheckStatus($_SESSION['User'], $row["PM_Code"])) {
+                $CheckPage = true;
+            }
+        }
+    }
+    if (!$CheckPage) {
+        echo "<script>setTimeout(function() { window.location.href = `./index.php`; }, 0); </script>";
+    }
+?>
+
     <!-- Content -->
     <div class="container-xxl py-5">
         <div class="container">
@@ -80,7 +96,7 @@ if (isset($_GET['Send_Category']) && $_GET['Send_Category'] !== '') {
                                         if ($IsFile == 0):
                                             $sql = "SELECT * FROM `Activities` LEFT JOIN `user` ON `Activities`.`AT_UserCreate` = `User`.`US_Username` LEFT JOIN `Category` ON `Activities`.`AT_Entity No.` = `Category`.`CG_Entity No.` WHERE (`Activities`.`AT_Entity No.` IN ($SelectFilterCategoryEntityNo)) ORDER BY `Activities`.`AT_Date` DESC , `Activities`.`AT_Time` DESC;";
                                         elseif ($IsFile == 1):
-                                            $sql = "SELECT * FROM `FileActivities` LEFT JOIN `user` ON `FileActivities`.`FA_UserCreate` = `User`.`US_Username` LEFT JOIN `Category` ON `Activities`.`AT_Entity No.` = `Category`.`CG_Entity No.` WHERE (`FileActivities`.`FA_Entity No.` IN ($SelectFilterCategoryEntityNo)) ORDER BY `FileActivities`.`FA_Date` DESC , `FileActivities`.`FA_Time` DESC;";
+                                            $sql = "SELECT * FROM `FileActivities` LEFT JOIN `user` ON `FileActivities`.`FA_UserCreate` = `User`.`US_Username` LEFT JOIN `Category` ON `FileActivities`.`FA_Entity No.` = `Category`.`CG_Entity No.` WHERE (`FileActivities`.`FA_Entity No.` IN ($SelectFilterCategoryEntityNo)) ORDER BY `FileActivities`.`FA_Date` DESC , `FileActivities`.`FA_Time` DESC;";
                                         endif;
                                         $result = $conn->query($sql);
                                         
@@ -110,7 +126,7 @@ if (isset($_GET['Send_Category']) && $_GET['Send_Category'] !== '') {
                                                     $reqDescription = $row['FA_Description'];
                                                     $fullName = $row['US_Fname'];
                                                     $reqType= $row['CG_DescriptionTH'];
-                                                    $UserCreate = $row['AT_UserCreate'];
+                                                    $UserCreate = $row['FA_UserCreate'];
                                                     
                                                     $sqlSetup = "SELECT * FROM Setup";
                                                     $resultSetup = $conn->query($sqlSetup);

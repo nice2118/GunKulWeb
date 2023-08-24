@@ -66,10 +66,10 @@ $(document).ready(function() {
     });
 });
 
-function logoutAlert() {
+function logoutAlert(name) {
         swal({
-            title: "ต้องการที่จะออกจากระบบหรือไม่?",
-            text: "เมื่อทำการออกแล้วเราจะพาท่ายไปยังหน้าแรกของการใช้งาน!",
+            title: "ออกจากระบบในชื่อ " + name + " หรือไม่?",
+            text: "เมื่อทำการออกแล้วเราจะพาท่านไปยังหน้าแรกของการใช้งาน!",
             icon: "warning",
             buttons: {
                 cancel: {

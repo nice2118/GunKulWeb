@@ -3,6 +3,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     // ทำการ logout โดยล้าง session หรือทำตามวิธีที่คุณใช้ในการจัดการ session
     session_start();
     session_destroy();
+    session_start();
+    $_SESSION['User'] = '';
 
     // เตรียมข้อมูลเพื่อส่งกลับให้กับ AJAX
     $response = array("success" => true);

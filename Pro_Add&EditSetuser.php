@@ -23,7 +23,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // echo "PT_Code: $PT_Code<br>";
     // echo "US_Username: ";
-    print_r($US_Username);
+    // print_r($US_Username);
 
     // ลบข้อมูลเดิม
     $sqlDelete = "DELETE FROM `setposition` WHERE `setposition`.`PT_Code` = ?";
@@ -60,7 +60,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $conn->close();
 
   // ส่งข้อความตอบกลับหรือเปลี่ยนเส้นทางไปหน้าอื่นตามต้องการ
-//   echo "<script> setTimeout(function() { window.location.href = `./{$_SESSION['PathPage']}`; }, 0); </script>";
+  echo "<script> setTimeout(function() { window.location.href = `./{$_SESSION['PathPage']}`; }, 0); </script>";
 }
 ?>
 </head>
