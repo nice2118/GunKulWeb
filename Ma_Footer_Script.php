@@ -1,8 +1,12 @@
-<!-- <script>
+<script>
     $(document).ready(function() {
-        $('[data-bs-toggle="tooltip"]').tooltip();
+        // $('[data-bs-toggle="tooltip"]').tooltip();
+        var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+        var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+        return new bootstrap.Tooltip(tooltipTriggerEl)
+        });
     });
-</script> -->
+</script>
 <script>
 $(document).ready(function() {
 
@@ -148,6 +152,35 @@ function logoutAlert(name) {
     <?php
         }
     ?>
+</script>
+<script>
+    document.getElementById('Profile_imageUser').addEventListener('change', function (e) {
+        var file = e.target.files[0];
+        var reader = new FileReader();
+
+        reader.onload = function (e) {
+            var previewImageUserProfile = document.getElementById('previewImageUserProfile');
+            previewImageUserProfile.src = e.target.result;
+        };
+
+        if (file) {
+            reader.readAsDataURL(file);
+        }
+    });
+
+    document.getElementById('SignUp_imageUser').addEventListener('change', function (e) {
+        var file = e.target.files[0];
+        var reader = new FileReader();
+
+        reader.onload = function (e) {
+            var previewImageUserSignUp = document.getElementById('previewImageUserSignUp');
+            previewImageUserSignUp.src = e.target.result;
+        };
+
+        if (file) {
+            reader.readAsDataURL(file);
+        }
+    });
 </script>
     <!-- JavaScript Libraries -->
     <!-- <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script> -->

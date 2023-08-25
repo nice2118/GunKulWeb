@@ -1,5 +1,6 @@
 <?php 
 include("DB_Include.php");
+$_SESSION['PathPage'] = "Index.php";
 include("DB_Setup.php");
 include("Fn_RecursiveCategory.php");
 $Category1_id = 0;

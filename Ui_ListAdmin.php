@@ -317,10 +317,10 @@ $(document).ready(function() {
     });
 });
 </script>
-<script>
+<!-- <script>
     $(document).ready(function() {
         // คือคำสั่งแสดงชื่อบนรูป
         $('[data-bs-toggle="tooltip"]').tooltip();
     });
-</script>
+</script> -->
 <?php include("Ma_Footer_Script.php"); ?>

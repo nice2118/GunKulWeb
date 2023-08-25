@@ -193,9 +193,9 @@ $(document).ready(function() {
     });
 });
 </script>
-<script>
+<!-- <script>
     $(document).ready(function() {
         $('[data-bs-toggle="tooltip"]').tooltip();
     });
-</script>
+</script> -->
 <?php include("Ma_Footer_Script.php"); ?>
