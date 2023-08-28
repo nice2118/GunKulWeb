@@ -120,7 +120,7 @@ function logoutAlert(name) {
     }
 </script>
 <script>
-    <?php if(isset($_SESSION['User']) && !empty($_SESSION['User'])) { ?>
+    <?php if(isset($currentUser) && !empty($currentUser)) { ?>
         let timeout;
 
         // ฟังก์ชันสำหรับแสดงแจ้งเตือนเมื่อไม่มีการขยับเมาส์เป็นเวลา 30 นาที

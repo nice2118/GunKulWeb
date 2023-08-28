@@ -32,14 +32,6 @@ include("DB_Include.php");
       $_SESSION['StatusAlert'] = "error";
   }
 
-  // หากไม่มีข้อผิดพลาดในการลบข้อมูลในตารางทั้งหมด จะทำการยืนยันการลบข้อมูล
-  $conn->commit();
-
-  $_SESSION['StatusTitle'] = "ดำเนินการเรียบร้อยแล้ว";
-  $_SESSION['StatusMessage'] = "ทำการลบเอกสารให้หัวข้อ " . $Menu_Name . " เรียบร้อบแล้ว";
-  $_SESSION['StatusAlert'] = "success";
-
   echo "<script>setTimeout(function() { window.location.href = `./{$_SESSION['PathPage']}`; }, 0); </script>";
-
   exit();
 ?>

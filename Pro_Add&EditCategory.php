@@ -82,6 +82,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         header("Location: ".$_SESSION['PathPage']);
         unset($_SESSION['PathPage']);
       }
+      exit;
     }
   }
 
@@ -104,8 +105,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if (isset($_SESSION['PathPage']) && $_SESSION['PathPage'] !== '') {
           header("Location: ".$_SESSION['PathPage']);
           unset($_SESSION['PathPage']);
-          exit;
         }
+        exit;
       }
     }
       if ($FullNameImage == '') {

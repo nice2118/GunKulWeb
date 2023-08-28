@@ -22,7 +22,7 @@ echo '<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script
             for ($i = 0; $i < count($inputNames); $i++) {
                 if ($inputNames[$i] != '') {
                     if ($inputcode[$i] == 0 || $inputcode[$i] == '') {
-                        $sql = "INSERT INTO `masterheadingcategories` (`MC_Code`, `MC_Text`, `HC_Code`, `MC_UserCreate`, `MC_CreateDate`, `MC_ModifyDate`) VALUES (Null, '$inputNames[$i]', '$inputMastercode', '{$_SESSION['User']}', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);";
+                        $sql = "INSERT INTO `masterheadingcategories` (`MC_Code`, `MC_Text`, `HC_Code`, `MC_UserCreate`, `MC_CreateDate`, `MC_ModifyDate`) VALUES (Null, '$inputNames[$i]', '$inputMastercode', '{$currentUser}', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);";
                     } else {    
                         $sql = "UPDATE `masterheadingcategories` SET `MC_Text` = '$inputNames[$i]' WHERE `masterheadingcategories`.`MC_Code` = $inputcode[$i];";
                     }
@@ -43,11 +43,11 @@ echo '<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script
             }
         }
 
-    // ปิดการเชื่อมต่อฐานข้อมูล
-    $conn->close();
+        // ปิดการเชื่อมต่อฐานข้อมูล
+        $conn->close();
 
-    // ส่งข้อความตอบกลับหรือเปลี่ยนเส้นทางไปหน้าอื่นตามต้องการ
-      echo "<script> setTimeout(function() { window.location.href = `./{$_SESSION['PathPage']}`; }, 0); </script>";
+        // ส่งข้อความตอบกลับหรือเปลี่ยนเส้นทางไปหน้าอื่นตามต้องการ
+        echo "<script> setTimeout(function() { window.location.href = `./{$_SESSION['PathPage']}`; }, 0); </script>";
     }
 ?>
 </head>

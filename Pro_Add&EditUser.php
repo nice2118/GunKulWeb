@@ -47,8 +47,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             if ($Send_OldImage != ''){
                 $filePath = $PathFolderUser . $Send_OldImage;
                 if (file_exists($filePath)) {
-                if (unlink($filePath)) {
-                }
+                    if (unlink($filePath)) {
+                    }
                 }
             }
     
@@ -65,6 +65,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             header("Location: ".$_SESSION['PathPage']);
             unset($_SESSION['PathPage']);
           }
+          exit;
         }
     }
 
@@ -97,6 +98,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         $_SESSION['StatusTitle'] = "Error!";
                         $_SESSION['StatusMessage'] = "Error: Add setposition";
                         $_SESSION['StatusAlert'] = "error";
+                        exit;
                     }
                 }
             }
@@ -122,6 +124,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             $_SESSION['StatusTitle'] = "Error!";
                             $_SESSION['StatusMessage'] = "Error: Update setposition";
                             $_SESSION['StatusAlert'] = "error";
+                            exit;
                         }
                     }
                 }

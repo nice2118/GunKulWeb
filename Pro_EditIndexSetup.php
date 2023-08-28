@@ -12,7 +12,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   $IS_GroupMenu3_Box3 = !empty($_POST['IS_GroupMenu3_Box3']) ? $_POST['IS_GroupMenu3_Box3'] : 0;
   $IS_GroupMenu4 = !empty($_POST['IS_GroupMenu4']) ? $_POST['IS_GroupMenu4'] : '';
   $IS_GroupMenu4_Box4 = !empty($_POST['IS_GroupMenu4_Box4']) ? $_POST['IS_GroupMenu4_Box4'] : 0;
-  $IS_UserCreate = $_SESSION['User'];
+  $IS_UserCreate = $currentUser;
 
 // echo "IS_GroupCategory1: " . $IS_GroupCategory1 . "<br>";
 // echo "IS_GroupCategory2: " . $IS_GroupCategory2 . "<br>";

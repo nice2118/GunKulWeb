@@ -14,10 +14,9 @@ if (isset($_GET['Send_ID']) && $_GET['Send_ID'] !== '') {
     exit();
 }
 
-$sql1 = "DELETE FROM `user` WHERE `user`.`US_Code` = $User_id;";
-$conn->query($sql1);
+$sql = "DELETE FROM `user` WHERE `user`.`US_Username` = '$User_id';";
 
-if ($conn->query($sql1) === TRUE) {
+if ($conn->query($sql) === TRUE) {
   $_SESSION['StatusTitle'] = "ดำเนินการเรียบร้อยแล้ว";
   $_SESSION['StatusMessage'] = "ทำการลบเอกสารให้หัวข้อ ".$User_id." เรียบร้อบแล้ว";
   $_SESSION['StatusAlert'] = "success";
@@ -26,14 +25,6 @@ if ($conn->query($sql1) === TRUE) {
   $_SESSION['StatusMessage'] = "Cannot be deleted = ".$User_id;
   $_SESSION['StatusAlert'] = "error";
 }
-
-
-    // หากไม่มีข้อผิดพลาดในการลบข้อมูลในตารางทั้งหมด จะทำการยืนยันการลบข้อมูล
-    $conn->commit();
-
-    $_SESSION['StatusTitle'] = "ดำเนินการเรียบร้อยแล้ว";
-    $_SESSION['StatusMessage'] = "ทำการลบเอกสารให้หัวข้อ " . $User_id . " เรียบร้อบแล้ว";
-    $_SESSION['StatusAlert'] = "success";
 
 echo "<script>setTimeout(function() { window.location.href = `./{$_SESSION['PathPage']}`; }, 0); </script>";
 

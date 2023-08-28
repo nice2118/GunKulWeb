@@ -630,7 +630,7 @@ document.addEventListener("DOMContentLoaded", function() {
                     '</div>';
             }
             
-            <?php if(!isset($_SESSION['User']) || $_SESSION['User'] === '') : ?>
+            <?php if(!isset($currentUser) || $currentUser === '') : ?>
                 PopupModal.innerHTML = modalContent;
 
                 // Triggering the modals

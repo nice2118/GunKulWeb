@@ -1,6 +1,7 @@
 <?PHP
 if (!session_id()) session_start();
 $_SESSION["ip"] = "10.10.9.65";
+$currentUser = isset($_SESSION['User']) ? $_SESSION['User'] : '';
 
 //------------------------------------------
 $servername="localhost";

@@ -111,6 +111,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
           header("Location: ".$_SESSION['PathPage']);
           unset($_SESSION['PathPage']);
         }
+        exit;
         $filePath = $PathFolderNews . $newnFullNameImage;
   
         if (file_exists($filePath)) {
@@ -124,6 +125,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                   header("Location: ".$_SESSION['PathPage']);
                   unset($_SESSION['PathPage']);
                 }
+                exit;
             }
         } else {
             $_SESSION['StatusTitle'] = "Error!";
@@ -133,6 +135,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
               header("Location: ".$_SESSION['PathPage']);
               unset($_SESSION['PathPage']);
             }
+            exit;
         }
       }
     }

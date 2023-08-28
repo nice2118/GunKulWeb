@@ -61,6 +61,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             header("Location: ".$_SESSION['PathPage']);
             unset($_SESSION['PathPage']);
           }
+          exit;
         }
     }
 

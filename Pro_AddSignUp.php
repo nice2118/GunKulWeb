@@ -19,6 +19,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $SignUp_Lname = $_POST['SignUp_Lname'];
     $SignUp_Username = $_POST['SignUp_Username'];
     $SignUp_Password = $_POST['SignUp_Password'];
+    $SignUp_ConfirmPassword = $_POST['SignUp_ConfirmPassword'];
+
+    if ($SignUp_Password != $SignUp_ConfirmPassword) {
+        $_SESSION['StatusTitle'] = "Error!";
+        $_SESSION['StatusMessage'] = "เนื่องจากกรอกช่อง Password กับ Confirm Password ไม่ตรงกัน";
+        $_SESSION['StatusAlert'] = "error";
+        if (isset($_SESSION['PathPage']) && $_SESSION['PathPage'] !== '') {
+          header("Location: ".$_SESSION['PathPage']);
+          unset($_SESSION['PathPage']);
+        }
+        exit;
+    }
 
     $FullNameImage = '';
     if (isset($_FILES['SignUp_imageUser']) && $_FILES['SignUp_imageUser']['error'] === UPLOAD_ERR_OK) {
@@ -50,6 +62,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             header("Location: ".$_SESSION['PathPage']);
             unset($_SESSION['PathPage']);
           }
+          exit;
         }
     }
 
@@ -81,6 +94,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $_SESSION['StatusTitle'] = "Error!";
                 $_SESSION['StatusMessage'] = "Error: Add setposition";
                 $_SESSION['StatusAlert'] = "error";
+                exit;
             }
         }
     }

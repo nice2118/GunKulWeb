@@ -16,7 +16,6 @@ if (isset($_GET['Send_ID']) && $_GET['Send_ID'] !== '') {
 }
 
 $sql1 = "DELETE FROM `masterheadingcategories` WHERE `masterheadingcategories`.`MC_Code` = $Engraved_Activities_id;";
-$conn->query($sql1);
 
 if ($conn->query($sql1) === TRUE) {
   $_SESSION['StatusTitle'] = "ดำเนินการเรียบร้อยแล้ว";
@@ -27,14 +26,6 @@ if ($conn->query($sql1) === TRUE) {
   $_SESSION['StatusMessage'] = "Cannot be deleted = ".$Engraved_Activities_id;
   $_SESSION['StatusAlert'] = "error";
 }
-
-
-    // หากไม่มีข้อผิดพลาดในการลบข้อมูลในตารางทั้งหมด จะทำการยืนยันการลบข้อมูล
-    $conn->commit();
-
-    $_SESSION['StatusTitle'] = "ดำเนินการเรียบร้อยแล้ว";
-    $_SESSION['StatusMessage'] = "ทำการลบเอกสารให้หัวข้อ " . $Engraved_Activities_Name . " เรียบร้อบแล้ว";
-    $_SESSION['StatusAlert'] = "success";
 
 echo "<script>setTimeout(function() { window.location.href = `./{$_SESSION['PathPage']}`; }, 0); </script>";
 

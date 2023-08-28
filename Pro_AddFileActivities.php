@@ -69,6 +69,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         header("Location: ".$_SESSION['PathPage']);
         unset($_SESSION['PathPage']);
       }
+      exit;
     }
   } else {
     // echo 'An error occurred while uploading the file.'; // เกิดข้อผิดพลาดในการอัปโหลดไฟล์
@@ -77,7 +78,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   $Title = mysqli_real_escape_string($conn, $Title);
   $Summary = mysqli_real_escape_string($conn, $Summary);
   // ทำอย่างอื่นๆ เช่นบันทึกข้อมูลลงฐานข้อมูล
-  $sql = "INSERT INTO `fileactivities` (`FA_Code`, `FA_Entity No.`, `FA_UserCreate`, `FA_Date`, `FA_Time`, `FA_Title`, `FA_Description`, `FA_File`, `FA_CreateDate`, `FA_ModifyDate`) VALUES (NULL, $CategoryID, '{$_SESSION['User']}', '$DateAddFormatted', CURRENT_TIME(), '$Title', '$Summary', '$newnFullNameFile', CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP());";
+  $sql = "INSERT INTO `fileactivities` (`FA_Code`, `FA_Entity No.`, `FA_UserCreate`, `FA_Date`, `FA_Time`, `FA_Title`, `FA_Description`, `FA_File`, `FA_CreateDate`, `FA_ModifyDate`) VALUES (NULL, $CategoryID, '$currentUser', '$DateAddFormatted', CURRENT_TIME(), '$Title', '$Summary', '$newnFullNameFile', CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP());";
   // ดำเนินการ INSERT ข้อมูล
   if ($conn->query($sql) === true) {
     $_SESSION['StatusTitle'] = "ดำเนินการเรียบร้อยแล้ว";
@@ -98,6 +99,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 header("Location: ".$_SESSION['PathPage']);
                 unset($_SESSION['PathPage']);
               }
+              exit;
           }
       } else {
           $_SESSION['StatusTitle'] = "Error!";
@@ -106,7 +108,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
           if (isset($_SESSION['PathPage']) && $_SESSION['PathPage'] !== '') {
             header("Location: ".$_SESSION['PathPage']);
             unset($_SESSION['PathPage']);
-        }
+          }
+          exit;
       }
     }
     $_SESSION['StatusTitle'] = "Error!";
@@ -116,6 +119,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       header("Location: ".$_SESSION['PathPage']);
       unset($_SESSION['PathPage']);
     }
+    exit;
   }
 
   // ปิดการเชื่อมต่อฐานข้อมูล

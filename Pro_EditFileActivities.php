@@ -52,6 +52,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
               header("Location: ".$_SESSION['PathPage']);
               unset($_SESSION['PathPage']);
             }
+            exit;
         }
     } else {
         $_SESSION['StatusTitle'] = "Error!";
@@ -61,6 +62,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
           header("Location: ".$_SESSION['PathPage']);
           unset($_SESSION['PathPage']);
         }
+        exit;
     }
 
     if (in_array($fileType, $allowedExtensions)) {
@@ -80,6 +82,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         header("Location: ".$_SESSION['PathPage']);
         unset($_SESSION['PathPage']);
       }
+      exit;
     }
   } else {
     // echo 'An error occurred while uploading the file.'; // เกิดข้อผิดพลาดในการอัปโหลดไฟล์
@@ -120,6 +123,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 header("Location: ".$_SESSION['PathPage']);
                 unset($_SESSION['PathPage']);
               }
+              exit;
           }
       } else {
           $_SESSION['StatusTitle'] = "Error!";
@@ -129,6 +133,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             header("Location: ".$_SESSION['PathPage']);
             unset($_SESSION['PathPage']);
           }
+          exit;
       }
     }
     $_SESSION['StatusTitle'] = "Error!";
@@ -138,6 +143,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       header("Location: ".$_SESSION['PathPage']);
       unset($_SESSION['PathPage']);
     }
+    exit;
   }
 
   // ปิดการเชื่อมต่อฐานข้อมูล

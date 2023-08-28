@@ -32,7 +32,7 @@ if (isset($_GET['Send_Category']) && $_GET['Send_Category'] !== '') {
     $result = $conn->query($sql);
     if ($result->num_rows > 0) {
         while ($row = $result->fetch_assoc()) {
-            if (CheckStatus($_SESSION['User'], $row["PM_Code"])) {
+            if (CheckStatus($currentUser, $row["PM_Code"])) {
                 $CheckPage = true;
             }
         }

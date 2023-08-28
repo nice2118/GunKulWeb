@@ -29,7 +29,7 @@ th {
     $result = $conn->query($sql);
     if ($result->num_rows > 0) {
         while ($row = $result->fetch_assoc()) {
-            if (CheckStatus($_SESSION['User'], $row["PM_Code"])) {
+            if (CheckStatus($currentUser, $row["PM_Code"])) {
                 $CheckPage = true;
             }
         }
@@ -110,7 +110,7 @@ th {
                                                         <?= $rowHeadingGroup["HG_Text"] ?></h5>
                                                         <div class="card-tools">
                                                         <?php
-                                                            if ($rowHeadingGroup["HG_UserCreate"] == $_SESSION['User'] || CheckAdmin($_SESSION['User'])){
+                                                            if ($rowHeadingGroup["HG_UserCreate"] == $currentUser || CheckAdmin($currentUser)){
                                                                 if ($rowHeadingGroup["HG_Active"] == 1) {
                                                                     echo '<a class="btn btn-link py-0 px-1 text-end text-secondary toggleButton" id="toggleButton1" data-sendHiddenStatus="0" data-sendHiddenID="' . $rowHeadingGroup['HG_Code'] . '" data-sendHiddenType="headinggroup"><i class="fa fa-eye"></i></a>';
                                                                 } else {
@@ -152,7 +152,7 @@ th {
                                                                             <?= $Heading["HD_Text"] ?></h6>
                                                                             <div class="card-tools">
                                                                                 <?php
-                                                                                    if ($Heading["HD_UserCreate"] == $_SESSION['User'] || CheckAdmin($_SESSION['User'])){
+                                                                                    if ($Heading["HD_UserCreate"] == $currentUser || CheckAdmin($currentUser)){
                                                                                         if ($Heading["HD_Active"] == 1) {
                                                                                             echo '<a class="btn btn-link py-0 px-1 text-end text-secondary toggleButton" id="toggleButton1" data-sendHiddenStatus="0" data-sendHiddenID="' . $Heading['HD_Code'] . '" data-sendHiddenType="heading"><i class="fa fa-eye"></i></a>';
                                                                                         } else {
@@ -183,7 +183,7 @@ th {
                                                                                                 <?= $Details["DT_Text"] ?>
                                                                                                 <div class="card-tools">
                                                                                                 <?php
-                                                                                                    if ($Details["DT_UserCreate"] == $_SESSION['User'] || CheckAdmin($_SESSION['User'])){
+                                                                                                    if ($Details["DT_UserCreate"] == $currentUser || CheckAdmin($currentUser)){
                                                                                                         if ($Details["DT_Active"] == 1) {
                                                                                                             echo '<a class="btn btn-link py-0 px-1 text-end text-secondary toggleButton" id="toggleButton1" data-sendHiddenStatus="0" data-sendHiddenID="' . $Details['DT_Code'] . '" data-sendHiddenType="details"><i class="fa fa-eye"></i></a>';
                                                                                                         } else {

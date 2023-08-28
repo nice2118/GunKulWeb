@@ -82,6 +82,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             header("Location: ".$_SESSION['PathPage']);
             unset($_SESSION['PathPage']);
           }
+          exit;
         }
     }
   }
@@ -90,14 +91,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     switch ($TypeLower) {
       case "headingcategories":
         if ($FullNameImage == '') {
-          $sql = "INSERT INTO `headingcategories` (`HC_Code`, `HC_Text`, `HC_descriptionth`, `HC_descriptionen`, `HC_UserCreate`, `HC_CreateDate`, `HC_ModifyDate`) VALUES (NULL, '$Send_Text', '$Send_descriptionth', '$Send_descriptionen', '{$_SESSION['User']}', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);";
+          $sql = "INSERT INTO `headingcategories` (`HC_Code`, `HC_Text`, `HC_descriptionth`, `HC_descriptionen`, `HC_UserCreate`, `HC_CreateDate`, `HC_ModifyDate`) VALUES (NULL, '$Send_Text', '$Send_descriptionth', '$Send_descriptionen', '$currentUser', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);";
         } else {
-          $sql = "INSERT INTO `headingcategories` (`HC_Code`, `HC_Text`, `HC_descriptionth`, `HC_descriptionen`, `HC_UserCreate`, `HC_DefaultImage`, `HC_CreateDate`, `HC_ModifyDate`) VALUES (NULL, '$Send_Text', '$Send_descriptionth', '$Send_descriptionen', '{$_SESSION['User']}', '$FullNameImage', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);";
+          $sql = "INSERT INTO `headingcategories` (`HC_Code`, `HC_Text`, `HC_descriptionth`, `HC_descriptionen`, `HC_UserCreate`, `HC_DefaultImage`, `HC_CreateDate`, `HC_ModifyDate`) VALUES (NULL, '$Send_Text', '$Send_descriptionth', '$Send_descriptionen', '$currentUser', '$FullNameImage', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);";
         }
         // echo 'a';
         break;
       case "headinggroup":
-        $sql = "INSERT INTO `headinggroup` (`HG_Code`, `HG_Text`, `HG_Active`, `HG_Sort`, `HC_Code`, `HG_UserCreate`, `HG_CreateDate`, `HG_ModifyDate`) VALUES (NULL, '$Send_Text', '1', $Send_Sort, '$Send_Relation', '{$_SESSION['User']}', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);";
+        $sql = "INSERT INTO `headinggroup` (`HG_Code`, `HG_Text`, `HG_Active`, `HG_Sort`, `HC_Code`, `HG_UserCreate`, `HG_CreateDate`, `HG_ModifyDate`) VALUES (NULL, '$Send_Text', '1', $Send_Sort, '$Send_Relation', '$currentUser', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);";
         // echo 'b';
         $resultMasterHeadingCategories = $conn->query("SELECT * FROM `masterheadingcategories` WHERE `HC_Code` = $Send_Relation ORDER BY `MC_Code` ASC;");
         if ($resultMasterHeadingCategories->num_rows > 0) {
@@ -107,7 +108,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
               // นำข้อมูลที่ได้จาก headinggroup มาเพิ่มเข้าไปในตาราง heading โดย loop ผ่านทุก row ที่ได้จาก masterheadingcategories
               while ($rowMasterHeadingCategories = $resultMasterHeadingCategories->fetch_assoc()) {
                   $MC_Text = $rowMasterHeadingCategories["MC_Text"];
-                  $sql .= "INSERT INTO `heading` (`HD_Code`, `HD_Text`, `HD_Active`, `HG_Code`, `HD_UserCreate`, `HD_CreateDate`, `HD_ModifyDate`) VALUES (NULL, '$MC_Text', '1', '$insertedHG_Code', '{$_SESSION['User']}', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);";
+                  $sql .= "INSERT INTO `heading` (`HD_Code`, `HD_Text`, `HD_Active`, `HG_Code`, `HD_UserCreate`, `HD_CreateDate`, `HD_ModifyDate`) VALUES (NULL, '$MC_Text', '1', '$insertedHG_Code', '$currentUser', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);";
               }
           } else {
               $_SESSION['StatusTitle'] = "Error!";
@@ -121,11 +122,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
         break;
       case "heading":
-        $sql = "INSERT INTO `heading` (`HD_Code`, `HD_Text`, `HD_Active`, `HD_Sort`, `HG_Code`, `HD_UserCreate`, `HD_CreateDate`, `HD_ModifyDate`) VALUES (NULL, '$Send_Text', '1', $Send_Sort, '$Send_Relation', '{$_SESSION['User']}' , CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);";
+        $sql = "INSERT INTO `heading` (`HD_Code`, `HD_Text`, `HD_Active`, `HD_Sort`, `HG_Code`, `HD_UserCreate`, `HD_CreateDate`, `HD_ModifyDate`) VALUES (NULL, '$Send_Text', '1', $Send_Sort, '$Send_Relation', '$currentUser' , CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);";
         // echo 'c';
         break;
       case "details":
-        $sql = "INSERT INTO `details` (`DT_Code`, `DT_Text`, `DT_Active`, `DT_Sort`, `HD_Code`,`DT_UserCreate` , `DT_CreateDate`, `DT_ModifyDate`) VALUES (NULL, '$Send_Text', '1', $Send_Sort, '$Send_Relation', '{$_SESSION['User']}' , CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);";
+        $sql = "INSERT INTO `details` (`DT_Code`, `DT_Text`, `DT_Active`, `DT_Sort`, `HD_Code`,`DT_UserCreate` , `DT_CreateDate`, `DT_ModifyDate`) VALUES (NULL, '$Send_Text', '1', $Send_Sort, '$Send_Relation', '$currentUser' , CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);";
         // echo 'd';
         break;
       default:
@@ -160,6 +161,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
           $_SESSION['StatusTitle'] = "Error!";
           $_SESSION['StatusMessage'] = "เกิดข้อผิดพลาดในการอัพเดชข้อมูล";
           $_SESSION['StatusAlert'] = "error";
+          exit;
           break;
     }
   }

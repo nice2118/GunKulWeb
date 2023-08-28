@@ -20,7 +20,7 @@ $US_Prefix = "";
     $result = $conn->query($sql);
     if ($result->num_rows > 0) {
         while ($row = $result->fetch_assoc()) {
-            if (CheckStatus($_SESSION['User'], $row["PM_Code"])) {
+            if (CheckStatus($currentUser, $row["PM_Code"])) {
                 $CheckPage = true;
             }
         }
@@ -449,7 +449,7 @@ $US_Prefix = "";
                                                                 echo '<a class="btn btn-link py-0 px-1 text-end text-secondary toggleButton" id="toggleButton0" data-sendHiddenID="' . $row['US_Username'] . '"><i class="fa fa-eye-slash"></i></a>';
                                                             }
                                                         ?>
-                                                            <a class="btn btn-link py-1 px-2 text-end" onclick="deleteAlertUser(<?php echo $row["US_Username"];?>)"><i class="fas fa-trash"></i></a>
+                                                            <a class="btn btn-link py-1 px-2 text-end" onclick="deleteAlertUser('<?php echo $row["US_Username"];?>')"><i class="fas fa-trash"></i></a>
                                                             <button type="button" class="btn btn-link py-1 px-2 text-end text-warning" data-bs-toggle="modal" data-bs-target="#modaluser" data-ustype="edit" data-ususername="<?= $row["US_Username"] ?>" data-uspassword="<?= $row["US_Password"] ?>" data-usprefix="<?= $row["US_Prefix"] ?>" data-ptcode="<?= $row["PT_Code"] ?>" data-usfname="<?= $row["US_Fname"] ?>" data-uslname="<?= $row["US_Lname"] ?>" data-usimage="<?= $row["US_Image"] ?>"><i class="fas fa-edit"></i></button>
                                                         </div>
                                                     </li>
