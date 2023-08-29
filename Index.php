@@ -616,11 +616,47 @@ document.addEventListener("DOMContentLoaded", function() {
             for (var i = 0; i < response.length; i++) {
                 var modalId = 'modalPopup' + i;
                 modalContent +=
+                    // '<div class="modal show" id="' + modalId + ' role="dialog" tabindex="-1" aria-labelledby="' + modalId + 'Label" style="padding-right: 17px; display: block;">' +
+                    // '<div class="modal-dialog modal-xl" role="document">' +
+                    // '<div class="modal-content">' +
+                    // '<div class="modal-body text-center pt-0">' +
+                    // '<div class="row no-gutters ">' +
+                    // '<div class="col-md-12"><img src="' + response[i].image + '" alt="" class="img-fluid"></div>' +
+                    // '</div>' +
+                    // '</div>' +
+                    // '<div class="modal-header">' +
+                    // '<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>' +
+                    // '</div>' +
+                    // '</div>' +
+                    // '</div>' +
+                    // '</div>';
+
+                    
+
+                    // '<div class="modal fade" id="' + modalId + '" data-bs-backdrop="static" data-bs-keyboard="true" tabindex="-1" aria-labelledby="' + modalId + 'Label" aria-hidden="true">' +
+                    // '<div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable">' +
+                    // '<div class="modal-content" style="overflow: hidden;">' +
+                    // '<div class="modal-body" style="max-height: 75vh; overflow: hidden;">' + // ปรับส่วนนี้เพื่อให้ไม่มีแถบเลื่อนภายใน modal body
+                    // '<div class="row no-gutters">' +
+                    // '<div class="col-md-12" style="max-height: 75vh; overflow: hidden;"><img src="' + response[i].image + '" alt="Image" class="img-fluid w-100 h-100" style="object-fit: cover;"></div>' + // ปรับส่วนนี้เพื่อให้รูปภาพไม่เกินขอบเขต
+                    // '</div>' +
+                    // '</div>' +
+                    // '<div class="modal-header">' +
+                    // '<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>' +
+                    // '</div>' +
+                    // '</div>' +
+                    // '</div>' +
+                    // '</div>';
+
+
+
                     '<div class="modal fade" id="' + modalId + '" data-bs-backdrop="static" data-bs-keyboard="true" tabindex="-1" aria-labelledby="' + modalId + 'Label" aria-hidden="true">' +
                     '<div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable">' +
                     '<div class="modal-content">' +
                     '<div class="modal-body">' +
-                    '<img src="' + response[i].image + '" alt="Image" class="img-fluid w-100 h-auto">' +
+                    '<div class="row no-gutters">' +
+                    '<div class="col-md-12"><img src="' + response[i].image + '" alt="Image" class="img-fluid w-100 h-100" style="object-fit: contain;"></div>' +
+                    '</div>' +
                     '</div>' +
                     '<div class="modal-header">' +
                     '<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>' +

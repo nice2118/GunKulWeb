@@ -2045,7 +2045,7 @@ $(document).ready(function() {
         const name = button.data('name');
         const descriptionTH = button.data('descriptionth');
         const descriptionEN = button.data('descriptionen');
-        const ecImage = button.data('ecimage') !== '' ? 'img/DefaultImageCategory/' + button.data('ecimage') : 'Default/DefaultImage/DefaultImage.png';
+        const ecImage = button.data('ecimage') !== '' ? 'img/DefaultImageCategory/' + button.data('ecimage') + '?timestamp=' + new Date().getTime() : 'Default/DefaultImage/DefaultImage.png';
         const oldImage = button.data('ecimage');
 
 
@@ -2070,7 +2070,7 @@ $(document).ready(function() {
         const hcText = button.data('hctext');
         const hcDescriptionTH = button.data('hcdescriptionth');
         const hcDescriptionEN = button.data('hcdescriptionen');
-        const hcImage = button.data('hcimage') !== '' ? 'img/DefaultImageHeadingCategory/' + button.data('hcimage') : 'Default/DefaultImage/DefaultImage.png';
+        const hcImage = button.data('hcimage') !== '' ? 'img/DefaultImageHeadingCategory/' + button.data('hcimage') + '?timestamp=' + new Date().getTime() : 'Default/DefaultImage/DefaultImage.png';
         const hcOldImage = button.data('hcimage');
 
         // กำหนดค่าให้กับช่อง input ใน Modal
@@ -2716,10 +2716,12 @@ $(document).ready(function() {
         const button = $(event.relatedTarget);
         const apCode = button.data('apcode');
         const apName = button.data('apname');
-        const apImage = button.data('apimage') !== '' ? 'img/Popup/' + button.data('apimage') : 'Default/DefaultImage/DefaultImage.png';
+        const apImage = button.data('apimage') !== '' ? 'img/Popup/' + button.data('apimage') + '?timestamp=' + new Date().getTime() : 'Default/DefaultImage/DefaultImage.png';
         const apOldImage = button.data('apimage');
         const apDateStart = button.data('apdatestart');
         const apDateEnd = button.data('apdateend');
+
+        console.log(apImage);
 
         // กำหนดค่าให้กับช่อง input ใน Modal
         document.getElementById("AP_Code").value = apCode;
@@ -2733,9 +2735,9 @@ $(document).ready(function() {
         document.getElementById("AP_DateEnd").value = apDateEnd;
 
         var modalContentMasterMenuPopup = document.getElementById("modalPreviewImagePopup");
-        var contentHTML = '<img id="previewImagePopup" class="img-fluid rounded" src="' + apImage + '" alt="" style="width: 200px; height: 200px;">';
+        var contentHTML = '<img id="previewImagePopup" class="img-fluid rounded" src="' + apImage + '" alt="image" style="width: 200px; height: 200px;">';
         modalContentMasterMenuPopup.innerHTML = contentHTML;
-    });    
+    });   
 </script>
 <!-- Hidden -->
 <script>

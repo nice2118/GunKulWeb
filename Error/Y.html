@@ -1,7 +1,37 @@
-<div class="modal-content"><button type="button" class="close ml-auto pr-2" data-dismiss="modal" aria-label="Close"> <span aria-hidden="true">×</span> </button>
-    <div class="modal-body text-center pt-0">
-        <div class="row no-gutters ">
-            <div class="col-md-12"><img src="/storage/popup/other/2022601-gunkul-popup.jpg" alt="" class="img-fluid"></div>
-        </div>
-    </div>
-</div>
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title></title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="fancybox/jquery.fancybox-1.3.4.css" type="text/css" media="screen" />
+
+</head>
+
+<body>
+    <!--[if lt IE 7]>
+            <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js"></script>
+    <script type="text/javascript" src="fancybox/jquery.fancybox-1.3.4.pack.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $.fancybox({
+                'width': '72.50%',
+                'height': '94%',
+                'autoScale': true,
+                'transitionIn': 'fade',
+                'transitionOut': 'fade',
+                'type': 'iframe',
+                'href': '../img/7.jpg'
+            });
+        });
+    </script>
+</body>
+
+</html>

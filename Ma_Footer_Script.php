@@ -147,11 +147,9 @@ function logoutAlert(name) {
         // ใช้งาน event listener เพื่อตรวจสอบการขยับเมาส์
         document.addEventListener("mousemove", function() {
             clearTimeout(timeout); // รีเซ็ต timeout ก่อน
-            timeout = setTimeout(showMouseInactiveAlert, 1800000); // เริ่มนับเวลาใหม่
+            timeout = setTimeout(showMouseInactiveAlert, 1800000); // เริ่มนับเวลาใหม่ 30 นาที 1 นาที = 60000 1 วิ = 1000
         });
-    <?php
-        }
-    ?>
+    <?php } ?>
 </script>
 <script>
     document.getElementById('Profile_imageUser').addEventListener('change', function (e) {

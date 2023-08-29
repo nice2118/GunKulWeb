@@ -208,8 +208,8 @@
                         <img id="previewImageUser" class="img-fluid rounded-circle mx-1 mb-1" src="<?=$ImageProfile?>" alt="" style="width: 40px; height: 40px;">
                     </button>
                     <ul class="dropdown-menu dropdown-menu-lg-end my-0">
-                        <li><button type="button" class="btn btn-white rounded-0 py-3 px-lg-3 d-none d-lg-block" data-bs-toggle="modal" data-bs-target="#ProfileModal"><i class="fa fa-user-circle ms-auto fs-5"></i>&nbsp;&nbsp;จัดการโปรไฟล์</button></li>
-                        <li><button type="button" class="btn btn-white rounded-0 py-3 px-lg-3 d-none d-lg-block" onclick="logoutAlert('<?=$currentUser?>')"><i class="fas fa-sign-out-alt ms-auto fs-5"></i>&nbsp;&nbsp;ออกจากระบบ</button></li>
+                        <li><button type="button" class="btn btn-white rounded-0 py-3 px-lg-3 d-none d-lg-block" data-bs-toggle="modal" data-bs-target="#ProfileModal"><i class="fa fa-user-circle ms-auto fs-5"></i>&nbsp;จัดการโปรไฟล์</button></li>
+                        <li><button type="button" class="btn btn-white rounded-0 py-3 px-lg-3 d-none d-lg-block" onclick="logoutAlert('<?=$currentUser?>')"><i class="fas fa-sign-out-alt ms-auto fs-5"></i>&nbsp;ออกจากระบบ</button></li>
                     </ul>
                 </div>
             <?php endif; ?>
@@ -338,19 +338,35 @@
                     <input type="Text" name="Profile_Username" class="form-control border-1" placeholder="Username" value="<?=$Profile_Username?>" required>
                 </div>
                 <div class="col-6 col-sm-6">
-                    <h6 class="text-primary">Password</h6>
-                    <input type="Password" name="Profile_Password" class="form-control border-1" placeholder="Password" value="<?=$Profile_Password?>" required>
+                    <div class="row">
+                        <div class="col-12 col-sm-12 my-2">
+                            <h6 class="text-primary">Old Password</h6>
+                            <input type="Password" name="Profile_PasswordOld" class="form-control border-1" placeholder="Old Password" value="">
+                        </div>
+                        <div class="col-12 col-sm-12 my-2">
+                            <h6 class="text-primary">New Password</h6>
+                            <input type="Password" name="Profile_Password" class="form-control border-1" placeholder="New Password" value="">
+                        </div>
+                        <div class="col-12 col-sm-12 my-2">
+                            <h6 class="text-primary">Confirm Password</h6>
+                            <input type="Password" name="Profile_ConfirmPassword" class="form-control border-1" placeholder="Confirm Password" value="">
+                        </div>
+                    </div>
                 </div>
                 <div class="col-6 col-sm-6">
-                    <h6 class="text-primary">ภาพเริ่มต้น</h6>
-                    <input type="file" class="form-control border-1" name="Profile_imageUser" id="Profile_imageUser" accept="image/*">
-                    <label for="Profile_imageUser" style="cursor: pointer;">
-                        <img id="previewImageUserProfile" class="img-fluid rounded" src="<?=$ImageProfile?>" alt="" style="width: 75px; height: 75px;">
-                    </label>
-                </div>
-                <div class="col-6 col-sm-6">
-                    <h6 class="text-primary">ตำแหน่ง</h6>
-                    <p><?=$Profile_Position?></p>
+                    <div class="row">
+                        <div class="col-12 col-sm-12 my-2">
+                            <h6 class="text-primary">ภาพเริ่มต้น</h6>
+                            <input type="file" class="form-control border-1" name="Profile_imageUser" id="Profile_imageUser" accept="image/*">
+                            <label for="Profile_imageUser" style="cursor: pointer;">
+                                <img id="previewImageUserProfile" class="img-fluid rounded" src="<?=$ImageProfile?>" alt="" style="width: 75px; height: 75px;">
+                            </label>
+                        </div>
+                        <div class="col-12 col-sm-12 my-2">
+                            <h6 class="text-primary">ตำแหน่ง</h6>
+                            <p><?=$Profile_Position?></p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </form>

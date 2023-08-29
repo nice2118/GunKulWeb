@@ -14,7 +14,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $stmt->execute();
     $result = $stmt->get_result();
 
-    $dataFromDB = array();
     $isValidUser = false;
     $_SESSION['User'] = '';
     if ($result->num_rows > 0) {
