@@ -650,12 +650,28 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
 
+                    // '<div class="modal fade" id="' + modalId + '" data-bs-backdrop="static" data-bs-keyboard="true" tabindex="-1" aria-labelledby="' + modalId + 'Label" aria-hidden="true">' +
+                    // '<div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable">' +
+                    // '<div class="modal-content">' +
+                    // '<div class="modal-body">' +
+                    // '<div class="row no-gutters">' +
+                    // '<div class="col-md-12"><img src="' + response[i].image + '" alt="Image" class="img-fluid w-100 h-100" style="object-fit: contain;"></div>' +
+                    // '</div>' +
+                    // '</div>' +
+                    // '<div class="modal-header">' +
+                    // '<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>' +
+                    // '</div>' +
+                    // '</div>' +
+                    // '</div>' +
+                    // '</div>';
+
+
                     '<div class="modal fade" id="' + modalId + '" data-bs-backdrop="static" data-bs-keyboard="true" tabindex="-1" aria-labelledby="' + modalId + 'Label" aria-hidden="true">' +
-                    '<div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable">' +
+                    '<div class="modal-dialog modal-xl modal-dialog-centered modal-dialog">' +
                     '<div class="modal-content">' +
                     '<div class="modal-body">' +
                     '<div class="row no-gutters">' +
-                    '<div class="col-md-12"><img src="' + response[i].image + '" alt="Image" class="img-fluid w-100 h-100" style="object-fit: contain;"></div>' +
+                    '<div class="col-md-12"><img src="' + response[i].image + '" alt="Image" class="img-fluid w-100" style="height:600px;"></div>' +
                     '</div>' +
                     '</div>' +
                     '<div class="modal-header">' +
