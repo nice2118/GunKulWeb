@@ -163,9 +163,9 @@
                 <div data-bs-toggle="tooltip" data-bs-placement="bottom" title="Log Out">
                     <button type="button" class="btn btn-white rounded-0 py-4 px-lg-3 d-none d-lg-block" data-bs-toggle="modal" data-bs-target="#LoginModal"><i class="fa fa-user-circle ms-auto fs-4"></i></button>
                 </div>
-                <div data-bs-toggle="tooltip" data-bs-placement="left" title="Sign Up">
+                <!-- <div data-bs-toggle="tooltip" data-bs-placement="left" title="Sign Up">
                     <button type="button" class="btn btn-white rounded-0 py-4 px-lg-3 d-none d-lg-block" data-bs-toggle="modal" data-bs-target="#SignUpModal"><i class="fa fa-user-plus ms-auto fs-5"></i></button>
-                </div>
+                </div> -->
             <?php else: ?>
                 <div class="btn-group">
                     <button type="button" class="btn btn-white rounded-0 py-3 px-lg-3 d-none d-lg-block dropdown-toggle" data-bs-toggle="dropdown" data-bs-display="static" aria-expanded="false">

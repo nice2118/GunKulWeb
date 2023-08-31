@@ -31,6 +31,14 @@ if ($result->num_rows > 0) {
 ?>
 <?php  include("Ma_Head_Link.php"); ?>
 <?php  include("Ma_Head.php"); ?>
+<script>
+    /* CSS media queries */
+    @media (max-width: 768px) {
+        .custom-image {
+            height: 400px; /* หากหน้าจอเล็กให้ใช้ความสูงเป็น 400px */
+        }
+    }
+</script>
 <?php  include("Ma_Carousel.php"); ?>
     <div id="popupModal"></div>
     <!-- Content -->
@@ -669,13 +677,13 @@ document.addEventListener("DOMContentLoaded", function() {
                     '<div class="modal fade" id="' + modalId + '" data-bs-backdrop="static" data-bs-keyboard="true" tabindex="-1" aria-labelledby="' + modalId + 'Label" aria-hidden="true">' +
                     '<div class="modal-dialog modal-xl modal-dialog-centered modal-dialog">' +
                     '<div class="modal-content">' +
+                    '<div class="modal-header">' +
+                    '<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>' +
+                    '</div>' +
                     '<div class="modal-body">' +
                     '<div class="row no-gutters">' +
                     '<div class="col-md-12"><img src="' + response[i].image + '" alt="Image" class="img-fluid w-100" style="height:600px;"></div>' +
                     '</div>' +
-                    '</div>' +
-                    '<div class="modal-header">' +
-                    '<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>' +
                     '</div>' +
                     '</div>' +
                     '</div>' +
