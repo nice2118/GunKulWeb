@@ -205,7 +205,7 @@
                                 }
                             }
                         ?>
-                        <img id="previewImageUser" class="img-fluid rounded-circle mx-1 mb-1" src="<?=$ImageProfile?>" alt="" style="width: 40px; height: 40px;">
+                        <img class="img-fluid rounded-circle mx-1 mb-1" src="<?=$ImageProfile?>" alt="" style="width: 40px; height: 40px;">
                     </button>
                     <ul class="dropdown-menu dropdown-menu-lg-end my-0">
                         <li><button type="button" class="btn btn-white rounded-0 py-3 px-lg-3 d-none d-lg-block" data-bs-toggle="modal" data-bs-target="#ProfileModal"><i class="fa fa-user-circle ms-auto fs-5"></i>&nbsp;จัดการโปรไฟล์</button></li>

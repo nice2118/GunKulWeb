@@ -15,8 +15,6 @@ if (isset($_GET['Send_ID']) && $_GET['Send_ID'] !== '') {
     exit();
 }
 
-$conn->autocommit(false);
-
 $sql1 = "DELETE FROM `engravedcategory` WHERE `engravedcategory`.`EC_Code` = $Engraved_Category_id;";
 $sql2 = "DELETE FROM `engravedactivities` WHERE `engravedactivities`.`EC_Code` = $Engraved_Category_id;";
 

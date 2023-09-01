@@ -346,12 +346,12 @@ $US_Prefix = "";
                                     <!-- /.card-body -->
                                 </div>
                                 <!-- /.card -->
-                                <div class="card card-secondary">
+                                <div class="card card-secondary collapsed-card">
                                     <div class="card-header">
                                         <h3 class="card-title text-white">Menu Categories</h3>
                                         <div class="card-tools">
                                             <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
-                                            <i class="fas fa-minus"></i>
+                                            <i class="fas fa-plus"></i>
                                             </button>
                                         </div>
                                     </div>

@@ -682,7 +682,7 @@ document.addEventListener("DOMContentLoaded", function() {
                     '</div>' +
                     '<div class="modal-body">' +
                     '<div class="row no-gutters">' +
-                    '<div class="col-md-12"><img src="' + response[i].image + '" alt="Image" class="img-fluid w-100" style="height:600px;"></div>' +
+                    '<div class="col-12"><img src="' + response[i].image + '" alt="Image" class="img-fluid w-100" style="height:550px;"></div>' +
                     '</div>' +
                     '</div>' +
                     '</div>' +
