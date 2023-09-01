@@ -639,7 +639,6 @@ document.addEventListener("DOMContentLoaded", function() {
                     // '</div>' +
                     // '</div>';
 
-                    
 
                     // '<div class="modal fade" id="' + modalId + '" data-bs-backdrop="static" data-bs-keyboard="true" tabindex="-1" aria-labelledby="' + modalId + 'Label" aria-hidden="true">' +
                     // '<div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable">' +
@@ -655,7 +654,6 @@ document.addEventListener("DOMContentLoaded", function() {
                     // '</div>' +
                     // '</div>' +
                     // '</div>';
-
 
 
                     // '<div class="modal fade" id="' + modalId + '" data-bs-backdrop="static" data-bs-keyboard="true" tabindex="-1" aria-labelledby="' + modalId + 'Label" aria-hidden="true">' +
