@@ -1,8 +1,8 @@
 <?php 
 include("DB_Include.php"); 
-$_SESSION['PathPage'] = "Ui_ListAdmin.php";
 if (isset($_GET['Send_Category']) && $_GET['Send_Category'] !== '') {
     $Category_id = $_GET['Send_Category'];
+    $_SESSION['PathPage'] = "ListAdmin?Send_Category=".$Category_id;
 } else {
     $Category_id = 1;
 }
@@ -29,7 +29,7 @@ if (isset($_GET['Send_Category']) && $_GET['Send_Category'] !== '') {
         }
     }
     if (!$CheckPage) {
-        echo "<script>setTimeout(function() { window.location.href = `./index.php`; }, 0); </script>";
+        echo "<script>setTimeout(function() { window.location.href = `./Index`; }, 0); </script>";
     }
 ?>
 
@@ -55,9 +55,9 @@ if (isset($_GET['Send_Category']) && $_GET['Send_Category'] !== '') {
             <div class="text-start mx-auto mb-2 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 600px;">
                 <div class="d-flex align-items-center">
                     <?php if ($IsFile == 0): ?>
-                    <a class="small fw-medium" href="Ui_Add.php?Send_Category=<?= $Category_id ?>">
+                    <a class="small fw-medium" href="Add?Send_Category=<?= $Category_id ?>">
                     <?php elseif ($IsFile == 1): ?>
-                    <a class="small fw-medium" href="Ui_AddFile.php?Send_Category=<?= $Category_id ?>">
+                    <a class="small fw-medium" href="AddFile?Send_Category=<?= $Category_id ?>">
                     <?php endif; ?>
                         <div class="d-flex align-items-center">
                             <div class="btn-lg-square bg-primary rounded-circle">
@@ -164,15 +164,15 @@ if (isset($_GET['Send_Category']) && $_GET['Send_Category'] !== '') {
                                             </td>
                                             <td class="project-actions text-right">
                                                 <?php if ($IsFile == 0): ?>
-                                                    <a class="btn btn-primary2 btn-sm" href="Ui_ShowDetail.php?Send_IDNews=<?= $reqCode;?>"><i class="fas fa-folder"></i></a>
+                                                    <a class="btn btn-primary2 btn-sm" href="ShowDetail?Send_IDNews=<?= $reqCode;?>"><i class="fas fa-folder"></i></a>
                                                     <?php if ($UserCreate == $currentUser || CheckAdmin($currentUser)){ ?>
-                                                        <a class="btn btn-warning btn-sm" href="Ui_Edit.php?Send_IDNews=<?= urlencode($reqCode); ?>&Send_Title=<?= urlencode($reqTitle); ?>&Send_Category=<?= $Category_id ; ?>"><i class="fas fa-pencil-alt"></i></a>
+                                                        <a class="btn btn-warning btn-sm" href="Edit?Send_IDNews=<?= urlencode($reqCode); ?>&Send_Title=<?= urlencode($reqTitle); ?>&Send_Category=<?= $Category_id ; ?>"><i class="fas fa-pencil-alt"></i></a>
                                                         <a class="btn btn-danger btn-sm" onclick="deleteAlert(<?php echo $reqCode;?>, '<?= addslashes(htmlspecialchars_decode($reqTitle, ENT_QUOTES)) ?>',<?php echo $Category_id;?>)"><i class="fas fa-trash"></i></a>
                                                     <?php }  ?>
                                                 <?php elseif ($IsFile == 1): ?>
                                                     <a class="btn btn-primary2 btn-sm" id="btnShowFile" href="<?= $reqFile ?>" data-code="<?= urlencode($reqCode) ?>"><i class="fas fa-folder"></i></a>
                                                     <?php if ($UserCreate == $currentUser || CheckAdmin($currentUser)){ ?>
-                                                        <a class="btn btn-warning btn-sm" href="Ui_EditFile.php?Send_IDNews=<?= urlencode($reqCode); ?>&Send_Title=<?= urlencode($reqTitle); ?>&Send_Category=<?= $Category_id ; ?>"><i class="fas fa-pencil-alt"></i></a>
+                                                        <a class="btn btn-warning btn-sm" href="EditFile?Send_IDNews=<?= urlencode($reqCode); ?>&Send_Title=<?= urlencode($reqTitle); ?>&Send_Category=<?= $Category_id ; ?>"><i class="fas fa-pencil-alt"></i></a>
                                                         <a class="btn btn-danger btn-sm" onclick="deleteAlertFile(<?php echo $reqCode;?>, '<?php echo addslashes(htmlspecialchars_decode($reqTitle, ENT_QUOTES));?>',<?php echo $Category_id;?>)"><i class="fas fa-trash"></i></a>
                                                     <?php }  ?>
                                                 <?php endif;  ?>

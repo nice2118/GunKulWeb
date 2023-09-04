@@ -1,6 +1,6 @@
 <?php 
 include("DB_Include.php");
-$_SESSION['PathPage'] = "Index.php";
+$_SESSION['PathPage'] = "Index";
 include("DB_Setup.php");
 include("Fn_RecursiveCategory.php");
 $Category1_id = 0;
@@ -117,7 +117,7 @@ if ($result->num_rows > 0) {
                                 <h6 class="text-primary">NEWS</h6>
                                 <h3 class="mb-4"><?= $row['AT_Title'];?></h3>
                                 <p><?= $row['AT_Description'];?></p>
-                                <a href="Ui_ShowDetail.php?Send_IDNews=<?= $index1Code;?>" class="btn btn-primary rounded-pill py-3 px-5 mt-3">อ่านเพิ่มเติม</a>
+                                <a href="ShowDetail?Send_IDNews=<?= $index1Code;?>" class="btn btn-primary rounded-pill py-3 px-5 mt-3">อ่านเพิ่มเติม</a>
                             </div>
                         </div>
                     </div>
@@ -142,7 +142,7 @@ if ($result->num_rows > 0) {
                             <div class="portfolio-btn">
                                 <a class="btn btn-lg-square btn-outline-light rounded-circle mx-1" href="<?= $AT_Image;?>"
                                     data-lightbox="portfolio"><i class="fa fa-eye"></i></a>
-                                <a class="btn btn-lg-square btn-outline-light rounded-circle mx-1" href="Ui_ShowDetail.php?Send_IDNews=<?= $row["AT_Code"];?>"><i
+                                <a class="btn btn-lg-square btn-outline-light rounded-circle mx-1" href="ShowDetail?Send_IDNews=<?= $row["AT_Code"];?>"><i
                                         class="fa fa-link"></i></a>
                             </div>
                         </div>
@@ -153,7 +153,7 @@ if ($result->num_rows > 0) {
                             <h4 class="mb-3"><?= $row['AT_Title'] ?></h4>
                             <p class=""><?= $row['AT_Description'] ?></p>
 
-                            <a class="small fw-medium" href="Ui_ShowDetail.php?Send_IDNews=<?= $row["AT_Code"];?>">อ่านเพิ่มเติม<i class="fa fa-arrow-right ms-2"></i></a>
+                            <a class="small fw-medium" href="ShowDetail?Send_IDNews=<?= $row["AT_Code"];?>">อ่านเพิ่มเติม<i class="fa fa-arrow-right ms-2"></i></a>
                         </div>
                     </div>
                 </div>
@@ -167,9 +167,9 @@ if ($result->num_rows > 0) {
                 <div class="wow fadeInUp portfolio-item first my-4" data-wow-delay="0.6s">
                     <div align="right">
                         <?php if ($IsTypeGroup1 == 0): ?>
-                            <a class="small fw-medium" href="Ui_ShowPage.php?Send_Category=<?= $Category1_id ?>&Multiplier=1&Search="><?= $DescriptionTHGroup1 ?>ทั้งหมด<i class="fa fa-arrow-right ms-2"></i></a>
+                            <a class="small fw-medium" href="ShowPage?Send_Category=<?= $Category1_id ?>&Multiplier=1&Search="><?= $DescriptionTHGroup1 ?>ทั้งหมด<i class="fa fa-arrow-right ms-2"></i></a>
                         <?php elseif ($IsTypeGroup1 == 1): ?>
-                            <a class="small fw-medium" href="Ui_List.php?Send_Category=<?= $Category1_id ?>"><?= $DescriptionTHGroup1 ?>ทั้งหมด<i class="fa fa-arrow-right ms-2"></i></a>
+                            <a class="small fw-medium" href="List?Send_Category=<?= $Category1_id ?>"><?= $DescriptionTHGroup1 ?>ทั้งหมด<i class="fa fa-arrow-right ms-2"></i></a>
                         <?php endif; ?>  
                     </div>
                 </div>
@@ -262,7 +262,7 @@ if ($result->num_rows > 0) {
                                 <h6 class="text-primary">NEWS</h6>
                                 <h3 class="mb-4"><?= $row['AT_Title'];?></h3>
                                 <p><?= $row['AT_Description'];?></p>
-                                <a href="Ui_ShowDetail.php?Send_IDNews=<?= $index2Code;?>" class="btn btn-primary rounded-pill py-3 px-5 mt-3">อ่านเพิ่มเติม</a>
+                                <a href="ShowDetail?Send_IDNews=<?= $index2Code;?>" class="btn btn-primary rounded-pill py-3 px-5 mt-3">อ่านเพิ่มเติม</a>
                             </div>
                         </div>
                     </div>
@@ -287,7 +287,7 @@ if ($result->num_rows > 0) {
                             <div class="portfolio-btn">
                                 <a class="btn btn-lg-square btn-outline-light rounded-circle mx-1" href="<?= $AT_Image;?>"
                                     data-lightbox="portfolio"><i class="fa fa-eye"></i></a>
-                                <a class="btn btn-lg-square btn-outline-light rounded-circle mx-1" href="Ui_ShowDetail.php?Send_IDNews=<?= $row["AT_Code"];?>"><i
+                                <a class="btn btn-lg-square btn-outline-light rounded-circle mx-1" href="ShowDetail?Send_IDNews=<?= $row["AT_Code"];?>"><i
                                         class="fa fa-link"></i></a>
                             </div>
                         </div>
@@ -298,7 +298,7 @@ if ($result->num_rows > 0) {
                             <h4 class="mb-3"><?= $row['AT_Title'] ?></h4>
                             <p class=""><?= $row['AT_Description'] ?></p>
 
-                            <a class="small fw-medium" href="Ui_ShowDetail.php?Send_IDNews=<?= $row["AT_Code"];?>">อ่านเพิ่มเติม<i class="fa fa-arrow-right ms-2"></i></a>
+                            <a class="small fw-medium" href="ShowDetail?Send_IDNews=<?= $row["AT_Code"];?>">อ่านเพิ่มเติม<i class="fa fa-arrow-right ms-2"></i></a>
                         </div>
                     </div>
                 </div>
@@ -312,9 +312,9 @@ if ($result->num_rows > 0) {
                 <div class="wow fadeInUp portfolio-item first my-4" data-wow-delay="0.6s">
                     <div align="right">
                         <?php if ($IsTypeGroup1 == 0): ?>
-                            <a class="small fw-medium" href="Ui_ShowPage.php?Send_Category=<?= $Category2_id ?>&Multiplier=1&Search="><?= $DescriptionTHGroup2 ?>ทั้งหมด<i class="fa fa-arrow-right ms-2"></i></a>
+                            <a class="small fw-medium" href="ShowPage?Send_Category=<?= $Category2_id ?>&Multiplier=1&Search="><?= $DescriptionTHGroup2 ?>ทั้งหมด<i class="fa fa-arrow-right ms-2"></i></a>
                         <?php elseif ($IsTypeGroup1 == 1): ?>
-                            <a class="small fw-medium" href="Ui_List.php?Send_Category=<?= $Category2_id ?>"><?= $DescriptionTHGroup2 ?>ทั้งหมด<i class="fa fa-arrow-right ms-2"></i></a>
+                            <a class="small fw-medium" href="List?Send_Category=<?= $Category2_id ?>"><?= $DescriptionTHGroup2 ?>ทั้งหมด<i class="fa fa-arrow-right ms-2"></i></a>
                         <?php endif; ?> 
                     </div>
                 </div>
@@ -361,9 +361,9 @@ if ($result->num_rows > 0) {
                                         $Image01 = 'Default/DefaultImage/DefaultImage.png'; 
                                     }
                                     if ($row['CG_IsFile'] == 0) {
-                                        $Href01 = 'Ui_ShowPage.php?Send_Category='. $Category3_id.'&Multiplier=1&Search=';
+                                        $Href01 = 'ShowPage?Send_Category='. $Category3_id.'&Multiplier=1&Search=';
                                     } else if ($row['CG_IsFile'] == 1){
-                                        $Href01 = 'Ui_List.php?Send_Category=' . $Category3_id;
+                                        $Href01 = 'List?Send_Category=' . $Category3_id;
                                     }
                                 } elseif ($Category3 === 'headingcategories'){
                                     $Name01 = $row['HC_DescriptionTH'];
@@ -373,7 +373,7 @@ if ($result->num_rows > 0) {
                                     } else {
                                         $Image01 = 'Default/DefaultImage/DefaultImage.png'; 
                                     }
-                                    $Href01 = 'Ui_ShowPageMenu.php?Send_MoreMenu='. $Category3_id;
+                                    $Href01 = 'ShowPageMenu?Send_MoreMenu='. $Category3_id;
                                 } else { 
                                     $Name01 = '';
                                     $Designation01 = '';
@@ -417,9 +417,9 @@ if ($result->num_rows > 0) {
                                     $Image02 = 'Default/DefaultImage/DefaultImage.png'; 
                                 }
                                 if ($row['CG_IsFile'] == 0) {
-                                    $Href02 = 'Ui_ShowPage.php?Send_Category='. $Category4_id.'&Multiplier=1&Search=';
+                                    $Href02 = 'ShowPage?Send_Category='. $Category4_id.'&Multiplier=1&Search=';
                                 } else if ($row['CG_IsFile'] == 1){
-                                    $Href02 = 'Ui_List.php?Send_Category=' . $Category4_id;
+                                    $Href02 = 'List?Send_Category=' . $Category4_id;
                                 }
                             } elseif ($Category4 === 'headingcategories'){
                                 $Name02 = $row['HC_DescriptionTH'];
@@ -429,7 +429,7 @@ if ($result->num_rows > 0) {
                                 } else {
                                     $Image02 = 'Default/DefaultImage/DefaultImage.png'; 
                                 }
-                                $Href02 = 'Ui_ShowPageMenu.php?Send_MoreMenu='. $Category4_id;
+                                $Href02 = 'ShowPageMenu?Send_MoreMenu='. $Category4_id;
                             } else { 
                                 $Name02 = '';
                                 $Designation02 = '';
@@ -473,9 +473,9 @@ if ($result->num_rows > 0) {
                                     $Image03 = 'Default/DefaultImage/DefaultImage.png'; 
                                 }
                                 if ($row['CG_IsFile'] == 0) {
-                                    $Href03 = 'Ui_ShowPage.php?Send_Category='. $Category5_id.'&Multiplier=1&Search=';
+                                    $Href03 = 'ShowPage?Send_Category='. $Category5_id.'&Multiplier=1&Search=';
                                 } else if ($row['CG_IsFile'] == 1){
-                                    $Href03 = 'Ui_List.php?Send_Category=' . $Category5_id;
+                                    $Href03 = 'List?Send_Category=' . $Category5_id;
                                 }
                             } elseif ($Category5 === 'headingcategories'){
                                 $Name03 = $row['HC_DescriptionTH'];
@@ -485,7 +485,7 @@ if ($result->num_rows > 0) {
                                 } else {
                                     $Image03 = 'Default/DefaultImage/DefaultImage.png'; 
                                 }
-                                $Href03 = 'Ui_ShowPageMenu.php?Send_MoreMenu='. $Category5_id;
+                                $Href03 = 'ShowPageMenu?Send_MoreMenu='. $Category5_id;
                             } else { 
                                 $Name03 = '';
                                 $Designation03 = '';
@@ -529,9 +529,9 @@ if ($result->num_rows > 0) {
                                     $Image04 = 'Default/DefaultImage/DefaultImage.png'; 
                                 }
                                 if ($row['CG_IsFile'] == 0) {
-                                    $Href04 = 'Ui_ShowPage.php?Send_Category='. $Category6_id.'&Multiplier=1&Search=';
+                                    $Href04 = 'ShowPage?Send_Category='. $Category6_id.'&Multiplier=1&Search=';
                                 } else if ($row['CG_IsFile'] == 1){
-                                    $Href04 = 'Ui_List.php?Send_Category=' . $Category6_id;
+                                    $Href04 = 'List?Send_Category=' . $Category6_id;
                                 }
                             } elseif ($Category6 === 'headingcategories'){
                                 $Name04 = $row['HC_DescriptionTH'];
@@ -541,7 +541,7 @@ if ($result->num_rows > 0) {
                                 } else {
                                     $Image04 = 'Default/DefaultImage/DefaultImage.png'; 
                                 }
-                                $Href04 = 'Ui_ShowPageMenu.php?Send_MoreMenu='. $Category6_id;
+                                $Href04 = 'ShowPageMenu?Send_MoreMenu='. $Category6_id;
                             } else { 
                                 $Name04 = '';
                                 $Designation04 = '';

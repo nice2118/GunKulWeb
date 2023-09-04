@@ -25,6 +25,6 @@ if ($conn->query($sql1) === TRUE && $conn->query($sql2) === TRUE) {
   $_SESSION['StatusMessage'] = "Cannot be deleted = ".$t_id;
   $_SESSION['StatusAlert'] = "error";
 }
-echo '<script> setTimeout(function() { window.location.href = "./Ui_AdminSetup.php"; }, 0); </script>';
+echo '<script> setTimeout(function() { window.location.href = "./AdminSetup"; }, 0); </script>';
 ?>
 

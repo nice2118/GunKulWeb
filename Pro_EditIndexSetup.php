@@ -53,6 +53,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   $conn->close();
 
   // ส่งข้อความตอบกลับหรือเปลี่ยนเส้นทางไปหน้าอื่นตามต้องการ
-   echo '<script> setTimeout(function() { window.location.href = "./Ui_AdminSetup.php"; }, 0); </script>';
+   echo '<script> setTimeout(function() { window.location.href = "./AdminSetup"; }, 0); </script>';
 }
 ?>

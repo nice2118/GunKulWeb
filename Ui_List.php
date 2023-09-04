@@ -1,8 +1,8 @@
 <?php 
 include("DB_Include.php"); 
-$_SESSION['PathPage'] = "Ui_ListAdmin.php";
 if (isset($_GET['Send_Category']) && $_GET['Send_Category'] !== '') {
     $Category_id = $_GET['Send_Category'];
+    $_SESSION['PathPage'] = "List?Send_Category=".$Category_id;
 } else {
     $Category_id = 1;
 }
@@ -121,7 +121,7 @@ if (isset($_GET['Send_Category']) && $_GET['Send_Category'] !== '') {
                                             </td>
                                             <td class="project-actions text-right">
                                                 <?php if ($IsFile == 0): ?>
-                                                    <a class="btn btn-primary2 btn-sm" href="Ui_ShowDetail.php?Send_IDNews=<?= $reqCode?>"><i class="fas fa-folder"></i></a>
+                                                    <a class="btn btn-primary2 btn-sm" href="ShowDetail?Send_IDNews=<?= $reqCode?>"><i class="fas fa-folder"></i></a>
                                                 <?php elseif ($IsFile == 1): ?>
                                                     <a class="btn btn-primary2 btn-sm" id="btnShowFile" href="<?= $reqFile ?>" target="_blank" data-code="<?= urlencode($reqCode) ?>"><i class="fas fa-folder"></i></a>
                                                 <?php endif; ?>

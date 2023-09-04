@@ -47,7 +47,7 @@
     <!-- Navbar Start -->
     <!-- <nav id="main_nav" class="navbar navbar-expand-lg bg-white navbar-light sticky-top p-0"> -->
     <nav class="navbar navbar-expand-lg bg-white navbar-light sticky-top p-0">
-        <a href="Index.php" class="navbar-brand d-flex align-items-center border-end px-4 px-lg-5">
+        <a href="Index" class="navbar-brand d-flex align-items-center border-end px-4 px-lg-5">
             <!-- <h2 class="m-0 text-primary">GUNKUL</h2> -->
             <img class="img-fluid" src="Default\Logo\GKE.png" style="width:200px;" />
         </a>
@@ -75,9 +75,9 @@
                                         $categories[] = $row;
                                         if ($row["CG_IsFile"] == 0):
                             ?>
-                                    <li><a href="Ui_ShowPage.php?Send_Category=<?= $row["CG_Entity No."] ?>&Multiplier=1&Search=" class="dropdown-item"><?= $row["CG_DescriptionTH"] ?></a></li>
+                                    <li><a href="ShowPage?Send_Category=<?= $row["CG_Entity No."] ?>&Multiplier=1&Search=" class="dropdown-item"><?= $row["CG_DescriptionTH"] ?></a></li>
                                 <?php elseif ($row["CG_IsFile"] == 1): ?>
-                                    <li><a href="Ui_List.php?Send_Category=<?= $row["CG_Entity No."] ?>" class="dropdown-item"><?= $row["CG_DescriptionTH"] ?></a></li>
+                                    <li><a href="List?Send_Category=<?= $row["CG_Entity No."] ?>" class="dropdown-item"><?= $row["CG_DescriptionTH"] ?></a></li>
                             <?php
                                       endif;
                                     }
@@ -95,7 +95,7 @@
                                     while ($row = $result->fetch_assoc()) {
                                         $menuCategories[] = $row;
                             ?>
-                                <li><a href="Ui_ShowPageMenu.php?Send_MoreMenu=<?= $row["HC_Code"] ?>" class="dropdown-item"><?= $row["HC_DescriptionTH"] ?></a></li>
+                                <li><a href="ShowPageMenu?Send_MoreMenu=<?= $row["HC_Code"] ?>" class="dropdown-item"><?= $row["HC_DescriptionTH"] ?></a></li>
                             <?php
                                     }
                                 }
@@ -238,18 +238,18 @@
                             <a href="" class="dropdown-item">จัดการ&nbsp;&nbsp;<i class="fa fa-angle-down text-secondary2"></i></a>
                             <ul class="dropdown-menu-submenu submenu submenu-left">
                             <?php foreach ($categories as $category) : ?>
-                                <li><a href="Ui_ListAdmin.php?Send_Category=<?= $category["CG_Entity No."] ?>" class="dropdown-item"><?= $category["CG_DescriptionTH"] ?></a></li>
+                                <li><a href="ListAdmin?Send_Category=<?= $category["CG_Entity No."] ?>" class="dropdown-item"><?= $category["CG_DescriptionTH"] ?></a></li>
                             <?php 
                             endforeach;
                             if (count($menuCategories) > 0) { echo '<li><hr class="dropdown-divider"></li>'; }
                             foreach ($menuCategories as $menuCategory) : 
                             ?>
-                                <li><a href="Ui_ListAdminMenuCategories.php?Send_MenuCategory=<?= $menuCategory["HC_Code"] ?>" class="dropdown-item"><?= $menuCategory["HC_DescriptionTH"] ?></a></li>
+                                <li><a href="ListAdminMenuCategories?Send_MenuCategory=<?= $menuCategory["HC_Code"] ?>" class="dropdown-item"><?= $menuCategory["HC_DescriptionTH"] ?></a></li>
                             <?php endforeach; ?>
                             </ul>
                         </nav>
-                        <a href="Ui_AdminSetup.php" class="dropdown-item">Setup</a>
-                        <a href="Ui_Activity.php" class="dropdown-item">Activity</a>
+                        <a href="AdminSetup" class="dropdown-item">Setup</a>
+                        <a href="Activity" class="dropdown-item">Activity</a>
                         <?php endif; ?>
                     </div>
                 </div>

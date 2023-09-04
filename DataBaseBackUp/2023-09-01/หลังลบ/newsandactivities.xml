@@ -1,0 +1,2164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+- phpMyAdmin XML Dump
+- version 5.2.1
+- https://www.phpmyadmin.net
+-
+- Host: 127.0.0.1
+- Generation Time: Sep 04, 2023 at 12:26 PM
+- Server version: 10.4.28-MariaDB
+- PHP Version: 8.2.4
+-->
+
+<pma_xml_export version="1.0" xmlns:pma="https://www.phpmyadmin.net/some_doc_url/">
+    <!--
+    - Structure schemas
+    -->
+    <pma:structure_schemas>
+        <pma:database name="newsandactivities" collation="utf8mb4_general_ci" charset="utf8mb4">
+            <pma:table name="activities">
+                CREATE TABLE `activities` (
+                  `AT_Code` int(11) NOT NULL AUTO_INCREMENT,
+                  `AT_Entity No.` int(11) NOT NULL,
+                  `AT_Date` date NOT NULL,
+                  `AT_Time` time NOT NULL,
+                  `AT_Title` varchar(255) NOT NULL,
+                  `AT_Description` varchar(255) NOT NULL,
+                  `AT_Note` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+                  `AT_Image` varchar(255) NOT NULL,
+                  `CountPage` int(11) NOT NULL,
+                  `AT_UserCreate` varchar(255) NOT NULL,
+                  `AT_CreateDate` timestamp NOT NULL DEFAULT current_timestamp(),
+                  `AT_ModifyDate` timestamp NOT NULL DEFAULT current_timestamp(),
+                  PRIMARY KEY (`AT_Code`)
+                ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+            </pma:table>
+            <pma:table name="alertpopup">
+                CREATE TABLE `alertpopup` (
+                  `AP_Code` int(11) NOT NULL AUTO_INCREMENT,
+                  `AP_Name` varchar(255) NOT NULL,
+                  `AP_Image` varchar(255) NOT NULL,
+                  `AP_DateStart` date NOT NULL,
+                  `AP_DateEnd` date NOT NULL,
+                  `AP_UserCreate` varchar(255) NOT NULL,
+                  `AP_Active` tinyint(1) NOT NULL DEFAULT 1,
+                  `AP_CreateDate` timestamp NOT NULL DEFAULT current_timestamp(),
+                  `AP_ModifyDate` timestamp NOT NULL DEFAULT current_timestamp(),
+                  PRIMARY KEY (`AP_Code`)
+                ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+            </pma:table>
+            <pma:table name="category">
+                CREATE TABLE `category` (
+                  `CG_Entity No.` int(11) NOT NULL AUTO_INCREMENT,
+                  `CG_IsFile` tinyint(1) NOT NULL DEFAULT 0,
+                  `CG_Entity Relation No.` int(11) NOT NULL,
+                  `CG_Name` varchar(255) NOT NULL,
+                  `CG_DescriptionTH` varchar(255) NOT NULL,
+                  `CG_DescriptionEN` varchar(255) NOT NULL,
+                  `CG_DefaultImage` varchar(255) NOT NULL,
+                  `CG_CreateDate` timestamp NOT NULL DEFAULT current_timestamp(),
+                  `CG_ModifyDate` timestamp NOT NULL DEFAULT current_timestamp(),
+                  PRIMARY KEY (`CG_Entity No.`)
+                ) ENGINE=InnoDB AUTO_INCREMENT=32 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+            </pma:table>
+            <pma:table name="details">
+                CREATE TABLE `details` (
+                  `DT_Code` int(11) NOT NULL AUTO_INCREMENT,
+                  `DT_Text` mediumtext DEFAULT NULL,
+                  `DT_Active` tinyint(1) NOT NULL DEFAULT 1,
+                  `DT_Sort` int(11) NOT NULL DEFAULT 0,
+                  `HD_Code` int(11) DEFAULT NULL,
+                  `DT_UserCreate` varchar(255) NOT NULL,
+                  `DT_CreateDate` timestamp NOT NULL DEFAULT current_timestamp(),
+                  `DT_ModifyDate` timestamp NOT NULL DEFAULT current_timestamp(),
+                  PRIMARY KEY (`DT_Code`)
+                ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+            </pma:table>
+            <pma:table name="engravedactivities">
+                CREATE TABLE `engravedactivities` (
+                  `EA_Code` int(11) NOT NULL AUTO_INCREMENT,
+                  `EC_Code` int(11) NOT NULL,
+                  `EA_Name` varchar(255) NOT NULL,
+                  `EA_Path` varchar(255) NOT NULL,
+                  `CountPage` int(11) NOT NULL,
+                  `EC_UserCreate` varchar(255) NOT NULL,
+                  `EA_CreateDate` timestamp NOT NULL DEFAULT current_timestamp(),
+                  `EA_ModifyDate` timestamp NOT NULL DEFAULT current_timestamp(),
+                  PRIMARY KEY (`EA_Code`)
+                ) ENGINE=InnoDB AUTO_INCREMENT=57 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+            </pma:table>
+            <pma:table name="engravedcategory">
+                CREATE TABLE `engravedcategory` (
+                  `EC_Code` int(11) NOT NULL AUTO_INCREMENT,
+                  `EC_Name` varchar(255) NOT NULL,
+                  `EC_DescriptionTH` varchar(255) NOT NULL,
+                  `EC_DescriptionEN` varchar(255) NOT NULL,
+                  `CountPage` int(11) NOT NULL,
+                  `EC_UserCreate` varchar(255) NOT NULL,
+                  `EC_CreateDate` timestamp NOT NULL DEFAULT current_timestamp(),
+                  `EC_ModifyDate` timestamp NOT NULL DEFAULT current_timestamp(),
+                  PRIMARY KEY (`EC_Code`)
+                ) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+            </pma:table>
+            <pma:table name="fileactivities">
+                CREATE TABLE `fileactivities` (
+                  `FA_Code` int(11) NOT NULL AUTO_INCREMENT,
+                  `FA_Entity No.` int(11) NOT NULL,
+                  `FA_UserCreate` varchar(255) NOT NULL,
+                  `FA_Date` date NOT NULL,
+                  `FA_Time` time NOT NULL,
+                  `FA_Title` varchar(255) NOT NULL,
+                  `FA_Description` varchar(255) NOT NULL,
+                  `FA_File` varchar(255) NOT NULL,
+                  `CountPage` int(11) NOT NULL,
+                  `FA_CreateDate` timestamp NOT NULL DEFAULT current_timestamp(),
+                  `FA_ModifyDate` timestamp NOT NULL DEFAULT current_timestamp(),
+                  PRIMARY KEY (`FA_Code`)
+                ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+            </pma:table>
+            <pma:table name="gallery">
+                CREATE TABLE `gallery` (
+                  `GR_Entity No.` int(11) NOT NULL AUTO_INCREMENT,
+                  `GR_Activities Code` int(11) NOT NULL,
+                  `GR_Name` varchar(255) NOT NULL,
+                  `GR_CreateDate` timestamp NOT NULL DEFAULT current_timestamp(),
+                  `GR_ModifyDate` timestamp NOT NULL DEFAULT current_timestamp(),
+                  PRIMARY KEY (`GR_Entity No.`)
+                ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+            </pma:table>
+            <pma:table name="grouppositionheader">
+                CREATE TABLE `grouppositionheader` (
+                  `GH_Code` int(11) NOT NULL AUTO_INCREMENT,
+                  `GH_Name` varchar(255) DEFAULT NULL,
+                  `GH_CreateDate` timestamp NOT NULL DEFAULT current_timestamp(),
+                  `GH_ModifyDate` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+                  PRIMARY KEY (`GH_Code`)
+                ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+            </pma:table>
+            <pma:table name="grouppositionline">
+                CREATE TABLE `grouppositionline` (
+                  `GL_Code` int(11) NOT NULL AUTO_INCREMENT,
+                  `GH_Code` int(11) DEFAULT NULL,
+                  `PT_Code` int(11) DEFAULT NULL,
+                  `GL_CreateDate` timestamp NOT NULL DEFAULT current_timestamp(),
+                  `GL_ModifyDate` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+                  PRIMARY KEY (`GL_Code`),
+                  KEY `GH_Code` (`GH_Code`),
+                  CONSTRAINT `grouppositionline_ibfk_1` FOREIGN KEY (`GH_Code`) REFERENCES `grouppositionheader` (`GH_Code`)
+                ) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+            </pma:table>
+            <pma:table name="heading">
+                CREATE TABLE `heading` (
+                  `HD_Code` int(11) NOT NULL AUTO_INCREMENT,
+                  `HD_Text` longtext DEFAULT NULL,
+                  `HD_Active` tinyint(1) NOT NULL DEFAULT 1,
+                  `HD_Sort` int(11) NOT NULL DEFAULT 0,
+                  `HG_Code` int(11) DEFAULT NULL,
+                  `HD_UserCreate` varchar(255) NOT NULL,
+                  `HD_CreateDate` timestamp NOT NULL DEFAULT current_timestamp(),
+                  `HD_ModifyDate` timestamp NULL DEFAULT current_timestamp(),
+                  PRIMARY KEY (`HD_Code`)
+                ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+            </pma:table>
+            <pma:table name="headingcategories">
+                CREATE TABLE `headingcategories` (
+                  `HC_Code` int(11) NOT NULL AUTO_INCREMENT,
+                  `HC_Text` varchar(255) DEFAULT NULL,
+                  `HC_DescriptionTH` varchar(255) NOT NULL,
+                  `HC_DescriptionEN` varchar(255) NOT NULL,
+                  `HC_DefaultImage` varchar(255) NOT NULL,
+                  `CountPage` int(11) NOT NULL,
+                  `HC_UserCreate` varchar(255) NOT NULL,
+                  `HC_CreateDate` timestamp NOT NULL DEFAULT current_timestamp(),
+                  `HC_ModifyDate` timestamp NOT NULL DEFAULT current_timestamp(),
+                  PRIMARY KEY (`HC_Code`)
+                ) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+            </pma:table>
+            <pma:table name="headinggroup">
+                CREATE TABLE `headinggroup` (
+                  `HG_Code` int(11) NOT NULL AUTO_INCREMENT,
+                  `HG_Text` varchar(255) DEFAULT NULL,
+                  `HG_Active` tinyint(1) NOT NULL DEFAULT 1,
+                  `HG_Sort` int(11) NOT NULL DEFAULT 0,
+                  `HC_Code` int(11) DEFAULT NULL,
+                  `HG_UserCreate` varchar(255) NOT NULL,
+                  `HG_CreateDate` timestamp NOT NULL DEFAULT current_timestamp(),
+                  `HG_ModifyDate` timestamp NOT NULL DEFAULT current_timestamp(),
+                  PRIMARY KEY (`HG_Code`)
+                ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+            </pma:table>
+            <pma:table name="indexsetup">
+                CREATE TABLE `indexsetup` (
+                  `IS_Code` int(11) NOT NULL AUTO_INCREMENT,
+                  `IS_GroupCategory1` int(11) NOT NULL,
+                  `IS_GroupCategory2` int(11) NOT NULL,
+                  `IS_GroupMenu1` varchar(255) NOT NULL,
+                  `IS_GroupMenu1_Box1` int(11) NOT NULL,
+                  `IS_GroupMenu2` varchar(255) NOT NULL,
+                  `IS_GroupMenu2_Box2` int(11) NOT NULL,
+                  `IS_GroupMenu3` varchar(255) NOT NULL,
+                  `IS_GroupMenu3_Box3` int(11) NOT NULL,
+                  `IS_GroupMenu4` varchar(255) NOT NULL,
+                  `IS_GroupMenu4_Box4` int(11) NOT NULL,
+                  `IS_UserCreate` varchar(255) NOT NULL,
+                  `IS_CreateDate` timestamp NOT NULL DEFAULT current_timestamp(),
+                  `IS_ModifyDate` timestamp NOT NULL DEFAULT current_timestamp(),
+                  PRIMARY KEY (`IS_Code`)
+                ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+            </pma:table>
+            <pma:table name="masterheadingcategories">
+                CREATE TABLE `masterheadingcategories` (
+                  `MC_Code` int(11) NOT NULL AUTO_INCREMENT,
+                  `MC_Text` varchar(255) NOT NULL,
+                  `HC_Code` int(11) NOT NULL,
+                  `MC_UserCreate` varchar(255) NOT NULL,
+                  `MC_CreateDate` timestamp NOT NULL DEFAULT current_timestamp(),
+                  `MC_ModifyDate` timestamp NOT NULL DEFAULT current_timestamp(),
+                  PRIMARY KEY (`MC_Code`)
+                ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+            </pma:table>
+            <pma:table name="menu">
+                CREATE TABLE `menu` (
+                  `MN_Code` int(11) NOT NULL AUTO_INCREMENT,
+                  `MN_Name` varchar(255) NOT NULL,
+                  `MN_CreateDate` timestamp NOT NULL DEFAULT current_timestamp(),
+                  `MN_ModifyDate` timestamp NOT NULL DEFAULT current_timestamp(),
+                  PRIMARY KEY (`MN_Code`)
+                ) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+            </pma:table>
+            <pma:table name="permissionmenu">
+                CREATE TABLE `permissionmenu` (
+                  `PM_Code` int(11) NOT NULL AUTO_INCREMENT,
+                  `PM_RelationPermission` int(11) NOT NULL,
+                  `PM_Menu` int(11) NOT NULL,
+                  `PM_RelationType` varchar(255) NOT NULL,
+                  `PM_RelationCode` int(11) NOT NULL,
+                  `PM_Name` varchar(255) NOT NULL,
+                  `PM_Direction` varchar(255) NOT NULL,
+                  `PM_Draw` tinyint(1) NOT NULL DEFAULT 0,
+                  `PM_Setup` tinyint(1) NOT NULL DEFAULT 0,
+                  `PM_UserCreate` varchar(255) NOT NULL,
+                  `PM_CreateDate` timestamp NOT NULL DEFAULT current_timestamp(),
+                  `PM_ModifyDate` timestamp NOT NULL DEFAULT current_timestamp(),
+                  PRIMARY KEY (`PM_Code`)
+                ) ENGINE=InnoDB AUTO_INCREMENT=113 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+            </pma:table>
+            <pma:table name="permissionposition">
+                CREATE TABLE `permissionposition` (
+                  `PP_Code` int(11) NOT NULL AUTO_INCREMENT,
+                  `PP_Type` enum(&#039;single&#039;,&#039;multi&#039;) NOT NULL,
+                  `PT_Code` int(11) NOT NULL,
+                  `PM_Code` int(11) NOT NULL,
+                  `PP_CreateDate` timestamp NOT NULL DEFAULT current_timestamp(),
+                  `PP_ModifyDate` timestamp NOT NULL DEFAULT current_timestamp(),
+                  PRIMARY KEY (`PP_Code`)
+                ) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+            </pma:table>
+            <pma:table name="position">
+                CREATE TABLE `position` (
+                  `PT_Code` int(11) NOT NULL AUTO_INCREMENT,
+                  `PT_Name` varchar(255) NOT NULL,
+                  `PT_Default` tinyint(1) NOT NULL DEFAULT 0,
+                  `PT_Admin` tinyint(1) NOT NULL DEFAULT 0,
+                  `PT_CreateDate` timestamp NOT NULL DEFAULT current_timestamp(),
+                  `PT_ModifyDate` timestamp NOT NULL DEFAULT current_timestamp(),
+                  PRIMARY KEY (`PT_Code`)
+                ) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+            </pma:table>
+            <pma:table name="setposition">
+                CREATE TABLE `setposition` (
+                  `SP_Code` bigint(11) NOT NULL AUTO_INCREMENT,
+                  `SP_Name` varchar(255) NOT NULL,
+                  `US_Username` varchar(255) NOT NULL,
+                  `PT_Code` int(11) NOT NULL,
+                  `SP_CreateDate` timestamp NOT NULL DEFAULT current_timestamp(),
+                  `SP_ModifyDate` timestamp NOT NULL DEFAULT current_timestamp(),
+                  PRIMARY KEY (`SP_Code`)
+                ) ENGINE=InnoDB AUTO_INCREMENT=81 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+            </pma:table>
+            <pma:table name="setup">
+                CREATE TABLE `setup` (
+                  `SU_Code` int(11) NOT NULL AUTO_INCREMENT,
+                  `SU_DefaultImageNews` varchar(255) DEFAULT NULL,
+                  `SU_PathDefaultImageNews` varchar(255) NOT NULL,
+                  `SU_PathDefaultImageGallery` varchar(255) NOT NULL,
+                  `SU_PathDefaultFile` varchar(255) NOT NULL,
+                  `SU_HeaderDescriptionTH` varchar(255) NOT NULL,
+                  `SU_HeaderDescriptionEN` varchar(255) NOT NULL,
+                  `CountPage` int(11) NOT NULL,
+                  `SU_CreateDate` timestamp NOT NULL DEFAULT current_timestamp(),
+                  `SU_ModifyDate` timestamp NULL DEFAULT current_timestamp(),
+                  PRIMARY KEY (`SU_Code`)
+                ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+            </pma:table>
+            <pma:trigger name="set_SU_ModifyDate">
+                CREATE TRIGGER `set_SU_ModifyDate` BEFORE UPDATE ON `setup`
+                 FOR EACH ROW BEGIN
+                  SET NEW.SU_ModifyDate = CURRENT_TIMESTAMP;
+                END
+            </pma:trigger>
+            <pma:table name="setupgames">
+                CREATE TABLE `setupgames` (
+                  `GA_Code` int(11) NOT NULL AUTO_INCREMENT,
+                  `GA_Iframe` varchar(500) NOT NULL,
+                  `GA_CreateDate` timestamp NOT NULL DEFAULT current_timestamp(),
+                  `GA_ModifyDate` timestamp NOT NULL DEFAULT current_timestamp(),
+                  PRIMARY KEY (`GA_Code`)
+                ) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+            </pma:table>
+            <pma:table name="user">
+                CREATE TABLE `user` (
+                  `US_Username` varchar(255) NOT NULL,
+                  `US_Password` varchar(255) NOT NULL,
+                  `US_Prefix` enum(&#039;นาย&#039;,&#039;นาง&#039;,&#039;นางสาว&#039;) NOT NULL,
+                  `US_Fname` varchar(255) NOT NULL,
+                  `US_Lname` varchar(255) NOT NULL,
+                  `US_Image` varchar(255) NOT NULL,
+                  `US_Active` tinyint(1) NOT NULL DEFAULT 1,
+                  `PT_Code` int(11) NOT NULL,
+                  `US_CreateDate` timestamp NOT NULL DEFAULT current_timestamp(),
+                  `US_ModifyDate` timestamp NOT NULL DEFAULT current_timestamp(),
+                  PRIMARY KEY (`US_Username`)
+                ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+            </pma:table>
+        </pma:database>
+    </pma:structure_schemas>
+
+    <!--
+    - Database: 'newsandactivities'
+    -->
+    <database name="newsandactivities">
+        <!-- Table activities -->
+        <!-- Table alertpopup -->
+        <!-- Table category -->
+        <table name="category">
+            <column name="CG_Entity No.">1</column>
+            <column name="CG_IsFile">0</column>
+            <column name="CG_Entity Relation No.">0</column>
+            <column name="CG_Name">Andactivities</column>
+            <column name="CG_DescriptionTH">ข่าวสารและกิจกรรม</column>
+            <column name="CG_DescriptionEN">News &amp; Activities</column>
+            <column name="CG_DefaultImage"></column>
+            <column name="CG_CreateDate">2023-07-07 13:25:06</column>
+            <column name="CG_ModifyDate">2023-09-04 09:46:47</column>
+        </table>
+        <table name="category">
+            <column name="CG_Entity No.">2</column>
+            <column name="CG_IsFile">0</column>
+            <column name="CG_Entity Relation No.">0</column>
+            <column name="CG_Name">Soft Skills</column>
+            <column name="CG_DescriptionTH">ทักษะทางสังคมที่ใช้เพื่อปฏิสัมพันธ์</column>
+            <column name="CG_DescriptionEN">Soft Skills</column>
+            <column name="CG_DefaultImage">2.jpg</column>
+            <column name="CG_CreateDate">2023-07-10 17:29:50</column>
+            <column name="CG_ModifyDate">2023-08-15 14:21:35</column>
+        </table>
+        <table name="category">
+            <column name="CG_Entity No.">4</column>
+            <column name="CG_IsFile">0</column>
+            <column name="CG_Entity Relation No.">0</column>
+            <column name="CG_Name">Knowledge Sharing</column>
+            <column name="CG_DescriptionTH">แบ่งปันความรู้</column>
+            <column name="CG_DescriptionEN">Knowledge Sharing</column>
+            <column name="CG_DefaultImage">4.jpg</column>
+            <column name="CG_CreateDate">2023-07-10 17:30:31</column>
+            <column name="CG_ModifyDate">2023-08-17 16:05:55</column>
+        </table>
+        <table name="category">
+            <column name="CG_Entity No.">5</column>
+            <column name="CG_IsFile">0</column>
+            <column name="CG_Entity Relation No.">3</column>
+            <column name="CG_Name">Digital Skill</column>
+            <column name="CG_DescriptionTH">Digital Skill</column>
+            <column name="CG_DescriptionEN">Digital Skill</column>
+            <column name="CG_DefaultImage"></column>
+            <column name="CG_CreateDate">2023-07-10 17:30:31</column>
+            <column name="CG_ModifyDate">2023-08-11 13:18:06</column>
+        </table>
+        <table name="category">
+            <column name="CG_Entity No.">6</column>
+            <column name="CG_IsFile">0</column>
+            <column name="CG_Entity Relation No.">3</column>
+            <column name="CG_Name">Language Skill</column>
+            <column name="CG_DescriptionTH">Language Skill</column>
+            <column name="CG_DescriptionEN">Language Skill</column>
+            <column name="CG_DefaultImage"></column>
+            <column name="CG_CreateDate">2023-07-11 08:51:56</column>
+            <column name="CG_ModifyDate">2023-08-11 13:18:20</column>
+        </table>
+        <table name="category">
+            <column name="CG_Entity No.">8</column>
+            <column name="CG_IsFile">0</column>
+            <column name="CG_Entity Relation No.">6</column>
+            <column name="CG_Name">Language Skill-1</column>
+            <column name="CG_DescriptionTH">ทักษะทางสังคมที่ใช้เพื่อปฏิสัมพันธ์กับผู้คน-1</column>
+            <column name="CG_DescriptionEN">Language Skill-1</column>
+            <column name="CG_DefaultImage"></column>
+            <column name="CG_CreateDate">2023-07-11 15:52:14</column>
+            <column name="CG_ModifyDate">2023-07-14 00:00:00</column>
+        </table>
+        <table name="category">
+            <column name="CG_Entity No.">9</column>
+            <column name="CG_IsFile">0</column>
+            <column name="CG_Entity Relation No.">6</column>
+            <column name="CG_Name">Language Skill-2</column>
+            <column name="CG_DescriptionTH">ทักษะทางสังคมที่ใช้เพื่อปฏิสัมพันธ์กับผู้คน-2</column>
+            <column name="CG_DescriptionEN">Language Skill-2</column>
+            <column name="CG_DefaultImage"></column>
+            <column name="CG_CreateDate">2023-07-11 17:29:51</column>
+            <column name="CG_ModifyDate">2023-08-10 15:36:02</column>
+        </table>
+        <table name="category">
+            <column name="CG_Entity No.">10</column>
+            <column name="CG_IsFile">0</column>
+            <column name="CG_Entity Relation No.">0</column>
+            <column name="CG_Name">Gallery</column>
+            <column name="CG_DescriptionTH">แกลลอรี่</column>
+            <column name="CG_DescriptionEN">Gallery</column>
+            <column name="CG_DefaultImage"></column>
+            <column name="CG_CreateDate">2023-07-14 09:29:13</column>
+            <column name="CG_ModifyDate">2023-07-14 00:00:00</column>
+        </table>
+        <table name="category">
+            <column name="CG_Entity No.">19</column>
+            <column name="CG_IsFile">0</column>
+            <column name="CG_Entity Relation No.">0</column>
+            <column name="CG_Name">ประกาศทั่วไป</column>
+            <column name="CG_DescriptionTH">ประกาศทั่วไป</column>
+            <column name="CG_DescriptionEN">General announcement</column>
+            <column name="CG_DefaultImage"></column>
+            <column name="CG_CreateDate">2023-08-02 14:09:41</column>
+            <column name="CG_ModifyDate">2023-08-15 13:22:14</column>
+        </table>
+        <table name="category">
+            <column name="CG_Entity No.">20</column>
+            <column name="CG_IsFile">1</column>
+            <column name="CG_Entity Relation No.">0</column>
+            <column name="CG_Name">ประกาศจากฝ่ายบุคคล</column>
+            <column name="CG_DescriptionTH">ประกาศจากฝ่ายบุคคล</column>
+            <column name="CG_DescriptionEN">ประกาศจากฝ่ายบุคคล</column>
+            <column name="CG_DefaultImage"></column>
+            <column name="CG_CreateDate">2023-08-04 12:00:58</column>
+            <column name="CG_ModifyDate">2023-08-09 16:32:12</column>
+        </table>
+        <table name="category">
+            <column name="CG_Entity No.">22</column>
+            <column name="CG_IsFile">1</column>
+            <column name="CG_Entity Relation No.">20</column>
+            <column name="CG_Name">นโยบาย</column>
+            <column name="CG_DescriptionTH">นโยบาย</column>
+            <column name="CG_DescriptionEN">นโยบาย</column>
+            <column name="CG_DefaultImage"></column>
+            <column name="CG_CreateDate">2023-08-07 14:40:31</column>
+            <column name="CG_ModifyDate">2023-08-09 16:34:18</column>
+        </table>
+        <table name="category">
+            <column name="CG_Entity No.">23</column>
+            <column name="CG_IsFile">1</column>
+            <column name="CG_Entity Relation No.">20</column>
+            <column name="CG_Name">สวัสดิการ</column>
+            <column name="CG_DescriptionTH">สวัสดิการ</column>
+            <column name="CG_DescriptionEN">สวัสดิการ</column>
+            <column name="CG_DefaultImage"></column>
+            <column name="CG_CreateDate">2023-08-09 16:34:00</column>
+            <column name="CG_ModifyDate">2023-08-10 15:37:45</column>
+        </table>
+        <table name="category">
+            <column name="CG_Entity No.">27</column>
+            <column name="CG_IsFile">1</column>
+            <column name="CG_Entity Relation No.">0</column>
+            <column name="CG_Name">News</column>
+            <column name="CG_DescriptionTH">ข่าวสาร</column>
+            <column name="CG_DescriptionEN">News</column>
+            <column name="CG_DefaultImage"></column>
+            <column name="CG_CreateDate">2023-09-04 09:47:27</column>
+            <column name="CG_ModifyDate">2023-09-04 09:47:27</column>
+        </table>
+        <table name="category">
+            <column name="CG_Entity No.">28</column>
+            <column name="CG_IsFile">0</column>
+            <column name="CG_Entity Relation No.">0</column>
+            <column name="CG_Name">Technical Skill</column>
+            <column name="CG_DescriptionTH">ทักษะทางเทคนิค</column>
+            <column name="CG_DescriptionEN">Technical Skill</column>
+            <column name="CG_DefaultImage"></column>
+            <column name="CG_CreateDate">2023-09-04 09:49:34</column>
+            <column name="CG_ModifyDate">2023-09-04 09:49:34</column>
+        </table>
+        <table name="category">
+            <column name="CG_Entity No.">29</column>
+            <column name="CG_IsFile">0</column>
+            <column name="CG_Entity Relation No.">0</column>
+            <column name="CG_Name">บทความ</column>
+            <column name="CG_DescriptionTH">บทความ</column>
+            <column name="CG_DescriptionEN">Article</column>
+            <column name="CG_DefaultImage"></column>
+            <column name="CG_CreateDate">2023-09-04 09:50:54</column>
+            <column name="CG_ModifyDate">2023-09-04 09:50:54</column>
+        </table>
+        <table name="category">
+            <column name="CG_Entity No.">30</column>
+            <column name="CG_IsFile">1</column>
+            <column name="CG_Entity Relation No.">0</column>
+            <column name="CG_Name">นโยบาย</column>
+            <column name="CG_DescriptionTH">นโยบาย</column>
+            <column name="CG_DescriptionEN">Policy</column>
+            <column name="CG_DefaultImage"></column>
+            <column name="CG_CreateDate">2023-09-04 09:52:47</column>
+            <column name="CG_ModifyDate">2023-09-04 09:52:47</column>
+        </table>
+        <table name="category">
+            <column name="CG_Entity No.">31</column>
+            <column name="CG_IsFile">0</column>
+            <column name="CG_Entity Relation No.">0</column>
+            <column name="CG_Name">เกมส์</column>
+            <column name="CG_DescriptionTH">เกมส์</column>
+            <column name="CG_DescriptionEN">Games</column>
+            <column name="CG_DefaultImage"></column>
+            <column name="CG_CreateDate">2023-09-04 09:59:41</column>
+            <column name="CG_ModifyDate">2023-09-04 09:59:41</column>
+        </table>
+        <!-- Table details -->
+        <!-- Table engravedactivities -->
+        <table name="engravedactivities">
+            <column name="EA_Code">2</column>
+            <column name="EC_Code">1</column>
+            <column name="EA_Name">วันหยุดประจำปี-สำนักงานใหญ่ GKE</column>
+            <column name="EA_Path">PDF/Holiday/HeadOfficeGKE/</column>
+            <column name="CountPage">5</column>
+            <column name="EC_UserCreate">bbb</column>
+            <column name="EA_CreateDate">2023-08-10 16:29:20</column>
+            <column name="EA_ModifyDate">2023-08-18 13:55:23</column>
+        </table>
+        <table name="engravedactivities">
+            <column name="EA_Code">3</column>
+            <column name="EC_Code">1</column>
+            <column name="EA_Name">ไซต์งานก่อสร้าง และ O&amp;M GKE</column>
+            <column name="EA_Path">PDF/Holiday/ConstructionSiteGKE/</column>
+            <column name="CountPage">0</column>
+            <column name="EC_UserCreate">bbb</column>
+            <column name="EA_CreateDate">2023-08-10 16:29:20</column>
+            <column name="EA_ModifyDate">2023-08-18 13:55:23</column>
+        </table>
+        <table name="engravedactivities">
+            <column name="EA_Code">4</column>
+            <column name="EC_Code">1</column>
+            <column name="EA_Name">โรงงาน GKA &amp; GKP</column>
+            <column name="EA_Path">PDF/Holiday/FactoryGKAGKP/</column>
+            <column name="CountPage">0</column>
+            <column name="EC_UserCreate">bbb</column>
+            <column name="EA_CreateDate">2023-08-10 16:29:20</column>
+            <column name="EA_ModifyDate">2023-08-18 13:55:23</column>
+        </table>
+        <table name="engravedactivities">
+            <column name="EA_Code">5</column>
+            <column name="EC_Code">1</column>
+            <column name="EA_Name">สำนักงานใหญ่ GPD</column>
+            <column name="EA_Path">PDF/Holiday/HeadOfficeGPD/</column>
+            <column name="CountPage">0</column>
+            <column name="EC_UserCreate">bbb</column>
+            <column name="EA_CreateDate">2023-08-10 16:29:20</column>
+            <column name="EA_ModifyDate">2023-08-18 13:55:23</column>
+        </table>
+        <table name="engravedactivities">
+            <column name="EA_Code">6</column>
+            <column name="EC_Code">1</column>
+            <column name="EA_Name">ไซต์งานก่อสร้าง GPD</column>
+            <column name="EA_Path">PDF/Holiday/ConstructionSiteGPD/</column>
+            <column name="CountPage">0</column>
+            <column name="EC_UserCreate">bbb</column>
+            <column name="EA_CreateDate">2023-08-10 16:29:20</column>
+            <column name="EA_ModifyDate">2023-08-18 13:55:23</column>
+        </table>
+        <table name="engravedactivities">
+            <column name="EA_Code">7</column>
+            <column name="EC_Code">2</column>
+            <column name="EA_Name">สำนักงานใหญ่ GKE</column>
+            <column name="EA_Path">PDF/TelephoneNumber/TelephoneNumber-GKE/</column>
+            <column name="CountPage">0</column>
+            <column name="EC_UserCreate">bbb</column>
+            <column name="EA_CreateDate">2023-08-10 16:31:19</column>
+            <column name="EA_ModifyDate">2023-08-25 16:36:05</column>
+        </table>
+        <table name="engravedactivities">
+            <column name="EA_Code">8</column>
+            <column name="EC_Code">2</column>
+            <column name="EA_Name">โรงงาน GKA &amp; GKP</column>
+            <column name="EA_Path">PDF/TelephoneNumber/TelephoneNumber-GKAP/</column>
+            <column name="CountPage">0</column>
+            <column name="EC_UserCreate">bbb</column>
+            <column name="EA_CreateDate">2023-08-10 16:31:19</column>
+            <column name="EA_ModifyDate">2023-08-25 16:36:05</column>
+        </table>
+        <table name="engravedactivities">
+            <column name="EA_Code">9</column>
+            <column name="EC_Code">2</column>
+            <column name="EA_Name">สำนักงานใหญ่ GPD</column>
+            <column name="EA_Path">PDF/TelephoneNumber/TelephoneNumber-GPD/</column>
+            <column name="CountPage">0</column>
+            <column name="EC_UserCreate">bbb</column>
+            <column name="EA_CreateDate">2023-08-10 16:31:19</column>
+            <column name="EA_ModifyDate">2023-08-25 16:36:05</column>
+        </table>
+        <table name="engravedactivities">
+            <column name="EA_Code">10</column>
+            <column name="EC_Code">6</column>
+            <column name="EA_Name">แผนที่ GKE</column>
+            <column name="EA_Path">https://www.gunkul.com/th/contact-us/head-office</column>
+            <column name="CountPage">0</column>
+            <column name="EC_UserCreate">aaa</column>
+            <column name="EA_CreateDate">2023-08-17 13:57:45</column>
+            <column name="EA_ModifyDate">2023-09-04 10:12:06</column>
+        </table>
+        <table name="engravedactivities">
+            <column name="EA_Code">11</column>
+            <column name="EC_Code">7</column>
+            <column name="EA_Name">GKE</column>
+            <column name="EA_Path">https://www.gunkul.com/th/about-us/organization-chart</column>
+            <column name="CountPage">0</column>
+            <column name="EC_UserCreate">aaa</column>
+            <column name="EA_CreateDate">2023-08-17 14:06:06</column>
+            <column name="EA_ModifyDate">2023-09-04 10:07:52</column>
+        </table>
+        <table name="engravedactivities">
+            <column name="EA_Code">20</column>
+            <column name="EC_Code">0</column>
+            <column name="EA_Name">Test</column>
+            <column name="EA_Path">123456</column>
+            <column name="CountPage">0</column>
+            <column name="EC_UserCreate">aaa</column>
+            <column name="EA_CreateDate">2023-08-21 08:33:35</column>
+            <column name="EA_ModifyDate">2023-08-21 08:33:35</column>
+        </table>
+        <table name="engravedactivities">
+            <column name="EA_Code">21</column>
+            <column name="EC_Code">0</column>
+            <column name="EA_Name">Test</column>
+            <column name="EA_Path">yyyyy</column>
+            <column name="CountPage">0</column>
+            <column name="EC_UserCreate">aaa</column>
+            <column name="EA_CreateDate">2023-08-21 08:33:49</column>
+            <column name="EA_ModifyDate">2023-08-21 08:33:49</column>
+        </table>
+        <table name="engravedactivities">
+            <column name="EA_Code">22</column>
+            <column name="EC_Code">0</column>
+            <column name="EA_Name">Test</column>
+            <column name="EA_Path">123456</column>
+            <column name="CountPage">0</column>
+            <column name="EC_UserCreate">aaa</column>
+            <column name="EA_CreateDate">2023-08-21 08:35:36</column>
+            <column name="EA_ModifyDate">2023-08-21 08:35:36</column>
+        </table>
+        <table name="engravedactivities">
+            <column name="EA_Code">23</column>
+            <column name="EC_Code">0</column>
+            <column name="EA_Name">Test</column>
+            <column name="EA_Path">123456</column>
+            <column name="CountPage">0</column>
+            <column name="EC_UserCreate">aaa</column>
+            <column name="EA_CreateDate">2023-08-21 08:38:51</column>
+            <column name="EA_ModifyDate">2023-08-21 08:38:51</column>
+        </table>
+        <table name="engravedactivities">
+            <column name="EA_Code">24</column>
+            <column name="EC_Code">0</column>
+            <column name="EA_Name">Test1</column>
+            <column name="EA_Path">123456</column>
+            <column name="CountPage">0</column>
+            <column name="EC_UserCreate">aaa</column>
+            <column name="EA_CreateDate">2023-08-21 08:44:04</column>
+            <column name="EA_ModifyDate">2023-08-21 08:44:04</column>
+        </table>
+        <table name="engravedactivities">
+            <column name="EA_Code">25</column>
+            <column name="EC_Code">0</column>
+            <column name="EA_Name">Test2</column>
+            <column name="EA_Path">123456</column>
+            <column name="CountPage">0</column>
+            <column name="EC_UserCreate">aaa</column>
+            <column name="EA_CreateDate">2023-08-21 08:44:04</column>
+            <column name="EA_ModifyDate">2023-08-21 08:44:04</column>
+        </table>
+        <table name="engravedactivities">
+            <column name="EA_Code">34</column>
+            <column name="EC_Code">19</column>
+            <column name="EA_Name">ระบบลาและเงินเดือน</column>
+            <column name="EA_Path">https://hrm.gunkul.net/LoginERS/login.aspx</column>
+            <column name="CountPage">0</column>
+            <column name="EC_UserCreate">aaa</column>
+            <column name="EA_CreateDate">2023-08-21 10:51:34</column>
+            <column name="EA_ModifyDate">2023-08-21 10:51:34</column>
+        </table>
+        <table name="engravedactivities">
+            <column name="EA_Code">35</column>
+            <column name="EC_Code">19</column>
+            <column name="EA_Name">จองห้องประชุม</column>
+            <column name="EA_Path">http://meetingroom.gunkul.com/login</column>
+            <column name="CountPage">0</column>
+            <column name="EC_UserCreate">aaa</column>
+            <column name="EA_CreateDate">2023-08-21 10:51:34</column>
+            <column name="EA_ModifyDate">2023-08-21 10:51:34</column>
+        </table>
+        <table name="engravedactivities">
+            <column name="EA_Code">36</column>
+            <column name="EC_Code">19</column>
+            <column name="EA_Name">ระบบ e-Doc GKE</column>
+            <column name="EA_Path">https://edoc.gunkul.com/share/page</column>
+            <column name="CountPage">0</column>
+            <column name="EC_UserCreate">aaa</column>
+            <column name="EA_CreateDate">2023-08-21 10:51:34</column>
+            <column name="EA_ModifyDate">2023-08-21 10:51:34</column>
+        </table>
+        <table name="engravedactivities">
+            <column name="EA_Code">37</column>
+            <column name="EC_Code">19</column>
+            <column name="EA_Name">ระบบ e-Doc GKA, P</column>
+            <column name="EA_Path">https://edocgka.gunkul.com/share/page</column>
+            <column name="CountPage">0</column>
+            <column name="EC_UserCreate">aaa</column>
+            <column name="EA_CreateDate">2023-08-21 10:51:34</column>
+            <column name="EA_ModifyDate">2023-08-21 10:51:34</column>
+        </table>
+        <table name="engravedactivities">
+            <column name="EA_Code">38</column>
+            <column name="EC_Code">19</column>
+            <column name="EA_Name">ระบบ e-Doc GPD</column>
+            <column name="EA_Path">https://edoc.gpdpublic.com/share/page</column>
+            <column name="CountPage">0</column>
+            <column name="EC_UserCreate">aaa</column>
+            <column name="EA_CreateDate">2023-08-21 10:51:34</column>
+            <column name="EA_ModifyDate">2023-08-21 10:51:34</column>
+        </table>
+        <table name="engravedactivities">
+            <column name="EA_Code">39</column>
+            <column name="EC_Code">19</column>
+            <column name="EA_Name">ระบบ e-Doc JV</column>
+            <column name="EA_Path">https://edocjv.gunkul.com/share/page</column>
+            <column name="CountPage">0</column>
+            <column name="EC_UserCreate">aaa</column>
+            <column name="EA_CreateDate">2023-08-21 10:51:34</column>
+            <column name="EA_ModifyDate">2023-08-21 10:51:34</column>
+        </table>
+        <table name="engravedactivities">
+            <column name="EA_Code">40</column>
+            <column name="EC_Code">20</column>
+            <column name="EA_Name">ระบบ Dev e-Doc GKE</column>
+            <column name="EA_Path">https://edocdev.gunkul.com/share/page</column>
+            <column name="CountPage">0</column>
+            <column name="EC_UserCreate">aaa</column>
+            <column name="EA_CreateDate">2023-08-21 10:52:22</column>
+            <column name="EA_ModifyDate">2023-08-21 10:52:22</column>
+        </table>
+        <table name="engravedactivities">
+            <column name="EA_Code">41</column>
+            <column name="EC_Code">20</column>
+            <column name="EA_Name">ระบบ Dev e-Doc GKA, P</column>
+            <column name="EA_Path">https://gkadev.gunkul.com/share/page</column>
+            <column name="CountPage">0</column>
+            <column name="EC_UserCreate">aaa</column>
+            <column name="EA_CreateDate">2023-08-21 10:52:22</column>
+            <column name="EA_ModifyDate">2023-08-21 10:52:22</column>
+        </table>
+        <table name="engravedactivities">
+            <column name="EA_Code">42</column>
+            <column name="EC_Code">20</column>
+            <column name="EA_Name">ระบบ Dev e-Doc GPD</column>
+            <column name="EA_Path">https://10.10.9.183:8443/share/page</column>
+            <column name="CountPage">0</column>
+            <column name="EC_UserCreate">aaa</column>
+            <column name="EA_CreateDate">2023-08-21 10:52:22</column>
+            <column name="EA_ModifyDate">2023-08-21 10:52:22</column>
+        </table>
+        <table name="engravedactivities">
+            <column name="EA_Code">43</column>
+            <column name="EC_Code">20</column>
+            <column name="EA_Name">ระบบ Dev e-Doc JV</column>
+            <column name="EA_Path">https://http://10.10.9.166:8080/share/page</column>
+            <column name="CountPage">0</column>
+            <column name="EC_UserCreate">aaa</column>
+            <column name="EA_CreateDate">2023-08-21 10:52:22</column>
+            <column name="EA_ModifyDate">2023-08-21 10:52:22</column>
+        </table>
+        <table name="engravedactivities">
+            <column name="EA_Code">44</column>
+            <column name="EC_Code">22</column>
+            <column name="EA_Name">ระบบจองห้องประชุม</column>
+            <column name="EA_Path">http://meetingroom.gunkul.com/login</column>
+            <column name="CountPage">0</column>
+            <column name="EC_UserCreate">aaa</column>
+            <column name="EA_CreateDate">2023-08-24 16:42:45</column>
+            <column name="EA_ModifyDate">2023-08-24 16:42:45</column>
+        </table>
+        <table name="engravedactivities">
+            <column name="EA_Code">45</column>
+            <column name="EC_Code">21</column>
+            <column name="EA_Name">B-Plus</column>
+            <column name="EA_Path">https://hrm.gunkul.net/LoginERS/login.aspx</column>
+            <column name="CountPage">0</column>
+            <column name="EC_UserCreate">aaa</column>
+            <column name="EA_CreateDate">2023-08-24 16:43:05</column>
+            <column name="EA_ModifyDate">2023-08-24 16:43:05</column>
+        </table>
+        <table name="engravedactivities">
+            <column name="EA_Code">46</column>
+            <column name="EC_Code">25</column>
+            <column name="EA_Name">GKA&amp;P</column>
+            <column name="EA_Path">PDF/TelephoneNumber/TelephoneNumber-GKAP/</column>
+            <column name="CountPage">0</column>
+            <column name="EC_UserCreate">aaa</column>
+            <column name="EA_CreateDate">2023-08-25 16:57:36</column>
+            <column name="EA_ModifyDate">2023-08-25 16:57:36</column>
+        </table>
+        <table name="engravedactivities">
+            <column name="EA_Code">47</column>
+            <column name="EC_Code">24</column>
+            <column name="EA_Name">GPD</column>
+            <column name="EA_Path">PDF/TelephoneNumber/TelephoneNumber-GPD/</column>
+            <column name="CountPage">0</column>
+            <column name="EC_UserCreate">aaa</column>
+            <column name="EA_CreateDate">2023-08-25 16:57:49</column>
+            <column name="EA_ModifyDate">2023-08-25 16:57:49</column>
+        </table>
+        <table name="engravedactivities">
+            <column name="EA_Code">48</column>
+            <column name="EC_Code">23</column>
+            <column name="EA_Name">GKE</column>
+            <column name="EA_Path">PDF/TelephoneNumber/TelephoneNumber-GKE/</column>
+            <column name="CountPage">0</column>
+            <column name="EC_UserCreate">aaa</column>
+            <column name="EA_CreateDate">2023-08-25 16:58:05</column>
+            <column name="EA_ModifyDate">2023-08-25 16:58:05</column>
+        </table>
+        <table name="engravedactivities">
+            <column name="EA_Code">49</column>
+            <column name="EC_Code">7</column>
+            <column name="EA_Name">GPD</column>
+            <column name="EA_Path">https://www.gpdplc.com/th/who-we-are/organization-chart</column>
+            <column name="CountPage">0</column>
+            <column name="EC_UserCreate">aaa</column>
+            <column name="EA_CreateDate">2023-08-25 17:27:33</column>
+            <column name="EA_ModifyDate">2023-09-04 10:07:52</column>
+        </table>
+        <table name="engravedactivities">
+            <column name="EA_Code">50</column>
+            <column name="EC_Code">26</column>
+            <column name="EA_Name">GKE</column>
+            <column name="EA_Path">https://www.gunkul.com/en</column>
+            <column name="CountPage">0</column>
+            <column name="EC_UserCreate">aaa</column>
+            <column name="EA_CreateDate">2023-08-25 17:28:57</column>
+            <column name="EA_ModifyDate">2023-08-25 17:28:57</column>
+        </table>
+        <table name="engravedactivities">
+            <column name="EA_Code">51</column>
+            <column name="EC_Code">26</column>
+            <column name="EA_Name">GPD</column>
+            <column name="EA_Path">https://www.gpdplc.com/en/home</column>
+            <column name="CountPage">0</column>
+            <column name="EC_UserCreate">aaa</column>
+            <column name="EA_CreateDate">2023-08-25 17:28:57</column>
+            <column name="EA_ModifyDate">2023-08-25 17:28:57</column>
+        </table>
+        <table name="engravedactivities">
+            <column name="EA_Code">52</column>
+            <column name="EC_Code">6</column>
+            <column name="EA_Name">แผนที่ GKA</column>
+            <column name="EA_Path">https://maps.app.goo.gl/xzLsgb2QxSHfn81g6?g_st=il</column>
+            <column name="CountPage">0</column>
+            <column name="EC_UserCreate">admin</column>
+            <column name="EA_CreateDate">2023-09-04 09:08:38</column>
+            <column name="EA_ModifyDate">2023-09-04 10:12:06</column>
+        </table>
+        <table name="engravedactivities">
+            <column name="EA_Code">53</column>
+            <column name="EC_Code">6</column>
+            <column name="EA_Name">คลัง</column>
+            <column name="EA_Path">https://goo.gl/maps/jTTrTBZfbv2hoGmQ7</column>
+            <column name="CountPage">0</column>
+            <column name="EC_UserCreate"></column>
+            <column name="EA_CreateDate">2023-09-04 10:12:06</column>
+            <column name="EA_ModifyDate">2023-09-04 10:12:06</column>
+        </table>
+        <table name="engravedactivities">
+            <column name="EA_Code">54</column>
+            <column name="EC_Code">28</column>
+            <column name="EA_Name">วิสัยทัศน์</column>
+            <column name="EA_Path">https://www.gunkul.com/th/about-us/vision-mission</column>
+            <column name="CountPage">0</column>
+            <column name="EC_UserCreate">admin</column>
+            <column name="EA_CreateDate">2023-09-04 14:02:47</column>
+            <column name="EA_ModifyDate">2023-09-04 14:05:37</column>
+        </table>
+        <table name="engravedactivities">
+            <column name="EA_Code">55</column>
+            <column name="EC_Code">28</column>
+            <column name="EA_Name">พันธกิจ</column>
+            <column name="EA_Path">https://www.gunkul.com/th/about-us/vision-mission</column>
+            <column name="CountPage">0</column>
+            <column name="EC_UserCreate">admin</column>
+            <column name="EA_CreateDate">2023-09-04 14:05:37</column>
+            <column name="EA_ModifyDate">2023-09-04 14:05:37</column>
+        </table>
+        <table name="engravedactivities">
+            <column name="EA_Code">56</column>
+            <column name="EC_Code">28</column>
+            <column name="EA_Name">วัฒนะธรรมภายในองค์กร</column>
+            <column name="EA_Path">https://www.gunkul.com/</column>
+            <column name="CountPage">0</column>
+            <column name="EC_UserCreate">admin</column>
+            <column name="EA_CreateDate">2023-09-04 14:05:37</column>
+            <column name="EA_ModifyDate">2023-09-04 14:05:37</column>
+        </table>
+        <!-- Table engravedcategory -->
+        <table name="engravedcategory">
+            <column name="EC_Code">1</column>
+            <column name="EC_Name">วันหยุดประจำปี</column>
+            <column name="EC_DescriptionTH">วันหยุดประจำปี</column>
+            <column name="EC_DescriptionEN">Holiday</column>
+            <column name="CountPage">0</column>
+            <column name="EC_UserCreate">1</column>
+            <column name="EC_CreateDate">2023-08-04 15:28:18</column>
+            <column name="EC_ModifyDate">2023-08-06 13:09:32</column>
+        </table>
+        <table name="engravedcategory">
+            <column name="EC_Code">2</column>
+            <column name="EC_Name">เบอร์โทรศัพท์ภายใน</column>
+            <column name="EC_DescriptionTH">เบอร์โทรศัพท์ภายใน</column>
+            <column name="EC_DescriptionEN">TelephoneNumber</column>
+            <column name="CountPage">0</column>
+            <column name="EC_UserCreate"></column>
+            <column name="EC_CreateDate">2023-08-04 15:28:17</column>
+            <column name="EC_ModifyDate">0000-00-00 00:00:00</column>
+        </table>
+        <table name="engravedcategory">
+            <column name="EC_Code">6</column>
+            <column name="EC_Name">แผนที่บริษัท</column>
+            <column name="EC_DescriptionTH">แผนที่บริษัท</column>
+            <column name="EC_DescriptionEN">Map</column>
+            <column name="CountPage">0</column>
+            <column name="EC_UserCreate">aaa</column>
+            <column name="EC_CreateDate">2023-08-17 13:55:51</column>
+            <column name="EC_ModifyDate">2023-09-04 09:05:49</column>
+        </table>
+        <table name="engravedcategory">
+            <column name="EC_Code">7</column>
+            <column name="EC_Name">โครงสร้างองค์กร</column>
+            <column name="EC_DescriptionTH">โครงสร้างองค์กร</column>
+            <column name="EC_DescriptionEN">Management Structure</column>
+            <column name="CountPage">0</column>
+            <column name="EC_UserCreate">aaa</column>
+            <column name="EC_CreateDate">2023-08-17 14:05:19</column>
+            <column name="EC_ModifyDate">2023-08-25 17:22:25</column>
+        </table>
+        <table name="engravedcategory">
+            <column name="EC_Code">12</column>
+            <column name="EC_Name">เบอร์โทรภายใน GKA</column>
+            <column name="EC_DescriptionTH">เบอร์โทรภายใน GKA</column>
+            <column name="EC_DescriptionEN">เบอร์โทรภายใน GKA</column>
+            <column name="CountPage">0</column>
+            <column name="EC_UserCreate">GPDHA</column>
+            <column name="EC_CreateDate">2023-08-18 14:54:17</column>
+            <column name="EC_ModifyDate">2023-08-18 14:54:17</column>
+        </table>
+        <table name="engravedcategory">
+            <column name="EC_Code">13</column>
+            <column name="EC_Name">เบอร์โทรฉุกเฉิน GKA</column>
+            <column name="EC_DescriptionTH">เบอร์โทรฉุกเฉิน GKA</column>
+            <column name="EC_DescriptionEN">-</column>
+            <column name="CountPage">0</column>
+            <column name="EC_UserCreate">GKAHA</column>
+            <column name="EC_CreateDate">2023-08-18 14:55:13</column>
+            <column name="EC_ModifyDate">2023-08-18 14:55:53</column>
+        </table>
+        <table name="engravedcategory">
+            <column name="EC_Code">19</column>
+            <column name="EC_Name">ระบบจริง</column>
+            <column name="EC_DescriptionTH">ระบบจริง</column>
+            <column name="EC_DescriptionEN">System</column>
+            <column name="CountPage">0</column>
+            <column name="EC_UserCreate">aaa</column>
+            <column name="EC_CreateDate">2023-08-21 10:49:40</column>
+            <column name="EC_ModifyDate">2023-08-21 10:49:40</column>
+        </table>
+        <table name="engravedcategory">
+            <column name="EC_Code">20</column>
+            <column name="EC_Name">ระบบเทส</column>
+            <column name="EC_DescriptionTH">ระบบเทส</column>
+            <column name="EC_DescriptionEN">Test System</column>
+            <column name="CountPage">0</column>
+            <column name="EC_UserCreate">aaa</column>
+            <column name="EC_CreateDate">2023-08-21 10:50:03</column>
+            <column name="EC_ModifyDate">2023-08-21 10:50:03</column>
+        </table>
+        <table name="engravedcategory">
+            <column name="EC_Code">21</column>
+            <column name="EC_Name">B-Plus</column>
+            <column name="EC_DescriptionTH">ระบบลาและเงินเดือน</column>
+            <column name="EC_DescriptionEN">B-Plus</column>
+            <column name="CountPage">0</column>
+            <column name="EC_UserCreate">aaa</column>
+            <column name="EC_CreateDate">2023-08-24 16:41:34</column>
+            <column name="EC_ModifyDate">2023-08-24 16:41:34</column>
+        </table>
+        <table name="engravedcategory">
+            <column name="EC_Code">22</column>
+            <column name="EC_Name">ระบบจองห้องประชุม</column>
+            <column name="EC_DescriptionTH">ระบบจองห้องประชุม</column>
+            <column name="EC_DescriptionEN">Meeting Room</column>
+            <column name="CountPage">0</column>
+            <column name="EC_UserCreate">aaa</column>
+            <column name="EC_CreateDate">2023-08-24 16:42:17</column>
+            <column name="EC_ModifyDate">2023-08-24 16:42:17</column>
+        </table>
+        <table name="engravedcategory">
+            <column name="EC_Code">23</column>
+            <column name="EC_Name">เบอร์ภายใน GKE</column>
+            <column name="EC_DescriptionTH">เบอร์ภายใน GKE</column>
+            <column name="EC_DescriptionEN">GKE</column>
+            <column name="CountPage">0</column>
+            <column name="EC_UserCreate">aaa</column>
+            <column name="EC_CreateDate">2023-08-25 16:35:09</column>
+            <column name="EC_ModifyDate">2023-08-25 16:35:09</column>
+        </table>
+        <table name="engravedcategory">
+            <column name="EC_Code">24</column>
+            <column name="EC_Name">เบอร์ภายใน GPD</column>
+            <column name="EC_DescriptionTH">เบอร์ภายใน GPD</column>
+            <column name="EC_DescriptionEN">GPD</column>
+            <column name="CountPage">0</column>
+            <column name="EC_UserCreate">aaa</column>
+            <column name="EC_CreateDate">2023-08-25 16:35:25</column>
+            <column name="EC_ModifyDate">2023-08-25 16:35:25</column>
+        </table>
+        <table name="engravedcategory">
+            <column name="EC_Code">25</column>
+            <column name="EC_Name">เบอร์ภายใน GKA&amp;P</column>
+            <column name="EC_DescriptionTH">เบอร์ภายใน GKA&amp;P</column>
+            <column name="EC_DescriptionEN">GKA&amp;P</column>
+            <column name="CountPage">0</column>
+            <column name="EC_UserCreate">aaa</column>
+            <column name="EC_CreateDate">2023-08-25 16:35:40</column>
+            <column name="EC_ModifyDate">2023-08-25 16:35:40</column>
+        </table>
+        <table name="engravedcategory">
+            <column name="EC_Code">26</column>
+            <column name="EC_Name">เว็บไซต์บริษัท</column>
+            <column name="EC_DescriptionTH">เว็บไซต์บริษัท</column>
+            <column name="EC_DescriptionEN">Web</column>
+            <column name="CountPage">0</column>
+            <column name="EC_UserCreate">aaa</column>
+            <column name="EC_CreateDate">2023-08-25 17:27:49</column>
+            <column name="EC_ModifyDate">2023-08-25 17:27:49</column>
+        </table>
+        <table name="engravedcategory">
+            <column name="EC_Code">27</column>
+            <column name="EC_Name">แบบฟอร์ม</column>
+            <column name="EC_DescriptionTH">แบบฟอร์ม</column>
+            <column name="EC_DescriptionEN">Printed Form</column>
+            <column name="CountPage">0</column>
+            <column name="EC_UserCreate"></column>
+            <column name="EC_CreateDate">2023-09-04 09:57:19</column>
+            <column name="EC_ModifyDate">2023-09-04 09:57:19</column>
+        </table>
+        <table name="engravedcategory">
+            <column name="EC_Code">28</column>
+            <column name="EC_Name">วิสัยทัศน์และพันธกิจ</column>
+            <column name="EC_DescriptionTH">วิสัยทัศน์และพันธกิจ</column>
+            <column name="EC_DescriptionEN">Vision &amp; Mission</column>
+            <column name="CountPage">0</column>
+            <column name="EC_UserCreate">admin</column>
+            <column name="EC_CreateDate">2023-09-04 14:02:28</column>
+            <column name="EC_ModifyDate">2023-09-04 14:02:28</column>
+        </table>
+        <!-- Table fileactivities -->
+        <!-- Table gallery -->
+        <!-- Table grouppositionheader -->
+        <!-- Table grouppositionline -->
+        <!-- Table heading -->
+        <!-- Table headingcategories -->
+        <table name="headingcategories">
+            <column name="HC_Code">1</column>
+            <column name="HC_Text">INTERNAL RECRUITMENT</column>
+            <column name="HC_DescriptionTH">ตำแหน่งงานว่างภายใน</column>
+            <column name="HC_DescriptionEN">INTERNAL RECRUITMENT</column>
+            <column name="HC_DefaultImage"></column>
+            <column name="CountPage">49</column>
+            <column name="HC_UserCreate"></column>
+            <column name="HC_CreateDate">2023-07-25 15:57:55</column>
+            <column name="HC_ModifyDate">0000-00-00 00:00:00</column>
+        </table>
+        <table name="headingcategories">
+            <column name="HC_Code">2</column>
+            <column name="HC_Text">FAQ</column>
+            <column name="HC_DescriptionTH">คำถามที่พบบ่อย</column>
+            <column name="HC_DescriptionEN">FAQs</column>
+            <column name="HC_DefaultImage">2.jpg</column>
+            <column name="CountPage">67</column>
+            <column name="HC_UserCreate"></column>
+            <column name="HC_CreateDate">2023-07-25 15:57:55</column>
+            <column name="HC_ModifyDate">2023-08-15 14:32:27</column>
+        </table>
+        <!-- Table headinggroup -->
+        <!-- Table indexsetup -->
+        <table name="indexsetup">
+            <column name="IS_Code">1</column>
+            <column name="IS_GroupCategory1">1</column>
+            <column name="IS_GroupCategory2">19</column>
+            <column name="IS_GroupMenu1"></column>
+            <column name="IS_GroupMenu1_Box1">0</column>
+            <column name="IS_GroupMenu2">category</column>
+            <column name="IS_GroupMenu2_Box2">2</column>
+            <column name="IS_GroupMenu3">category</column>
+            <column name="IS_GroupMenu3_Box3">4</column>
+            <column name="IS_GroupMenu4">headingcategories</column>
+            <column name="IS_GroupMenu4_Box4">2</column>
+            <column name="IS_UserCreate">admin</column>
+            <column name="IS_CreateDate">2023-08-11 15:35:55</column>
+            <column name="IS_ModifyDate">2023-09-04 09:18:41</column>
+        </table>
+        <!-- Table masterheadingcategories -->
+        <table name="masterheadingcategories">
+            <column name="MC_Code">1</column>
+            <column name="MC_Text">รายละเอียด :</column>
+            <column name="HC_Code">1</column>
+            <column name="MC_UserCreate">bbb</column>
+            <column name="MC_CreateDate">2023-08-06 13:47:21</column>
+            <column name="MC_ModifyDate">2023-08-06 13:47:21</column>
+        </table>
+        <table name="masterheadingcategories">
+            <column name="MC_Code">2</column>
+            <column name="MC_Text">คุณสมบัติ :</column>
+            <column name="HC_Code">1</column>
+            <column name="MC_UserCreate">bbb</column>
+            <column name="MC_CreateDate">2023-08-06 13:47:21</column>
+            <column name="MC_ModifyDate">2023-08-06 13:47:21</column>
+        </table>
+        <table name="masterheadingcategories">
+            <column name="MC_Code">3</column>
+            <column name="MC_Text">ติดต่อ :</column>
+            <column name="HC_Code">1</column>
+            <column name="MC_UserCreate">aaa</column>
+            <column name="MC_CreateDate">2023-08-18 14:44:23</column>
+            <column name="MC_ModifyDate">2023-08-18 14:44:23</column>
+        </table>
+        <!-- Table menu -->
+        <table name="menu">
+            <column name="MN_Code">1</column>
+            <column name="MN_Name">About Us</column>
+            <column name="MN_CreateDate">2023-08-15 12:07:06</column>
+            <column name="MN_ModifyDate">2023-08-24 16:25:53</column>
+        </table>
+        <table name="menu">
+            <column name="MN_Code">2</column>
+            <column name="MN_Name">ข่าวสารและกิจกรรม</column>
+            <column name="MN_CreateDate">2023-08-15 14:57:49</column>
+            <column name="MN_ModifyDate">2023-08-24 16:26:13</column>
+        </table>
+        <table name="menu">
+            <column name="MN_Code">3</column>
+            <column name="MN_Name">e-Learning</column>
+            <column name="MN_CreateDate">2023-08-15 15:00:18</column>
+            <column name="MN_ModifyDate">2023-08-25 13:48:17</column>
+        </table>
+        <table name="menu">
+            <column name="MN_Code">4</column>
+            <column name="MN_Name">เบอร์ภายใน</column>
+            <column name="MN_CreateDate">2023-08-15 15:00:43</column>
+            <column name="MN_ModifyDate">2023-08-24 16:27:01</column>
+        </table>
+        <table name="menu">
+            <column name="MN_Code">5</column>
+            <column name="MN_Name">มุม HR</column>
+            <column name="MN_CreateDate">2023-08-15 15:01:03</column>
+            <column name="MN_ModifyDate">2023-08-24 16:27:10</column>
+        </table>
+        <table name="menu">
+            <column name="MN_Code">6</column>
+            <column name="MN_Name">Link ภายใน</column>
+            <column name="MN_CreateDate">2023-08-15 15:01:21</column>
+            <column name="MN_ModifyDate">2023-08-24 16:27:21</column>
+        </table>
+        <!-- Table permissionmenu -->
+        <table name="permissionmenu">
+            <column name="PM_Code">12</column>
+            <column name="PM_RelationPermission">0</column>
+            <column name="PM_Menu">6</column>
+            <column name="PM_RelationType">EngravedCategory</column>
+            <column name="PM_RelationCode">21</column>
+            <column name="PM_Name">B-Plus</column>
+            <column name="PM_Direction">left</column>
+            <column name="PM_Draw">0</column>
+            <column name="PM_Setup">0</column>
+            <column name="PM_UserCreate">aaa</column>
+            <column name="PM_CreateDate">2023-08-17 09:00:19</column>
+            <column name="PM_ModifyDate">2023-08-25 13:43:57</column>
+        </table>
+        <table name="permissionmenu">
+            <column name="PM_Code">17</column>
+            <column name="PM_RelationPermission">0</column>
+            <column name="PM_Menu">2</column>
+            <column name="PM_RelationType">Category</column>
+            <column name="PM_RelationCode">19</column>
+            <column name="PM_Name">ประกาศ</column>
+            <column name="PM_Direction">left</column>
+            <column name="PM_Draw">0</column>
+            <column name="PM_Setup">0</column>
+            <column name="PM_UserCreate">admin</column>
+            <column name="PM_CreateDate">2023-08-17 09:06:31</column>
+            <column name="PM_ModifyDate">2023-09-04 09:47:45</column>
+        </table>
+        <table name="permissionmenu">
+            <column name="PM_Code">21</column>
+            <column name="PM_RelationPermission">0</column>
+            <column name="PM_Menu">5</column>
+            <column name="PM_RelationType">NoType</column>
+            <column name="PM_RelationCode">0</column>
+            <column name="PM_Name">นโยบาย***</column>
+            <column name="PM_Direction">left</column>
+            <column name="PM_Draw">0</column>
+            <column name="PM_Setup">0</column>
+            <column name="PM_UserCreate"></column>
+            <column name="PM_CreateDate">2023-08-17 09:09:30</column>
+            <column name="PM_ModifyDate">2023-09-04 09:59:50</column>
+        </table>
+        <table name="permissionmenu">
+            <column name="PM_Code">23</column>
+            <column name="PM_RelationPermission">0</column>
+            <column name="PM_Menu">2</column>
+            <column name="PM_RelationType">Category</column>
+            <column name="PM_RelationCode">27</column>
+            <column name="PM_Name">ข่าวสาร</column>
+            <column name="PM_Direction">left</column>
+            <column name="PM_Draw">0</column>
+            <column name="PM_Setup">0</column>
+            <column name="PM_UserCreate">admin</column>
+            <column name="PM_CreateDate">2023-08-17 09:09:55</column>
+            <column name="PM_ModifyDate">2023-09-04 09:47:45</column>
+        </table>
+        <table name="permissionmenu">
+            <column name="PM_Code">46</column>
+            <column name="PM_RelationPermission">0</column>
+            <column name="PM_Menu">4</column>
+            <column name="PM_RelationType">EngravedCategory</column>
+            <column name="PM_RelationCode">23</column>
+            <column name="PM_Name">GKE</column>
+            <column name="PM_Direction">right</column>
+            <column name="PM_Draw">0</column>
+            <column name="PM_Setup">0</column>
+            <column name="PM_UserCreate">aaa</column>
+            <column name="PM_CreateDate">2023-08-18 15:07:26</column>
+            <column name="PM_ModifyDate">2023-08-25 16:46:02</column>
+        </table>
+        <table name="permissionmenu">
+            <column name="PM_Code">48</column>
+            <column name="PM_RelationPermission">0</column>
+            <column name="PM_Menu">10</column>
+            <column name="PM_RelationType">Category</column>
+            <column name="PM_RelationCode">19</column>
+            <column name="PM_Name">รายชื่อผับ</column>
+            <column name="PM_Direction">left</column>
+            <column name="PM_Draw">0</column>
+            <column name="PM_Setup">0</column>
+            <column name="PM_UserCreate">GKEHA3</column>
+            <column name="PM_CreateDate">2023-08-18 15:08:43</column>
+            <column name="PM_ModifyDate">2023-08-18 15:08:43</column>
+        </table>
+        <table name="permissionmenu">
+            <column name="PM_Code">74</column>
+            <column name="PM_RelationPermission">0</column>
+            <column name="PM_Menu">6</column>
+            <column name="PM_RelationType">EngravedCategory</column>
+            <column name="PM_RelationCode">19</column>
+            <column name="PM_Name">E-doc</column>
+            <column name="PM_Direction">left</column>
+            <column name="PM_Draw">0</column>
+            <column name="PM_Setup">0</column>
+            <column name="PM_UserCreate">aaa</column>
+            <column name="PM_CreateDate">2023-08-24 16:44:58</column>
+            <column name="PM_ModifyDate">2023-08-25 13:43:57</column>
+        </table>
+        <table name="permissionmenu">
+            <column name="PM_Code">75</column>
+            <column name="PM_RelationPermission">0</column>
+            <column name="PM_Menu">6</column>
+            <column name="PM_RelationType">EngravedCategory</column>
+            <column name="PM_RelationCode">20</column>
+            <column name="PM_Name">E-doc-Dev</column>
+            <column name="PM_Direction">left</column>
+            <column name="PM_Draw">0</column>
+            <column name="PM_Setup">1</column>
+            <column name="PM_UserCreate">aaa</column>
+            <column name="PM_CreateDate">2023-08-24 16:44:58</column>
+            <column name="PM_ModifyDate">2023-08-25 13:43:57</column>
+        </table>
+        <table name="permissionmenu">
+            <column name="PM_Code">76</column>
+            <column name="PM_RelationPermission">0</column>
+            <column name="PM_Menu">6</column>
+            <column name="PM_RelationType">EngravedCategory</column>
+            <column name="PM_RelationCode">22</column>
+            <column name="PM_Name">ระบบจองห้องประชุม</column>
+            <column name="PM_Direction">left</column>
+            <column name="PM_Draw">0</column>
+            <column name="PM_Setup">0</column>
+            <column name="PM_UserCreate">aaa</column>
+            <column name="PM_CreateDate">2023-08-24 16:44:58</column>
+            <column name="PM_ModifyDate">2023-08-25 13:43:57</column>
+        </table>
+        <table name="permissionmenu">
+            <column name="PM_Code">77</column>
+            <column name="PM_RelationPermission">0</column>
+            <column name="PM_Menu">6</column>
+            <column name="PM_RelationType">NoType</column>
+            <column name="PM_RelationCode">0</column>
+            <column name="PM_Name">ระบบจัดการข่าวสาร</column>
+            <column name="PM_Direction">left</column>
+            <column name="PM_Draw">1</column>
+            <column name="PM_Setup">1</column>
+            <column name="PM_UserCreate">aaa</column>
+            <column name="PM_CreateDate">2023-08-24 16:46:10</column>
+            <column name="PM_ModifyDate">2023-08-25 13:43:57</column>
+        </table>
+        <table name="permissionmenu">
+            <column name="PM_Code">78</column>
+            <column name="PM_RelationPermission">0</column>
+            <column name="PM_Menu">6</column>
+            <column name="PM_RelationType">NoType</column>
+            <column name="PM_RelationCode">0</column>
+            <column name="PM_Name">ระบบประกาศ</column>
+            <column name="PM_Direction">left</column>
+            <column name="PM_Draw">0</column>
+            <column name="PM_Setup">1</column>
+            <column name="PM_UserCreate">aaa</column>
+            <column name="PM_CreateDate">2023-08-24 17:00:47</column>
+            <column name="PM_ModifyDate">2023-08-25 13:43:57</column>
+        </table>
+        <table name="permissionmenu">
+            <column name="PM_Code">79</column>
+            <column name="PM_RelationPermission">0</column>
+            <column name="PM_Menu">6</column>
+            <column name="PM_RelationType">Setup</column>
+            <column name="PM_RelationCode">0</column>
+            <column name="PM_Name">SetUp</column>
+            <column name="PM_Direction">left</column>
+            <column name="PM_Draw">0</column>
+            <column name="PM_Setup">1</column>
+            <column name="PM_UserCreate">aaa</column>
+            <column name="PM_CreateDate">2023-08-24 17:00:47</column>
+            <column name="PM_ModifyDate">2023-08-25 13:43:57</column>
+        </table>
+        <table name="permissionmenu">
+            <column name="PM_Code">80</column>
+            <column name="PM_RelationPermission">78</column>
+            <column name="PM_Menu">0</column>
+            <column name="PM_RelationType">HeadingCategories</column>
+            <column name="PM_RelationCode">1</column>
+            <column name="PM_Name">ตำแหน่งว่างภายใน</column>
+            <column name="PM_Direction">left</column>
+            <column name="PM_Draw">0</column>
+            <column name="PM_Setup">1</column>
+            <column name="PM_UserCreate">aaa</column>
+            <column name="PM_CreateDate">2023-08-24 17:01:20</column>
+            <column name="PM_ModifyDate">2023-08-24 17:01:20</column>
+        </table>
+        <table name="permissionmenu">
+            <column name="PM_Code">81</column>
+            <column name="PM_RelationPermission">78</column>
+            <column name="PM_Menu">0</column>
+            <column name="PM_RelationType">HeadingCategories</column>
+            <column name="PM_RelationCode">2</column>
+            <column name="PM_Name">FAQ</column>
+            <column name="PM_Direction">left</column>
+            <column name="PM_Draw">0</column>
+            <column name="PM_Setup">1</column>
+            <column name="PM_UserCreate">aaa</column>
+            <column name="PM_CreateDate">2023-08-24 17:01:20</column>
+            <column name="PM_ModifyDate">2023-08-24 17:01:20</column>
+        </table>
+        <table name="permissionmenu">
+            <column name="PM_Code">82</column>
+            <column name="PM_RelationPermission">77</column>
+            <column name="PM_Menu">0</column>
+            <column name="PM_RelationType">Category</column>
+            <column name="PM_RelationCode">1</column>
+            <column name="PM_Name">กิจกรรม</column>
+            <column name="PM_Direction">left</column>
+            <column name="PM_Draw">0</column>
+            <column name="PM_Setup">1</column>
+            <column name="PM_UserCreate"></column>
+            <column name="PM_CreateDate">2023-08-24 17:03:11</column>
+            <column name="PM_ModifyDate">2023-09-04 10:16:23</column>
+        </table>
+        <table name="permissionmenu">
+            <column name="PM_Code">83</column>
+            <column name="PM_RelationPermission">77</column>
+            <column name="PM_Menu">0</column>
+            <column name="PM_RelationType">Category</column>
+            <column name="PM_RelationCode">2</column>
+            <column name="PM_Name">ทักษะทางสังคมที่ใช้เพื่อปฏิสัมพันธ์</column>
+            <column name="PM_Direction">left</column>
+            <column name="PM_Draw">0</column>
+            <column name="PM_Setup">1</column>
+            <column name="PM_UserCreate"></column>
+            <column name="PM_CreateDate">2023-08-24 17:03:11</column>
+            <column name="PM_ModifyDate">2023-09-04 10:16:23</column>
+        </table>
+        <table name="permissionmenu">
+            <column name="PM_Code">84</column>
+            <column name="PM_RelationPermission">77</column>
+            <column name="PM_Menu">0</column>
+            <column name="PM_RelationType">Category</column>
+            <column name="PM_RelationCode">1</column>
+            <column name="PM_Name">ทักษะหรือความสามารถในแต่ละสายอาชีพ</column>
+            <column name="PM_Direction">left</column>
+            <column name="PM_Draw">0</column>
+            <column name="PM_Setup">1</column>
+            <column name="PM_UserCreate"></column>
+            <column name="PM_CreateDate">2023-08-24 17:03:11</column>
+            <column name="PM_ModifyDate">2023-09-04 10:16:23</column>
+        </table>
+        <table name="permissionmenu">
+            <column name="PM_Code">85</column>
+            <column name="PM_RelationPermission">77</column>
+            <column name="PM_Menu">0</column>
+            <column name="PM_RelationType">Category</column>
+            <column name="PM_RelationCode">4</column>
+            <column name="PM_Name">แบ่งปันความรู้</column>
+            <column name="PM_Direction">left</column>
+            <column name="PM_Draw">0</column>
+            <column name="PM_Setup">1</column>
+            <column name="PM_UserCreate"></column>
+            <column name="PM_CreateDate">2023-08-24 17:03:11</column>
+            <column name="PM_ModifyDate">2023-09-04 10:16:23</column>
+        </table>
+        <table name="permissionmenu">
+            <column name="PM_Code">86</column>
+            <column name="PM_RelationPermission">77</column>
+            <column name="PM_Menu">0</column>
+            <column name="PM_RelationType">Category</column>
+            <column name="PM_RelationCode">10</column>
+            <column name="PM_Name">แกลลอรี่</column>
+            <column name="PM_Direction">left</column>
+            <column name="PM_Draw">0</column>
+            <column name="PM_Setup">1</column>
+            <column name="PM_UserCreate"></column>
+            <column name="PM_CreateDate">2023-08-24 17:03:11</column>
+            <column name="PM_ModifyDate">2023-09-04 10:16:23</column>
+        </table>
+        <table name="permissionmenu">
+            <column name="PM_Code">87</column>
+            <column name="PM_RelationPermission">77</column>
+            <column name="PM_Menu">0</column>
+            <column name="PM_RelationType">Category</column>
+            <column name="PM_RelationCode">19</column>
+            <column name="PM_Name">ประกาศทั่วไป</column>
+            <column name="PM_Direction">left</column>
+            <column name="PM_Draw">0</column>
+            <column name="PM_Setup">1</column>
+            <column name="PM_UserCreate"></column>
+            <column name="PM_CreateDate">2023-08-24 17:03:11</column>
+            <column name="PM_ModifyDate">2023-09-04 10:16:23</column>
+        </table>
+        <table name="permissionmenu">
+            <column name="PM_Code">88</column>
+            <column name="PM_RelationPermission">77</column>
+            <column name="PM_Menu">0</column>
+            <column name="PM_RelationType">Category</column>
+            <column name="PM_RelationCode">20</column>
+            <column name="PM_Name">ประกาศจากฝ่ายบุคคล</column>
+            <column name="PM_Direction">left</column>
+            <column name="PM_Draw">0</column>
+            <column name="PM_Setup">1</column>
+            <column name="PM_UserCreate"></column>
+            <column name="PM_CreateDate">2023-08-24 17:03:11</column>
+            <column name="PM_ModifyDate">2023-09-04 10:16:23</column>
+        </table>
+        <table name="permissionmenu">
+            <column name="PM_Code">90</column>
+            <column name="PM_RelationPermission">0</column>
+            <column name="PM_Menu">4</column>
+            <column name="PM_RelationType">EngravedCategory</column>
+            <column name="PM_RelationCode">24</column>
+            <column name="PM_Name">GPD</column>
+            <column name="PM_Direction">right</column>
+            <column name="PM_Draw">0</column>
+            <column name="PM_Setup">0</column>
+            <column name="PM_UserCreate">aaa</column>
+            <column name="PM_CreateDate">2023-08-25 16:37:02</column>
+            <column name="PM_ModifyDate">2023-08-25 16:46:02</column>
+        </table>
+        <table name="permissionmenu">
+            <column name="PM_Code">91</column>
+            <column name="PM_RelationPermission">0</column>
+            <column name="PM_Menu">4</column>
+            <column name="PM_RelationType">EngravedCategory</column>
+            <column name="PM_RelationCode">25</column>
+            <column name="PM_Name">GKA&amp;P</column>
+            <column name="PM_Direction">right</column>
+            <column name="PM_Draw">0</column>
+            <column name="PM_Setup">0</column>
+            <column name="PM_UserCreate">aaa</column>
+            <column name="PM_CreateDate">2023-08-25 16:37:02</column>
+            <column name="PM_ModifyDate">2023-08-25 16:46:02</column>
+        </table>
+        <table name="permissionmenu">
+            <column name="PM_Code">93</column>
+            <column name="PM_RelationPermission">0</column>
+            <column name="PM_Menu">5</column>
+            <column name="PM_RelationType">EngravedCategory</column>
+            <column name="PM_RelationCode">1</column>
+            <column name="PM_Name">วันหยุดประจำปี</column>
+            <column name="PM_Direction">left</column>
+            <column name="PM_Draw">0</column>
+            <column name="PM_Setup">0</column>
+            <column name="PM_UserCreate"></column>
+            <column name="PM_CreateDate">2023-08-25 17:15:46</column>
+            <column name="PM_ModifyDate">2023-09-04 09:59:50</column>
+        </table>
+        <table name="permissionmenu">
+            <column name="PM_Code">94</column>
+            <column name="PM_RelationPermission">0</column>
+            <column name="PM_Menu">5</column>
+            <column name="PM_RelationType">HeadingCategories</column>
+            <column name="PM_RelationCode">1</column>
+            <column name="PM_Name">ตำแหน่งว่างภายใน</column>
+            <column name="PM_Direction">left</column>
+            <column name="PM_Draw">0</column>
+            <column name="PM_Setup">0</column>
+            <column name="PM_UserCreate"></column>
+            <column name="PM_CreateDate">2023-08-25 17:16:03</column>
+            <column name="PM_ModifyDate">2023-09-04 09:59:50</column>
+        </table>
+        <table name="permissionmenu">
+            <column name="PM_Code">95</column>
+            <column name="PM_RelationPermission">0</column>
+            <column name="PM_Menu">5</column>
+            <column name="PM_RelationType">HeadingCategories</column>
+            <column name="PM_RelationCode">2</column>
+            <column name="PM_Name">คำถามที่พบบ่อยจากฝ่าย HR</column>
+            <column name="PM_Direction">left</column>
+            <column name="PM_Draw">0</column>
+            <column name="PM_Setup">0</column>
+            <column name="PM_UserCreate"></column>
+            <column name="PM_CreateDate">2023-08-25 17:16:41</column>
+            <column name="PM_ModifyDate">2023-09-04 09:59:50</column>
+        </table>
+        <table name="permissionmenu">
+            <column name="PM_Code">96</column>
+            <column name="PM_RelationPermission">0</column>
+            <column name="PM_Menu">5</column>
+            <column name="PM_RelationType">EngravedCategory</column>
+            <column name="PM_RelationCode">27</column>
+            <column name="PM_Name">แบบฟอร์ม</column>
+            <column name="PM_Direction">left</column>
+            <column name="PM_Draw">0</column>
+            <column name="PM_Setup">0</column>
+            <column name="PM_UserCreate"></column>
+            <column name="PM_CreateDate">2023-08-25 17:17:18</column>
+            <column name="PM_ModifyDate">2023-09-04 09:59:50</column>
+        </table>
+        <table name="permissionmenu">
+            <column name="PM_Code">97</column>
+            <column name="PM_RelationPermission">0</column>
+            <column name="PM_Menu">5</column>
+            <column name="PM_RelationType">Category</column>
+            <column name="PM_RelationCode">31</column>
+            <column name="PM_Name">เกมส์</column>
+            <column name="PM_Direction">left</column>
+            <column name="PM_Draw">0</column>
+            <column name="PM_Setup">0</column>
+            <column name="PM_UserCreate"></column>
+            <column name="PM_CreateDate">2023-08-25 17:17:18</column>
+            <column name="PM_ModifyDate">2023-09-04 09:59:50</column>
+        </table>
+        <table name="permissionmenu">
+            <column name="PM_Code">98</column>
+            <column name="PM_RelationPermission">0</column>
+            <column name="PM_Menu">3</column>
+            <column name="PM_RelationType">Category</column>
+            <column name="PM_RelationCode">4</column>
+            <column name="PM_Name">Knowledge sharing</column>
+            <column name="PM_Direction">left</column>
+            <column name="PM_Draw">0</column>
+            <column name="PM_Setup">0</column>
+            <column name="PM_UserCreate"></column>
+            <column name="PM_CreateDate">2023-08-25 17:19:09</column>
+            <column name="PM_ModifyDate">2023-09-04 09:51:15</column>
+        </table>
+        <table name="permissionmenu">
+            <column name="PM_Code">99</column>
+            <column name="PM_RelationPermission">0</column>
+            <column name="PM_Menu">3</column>
+            <column name="PM_RelationType">Category</column>
+            <column name="PM_RelationCode">28</column>
+            <column name="PM_Name">Technical Skill</column>
+            <column name="PM_Direction">left</column>
+            <column name="PM_Draw">0</column>
+            <column name="PM_Setup">0</column>
+            <column name="PM_UserCreate"></column>
+            <column name="PM_CreateDate">2023-08-25 17:19:09</column>
+            <column name="PM_ModifyDate">2023-09-04 09:51:15</column>
+        </table>
+        <table name="permissionmenu">
+            <column name="PM_Code">100</column>
+            <column name="PM_RelationPermission">0</column>
+            <column name="PM_Menu">3</column>
+            <column name="PM_RelationType">Category</column>
+            <column name="PM_RelationCode">2</column>
+            <column name="PM_Name">Soft Skill</column>
+            <column name="PM_Direction">left</column>
+            <column name="PM_Draw">0</column>
+            <column name="PM_Setup">0</column>
+            <column name="PM_UserCreate"></column>
+            <column name="PM_CreateDate">2023-08-25 17:19:09</column>
+            <column name="PM_ModifyDate">2023-09-04 09:51:15</column>
+        </table>
+        <table name="permissionmenu">
+            <column name="PM_Code">101</column>
+            <column name="PM_RelationPermission">0</column>
+            <column name="PM_Menu">3</column>
+            <column name="PM_RelationType">Category</column>
+            <column name="PM_RelationCode">29</column>
+            <column name="PM_Name">บทความ</column>
+            <column name="PM_Direction">left</column>
+            <column name="PM_Draw">0</column>
+            <column name="PM_Setup">0</column>
+            <column name="PM_UserCreate"></column>
+            <column name="PM_CreateDate">2023-08-25 17:19:09</column>
+            <column name="PM_ModifyDate">2023-09-04 09:51:15</column>
+        </table>
+        <table name="permissionmenu">
+            <column name="PM_Code">102</column>
+            <column name="PM_RelationPermission">0</column>
+            <column name="PM_Menu">2</column>
+            <column name="PM_RelationType">Category</column>
+            <column name="PM_RelationCode">1</column>
+            <column name="PM_Name">ประชาสัมพันธ์กิจกรรม</column>
+            <column name="PM_Direction">left</column>
+            <column name="PM_Draw">0</column>
+            <column name="PM_Setup">0</column>
+            <column name="PM_UserCreate">admin</column>
+            <column name="PM_CreateDate">2023-08-25 17:20:51</column>
+            <column name="PM_ModifyDate">2023-09-04 09:47:45</column>
+        </table>
+        <table name="permissionmenu">
+            <column name="PM_Code">103</column>
+            <column name="PM_RelationPermission">0</column>
+            <column name="PM_Menu">2</column>
+            <column name="PM_RelationType">Category</column>
+            <column name="PM_RelationCode">10</column>
+            <column name="PM_Name">ภาพกิจกรรม</column>
+            <column name="PM_Direction">left</column>
+            <column name="PM_Draw">0</column>
+            <column name="PM_Setup">0</column>
+            <column name="PM_UserCreate">admin</column>
+            <column name="PM_CreateDate">2023-08-25 17:20:51</column>
+            <column name="PM_ModifyDate">2023-09-04 09:47:45</column>
+        </table>
+        <table name="permissionmenu">
+            <column name="PM_Code">104</column>
+            <column name="PM_RelationPermission">0</column>
+            <column name="PM_Menu">1</column>
+            <column name="PM_RelationType">EngravedCategory</column>
+            <column name="PM_RelationCode">7</column>
+            <column name="PM_Name">โครงสร้างองค์กร</column>
+            <column name="PM_Direction">right</column>
+            <column name="PM_Draw">0</column>
+            <column name="PM_Setup">0</column>
+            <column name="PM_UserCreate">admin</column>
+            <column name="PM_CreateDate">2023-08-25 17:26:46</column>
+            <column name="PM_ModifyDate">2023-09-04 14:04:36</column>
+        </table>
+        <table name="permissionmenu">
+            <column name="PM_Code">105</column>
+            <column name="PM_RelationPermission">0</column>
+            <column name="PM_Menu">1</column>
+            <column name="PM_RelationType">EngravedCategory</column>
+            <column name="PM_RelationCode">28</column>
+            <column name="PM_Name">ค่านิยมองค์กร</column>
+            <column name="PM_Direction">right</column>
+            <column name="PM_Draw">0</column>
+            <column name="PM_Setup">0</column>
+            <column name="PM_UserCreate">admin</column>
+            <column name="PM_CreateDate">2023-08-25 17:26:46</column>
+            <column name="PM_ModifyDate">2023-09-04 14:04:36</column>
+        </table>
+        <table name="permissionmenu">
+            <column name="PM_Code">106</column>
+            <column name="PM_RelationPermission">0</column>
+            <column name="PM_Menu">1</column>
+            <column name="PM_RelationType">EngravedCategory</column>
+            <column name="PM_RelationCode">6</column>
+            <column name="PM_Name">แผนที่บริษัท</column>
+            <column name="PM_Direction">right</column>
+            <column name="PM_Draw">0</column>
+            <column name="PM_Setup">0</column>
+            <column name="PM_UserCreate">admin</column>
+            <column name="PM_CreateDate">2023-08-25 17:26:46</column>
+            <column name="PM_ModifyDate">2023-09-04 14:04:36</column>
+        </table>
+        <table name="permissionmenu">
+            <column name="PM_Code">107</column>
+            <column name="PM_RelationPermission">0</column>
+            <column name="PM_Menu">1</column>
+            <column name="PM_RelationType">EngravedCategory</column>
+            <column name="PM_RelationCode">26</column>
+            <column name="PM_Name">เว็บไซต์บริษัท</column>
+            <column name="PM_Direction">right</column>
+            <column name="PM_Draw">0</column>
+            <column name="PM_Setup">0</column>
+            <column name="PM_UserCreate">admin</column>
+            <column name="PM_CreateDate">2023-08-25 17:26:46</column>
+            <column name="PM_ModifyDate">2023-09-04 14:04:36</column>
+        </table>
+        <table name="permissionmenu">
+            <column name="PM_Code">108</column>
+            <column name="PM_RelationPermission">77</column>
+            <column name="PM_Menu">0</column>
+            <column name="PM_RelationType">Category</column>
+            <column name="PM_RelationCode">27</column>
+            <column name="PM_Name">ข่าว</column>
+            <column name="PM_Direction">left</column>
+            <column name="PM_Draw">0</column>
+            <column name="PM_Setup">0</column>
+            <column name="PM_UserCreate"></column>
+            <column name="PM_CreateDate">2023-09-04 10:16:23</column>
+            <column name="PM_ModifyDate">2023-09-04 10:16:23</column>
+        </table>
+        <table name="permissionmenu">
+            <column name="PM_Code">109</column>
+            <column name="PM_RelationPermission">77</column>
+            <column name="PM_Menu">0</column>
+            <column name="PM_RelationType">Category</column>
+            <column name="PM_RelationCode">28</column>
+            <column name="PM_Name">ทักษะทางเทคนิค</column>
+            <column name="PM_Direction">left</column>
+            <column name="PM_Draw">0</column>
+            <column name="PM_Setup">0</column>
+            <column name="PM_UserCreate"></column>
+            <column name="PM_CreateDate">2023-09-04 10:16:23</column>
+            <column name="PM_ModifyDate">2023-09-04 10:16:23</column>
+        </table>
+        <table name="permissionmenu">
+            <column name="PM_Code">110</column>
+            <column name="PM_RelationPermission">77</column>
+            <column name="PM_Menu">0</column>
+            <column name="PM_RelationType">Category</column>
+            <column name="PM_RelationCode">29</column>
+            <column name="PM_Name">บทความ</column>
+            <column name="PM_Direction">left</column>
+            <column name="PM_Draw">0</column>
+            <column name="PM_Setup">0</column>
+            <column name="PM_UserCreate"></column>
+            <column name="PM_CreateDate">2023-09-04 10:16:23</column>
+            <column name="PM_ModifyDate">2023-09-04 10:16:23</column>
+        </table>
+        <table name="permissionmenu">
+            <column name="PM_Code">111</column>
+            <column name="PM_RelationPermission">77</column>
+            <column name="PM_Menu">0</column>
+            <column name="PM_RelationType">Category</column>
+            <column name="PM_RelationCode">30</column>
+            <column name="PM_Name">นโยบาย</column>
+            <column name="PM_Direction">left</column>
+            <column name="PM_Draw">0</column>
+            <column name="PM_Setup">0</column>
+            <column name="PM_UserCreate"></column>
+            <column name="PM_CreateDate">2023-09-04 10:16:23</column>
+            <column name="PM_ModifyDate">2023-09-04 10:16:23</column>
+        </table>
+        <table name="permissionmenu">
+            <column name="PM_Code">112</column>
+            <column name="PM_RelationPermission">77</column>
+            <column name="PM_Menu">0</column>
+            <column name="PM_RelationType">Category</column>
+            <column name="PM_RelationCode">31</column>
+            <column name="PM_Name">เกมส์</column>
+            <column name="PM_Direction">left</column>
+            <column name="PM_Draw">0</column>
+            <column name="PM_Setup">0</column>
+            <column name="PM_UserCreate"></column>
+            <column name="PM_CreateDate">2023-09-04 10:16:23</column>
+            <column name="PM_ModifyDate">2023-09-04 10:16:23</column>
+        </table>
+        <!-- Table permissionposition -->
+        <table name="permissionposition">
+            <column name="PP_Code">7</column>
+            <column name="PP_Type">multi</column>
+            <column name="PT_Code">1</column>
+            <column name="PM_Code">55</column>
+            <column name="PP_CreateDate">2023-08-24 15:08:16</column>
+            <column name="PP_ModifyDate">2023-08-24 15:08:16</column>
+        </table>
+        <table name="permissionposition">
+            <column name="PP_Code">8</column>
+            <column name="PP_Type">multi</column>
+            <column name="PT_Code">1</column>
+            <column name="PM_Code">69</column>
+            <column name="PP_CreateDate">2023-08-24 15:15:43</column>
+            <column name="PP_ModifyDate">2023-08-24 15:15:43</column>
+        </table>
+        <table name="permissionposition">
+            <column name="PP_Code">9</column>
+            <column name="PP_Type">multi</column>
+            <column name="PT_Code">1</column>
+            <column name="PM_Code">68</column>
+            <column name="PP_CreateDate">2023-08-24 15:19:32</column>
+            <column name="PP_ModifyDate">2023-08-24 15:19:32</column>
+        </table>
+        <table name="permissionposition">
+            <column name="PP_Code">10</column>
+            <column name="PP_Type">multi</column>
+            <column name="PT_Code">1</column>
+            <column name="PM_Code">70</column>
+            <column name="PP_CreateDate">2023-08-24 15:48:18</column>
+            <column name="PP_ModifyDate">2023-08-24 15:48:18</column>
+        </table>
+        <table name="permissionposition">
+            <column name="PP_Code">11</column>
+            <column name="PP_Type">single</column>
+            <column name="PT_Code">12</column>
+            <column name="PM_Code">79</column>
+            <column name="PP_CreateDate">2023-08-25 10:17:56</column>
+            <column name="PP_ModifyDate">2023-08-25 10:17:56</column>
+        </table>
+        <table name="permissionposition">
+            <column name="PP_Code">12</column>
+            <column name="PP_Type">single</column>
+            <column name="PT_Code">12</column>
+            <column name="PM_Code">82</column>
+            <column name="PP_CreateDate">2023-08-25 10:50:06</column>
+            <column name="PP_ModifyDate">2023-08-25 10:50:06</column>
+        </table>
+        <!-- Table position -->
+        <table name="position">
+            <column name="PT_Code">1</column>
+            <column name="PT_Name">Programmer</column>
+            <column name="PT_Default">0</column>
+            <column name="PT_Admin">0</column>
+            <column name="PT_CreateDate">2023-08-09 08:38:11</column>
+            <column name="PT_ModifyDate">2023-08-09 08:38:11</column>
+        </table>
+        <table name="position">
+            <column name="PT_Code">2</column>
+            <column name="PT_Name">IT</column>
+            <column name="PT_Default">0</column>
+            <column name="PT_Admin">0</column>
+            <column name="PT_CreateDate">2023-08-09 08:38:32</column>
+            <column name="PT_ModifyDate">2023-08-09 08:38:32</column>
+        </table>
+        <table name="position">
+            <column name="PT_Code">3</column>
+            <column name="PT_Name">แผนกค่าตอบแทนและสวัสดิการ</column>
+            <column name="PT_Default">0</column>
+            <column name="PT_Admin">0</column>
+            <column name="PT_CreateDate">2023-08-17 14:16:36</column>
+            <column name="PT_ModifyDate">2023-08-31 15:22:46</column>
+        </table>
+        <table name="position">
+            <column name="PT_Code">4</column>
+            <column name="PT_Name">แผนกสรรหาว่าจ้าง</column>
+            <column name="PT_Default">0</column>
+            <column name="PT_Admin">0</column>
+            <column name="PT_CreateDate">2023-08-17 14:16:56</column>
+            <column name="PT_ModifyDate">2023-08-31 15:23:02</column>
+        </table>
+        <table name="position">
+            <column name="PT_Code">5</column>
+            <column name="PT_Name">แผนก HROD</column>
+            <column name="PT_Default">0</column>
+            <column name="PT_Admin">0</column>
+            <column name="PT_CreateDate">2023-08-17 14:18:02</column>
+            <column name="PT_ModifyDate">2023-08-31 15:23:16</column>
+        </table>
+        <table name="position">
+            <column name="PT_Code">6</column>
+            <column name="PT_Name">แผนกธุรการและซ่อมบำรุง</column>
+            <column name="PT_Default">0</column>
+            <column name="PT_Admin">0</column>
+            <column name="PT_CreateDate">2023-08-17 14:18:14</column>
+            <column name="PT_ModifyDate">2023-08-31 15:23:29</column>
+        </table>
+        <table name="position">
+            <column name="PT_Code">7</column>
+            <column name="PT_Name">ฝ่าย HS</column>
+            <column name="PT_Default">0</column>
+            <column name="PT_Admin">0</column>
+            <column name="PT_CreateDate">2023-08-17 14:18:27</column>
+            <column name="PT_ModifyDate">2023-08-31 15:23:47</column>
+        </table>
+        <table name="position">
+            <column name="PT_Code">11</column>
+            <column name="PT_Name">General</column>
+            <column name="PT_Default">1</column>
+            <column name="PT_Admin">0</column>
+            <column name="PT_CreateDate">2023-08-21 17:04:26</column>
+            <column name="PT_ModifyDate">2023-08-21 17:05:20</column>
+        </table>
+        <table name="position">
+            <column name="PT_Code">12</column>
+            <column name="PT_Name">Admin</column>
+            <column name="PT_Default">0</column>
+            <column name="PT_Admin">1</column>
+            <column name="PT_CreateDate">2023-08-21 17:21:34</column>
+            <column name="PT_ModifyDate">2023-08-21 17:21:34</column>
+        </table>
+        <!-- Table setposition -->
+        <table name="setposition">
+            <column name="SP_Code">1</column>
+            <column name="SP_Name"></column>
+            <column name="US_Username">ddd</column>
+            <column name="PT_Code">11</column>
+            <column name="SP_CreateDate">2023-08-22 10:38:39</column>
+            <column name="SP_ModifyDate">2023-08-22 10:40:53</column>
+        </table>
+        <table name="setposition">
+            <column name="SP_Code">66</column>
+            <column name="SP_Name"></column>
+            <column name="US_Username">bbb</column>
+            <column name="PT_Code">12</column>
+            <column name="SP_CreateDate">2023-08-24 12:40:54</column>
+            <column name="SP_ModifyDate">2023-08-24 12:40:54</column>
+        </table>
+        <table name="setposition">
+            <column name="SP_Code">68</column>
+            <column name="SP_Name"></column>
+            <column name="US_Username">ccc</column>
+            <column name="PT_Code">2</column>
+            <column name="SP_CreateDate">2023-08-24 15:09:37</column>
+            <column name="SP_ModifyDate">2023-08-24 15:09:37</column>
+        </table>
+        <table name="setposition">
+            <column name="SP_Code">69</column>
+            <column name="SP_Name"></column>
+            <column name="US_Username">ddd</column>
+            <column name="PT_Code">2</column>
+            <column name="SP_CreateDate">2023-08-24 15:09:37</column>
+            <column name="SP_ModifyDate">2023-08-24 15:09:37</column>
+        </table>
+        <table name="setposition">
+            <column name="SP_Code">70</column>
+            <column name="SP_Name"></column>
+            <column name="US_Username">aaa</column>
+            <column name="PT_Code">1</column>
+            <column name="SP_CreateDate">2023-08-24 15:48:52</column>
+            <column name="SP_ModifyDate">2023-08-24 15:48:52</column>
+        </table>
+        <table name="setposition">
+            <column name="SP_Code">71</column>
+            <column name="SP_Name"></column>
+            <column name="US_Username">aaa</column>
+            <column name="PT_Code">2</column>
+            <column name="SP_CreateDate">2023-08-24 15:48:52</column>
+            <column name="SP_ModifyDate">2023-08-24 15:48:52</column>
+        </table>
+        <table name="setposition">
+            <column name="SP_Code">72</column>
+            <column name="SP_Name"></column>
+            <column name="US_Username">aaa</column>
+            <column name="PT_Code">7</column>
+            <column name="SP_CreateDate">2023-08-24 15:48:52</column>
+            <column name="SP_ModifyDate">2023-08-24 15:48:52</column>
+        </table>
+        <table name="setposition">
+            <column name="SP_Code">73</column>
+            <column name="SP_Name"></column>
+            <column name="US_Username">aaa</column>
+            <column name="PT_Code">11</column>
+            <column name="SP_CreateDate">2023-08-24 15:48:52</column>
+            <column name="SP_ModifyDate">2023-08-24 15:48:52</column>
+        </table>
+        <table name="setposition">
+            <column name="SP_Code">74</column>
+            <column name="SP_Name"></column>
+            <column name="US_Username">aaa</column>
+            <column name="PT_Code">12</column>
+            <column name="SP_CreateDate">2023-08-24 15:48:52</column>
+            <column name="SP_ModifyDate">2023-08-24 15:48:52</column>
+        </table>
+        <table name="setposition">
+            <column name="SP_Code">75</column>
+            <column name="SP_Name"></column>
+            <column name="US_Username"></column>
+            <column name="PT_Code">11</column>
+            <column name="SP_CreateDate">2023-08-25 15:57:22</column>
+            <column name="SP_ModifyDate">2023-08-25 15:57:22</column>
+        </table>
+        <table name="setposition">
+            <column name="SP_Code">76</column>
+            <column name="SP_Name"></column>
+            <column name="US_Username">zzz</column>
+            <column name="PT_Code">11</column>
+            <column name="SP_CreateDate">2023-08-25 16:00:42</column>
+            <column name="SP_ModifyDate">2023-08-25 16:30:10</column>
+        </table>
+        <table name="setposition">
+            <column name="SP_Code">77</column>
+            <column name="SP_Name"></column>
+            <column name="US_Username">yyy</column>
+            <column name="PT_Code">11</column>
+            <column name="SP_CreateDate">2023-08-28 09:37:09</column>
+            <column name="SP_ModifyDate">2023-08-28 09:37:09</column>
+        </table>
+        <table name="setposition">
+            <column name="SP_Code">78</column>
+            <column name="SP_Name"></column>
+            <column name="US_Username">xxx</column>
+            <column name="PT_Code">11</column>
+            <column name="SP_CreateDate">2023-08-28 09:48:07</column>
+            <column name="SP_ModifyDate">2023-08-28 09:48:07</column>
+        </table>
+        <table name="setposition">
+            <column name="SP_Code">79</column>
+            <column name="SP_Name"></column>
+            <column name="US_Username">vvv</column>
+            <column name="PT_Code">11</column>
+            <column name="SP_CreateDate">2023-08-28 09:49:49</column>
+            <column name="SP_ModifyDate">2023-08-28 09:49:49</column>
+        </table>
+        <table name="setposition">
+            <column name="SP_Code">80</column>
+            <column name="SP_Name"></column>
+            <column name="US_Username">admin</column>
+            <column name="PT_Code">12</column>
+            <column name="SP_CreateDate">2023-08-31 15:26:19</column>
+            <column name="SP_ModifyDate">2023-08-31 15:26:19</column>
+        </table>
+        <!-- Table setup -->
+        <table name="setup">
+            <column name="SU_Code">1</column>
+            <column name="SU_DefaultImageNews">0.jpg</column>
+            <column name="SU_PathDefaultImageNews">img/UploadAddActivities/</column>
+            <column name="SU_PathDefaultImageGallery">img/UploadAddGallery/</column>
+            <column name="SU_PathDefaultFile">PDF/UploadAddActivities/</column>
+            <column name="SU_HeaderDescriptionTH">บริษัท กันกุลเอ็นจิเนียริ่ง จำกัด (มหาชน)</column>
+            <column name="SU_HeaderDescriptionEN">LEADING INTEGRATED ENERGY PLAYER</column>
+            <column name="CountPage">1683</column>
+            <column name="SU_CreateDate">2023-06-22 11:40:33</column>
+            <column name="SU_ModifyDate">2023-09-04 17:14:59</column>
+        </table>
+        <!-- Table setupgames -->
+        <table name="setupgames">
+            <column name="GA_Code">1</column>
+            <column name="GA_Iframe">&lt;iframe style=&quot;max-width:100%&quot; src=&quot;https://wordwall.net/th/embed/620534d5e58a47b7939eb484a22c7505?themeId=52&amp;templateId=2&amp;fontStackId=0&quot; width=&quot;500&quot; height=&quot;800&quot; frameborder=&quot;0&quot; allowfullscreen&gt;&lt;/iframe&gt;</column>
+            <column name="GA_CreateDate">2023-08-11 08:59:32</column>
+            <column name="GA_ModifyDate">2023-08-11 08:59:32</column>
+        </table>
+        <table name="setupgames">
+            <column name="GA_Code">2</column>
+            <column name="GA_Iframe">&lt;iframe style=&quot;max-width:100%&quot; src=&quot;https://wordwall.net/th/embed/620534d5e58a47b7939eb484a22c7505?themeId=52&amp;templateId=38&amp;fontStackId=0&quot; width=&quot;500&quot; height=&quot;800&quot; frameborder=&quot;0&quot; allowfullscreen&gt;&lt;/iframe&gt;</column>
+            <column name="GA_CreateDate">2023-08-11 08:59:32</column>
+            <column name="GA_ModifyDate">2023-08-11 08:59:32</column>
+        </table>
+        <table name="setupgames">
+            <column name="GA_Code">3</column>
+            <column name="GA_Iframe">&lt;iframe style=&quot;max-width:100%&quot; src=&quot;https://wordwall.net/th/embed/620534d5e58a47b7939eb484a22c7505?themeId=52&amp;templateId=8&amp;fontStackId=0&quot; width=&quot;500&quot; height=&quot;800&quot; frameborder=&quot;0&quot; allowfullscreen&gt;&lt;/iframe&gt;</column>
+            <column name="GA_CreateDate">2023-08-11 08:59:32</column>
+            <column name="GA_ModifyDate">2023-08-11 08:59:32</column>
+        </table>
+        <table name="setupgames">
+            <column name="GA_Code">4</column>
+            <column name="GA_Iframe">&lt;iframe style=&quot;max-width:100%&quot; src=&quot;https://wordwall.net/th/embed/620534d5e58a47b7939eb484a22c7505?themeId=21&amp;templateId=69&amp;fontStackId=0&quot; width=&quot;500&quot; height=&quot;800&quot; frameborder=&quot;0&quot; allowfullscreen&gt;&lt;/iframe&gt;</column>
+            <column name="GA_CreateDate">2023-08-11 08:59:32</column>
+            <column name="GA_ModifyDate">2023-08-11 08:59:32</column>
+        </table>
+        <table name="setupgames">
+            <column name="GA_Code">5</column>
+            <column name="GA_Iframe">&lt;iframe style=&quot;max-width:100%&quot; src=&quot;https://wordwall.net/th/embed/620534d5e58a47b7939eb484a22c7505?themeId=52&amp;templateId=30&amp;fontStackId=0&quot; width=&quot;500&quot; height=&quot;800&quot; frameborder=&quot;0&quot; allowfullscreen&gt;&lt;/iframe&gt;</column>
+            <column name="GA_CreateDate">2023-08-11 08:59:32</column>
+            <column name="GA_ModifyDate">2023-08-11 08:59:32</column>
+        </table>
+        <table name="setupgames">
+            <column name="GA_Code">6</column>
+            <column name="GA_Iframe">&lt;iframe style=&quot;max-width:100%&quot; src=&quot;https://wordwall.net/th/embed/620534d5e58a47b7939eb484a22c7505?themeId=44&amp;templateId=73&amp;fontStackId=0&quot; width=&quot;500&quot; height=&quot;800&quot; frameborder=&quot;0&quot; allowfullscreen&gt;&lt;/iframe&gt;</column>
+            <column name="GA_CreateDate">2023-08-11 08:59:32</column>
+            <column name="GA_ModifyDate">2023-08-11 08:59:32</column>
+        </table>
+        <table name="setupgames">
+            <column name="GA_Code">7</column>
+            <column name="GA_Iframe">&lt;iframe style=&quot;max-width:100%&quot; src=&quot;https://wordwall.net/th/embed/620534d5e58a47b7939eb484a22c7505?themeId=52&amp;templateId=5&amp;fontStackId=0&quot; width=&quot;500&quot; height=&quot;800&quot; frameborder=&quot;0&quot; allowfullscreen&gt;&lt;/iframe&gt;</column>
+            <column name="GA_CreateDate">2023-08-11 08:59:32</column>
+            <column name="GA_ModifyDate">2023-08-11 08:59:32</column>
+        </table>
+        <table name="setupgames">
+            <column name="GA_Code">8</column>
+            <column name="GA_Iframe">&lt;iframe style=&quot;max-width:100%&quot; src=&quot;https://wordwall.net/th/embed/620534d5e58a47b7939eb484a22c7505?themeId=52&amp;templateId=70&amp;fontStackId=0&quot; width=&quot;500&quot; height=&quot;800&quot; frameborder=&quot;0&quot; allowfullscreen&gt;&lt;/iframe&gt;</column>
+            <column name="GA_CreateDate">2023-08-11 08:59:32</column>
+            <column name="GA_ModifyDate">2023-08-11 08:59:32</column>
+        </table>
+        <!-- Table user -->
+        <table name="user">
+            <column name="US_Username">admin</column>
+            <column name="US_Password">1234</column>
+            <column name="US_Prefix">นาย</column>
+            <column name="US_Fname">Programmer</column>
+            <column name="US_Lname">Programmer</column>
+            <column name="US_Image">admin.png</column>
+            <column name="US_Active">1</column>
+            <column name="PT_Code">0</column>
+            <column name="US_CreateDate">2023-08-18 13:10:16</column>
+            <column name="US_ModifyDate">2023-09-01 08:38:06</column>
+        </table>
+        <table name="user">
+            <column name="US_Username">GKAHA</column>
+            <column name="US_Password">Gunkul@1</column>
+            <column name="US_Prefix">นาย</column>
+            <column name="US_Fname">แผนกค่าตอบแทนและสวัสดิการ</column>
+            <column name="US_Lname">แผนกค่าตอบแทนและสวัสดิการ</column>
+            <column name="US_Image">GKAHA.jpg</column>
+            <column name="US_Active">1</column>
+            <column name="PT_Code">0</column>
+            <column name="US_CreateDate">2023-08-17 14:25:22</column>
+            <column name="US_ModifyDate">2023-08-31 15:20:41</column>
+        </table>
+        <table name="user">
+            <column name="US_Username">GKEHA1</column>
+            <column name="US_Password">Gunkul@1</column>
+            <column name="US_Prefix">นาย</column>
+            <column name="US_Fname">แผนกสรรหาว่าจ้าง</column>
+            <column name="US_Lname">แผนกสรรหาว่าจ้าง</column>
+            <column name="US_Image">GKEHA1.jpg</column>
+            <column name="US_Active">1</column>
+            <column name="PT_Code">0</column>
+            <column name="US_CreateDate">2023-08-17 14:20:56</column>
+            <column name="US_ModifyDate">2023-08-31 15:20:58</column>
+        </table>
+        <table name="user">
+            <column name="US_Username">GKEHA2</column>
+            <column name="US_Password">Gunkul@1</column>
+            <column name="US_Prefix">นาย</column>
+            <column name="US_Fname">แผนก HROD</column>
+            <column name="US_Lname">แผนก HROD</column>
+            <column name="US_Image">GKEHA2.jpg</column>
+            <column name="US_Active">1</column>
+            <column name="PT_Code">0</column>
+            <column name="US_CreateDate">2023-08-17 14:22:10</column>
+            <column name="US_ModifyDate">2023-08-31 15:21:16</column>
+        </table>
+        <table name="user">
+            <column name="US_Username">GKEHA3</column>
+            <column name="US_Password">Gunkul@1</column>
+            <column name="US_Prefix">นาย</column>
+            <column name="US_Fname">แผนกธุรการและซ่อมบำรุง</column>
+            <column name="US_Lname">แผนกธุรการและซ่อมบำรุง</column>
+            <column name="US_Image"></column>
+            <column name="US_Active">1</column>
+            <column name="PT_Code">0</column>
+            <column name="US_CreateDate">2023-08-17 14:22:43</column>
+            <column name="US_ModifyDate">2023-08-31 15:21:37</column>
+        </table>
+        <table name="user">
+            <column name="US_Username">GKEHA4</column>
+            <column name="US_Password">Gunkul@1</column>
+            <column name="US_Prefix">นาย</column>
+            <column name="US_Fname">ฝ่าย HS</column>
+            <column name="US_Lname">ฝ่าย HS</column>
+            <column name="US_Image"></column>
+            <column name="US_Active">1</column>
+            <column name="PT_Code">0</column>
+            <column name="US_CreateDate">2023-08-17 14:23:39</column>
+            <column name="US_ModifyDate">2023-08-31 15:22:15</column>
+        </table>
+    </database>
+</pma_xml_export>

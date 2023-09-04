@@ -102,7 +102,7 @@ function logoutAlert(name) {
                     dataType: "json",
                     success: function(response) {
                         if (response.success) {
-                            window.location.href = "index.php";
+                            window.location.href = "Index";
                         } else {
                             swal("Error", "Logout failed!", "error");
                         }
@@ -136,7 +136,7 @@ function logoutAlert(name) {
                 url: "DB_ExpiryOFAccess.php",
                 data: data,
                 success: function(response) {
-                    window.location.href = "index.php";
+                    window.location.href = "Index";
                 },
                 error: function(xhr, status, error) {
                     console.error("Ajax request error:", error);

@@ -2,7 +2,7 @@
 include("DB_Include.php");
 
 $MenuCategory_id = isset($_GET['Send_MenuCategory']) && $_GET['Send_MenuCategory'] !== '' ? $_GET['Send_MenuCategory'] : 1;
-$_SESSION['PathPage'] = "Ui_ListAdminMenuCategories.php?Send_MenuCategory=".$MenuCategory_id;
+$_SESSION['PathPage'] = "ListAdminMenuCategories?Send_MenuCategory=".$MenuCategory_id;
 
 include("Ma_Head_Link.php");
 ?>
@@ -35,7 +35,7 @@ th {
         }
     }
     if (!$CheckPage) {
-        echo "<script>setTimeout(function() { window.location.href = `./index.php`; }, 0); </script>";
+        echo "<script>setTimeout(function() { window.location.href = `./Index`; }, 0); </script>";
     }
 ?>
 

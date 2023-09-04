@@ -2,9 +2,9 @@
 <?php 
 include("DB_Include.php"); 
 include("DB_Setup.php");
-$_SESSION['PathPage'] = "Ui_Add.php";
 if (isset($_GET['Send_Category']) && $_GET['Send_Category'] !== '') {
     $Send_Category = $_GET['Send_Category'];
+    $_SESSION['PathPage'] = "Add?Send_Category=".$Send_Category;
 } else {
     $_SESSION['StatusTitle'] = "Error!";
     $_SESSION['StatusMessage'] = 'ไม่มีหมวดหมู่';
@@ -38,7 +38,7 @@ if (isset($_GET['Send_Category']) && $_GET['Send_Category'] !== '') {
         }
     }
     if (!$CheckPage) {
-        echo "<script>setTimeout(function() { window.location.href = `./index.php`; }, 0); </script>";
+        echo "<script>setTimeout(function() { window.location.href = `./Index`; }, 0); </script>";
     }
 ?>
 

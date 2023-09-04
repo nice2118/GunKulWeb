@@ -41,7 +41,7 @@
 
     <!-- Navbar Start -->
     <nav id="main_nav" class="navbar navbar-expand-lg bg-white navbar-light sticky-top p-0">
-        <a href="Index.php" class="navbar-brand d-flex align-items-center border-end px-4 px-lg-5">
+        <a href="Index" class="navbar-brand d-flex align-items-center border-end px-4 px-lg-5">
             <img class="img-fluid" src="img/GKE.png" style="width:200px;" />
         </a>
         <button type="button" class="navbar-toggler me-4" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">

@@ -1,7 +1,7 @@
 <?php 
 include("DB_Include.php"); 
 include("Fn_RecursiveCategory.php"); 
-$_SESSION['PathPage'] = "Ui_AdminSetup.php";
+$_SESSION['PathPage'] = "AdminSetup";
 $US_Prefix = "";
 ?>
 <?php include("Ma_Head_Link.php"); ?>
@@ -26,7 +26,7 @@ $US_Prefix = "";
         }
     }
     if (!$CheckPage) {
-        echo "<script>setTimeout(function() { window.location.href = `./index.php`; }, 0); </script>";
+        echo "<script>setTimeout(function() { window.location.href = `./Index`; }, 0); </script>";
     }
 ?>
 <?PHP

@@ -22,7 +22,7 @@
 
     <!-- Navbar Start -->
     <nav class="navbar navbar-expand-lg bg-white navbar-light sticky-top p-0">
-        <a href="Index.php" class="navbar-brand d-flex align-items-center border-end px-4 px-lg-5">
+        <a href="Index" class="navbar-brand d-flex align-items-center border-end px-4 px-lg-5">
             <img class="img-fluid" src="Default\Logo\GKE.png" style="width:200px;" />
         </a>
         <button type="button" class="navbar-toggler me-4" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
@@ -54,15 +54,15 @@
                                             if ($rowSub["PM_Setup"] == 1) {
                                                 if(isset($currentUser) && $currentUser != '') {
                                                     if ($rowSub["PM_Draw"] == 1) { echo '<li><hr class="dropdown-divider"></li>'; }
-                                                    echo '<a href="Ui_ListAdmin.php?Send_Category=' . $rowSub["PM_RelationCode"] . '" class="dropdown-item">' . $rowSub["PM_Name"] . '</a>';
+                                                    echo '<a href="ListAdmin?Send_Category=' . $rowSub["PM_RelationCode"] . '" class="dropdown-item">' . $rowSub["PM_Name"] . '</a>';
                                                 }
                                             } elseif ($rowSub["PM_Setup"] == 0) {
                                                 if ($rowcategory["CG_IsFile"] == 0) {
                                                     if ($rowSub["PM_Draw"] == 1) { echo '<li><hr class="dropdown-divider"></li>'; }
-                                                    echo '<a href="Ui_ShowPage.php?Send_Category=' . $rowSub["PM_RelationCode"] . '&Multiplier=1&Search=" class="dropdown-item">' . $rowSub["PM_Name"] . '</a>';
+                                                    echo '<a href="ShowPage?Send_Category=' . $rowSub["PM_RelationCode"] . '&Multiplier=1&Search=" class="dropdown-item">' . $rowSub["PM_Name"] . '</a>';
                                                 } elseif ($rowcategory["CG_IsFile"] == 1) {
                                                     if ($rowSub["PM_Draw"] == 1) { echo '<li><hr class="dropdown-divider"></li>'; }
-                                                    echo '<a href="Ui_List.php?Send_Category=' . $rowSub["PM_RelationCode"] . '" class="dropdown-item">' . $rowSub["PM_Name"] . '</a>';
+                                                    echo '<a href="List?Send_Category=' . $rowSub["PM_RelationCode"] . '" class="dropdown-item">' . $rowSub["PM_Name"] . '</a>';
                                                 }
                                             } 
                                         }
@@ -70,11 +70,11 @@
                                         if ($rowSub["PM_Setup"] == 1) {
                                             if(isset($currentUser) && $currentUser != '') {
                                                 if ($rowSub["PM_Draw"] == 1) { echo '<li><hr class="dropdown-divider"></li>'; }
-                                                echo '<a href="Ui_ListAdminMenuCategories.php?Send_MenuCategory=' . $rowSub["PM_RelationCode"] . '" class="dropdown-item">' . $rowSub["PM_Name"] . '</a>';
+                                                echo '<a href="ListAdminMenuCategories?Send_MenuCategory=' . $rowSub["PM_RelationCode"] . '" class="dropdown-item">' . $rowSub["PM_Name"] . '</a>';
                                             }
                                         } elseif ($rowSub["PM_Setup"] == 0) {  
                                             if ($rowSub["PM_Draw"] == 1) { echo '<li><hr class="dropdown-divider"></li>'; }
-                                            echo '<a href="Ui_ShowPageMenu.php?Send_MoreMenu=' . $rowSub["PM_RelationCode"] . '" class="dropdown-item">' . $rowSub["PM_Name"] . '</a>';
+                                            echo '<a href="ShowPageMenu?Send_MoreMenu=' . $rowSub["PM_RelationCode"] . '" class="dropdown-item">' . $rowSub["PM_Name"] . '</a>';
                                         }
                                     } elseif ($typeLower === 'engravedcategory') {
                                         $sql = "SELECT * FROM `engravedactivities` WHERE `EC_Code` =" . $rowSub["PM_RelationCode"];
@@ -122,21 +122,21 @@
                                         if ($rowSub["PM_Setup"] == 1) {
                                             if(isset($currentUser) && $currentUser != '') {
                                                 if ($rowSub["PM_Draw"] == 1) { echo '<li><hr class="dropdown-divider"></li>'; }
-                                                echo "<a href=\"Ui_Activity.php\" class=\"dropdown-item\">{$rowSub['PM_Name']}</a>";
+                                                echo "<a href=\"Activity\" class=\"dropdown-item\">{$rowSub['PM_Name']}</a>";
                                             }
                                         } elseif ($rowSub["PM_Setup"] == 0) {  
                                             if ($rowSub["PM_Draw"] == 1) { echo '<li><hr class="dropdown-divider"></li>'; }
-                                            echo "<a href=\"Ui_Activity.php\" class=\"dropdown-item\">{$rowSub['PM_Name']}</a>";
+                                            echo "<a href=\"Activity\" class=\"dropdown-item\">{$rowSub['PM_Name']}</a>";
                                         }
                                     } elseif ($typeLower === 'setup') {
                                         if ($rowSub["PM_Setup"] == 1) {
                                             if(isset($currentUser) && $currentUser != '') {
                                                 if ($rowSub["PM_Draw"] == 1) { echo '<li><hr class="dropdown-divider"></li>'; }
-                                                echo "<a href=\"Ui_AdminSetup.php\" class=\"dropdown-item\">{$rowSub['PM_Name']}</a>";
+                                                echo "<a href=\"AdminSetup\" class=\"dropdown-item\">{$rowSub['PM_Name']}</a>";
                                             }
                                         } elseif ($rowSub["PM_Setup"] == 0) {  
                                             if ($rowSub["PM_Draw"] == 1) { echo '<li><hr class="dropdown-divider"></li>'; }
-                                            echo "<a href=\"Ui_AdminSetup.php\" class=\"dropdown-item\">{$rowSub['PM_Name']}</a>";
+                                            echo "<a href=\"AdminSetup\" class=\"dropdown-item\">{$rowSub['PM_Name']}</a>";
                                         }
                                     } elseif ($typeLower === 'notype') {
                                         if ($rowSub["PM_Setup"] == 1) {
@@ -406,15 +406,15 @@ function generateSubMenu($rowSub) {
                         if ($rowSub2["PM_Setup"] == 1) {
                             if(isset($currentUser) && $currentUser != '') {
                                 if ($rowSub2["PM_Draw"] == 1) { echo '<li><hr class="dropdown-divider"></li>'; }
-                                echo '<a href="Ui_ListAdmin.php?Send_Category=' . $rowSub2["PM_RelationCode"] . '" class="dropdown-item">' . $rowSub2["PM_Name"] . '</a>';
+                                echo '<a href="ListAdmin?Send_Category=' . $rowSub2["PM_RelationCode"] . '" class="dropdown-item">' . $rowSub2["PM_Name"] . '</a>';
                             }
                         } elseif ($rowSub2["PM_Setup"] == 0) {
                             if ($rowcategorySub2["CG_IsFile"] == 0) {
                                 if ($rowSub2["PM_Draw"] == 1) { echo '<li><hr class="dropdown-divider"></li>'; }
-                                echo '<a href="Ui_ShowPage.php?Send_Category=' . $rowSub2["PM_RelationCode"] . '&Multiplier=1&Search=" class="dropdown-item">' . $rowSub2["PM_Name"] . '</a>';
+                                echo '<a href="ShowPage?Send_Category=' . $rowSub2["PM_RelationCode"] . '&Multiplier=1&Search=" class="dropdown-item">' . $rowSub2["PM_Name"] . '</a>';
                             } elseif ($rowcategorySub2["CG_IsFile"] == 1) {
                                 if ($rowSub2["PM_Draw"] == 1) { echo '<li><hr class="dropdown-divider"></li>'; }
-                                echo '<a href="Ui_List.php?Send_Category=' . $rowSub2["PM_RelationCode"] . '" class="dropdown-item">' . $rowSub2["PM_Name"] . '</a>';
+                                echo '<a href="List?Send_Category=' . $rowSub2["PM_RelationCode"] . '" class="dropdown-item">' . $rowSub2["PM_Name"] . '</a>';
                             }
                         }
                     }
@@ -422,31 +422,31 @@ function generateSubMenu($rowSub) {
                     if ($rowSub2["PM_Setup"] == 1) {
                         if(isset($currentUser) && $currentUser != '') {
                             if ($rowSub2["PM_Draw"] == 1) { echo '<li><hr class="dropdown-divider"></li>'; }
-                            echo '<a href="Ui_ListAdminMenuCategories.php?Send_MenuCategory=' . $rowSub2["PM_RelationCode"] . '" class="dropdown-item">' . $rowSub2["PM_Name"] . '</a>';
+                            echo '<a href="ListAdminMenuCategories?Send_MenuCategory=' . $rowSub2["PM_RelationCode"] . '" class="dropdown-item">' . $rowSub2["PM_Name"] . '</a>';
                         }
                     } elseif ($rowSub2["PM_Setup"] == 0) {  
                         if ($rowSub2["PM_Draw"] == 1) { echo '<li><hr class="dropdown-divider"></li>'; }
-                        echo '<a href="Ui_ShowPageMenu.php?Send_MoreMenu=' . $rowSub2["PM_RelationCode"] . '" class="dropdown-item">' . $rowSub2["PM_Name"] . '</a>';
+                        echo '<a href="ShowPageMenu?Send_MoreMenu=' . $rowSub2["PM_RelationCode"] . '" class="dropdown-item">' . $rowSub2["PM_Name"] . '</a>';
                     }
                 } elseif ($typeLowerSub2 === 'setupgames') {
                     if ($rowSub2["PM_Setup"] == 1) {
                         if(isset($currentUser) && $currentUser != '') {
                             if ($rowSub2["PM_Draw"] == 1) { echo '<li><hr class="dropdown-divider"></li>'; }
-                            echo "<a href=\"Ui_Activity.php\" class=\"dropdown-item\">{$rowSub2['PM_Name']}</a>";
+                            echo "<a href=\"Activity\" class=\"dropdown-item\">{$rowSub2['PM_Name']}</a>";
                         }
                     } elseif ($rowSub2["PM_Setup"] == 0) {  
                         if ($rowSub2["PM_Draw"] == 1) { echo '<li><hr class="dropdown-divider"></li>'; }
-                        echo "<a href=\"Ui_Activity.php\" class=\"dropdown-item\">{$rowSub2['PM_Name']}</a>";
+                        echo "<a href=\"Activity\" class=\"dropdown-item\">{$rowSub2['PM_Name']}</a>";
                     }
                 } elseif ($typeLowerSub2 === 'setup') {
                     if ($rowSub2["PM_Setup"] == 1) {
                         if(isset($currentUser) && $currentUser != '') {
                             if ($rowSub2["PM_Draw"] == 1) { echo '<li><hr class="dropdown-divider"></li>'; }
-                            echo "<a href=\"Ui_AdminSetup.php\" class=\"dropdown-item\">{$rowSub2['PM_Name']}</a>";
+                            echo "<a href=\"AdminSetup\" class=\"dropdown-item\">{$rowSub2['PM_Name']}</a>";
                         }
                     } elseif ($rowSub2["PM_Setup"] == 0) {  
                         if ($rowSub2["PM_Draw"] == 1) { echo '<li><hr class="dropdown-divider"></li>'; }
-                        echo "<a href=\"Ui_AdminSetup.php\" class=\"dropdown-item\">{$rowSub2['PM_Name']}</a>";
+                        echo "<a href=\"AdminSetup\" class=\"dropdown-item\">{$rowSub2['PM_Name']}</a>";
                     }
                 }
             }

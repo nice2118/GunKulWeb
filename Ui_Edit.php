@@ -2,10 +2,10 @@
 <?php 
 include("DB_Include.php"); 
 include("DB_Setup.php");
-$_SESSION['PathPage'] = "Ui_Edit.php";
 if (isset($_GET['Send_IDNews']) && $_GET['Send_IDNews'] !== '') {
     $t_id = $_GET['Send_IDNews'];
     $Category_id = $_GET['Send_Category'];
+    $_SESSION['PathPage'] = "Edit?Send_IDNews=".$Category_id;
 } else {
     $_SESSION['StatusTitle'] = "Error!";
     $_SESSION['StatusMessage'] = 'ไม่พบเลขที่เอกสารนี้';
@@ -39,7 +39,7 @@ if (isset($_GET['Send_IDNews']) && $_GET['Send_IDNews'] !== '') {
         }
     }
     if (!$CheckPage) {
-        echo "<script>setTimeout(function() { window.location.href = `./index.php`; }, 0); </script>";
+        echo "<script>setTimeout(function() { window.location.href = `./Index`; }, 0); </script>";
     }
 ?>
 <?php

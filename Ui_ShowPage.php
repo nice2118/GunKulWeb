@@ -8,7 +8,7 @@
         $Search = $_REQUEST['Search'];
         $Maxbox = 24 * $Multiplier;     // 24 มาจากแสดงเริ่มต้น
         $countSql = 0;
-        $_SESSION['PathPage'] = "Ui_ShowPage.php?Send_Category=$Category_id&Multiplier=$Multiplier";
+        $_SESSION['PathPage'] = "ShowPage?Send_Category=$Category_id&Multiplier=$Multiplier";
       } else {
         $_SESSION['StatusTitle'] = "Error!";
         $_SESSION['StatusMessage'] = 'ไม่พบหมวดหมู่เอกสารนี้';
@@ -53,7 +53,7 @@
                 <div class="col-md-6 text-center text-md-start mb-3 mb-md-0"></div>
                 <div class="col-md-6 text-center text-md-end">
                     <div class="wow fadeInUp" data-wow-delay="0.1s">
-                        <form action="Ui_ShowPage.php" method="post" enctype="multipart/form-data">
+                        <form action="ShowPage" method="post" enctype="multipart/form-data">
                             <div class="row g-3">
                                 <div class="col-4 col-sm-6"></div>
                                 <div class="col-8 col-sm-6 d-flex">
@@ -134,7 +134,7 @@
                         <div class="portfolio-btn">
                             <a class="btn btn-lg-square btn-outline-light rounded-circle mx-1"
                                 href="<?= $PathFolderNews.$AT_Image;?>" data-lightbox="portfolio"><i class="fa fa-eye"></i></a>
-                            <a class="btn btn-lg-square btn-outline-light rounded-circle mx-1" href="Ui_ShowDetail.php?Send_IDNews=<?= $row["AT_Code"];?>"><i
+                            <a class="btn btn-lg-square btn-outline-light rounded-circle mx-1" href="ShowDetail?Send_IDNews=<?= $row["AT_Code"];?>"><i
                                     class="fa fa-link"></i></a>
                         </div>
                     </div>
@@ -154,7 +154,7 @@
         <div class="row g-1">
             <div class="wow fadeInUp portfolio-item first my-4" data-wow-delay="0.6s">
                 <div align="right">
-                    <a class="small fw-medium" href="Ui_List.php?Send_Category=<?= $Category_id ?>"><?= $DescriptionTH ?>ทั้งหมด<i class="fa fa-arrow-right ms-2"></i></a>  
+                    <a class="small fw-medium" href="List?Send_Category=<?= $Category_id ?>"><?= $DescriptionTH ?>ทั้งหมด<i class="fa fa-arrow-right ms-2"></i></a>  
                 </div>
             </div>
         </div>
@@ -163,7 +163,7 @@
         ?>
         <div class="container">
             <div class="text-center mx-auto mb-2 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 600px;">
-                <a href="Ui_ShowPage.php?Send_Category=<?= $Category_id ?>&Multiplier=<?= $Multiplier + 1 ?>&Search=" class="btn btn-primary rounded-pill py-3 px-5 mt-3">แสดงเพิ่มเติม</a>
+                <a href="ShowPage?Send_Category=<?= $Category_id ?>&Multiplier=<?= $Multiplier + 1 ?>&Search=" class="btn btn-primary rounded-pill py-3 px-5 mt-3">แสดงเพิ่มเติม</a>
             </div>
         </div>
         <?php

@@ -4,7 +4,7 @@
     include("DB_Setup.php");
     if (isset($_REQUEST['Send_MoreMenu']) && $_REQUEST['Send_MoreMenu'] !== '') {
         $Send_MoreMenu = $_REQUEST['Send_MoreMenu'];
-        $_SESSION['PathPage'] = "Ui_ShowPageMenu.php?Send_MoreMenu=$Send_MoreMenu";
+        $_SESSION['PathPage'] = "ShowPageMenu?Send_MoreMenu=$Send_MoreMenu";
       } else {
         $_SESSION['StatusTitle'] = "Error!";
         $_SESSION['StatusMessage'] = 'ไม่พบหมวดหมู่เอกสารนี้';

@@ -17,7 +17,7 @@ if ($result->num_rows > 0) {
     }
 }
 if (!$CheckPage) {
-    echo "<script>setTimeout(function() { window.location.href = `./index.php`; }, 0); </script>";
+    echo "<script>setTimeout(function() { window.location.href = `./Index`; }, 0); </script>";
 }
 ?>
     <!-- Content -->

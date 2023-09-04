@@ -26,6 +26,6 @@ if ($conn->query($sql) === true) {
   $_SESSION['StatusMessage'] = "Cannot be deleted = ".$t_id;
   $_SESSION['StatusAlert'] = "error";
 }
-echo '<script> setTimeout(function() { window.location.href = "./Ui_ListAdmin.php?Send_Category=' . $CategoryID . '"; }, 0); </script>';
+echo '<script> setTimeout(function() { window.location.href = "./ListAdmin?Send_Category=' . $CategoryID . '"; }, 0); </script>';
 ?>
 

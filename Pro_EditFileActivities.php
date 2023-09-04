@@ -151,8 +151,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 
   // ส่งข้อความตอบกลับหรือเปลี่ยนเส้นทางไปหน้าอื่นตามต้องการ
-  // echo "<meta http-equiv=\"refresh\" content=\"0; url=./Ui_ListAdmin.php\">";
-  echo '<script> setTimeout(function() { window.location.href = "./Ui_ListAdmin.php?Send_Category=' . $CategoryBegin_id . '"; }, 0); </script>';
+  echo '<script> setTimeout(function() { window.location.href = "./ListAdmin?Send_Category=' . $CategoryBegin_id . '"; }, 0); </script>';
 }
 ?>
 </head>
