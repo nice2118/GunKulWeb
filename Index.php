@@ -199,7 +199,7 @@ if ($result->num_rows > 0) {
                         $DescriptionENGroup2 = $row["CG_DescriptionEN"];
                         $IsTypeGroup2 = $row["CG_IsFile"];
                     }
-                ?>
+            ?>
                 <h3 class="text-primary"><?= $DescriptionENGroup2 ?></h3>
                 <h2 class="mb-4"><?= $DescriptionTHGroup2 ?></h2>
             </div>

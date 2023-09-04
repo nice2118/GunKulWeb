@@ -1,3 +1,20 @@
 RewriteEngine On
 RewriteCond %{HTTPS} off
 RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+
+RewriteRule ^Index$ Index.php [L,QSA]
+RewriteRule ^Activity$ Activity.php [L,QSA]
+RewriteRule ^Add$ Add.php [L,QSA]
+RewriteRule ^AddFile$ AddFile.php [L,QSA]
+RewriteRule ^AdminSetup$ AdminSetup.php [L,QSA]
+RewriteRule ^Edit$ Edit.php [L,QSA]
+RewriteRule ^Ui_EditFile$ Ui_EditFile.php [L,QSA]
+RewriteRule ^List$ List.php [L,QSA]
+RewriteRule ^ListAdmin$ ListAdmin.php [L,QSA]
+RewriteRule ^ListAdminMenuCategories$ ListAdminMenuCategories.php [L,QSA]
+RewriteRule ^ShowDetail$ ShowDetail.php [L,QSA]
+RewriteRule ^ShowPage$ ShowPage.php [L,QSA]
+RewriteRule ^ShowPageMenu$ ShowPageMenu.php [L,QSA]
