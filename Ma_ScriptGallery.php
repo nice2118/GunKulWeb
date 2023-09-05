@@ -6,7 +6,7 @@
         const deleteAllBtn = document.querySelector('.delete-all-btn');
 
         addImageBtn.addEventListener('click', () => {
-        imageGallery.click();
+            imageGallery.click();
         });
 
         // Handle image selection
@@ -76,7 +76,7 @@
                         updatedFiles.forEach((file) => {
                             updatedFileList.items.add(file);
                         });
-                    imageGallery.files = updatedFileList.files;
+                        imageGallery.files = updatedFileList.files;
                     });
 
                     // Append the delete button to the preview container
@@ -86,7 +86,7 @@
                     imageContainer.appendChild(imagePreview);
 
                     // Remove loading text when loading is complete
-                imagePreview.removeChild(loadingText);
+                    imagePreview.removeChild(loadingText);
                 };
 
                 reader.readAsDataURL(file);

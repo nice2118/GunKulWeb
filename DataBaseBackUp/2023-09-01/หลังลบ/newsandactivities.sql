@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 04, 2023 at 12:26 PM
+-- Generation Time: Sep 05, 2023 at 04:44 AM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -266,6 +266,13 @@ CREATE TABLE `grouppositionheader` (
   `GH_ModifyDate` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `grouppositionheader`
+--
+
+INSERT INTO `grouppositionheader` (`GH_Code`, `GH_Name`, `GH_CreateDate`, `GH_ModifyDate`) VALUES
+(7, 'Group HR1', '2023-09-05 02:31:00', '2023-09-05 02:31:00');
+
 -- --------------------------------------------------------
 
 --
@@ -279,6 +286,17 @@ CREATE TABLE `grouppositionline` (
   `GL_CreateDate` timestamp NOT NULL DEFAULT current_timestamp(),
   `GL_ModifyDate` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `grouppositionline`
+--
+
+INSERT INTO `grouppositionline` (`GL_Code`, `GH_Code`, `PT_Code`, `GL_CreateDate`, `GL_ModifyDate`) VALUES
+(24, 7, 3, '2023-09-05 02:31:00', '2023-09-05 02:31:00'),
+(25, 7, 4, '2023-09-05 02:31:00', '2023-09-05 02:31:00'),
+(26, 7, 5, '2023-09-05 02:31:00', '2023-09-05 02:31:00'),
+(27, 7, 6, '2023-09-05 02:31:00', '2023-09-05 02:31:00'),
+(28, 7, 7, '2023-09-05 02:31:00', '2023-09-05 02:31:00');
 
 -- --------------------------------------------------------
 
@@ -321,7 +339,7 @@ CREATE TABLE `headingcategories` (
 
 INSERT INTO `headingcategories` (`HC_Code`, `HC_Text`, `HC_DescriptionTH`, `HC_DescriptionEN`, `HC_DefaultImage`, `CountPage`, `HC_UserCreate`, `HC_CreateDate`, `HC_ModifyDate`) VALUES
 (1, 'INTERNAL RECRUITMENT', 'ตำแหน่งงานว่างภายใน', 'INTERNAL RECRUITMENT', '', 49, '', '2023-07-25 08:57:55', '0000-00-00 00:00:00'),
-(2, 'FAQ', 'คำถามที่พบบ่อย', 'FAQs', '2.jpg', 67, '', '2023-07-25 08:57:55', '2023-08-15 07:32:27');
+(2, 'FAQ', 'คำถามที่พบบ่อย', 'FAQs', '2.jpg', 68, '', '2023-07-25 08:57:55', '2023-08-15 07:32:27');
 
 -- --------------------------------------------------------
 
@@ -459,13 +477,13 @@ INSERT INTO `permissionmenu` (`PM_Code`, `PM_RelationPermission`, `PM_Menu`, `PM
 (79, 0, 6, 'Setup', 0, 'SetUp', 'left', 0, 1, 'aaa', '2023-08-24 10:00:47', '2023-08-25 06:43:57'),
 (80, 78, 0, 'HeadingCategories', 1, 'ตำแหน่งว่างภายใน', 'left', 0, 1, 'aaa', '2023-08-24 10:01:20', '2023-08-24 10:01:20'),
 (81, 78, 0, 'HeadingCategories', 2, 'FAQ', 'left', 0, 1, 'aaa', '2023-08-24 10:01:20', '2023-08-24 10:01:20'),
-(82, 77, 0, 'Category', 1, 'กิจกรรม', 'left', 0, 1, '', '2023-08-24 10:03:11', '2023-09-04 03:16:23'),
-(83, 77, 0, 'Category', 2, 'ทักษะทางสังคมที่ใช้เพื่อปฏิสัมพันธ์', 'left', 0, 1, '', '2023-08-24 10:03:11', '2023-09-04 03:16:23'),
-(84, 77, 0, 'Category', 1, 'ทักษะหรือความสามารถในแต่ละสายอาชีพ', 'left', 0, 1, '', '2023-08-24 10:03:11', '2023-09-04 03:16:23'),
-(85, 77, 0, 'Category', 4, 'แบ่งปันความรู้', 'left', 0, 1, '', '2023-08-24 10:03:11', '2023-09-04 03:16:23'),
-(86, 77, 0, 'Category', 10, 'แกลลอรี่', 'left', 0, 1, '', '2023-08-24 10:03:11', '2023-09-04 03:16:23'),
-(87, 77, 0, 'Category', 19, 'ประกาศทั่วไป', 'left', 0, 1, '', '2023-08-24 10:03:11', '2023-09-04 03:16:23'),
-(88, 77, 0, 'Category', 20, 'ประกาศจากฝ่ายบุคคล', 'left', 0, 1, '', '2023-08-24 10:03:11', '2023-09-04 03:16:23'),
+(82, 77, 0, 'Category', 1, 'กิจกรรม', 'left', 0, 1, 'admin', '2023-08-24 10:03:11', '2023-09-05 02:39:59'),
+(83, 77, 0, 'Category', 2, 'ทักษะทางสังคมที่ใช้เพื่อปฏิสัมพันธ์', 'left', 0, 1, 'admin', '2023-08-24 10:03:11', '2023-09-05 02:39:59'),
+(84, 77, 0, 'Category', 1, 'ทักษะหรือความสามารถในแต่ละสายอาชีพ', 'left', 0, 1, 'admin', '2023-08-24 10:03:11', '2023-09-05 02:39:59'),
+(85, 77, 0, 'Category', 4, 'แบ่งปันความรู้', 'left', 0, 1, 'admin', '2023-08-24 10:03:11', '2023-09-05 02:39:59'),
+(86, 77, 0, 'Category', 10, 'แกลลอรี่', 'left', 0, 1, 'admin', '2023-08-24 10:03:11', '2023-09-05 02:39:59'),
+(87, 77, 0, 'Category', 19, 'ประกาศทั่วไป', 'left', 0, 1, 'admin', '2023-08-24 10:03:11', '2023-09-05 02:39:59'),
+(88, 77, 0, 'Category', 20, 'ประกาศจากฝ่ายบุคคล', 'left', 0, 1, 'admin', '2023-08-24 10:03:11', '2023-09-05 02:39:59'),
 (90, 0, 4, 'EngravedCategory', 24, 'GPD', 'right', 0, 0, 'aaa', '2023-08-25 09:37:02', '2023-08-25 09:46:02'),
 (91, 0, 4, 'EngravedCategory', 25, 'GKA&P', 'right', 0, 0, 'aaa', '2023-08-25 09:37:02', '2023-08-25 09:46:02'),
 (93, 0, 5, 'EngravedCategory', 1, 'วันหยุดประจำปี', 'left', 0, 0, '', '2023-08-25 10:15:46', '2023-09-04 02:59:50'),
@@ -483,11 +501,11 @@ INSERT INTO `permissionmenu` (`PM_Code`, `PM_RelationPermission`, `PM_Menu`, `PM
 (105, 0, 1, 'EngravedCategory', 28, 'ค่านิยมองค์กร', 'right', 0, 0, 'admin', '2023-08-25 10:26:46', '2023-09-04 07:04:36'),
 (106, 0, 1, 'EngravedCategory', 6, 'แผนที่บริษัท', 'right', 0, 0, 'admin', '2023-08-25 10:26:46', '2023-09-04 07:04:36'),
 (107, 0, 1, 'EngravedCategory', 26, 'เว็บไซต์บริษัท', 'right', 0, 0, 'admin', '2023-08-25 10:26:46', '2023-09-04 07:04:36'),
-(108, 77, 0, 'Category', 27, 'ข่าว', 'left', 0, 0, '', '2023-09-04 03:16:23', '2023-09-04 03:16:23'),
-(109, 77, 0, 'Category', 28, 'ทักษะทางเทคนิค', 'left', 0, 0, '', '2023-09-04 03:16:23', '2023-09-04 03:16:23'),
-(110, 77, 0, 'Category', 29, 'บทความ', 'left', 0, 0, '', '2023-09-04 03:16:23', '2023-09-04 03:16:23'),
-(111, 77, 0, 'Category', 30, 'นโยบาย', 'left', 0, 0, '', '2023-09-04 03:16:23', '2023-09-04 03:16:23'),
-(112, 77, 0, 'Category', 31, 'เกมส์', 'left', 0, 0, '', '2023-09-04 03:16:23', '2023-09-04 03:16:23');
+(108, 77, 0, 'Category', 27, 'ข่าว', 'left', 0, 1, 'admin', '2023-09-04 03:16:23', '2023-09-05 02:39:59'),
+(109, 77, 0, 'Category', 28, 'ทักษะทางเทคนิค', 'left', 0, 1, 'admin', '2023-09-04 03:16:23', '2023-09-05 02:39:59'),
+(110, 77, 0, 'Category', 29, 'บทความ', 'left', 0, 1, 'admin', '2023-09-04 03:16:23', '2023-09-05 02:39:59'),
+(111, 77, 0, 'Category', 30, 'นโยบาย', 'left', 0, 1, 'admin', '2023-09-04 03:16:23', '2023-09-05 02:39:59'),
+(112, 77, 0, 'Category', 31, 'เกมส์', 'left', 0, 1, 'admin', '2023-09-04 03:16:23', '2023-09-05 02:39:59');
 
 -- --------------------------------------------------------
 
@@ -514,7 +532,20 @@ INSERT INTO `permissionposition` (`PP_Code`, `PP_Type`, `PT_Code`, `PM_Code`, `P
 (9, 'multi', 1, 68, '2023-08-24 08:19:32', '2023-08-24 08:19:32'),
 (10, 'multi', 1, 70, '2023-08-24 08:48:18', '2023-08-24 08:48:18'),
 (11, 'single', 12, 79, '2023-08-25 03:17:56', '2023-08-25 03:17:56'),
-(12, 'single', 12, 82, '2023-08-25 03:50:06', '2023-08-25 03:50:06');
+(12, 'multi', 7, 82, '2023-08-25 03:50:06', '2023-09-05 02:37:10'),
+(13, 'multi', 7, 81, '2023-09-05 02:36:46', '2023-09-05 02:36:46'),
+(14, 'multi', 7, 80, '2023-09-05 02:36:56', '2023-09-05 02:36:56'),
+(15, 'multi', 7, 83, '2023-09-05 02:38:29', '2023-09-05 02:38:29'),
+(16, 'multi', 7, 84, '2023-09-05 02:38:38', '2023-09-05 02:38:38'),
+(17, 'multi', 7, 85, '2023-09-05 02:38:50', '2023-09-05 02:38:50'),
+(18, 'multi', 7, 87, '2023-09-05 02:39:02', '2023-09-05 02:39:02'),
+(19, 'multi', 7, 86, '2023-09-05 02:39:13', '2023-09-05 02:39:13'),
+(20, 'multi', 7, 88, '2023-09-05 02:39:36', '2023-09-05 02:39:36'),
+(21, 'multi', 7, 108, '2023-09-05 02:40:14', '2023-09-05 02:40:14'),
+(22, 'multi', 7, 109, '2023-09-05 02:40:26', '2023-09-05 02:40:26'),
+(23, 'multi', 7, 110, '2023-09-05 02:40:38', '2023-09-05 02:40:38'),
+(24, 'multi', 7, 111, '2023-09-05 02:40:51', '2023-09-05 02:40:51'),
+(25, 'multi', 7, 112, '2023-09-05 02:41:05', '2023-09-05 02:41:05');
 
 -- --------------------------------------------------------
 
@@ -606,7 +637,7 @@ CREATE TABLE `setup` (
 --
 
 INSERT INTO `setup` (`SU_Code`, `SU_DefaultImageNews`, `SU_PathDefaultImageNews`, `SU_PathDefaultImageGallery`, `SU_PathDefaultFile`, `SU_HeaderDescriptionTH`, `SU_HeaderDescriptionEN`, `CountPage`, `SU_CreateDate`, `SU_ModifyDate`) VALUES
-(1, '0.jpg', 'img/UploadAddActivities/', 'img/UploadAddGallery/', 'PDF/UploadAddActivities/', 'บริษัท กันกุลเอ็นจิเนียริ่ง จำกัด (มหาชน)', 'LEADING INTEGRATED ENERGY PLAYER', 1683, '2023-06-22 04:40:33', '2023-09-04 10:14:59');
+(1, '0.jpg', 'img/UploadAddActivities/', 'img/UploadAddGallery/', 'PDF/UploadAddActivities/', 'บริษัท กันกุลเอ็นจิเนียริ่ง จำกัด (มหาชน)', 'LEADING INTEGRATED ENERGY PLAYER', 1704, '2023-06-22 04:40:33', '2023-09-05 02:41:05');
 
 --
 -- Triggers `setup`
@@ -670,11 +701,11 @@ CREATE TABLE `user` (
 
 INSERT INTO `user` (`US_Username`, `US_Password`, `US_Prefix`, `US_Fname`, `US_Lname`, `US_Image`, `US_Active`, `PT_Code`, `US_CreateDate`, `US_ModifyDate`) VALUES
 ('admin', '1234', 'นาย', 'Programmer', 'Programmer', 'admin.png', 1, 0, '2023-08-18 06:10:16', '2023-09-01 01:38:06'),
-('GKAHA', 'Gunkul@1', 'นาย', 'แผนกค่าตอบแทนและสวัสดิการ', 'แผนกค่าตอบแทนและสวัสดิการ', 'GKAHA.jpg', 1, 0, '2023-08-17 07:25:22', '2023-08-31 08:20:41'),
-('GKEHA1', 'Gunkul@1', 'นาย', 'แผนกสรรหาว่าจ้าง', 'แผนกสรรหาว่าจ้าง', 'GKEHA1.jpg', 1, 0, '2023-08-17 07:20:56', '2023-08-31 08:20:58'),
-('GKEHA2', 'Gunkul@1', 'นาย', 'แผนก HROD', 'แผนก HROD', 'GKEHA2.jpg', 1, 0, '2023-08-17 07:22:10', '2023-08-31 08:21:16'),
-('GKEHA3', 'Gunkul@1', 'นาย', 'แผนกธุรการและซ่อมบำรุง', 'แผนกธุรการและซ่อมบำรุง', '', 1, 0, '2023-08-17 07:22:43', '2023-08-31 08:21:37'),
-('GKEHA4', 'Gunkul@1', 'นาย', 'ฝ่าย HS', 'ฝ่าย HS', '', 1, 0, '2023-08-17 07:23:39', '2023-08-31 08:22:15');
+('GKAHA1', 'Gunkul@1', 'นาย', 'ฝ่าย HS', 'ฝ่าย HS', '', 1, 0, '2023-08-17 07:23:39', '2023-08-31 08:22:15'),
+('GKEHA1', 'Gunkul@1', 'นาย', 'แผนกค่าตอบแทนและสวัสดิการ', 'แผนกค่าตอบแทนและสวัสดิการ', '', 1, 0, '2023-08-17 07:25:22', '2023-08-31 08:20:41'),
+('GKEHA2', 'Gunkul@1', 'นาย', 'แผนกสรรหาว่าจ้าง', 'แผนกสรรหาว่าจ้าง', '', 1, 0, '2023-08-17 07:20:56', '2023-08-31 08:20:58'),
+('GKEHA3', 'Gunkul@1', 'นาย', 'แผนก HROD', 'แผนก HROD', '', 1, 0, '2023-08-17 07:22:10', '2023-08-31 08:21:16'),
+('GKEHA4', 'Gunkul@1', 'นาย', 'แผนกธุรการและซ่อมบำรุง', 'แผนกธุรการและซ่อมบำรุง', '', 1, 0, '2023-08-17 07:22:43', '2023-08-31 08:21:37');
 
 --
 -- Indexes for dumped tables
@@ -827,7 +858,7 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `activities`
 --
 ALTER TABLE `activities`
-  MODIFY `AT_Code` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `AT_Code` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `alertpopup`
@@ -875,13 +906,13 @@ ALTER TABLE `gallery`
 -- AUTO_INCREMENT for table `grouppositionheader`
 --
 ALTER TABLE `grouppositionheader`
-  MODIFY `GH_Code` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `GH_Code` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `grouppositionline`
 --
 ALTER TABLE `grouppositionline`
-  MODIFY `GL_Code` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `GL_Code` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 
 --
 -- AUTO_INCREMENT for table `heading`
@@ -929,7 +960,7 @@ ALTER TABLE `permissionmenu`
 -- AUTO_INCREMENT for table `permissionposition`
 --
 ALTER TABLE `permissionposition`
-  MODIFY `PP_Code` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `PP_Code` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
 -- AUTO_INCREMENT for table `position`

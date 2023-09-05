@@ -109,6 +109,7 @@ $US_Prefix = "";
                         </div> -->
                         <div class="row">
                             <div class="col-md-6">
+                                <?php if (CheckAdmin($currentUser)){ ?>
                                 <div class="card card-primary">
                                     <div class="card-header">
                                         <h3 class="card-title text-white">Activities</h3>
@@ -194,6 +195,7 @@ $US_Prefix = "";
                                     </div>
                                     <!-- /.card-body -->
                                 </div>
+                                <?php } ?>
                                 <!-- /.card -->
                                 <div class="card card-info">
                                     <div class="card-header">
@@ -207,11 +209,13 @@ $US_Prefix = "";
                                             <ul class="todo-list" data-widget="todo-list">
                                             <?php
                                                 function renderRow($row,$multiplier) {
-                                                    global $conn;
+                                                    global $conn, $currentUser;
                                             ?>
                                                     <span class="text"><?=$row["CG_Name"]?></span>
                                                     <div class="tools">
+                                                        <?php if (CheckAdmin($currentUser)){ ?>
                                                         <a class="btn btn-link py-1 px-2 text-end" onclick="deleteAlertCategory(<?php echo $row["CG_Entity No."];?>, '<?php echo $row["CG_Name"];?>')"><i class="fas fa-trash"></i></a>
+                                                        <?php } ?>
                                                         <button type="button" class="btn btn-link py-1 px-2 text-end text-warning" data-bs-toggle="modal" data-bs-target="#Category" data-entityno="<?= $row["CG_Entity No."] ?>" data-isfile="<?= $row["CG_IsFile"] ?>" data-entityrelationno="<?= $row["CG_Entity Relation No."] ?>" data-name="<?= $row["CG_Name"]; ?>" data-descriptionth="<?= $row["CG_DescriptionTH"] ?>" data-descriptionen="<?= $row["CG_DescriptionEN"] ?>" data-ecimage="<?= $row["CG_DefaultImage"]; ?>"><i class="fas fa-edit"></i> </button>
                                                     </div>
                                                 <?php
@@ -366,7 +370,9 @@ $US_Prefix = "";
                                                 <li class="my-2">
                                                     <span class="text"><?=$row["HC_Text"]?></span>
                                                     <div class="tools">
+                                                        <?php if (CheckAdmin($currentUser)){ ?>
                                                         <a class="btn btn-link py-1 px-2 text-end" onclick="deleteAlertMenuCategory(<?php echo $row["HC_Code"];?>, '<?php echo $row["HC_Text"];?>', 'headingcategories')"><i class="fas fa-trash"></i></a>
+                                                        <?php } ?>
                                                         <button type="button" class="btn btn-link py-1 px-2 text-end text-warning" data-bs-toggle="modal" data-bs-target="#MenuCategory" data-hcCode="<?= $row["HC_Code"] ?>" data-hcText="<?= $row["HC_Text"] ?>" data-hcdescriptionth="<?= $row["HC_DescriptionTH"] ?>" data-hcdescriptionen="<?= $row["HC_DescriptionEN"] ?>" data-hcimage="<?= $row["HC_DefaultImage"] ?>"><i class="fas fa-edit"></i> </button>
                                                         <button type="button" class="btn btn-link py-0 px-1 text-end text-primary" data-bs-toggle="modal" data-bs-target="#MasterMenuCategory" data-hccode="<?= $row["HC_Code"] ?>"><i class="fas fa-graduation-cap"></i></button>
                                                     </div>
@@ -404,7 +410,9 @@ $US_Prefix = "";
                                                 <li class="my-2">
                                                     <span class="text"><?=$row["EC_Name"]?></span>
                                                     <div class="tools">
+                                                        <?php if (CheckAdmin($currentUser)){ ?>
                                                         <a class="btn btn-link py-1 px-2 text-end" onclick="deleteAlertEngravedCategory(<?php echo $row["EC_Code"];?>, '<?php echo $row["EC_Name"];?>')"><i class="fas fa-trash"></i></a>
+                                                        <?php } ?>
                                                         <button type="button" class="btn btn-link py-1 px-2 text-end text-warning" data-bs-toggle="modal" data-bs-target="#engravedcategory" data-eccode="<?= $row["EC_Code"] ?>" data-ecname="<?= $row["EC_Name"] ?>" data-ecdescriptionth="<?= $row["EC_DescriptionTH"] ?>" data-ecdescriptionen="<?= $row["EC_DescriptionEN"] ?>"><i class="fas fa-edit"></i></button>
                                                         <button type="button" class="btn btn-link py-0 px-1 text-end text-primary" data-bs-toggle="modal" data-bs-target="#EngravedActivities" data-eccode="<?= $row["EC_Code"] ?>"><i class="fa fa-plus"></i></button>
                                                     </div>
@@ -422,6 +430,7 @@ $US_Prefix = "";
                                     <!-- /.card-body -->
                                 </div>
                                 <!-- /.card -->
+                                <?php if (CheckAdmin($currentUser)){ ?>
                                 <div class="card card-navy collapsed-card">
                                     <div class="card-header">
                                         <h3 class="card-title text-white">User Setup</h3>
@@ -539,6 +548,7 @@ $US_Prefix = "";
                                     </div>
                                     <!-- /.card-body -->
                                 </div>
+                                <?php } ?>
                                  <!-- /.card -->
                                 <div class="card card-maroon collapsed-card">
                                     <div class="card-header">
@@ -653,7 +663,9 @@ $US_Prefix = "";
                                                 <li class="my-2">
                                                     <span class="text"><?=$row["MN_Name"]?></span>
                                                     <div class="tools">
+                                                        <?php if (CheckAdmin($currentUser)){ ?>
                                                         <a class="btn btn-link py-1 px-2 text-end" onclick="deleteAlertMenu(<?php echo $row["MN_Code"];?>, '<?php echo $row["MN_Name"];?>')"><i class="fas fa-trash"></i></a>
+                                                        <?php } ?>
                                                         <button type="button" class="btn btn-link py-1 px-2 text-end text-warning" data-bs-toggle="modal" data-bs-target="#modalmenu" data-mncode="<?= $row["MN_Code"] ?>" data-mnname="<?= $row["MN_Name"] ?>"><i class="fas fa-edit"></i></button>
                                                         <button type="button" class="btn btn-link py-0 px-1 text-end text-primary" data-bs-toggle="modal" data-bs-target="#modalmenusub" data-mncodesub="<?= $row["MN_Code"] ?>" data-pmtype="menu"><i class="fa fa-plus"></i></button>
                                                     </div>
@@ -915,7 +927,7 @@ $US_Prefix = "";
                             <input type="hidden" id="US_UsernameOld" name="US_UsernameOld" class="form-control border-1" placeholder="" readonly>
                             <div class="col-2 col-sm-2">
                                 <h6 class="text-primary">คำนำหน้า</h6>
-                                <select class="form-select border-1" id="US_Prefix" name="US_Prefix" required>
+                                <select class="form-select border-1" id="US_Prefix" name="US_Prefix">
                                     <option value="">เลือกคำนำหน้า</option>
                                     <option value="นาย" <?php if ('นาย' == $US_Prefix) echo 'selected'; ?>>นาย</option>
                                     <option value="นาง" <?php if ('นาง' == $US_Prefix) echo 'selected'; ?>>นาง</option>
@@ -1307,8 +1319,8 @@ $US_Prefix = "";
         var reader = new FileReader();
 
         reader.onload = function (e) {
-            var previewImageUser = document.getElementById('previewImagePopup');
-            previewImageUser.src = e.target.result;
+            var previewImagePopup = document.getElementById('previewImagePopup');
+            previewImagePopup.src = e.target.result;
         };
 
         if (file) {
@@ -2479,7 +2491,9 @@ $(document).ready(function() {
                             contentHTML += '<button type="button" class="btn btn-link py-1 px-2 text-end text-warning" data-bs-toggle="modal" data-bs-target="#modalpermissionposition" data-sendpmcode="' + response[i].PM_Code + '"><i class="fa fa-address-book"></i></button>';
                         }
                     contentHTML += 
+                    <?php if (CheckAdmin($currentUser)){ ?>
                         '<a class="btn btn-link py-1 px-2 text-end" onclick="deleteAlertMenuSub(' + response[i].PM_Code + ', \'' + response[i].PM_Name + '\')"><i class="fas fa-trash"></i></a>' +
+                    <?php } ?>
                         '</div>' +
                         '</div>';
                 }
@@ -2584,7 +2598,9 @@ $(document).ready(function() {
                             contentHTML += '<button type="button" class="btn btn-link py-1 px-2 text-end text-warning" data-bs-toggle="modal" data-bs-target="#modalpermissionposition" data-sendpmcode="' + response[i].PM_Code + '"><i class="fa fa-address-book"></i></button>';
                         }
                     contentHTML += 
+                        <?php if (CheckAdmin($currentUser)){ ?>
                         '<a class="btn btn-link py-1 px-2 text-end" onclick="deleteAlertMenuSub(' + response[i].PM_Code + ', \'' + response[i].PM_Name + '\')"><i class="fas fa-trash"></i></a>' +
+                        <?php } ?>
                         '</div>' +
                         '</div>';
                 }
@@ -2721,7 +2737,7 @@ $(document).ready(function() {
         const apDateStart = button.data('apdatestart');
         const apDateEnd = button.data('apdateend');
 
-        console.log(apImage);
+        // console.log(apImage);
 
         // กำหนดค่าให้กับช่อง input ใน Modal
         document.getElementById("AP_Code").value = apCode;

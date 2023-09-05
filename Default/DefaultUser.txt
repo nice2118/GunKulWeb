@@ -1,0 +1,7 @@
+Link Web : https://intranet.gunkul.net
+UserName 		Password		Name
+GKAHA1			Gunkul@1		ฝ่าย HS
+GKEHA1			Gunkul@1		แผนกค่าตอบแทนและสวัสดิการ
+GKEHA2			Gunkul@1		แผนกสรรหาว่าจ้าง
+GKEHA3			Gunkul@1		แผนก HROD
+GKEHA4			Gunkul@1		แผนกธุรการและซ่อมบำรุง

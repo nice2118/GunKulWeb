@@ -176,7 +176,7 @@ if (isset($_GET['Send_IDNews']) && $_GET['Send_IDNews'] !== '') {
                                         </div>
                                         <div class="row">
                                             <div class="text-center col-12 text-center text-md-end">
-                                                <button type="button" class="btn btn-danger rounded-pill py-2 px-3 delete-all-btn text-end my-3">ลบรูปทั้งหมด</button>
+                                                <button type="button" class="btn btn-danger rounded-pill py-2 px-3 delete-all-btn text-end my-3">ลบรูปทั้งหมดที่เพิ่มใหม่</button>
                                                 <button type="button" class="btn btn-primary rounded-pill py-2 px-3 add-image-btn text-end my-3">เลือกรูปภาพ</button>
                                             </div>
                                         </div>
@@ -255,7 +255,7 @@ if (isset($_GET['Send_IDNews']) && $_GET['Send_IDNews'] !== '') {
     </script>
 <?php include("Ma_ScriptGallery.php"); ?>
 <?php
-// สร้างคำสั่ง SQL สำหรับดึงข้อมูลจากฐานข้อมูล (เปลี่ยนตามโครงสร้างฐานข้อมูลของคุณ)
+// สร้างคำสั่ง SQL สำหรับดึงข้อมูลจากฐานข้อมูล
 $sql = "SELECT `GR_Entity No.` AS `name`, CONCAT(
     CASE
         WHEN SUBSTRING_INDEX(`GR_Name`, '.', -1) IN ('jpg', 'jpeg', 'png', 'gif') THEN 'image/'

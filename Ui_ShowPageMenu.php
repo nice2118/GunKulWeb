@@ -20,6 +20,22 @@
 <?php include("Ma_Head.php"); ?>
 <?php include("Ma_Carousel.php"); ?>
 
+<?php
+    $CheckPage = false;
+    $sql = "SELECT * FROM `permissionmenu` WHERE `permissionmenu`.`PM_RelationType` = 'HeadingCategories' AND `permissionmenu`.`PM_RelationCode` = '$Send_MoreMenu' AND `permissionmenu`.`PM_Setup` = '0';";
+    $result = $conn->query($sql);
+    if ($result->num_rows > 0) {
+        while ($row = $result->fetch_assoc()) {
+            if (CheckStatus($currentUser, $row["PM_Code"])) {
+                $CheckPage = true;
+            }
+        }
+    }
+    if (!$CheckPage) {
+        echo "<script>setTimeout(function() { window.location.href = `./Index`; }, 0); </script>";
+    }
+?>
+
 <!-- Content -->
 <div class="container-xxl py-5">
     <div class="container">

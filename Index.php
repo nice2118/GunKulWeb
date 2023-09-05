@@ -45,21 +45,15 @@ if ($result->num_rows > 0) {
     <?php if ($Category1_id !== 0 && $Category1_id !== '') { ?>
     <div class="container-xxl2 py-5">
         <div class="container2">
-            <div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 600px;">
                 <?php
-                    $sql = "SELECT * FROM `Category` WHERE `Category`.`CG_Entity No.` = $Category1_id;";
-                    $result = $conn->query($sql);
-                    if ($result->num_rows > 0) {
-                        $row = $result->fetch_assoc();
-                        $DescriptionTHGroup1 = $row["CG_DescriptionTH"];
-                        $DescriptionENGroup1 = $row["CG_DescriptionEN"];
-                        $IsTypeGroup1 = $row["CG_IsFile"];
-                    }
-                ?>
-                <h3 class="text-primary"><?= $DescriptionENGroup1 ?></h3>
-                <h2 class="mb-4"><?= $DescriptionTHGroup1 ?></h2>
-            </div>
-            <?php
+                $sql = "SELECT * FROM `Category` WHERE `Category`.`CG_Entity No.` = $Category1_id;";
+                $result = $conn->query($sql);
+                if ($result->num_rows > 0) {
+                    $row = $result->fetch_assoc();
+                    $DescriptionTHGroup1 = $row["CG_DescriptionTH"];
+                    $DescriptionENGroup1 = $row["CG_DescriptionEN"];
+                    $IsTypeGroup1 = $row["CG_IsFile"];
+                }
                 $SelectFilterCategoryEntityNoTotal1 = SearchCategory($Category1_id);
                 if ($IsTypeGroup1 == 0):
                     $sql = "SELECT * FROM `Activities` WHERE `Activities`.`AT_Entity No.` IN ($SelectFilterCategoryEntityNoTotal1) ORDER BY `Activities`.`AT_Date` DESC , `Activities`.`AT_Time` DESC LIMIT 0,5";
@@ -101,6 +95,10 @@ if ($result->num_rows > 0) {
                         $counter++;
                         if ($isFirstRow) {
             ?>
+            <div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 600px;">
+                <h3 class="text-primary"><?= $DescriptionENGroup1 ?></h3>
+                <h2 class="mb-4"><?= $DescriptionTHGroup1 ?></h2>
+            </div>
             <div class="container-fluid2 bg-light overflow-hidden my-5 px-lg-0">
                 <div class="container2 about px-lg-0">
                     <div class="row g-0 mx-lg-0">
@@ -189,22 +187,15 @@ if ($result->num_rows > 0) {
     <?php if ($Category2_id !== 0 && $Category2_id !== '') { ?>
     <div class="container-xxl2 py-2">
         <div class="container2">
-            <div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 600px;">
             <?php
-                    $sql = "SELECT * FROM `Category` WHERE `Category`.`CG_Entity No.` = $Category2_id;";
-                    $result = $conn->query($sql);
-                    if ($result->num_rows > 0) {
-                        $row = $result->fetch_assoc();
-                        $DescriptionTHGroup2 = $row["CG_DescriptionTH"];
-                        $DescriptionENGroup2 = $row["CG_DescriptionEN"];
-                        $IsTypeGroup2 = $row["CG_IsFile"];
-                    }
-            ?>
-                <h3 class="text-primary"><?= $DescriptionENGroup2 ?></h3>
-                <h2 class="mb-4"><?= $DescriptionTHGroup2 ?></h2>
-            </div>
-
-            <?php
+                $sql = "SELECT * FROM `Category` WHERE `Category`.`CG_Entity No.` = $Category2_id;";
+                $result = $conn->query($sql);
+                if ($result->num_rows > 0) {
+                    $row = $result->fetch_assoc();
+                    $DescriptionTHGroup2 = $row["CG_DescriptionTH"];
+                    $DescriptionENGroup2 = $row["CG_DescriptionEN"];
+                    $IsTypeGroup2 = $row["CG_IsFile"];
+                }
                 $SelectFilterCategoryEntityNoTotal2 = SearchCategory($Category2_id);
                 if ($IsTypeGroup2 == 0):
                     $sql = "SELECT * FROM `Activities` WHERE `Activities`.`AT_Entity No.` IN ($SelectFilterCategoryEntityNoTotal2) ORDER BY `Activities`.`AT_Date` DESC , `Activities`.`AT_Time` DESC LIMIT 0,5";
@@ -246,6 +237,10 @@ if ($result->num_rows > 0) {
                         $counter++;
                         if ($isFirstRow) {
             ?>
+            <div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 600px;">
+                <h3 class="text-primary"><?= $DescriptionENGroup2 ?></h3>
+                <h2 class="mb-4"><?= $DescriptionTHGroup2 ?></h2>
+            </div>
             <div class="container-fluid2 bg-light overflow-hidden my-5 px-lg-0">
                 <div class="container2 about px-lg-0">
                     <div class="row g-0 mx-lg-0">
