@@ -173,6 +173,7 @@ if (isset($_GET['Send_IDNews']) && $_GET['Send_IDNews'] !== '') {
                                         <div class="form-group">
                                             <div class="image-container"></div>
                                             <input type="file" class="Image-Gallery" name="ImageGallery[]" accept="image/*, video/*" style="display: none;" multiple>
+                                            <input type="file" class="Temp-Image-Gallery" name="TempImageGallery[]" accept="image/*, video/*" style="display: none;" multiple>
                                         </div>
                                         <div class="row">
                                             <div class="text-center col-12 text-center text-md-end">

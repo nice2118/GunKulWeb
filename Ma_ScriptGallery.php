@@ -2,6 +2,7 @@
         // Add event listener to the "Add Images" button
         const addImageBtn = document.querySelector('.add-image-btn');
         const imageGallery = document.querySelector('.Image-Gallery');
+        const tempImageGallery = document.querySelector('.Temp-Image-Gallery');
         const imageContainer = document.querySelector('.image-container');
         const deleteAllBtn = document.querySelector('.delete-all-btn');
 
@@ -9,9 +10,31 @@
             imageGallery.click();
         });
 
+        function mergeFileLists(fileList1, fileList2) {
+        const mergedFileList = new DataTransfer();
+
+        for (const file of fileList1) {
+            mergedFileList.items.add(file);
+        }
+
+        for (const file of fileList2) {
+            mergedFileList.items.add(file);
+        }
+
+        return mergedFileList.files;
+    }
+
         // Handle image selection
         imageGallery.addEventListener('change', () => {
-        // Loop through selected files
+            // -------- Edit Add Images
+            imageGallery.files = mergeFileLists(imageGallery.files, tempImageGallery.files);
+            tempImageGallery.files = imageGallery.files;
+            const imagePreviews = imageContainer.querySelectorAll('.image-preview');
+            imagePreviews.forEach((imagePreview) => {
+                imagePreview.remove();
+            });
+
+            // Loop through selected files
             for (const file of imageGallery.files) {
                 const reader = new FileReader();
 
@@ -77,6 +100,7 @@
                             updatedFileList.items.add(file);
                         });
                         imageGallery.files = updatedFileList.files;
+                        tempImageGallery.files = updatedFileList.files;
                     });
 
                     // Append the delete button to the preview container
@@ -98,7 +122,7 @@
 
         // Handle delete all button
         deleteAllBtn.addEventListener('click', () => {
-        const imagePreviews = imageContainer.querySelectorAll('.image-preview');
+            const imagePreviews = imageContainer.querySelectorAll('.image-preview');
             imagePreviews.forEach((imagePreview) => {
                 imagePreview.remove();
             });
