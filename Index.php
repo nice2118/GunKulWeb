@@ -31,14 +31,6 @@ if ($result->num_rows > 0) {
 ?>
 <?php  include("Ma_Head_Link.php"); ?>
 <?php  include("Ma_Head.php"); ?>
-<script>
-    /* CSS media queries */
-    @media (max-width: 768px) {
-        .custom-image {
-            height: 400px; /* หากหน้าจอเล็กให้ใช้ความสูงเป็น 400px */
-        }
-    }
-</script>
 <?php  include("Ma_Carousel.php"); ?>
     <div id="popupModal"></div>
     <!-- Content -->
@@ -597,7 +589,7 @@ $(document).ready(function() {
         data: { Type: 'setup', Code: 1 },
         dataType: "json",
         success: function(response) {
-            console.log("Data Count Page sent successfully:", response);
+            // console.log("Data Count Page sent successfully:", response);
         },
         error: function() {
             console.log("Error occurred");
@@ -692,10 +684,9 @@ document.addEventListener("DOMContentLoaded", function() {
                     var modal = new bootstrap.Modal(document.getElementById(modalId));
                     modal.show();
                 }
-            <?php else: ?>
             <?php endif; ?>
 
-            console.log("Data Popup sent successfully:", response);
+            // console.log("Data Popup sent successfully:", response);
         },
         error: function() {
             console.log("Error occurred");

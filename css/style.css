@@ -205,6 +205,9 @@
     .header-carousel .owl-carousel-item p {
         font-size: 16px !important;
     }
+    .custom-image {
+        height: 400px;
+    }
 }
 
 .header-carousel .owl-dots {

@@ -26,7 +26,7 @@
 
         // Handle image selection
         imageGallery.addEventListener('change', () => {
-            // -------- Edit Add Images
+            // Edit Add Images
             imageGallery.files = mergeFileLists(imageGallery.files, tempImageGallery.files);
             tempImageGallery.files = imageGallery.files;
             const imagePreviews = imageContainer.querySelectorAll('.image-preview');
@@ -89,6 +89,8 @@
                         const imagePreview = event.currentTarget.parentNode;
                         const imageContainer = imagePreview.parentNode;
                         const selectedFile = imagePreview.querySelector('img, video').alt;
+
+                        console.log(selectedFile);
 
                         // Remove the image preview from the image container
                         imageContainer.removeChild(imagePreview);
