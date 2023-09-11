@@ -8,6 +8,34 @@
     });
 </script>
 <script>
+    document.getElementById("modalFormProfile").addEventListener("submit", function (event) {
+        var passwordOld = document.getElementById("Profile_PasswordOld").value;
+        var password = document.getElementsByName("Profile_Password")[0].value;
+        var confirmPassword = document.getElementsByName("Profile_ConfirmPassword")[0].value;
+
+        // เช็คว่าถ้ามีค่าในช่อง Profile_PasswordOld
+        if (passwordOld !== "") {
+            // ตรวจสอบค่าในช่อง Profile_Password และ Profile_ConfirmPassword
+            if (password === "") {
+                swal("Error", "กรุณากรอกช่อง New Password!", "error");
+                event.preventDefault();
+            }
+            if (confirmPassword === "") {
+                swal("Error", "กรุณากรอกช่อง Confirm Password!", "error");
+                event.preventDefault();
+            }
+            if (password !== confirmPassword) {
+                swal("Error", "กรอกช่อง New Password และ Confirm Password ไม่ตรงกัน!", "error");
+                event.preventDefault();
+            }
+            if (password === passwordOld) {
+                swal("Error", "ไม่ควรกรอก password เป็นรูปแบบเดิม!", "error");
+                event.preventDefault(); 
+            }
+        }
+    });
+</script>
+<script>
 $(document).ready(function() {
 
     $("#LoginModal").on("show.bs.modal", function() {

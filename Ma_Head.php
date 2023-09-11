@@ -341,15 +341,15 @@
                     <div class="row">
                         <div class="col-12 col-sm-12 my-2">
                             <h6 class="text-primary">Old Password</h6>
-                            <input type="Password" name="Profile_PasswordOld" class="form-control border-1" placeholder="Old Password" value="">
+                            <input type="Password" id="Profile_PasswordOld" name="Profile_PasswordOld" class="form-control border-1" placeholder="Old Password" value="">
                         </div>
                         <div class="col-12 col-sm-12 my-2">
                             <h6 class="text-primary">New Password</h6>
-                            <input type="Password" name="Profile_Password" class="form-control border-1" placeholder="New Password" value="">
+                            <input type="password" name="Profile_Password" class="form-control border-1" placeholder="New Password" value="">
                         </div>
                         <div class="col-12 col-sm-12 my-2">
                             <h6 class="text-primary">Confirm Password</h6>
-                            <input type="Password" name="Profile_ConfirmPassword" class="form-control border-1" placeholder="Confirm Password" value="">
+                            <input type="password" name="Profile_ConfirmPassword" class="form-control border-1" placeholder="Confirm Password" value="">
                         </div>
                     </div>
                 </div>

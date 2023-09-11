@@ -17,6 +17,15 @@ if (isset($_GET['Send_ID']) && $_GET['Send_ID'] !== '') {
 $sql = "DELETE FROM `user` WHERE `user`.`US_Username` = '$User_id';";
 
 if ($conn->query($sql) === TRUE) {
+  $Send_OldImage = isset($_POST['Send_Img']) ? $_POST['Send_Img'] : '';
+  $PathFolderUser = 'img/User/';
+  if ($Send_OldImage != ''){
+      $filePath = $PathFolderUser . $Send_OldImage;
+      if (file_exists($filePath)) {
+          if (unlink($filePath)) {
+          }
+      }
+  }
   $_SESSION['StatusTitle'] = "ดำเนินการเรียบร้อยแล้ว";
   $_SESSION['StatusMessage'] = "ทำการลบเอกสารให้หัวข้อ ".$User_id." เรียบร้อบแล้ว";
   $_SESSION['StatusAlert'] = "success";

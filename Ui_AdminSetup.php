@@ -458,7 +458,7 @@ $US_Prefix = "";
                                                                 echo '<a class="btn btn-link py-0 px-1 text-end text-secondary toggleButton" id="toggleButton0" data-sendHiddenID="' . $row['US_Username'] . '"><i class="fa fa-eye-slash"></i></a>';
                                                             }
                                                         ?>
-                                                            <a class="btn btn-link py-1 px-2 text-end" onclick="deleteAlertUser('<?php echo $row["US_Username"];?>')"><i class="fas fa-trash"></i></a>
+                                                            <a class="btn btn-link py-1 px-2 text-end" onclick="deleteAlertUser('<?php echo $row["US_Username"];?>','<?php echo $row["US_Image"];?>')"><i class="fas fa-trash"></i></a>
                                                             <button type="button" class="btn btn-link py-1 px-2 text-end text-warning" data-bs-toggle="modal" data-bs-target="#modaluser" data-ustype="edit" data-ususername="<?= $row["US_Username"] ?>" data-uspassword="<?= $row["US_Password"] ?>" data-usprefix="<?= $row["US_Prefix"] ?>" data-ptcode="<?= $row["PT_Code"] ?>" data-usfname="<?= $row["US_Fname"] ?>" data-uslname="<?= $row["US_Lname"] ?>" data-usimage="<?= $row["US_Image"] ?>"><i class="fas fa-edit"></i></button>
                                                         </div>
                                                     </li>
@@ -1720,7 +1720,7 @@ $(document).ready(function() {
             console.error("Error displaying SweetAlert:", error);
         });
     }
-    function deleteAlertUser(UserID) {
+    function deleteAlertUser(UserID,UserImg) {
         swal({
             title: "คุณต้องการที่จะลบหรือไม่?",
             text: `${UserID}\nเมื่อกดลบไปแล้วจะไม่สามารถนำข้อมูลกลับมาได้!`,
@@ -1746,7 +1746,7 @@ $(document).ready(function() {
         .then((willDelete) => {
             if (willDelete) {
                 // เมื่อกดตกลง ทำการเปลี่ยนหน้า
-                window.location.replace(`Pro_DeleteUser.php?Send_ID=${UserID}`);
+                window.location.replace(`Pro_DeleteUser.php?Send_ID=${UserID}&Send_Img=${UserImg}`);
             } else {
                 // เมื่อกดยกเลิก ไม่ต้องทำอะไร
             }

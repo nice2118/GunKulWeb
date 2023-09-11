@@ -83,20 +83,31 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     $_SESSION['StatusMessage'] = "เนื่องจากกรอกช่อง Password กับ Confirm Password ไม่ตรงกัน";
                     $_SESSION['StatusAlert'] = "error";
                     if (isset($_SESSION['PathPage']) && $_SESSION['PathPage'] !== '') {
-                      header("Location: ".$_SESSION['PathPage']);
-                      unset($_SESSION['PathPage']);
+                        header("Location: ".$_SESSION['PathPage']);
+                        unset($_SESSION['PathPage']);
                     }
                     exit;
                 } else {
-                    $sql .= ", `US_Password` = '$Profile_Password'";
+                    if ($Profile_Password != ''){
+                        $sql .= ", `US_Password` = '$Profile_Password'";
+                    } else {
+                        $_SESSION['StatusTitle'] = "Error!";
+                        $_SESSION['StatusMessage'] = "กรุณาใส่รหัสใหม่";
+                        $_SESSION['StatusAlert'] = "error";
+                        if (isset($_SESSION['PathPage']) && $_SESSION['PathPage'] !== '') {
+                            header("Location: ".$_SESSION['PathPage']);
+                            unset($_SESSION['PathPage']);
+                        }
+                        exit;
+                    }
                 }
             } else {
-                $_SESSION['StatusTitle'] = "Error!"; // รูปแบบไฟล์ไม่ถูกต้อง
+                $_SESSION['StatusTitle'] = "Error!";
                 $_SESSION['StatusMessage'] = "รหัสเก่าไม่ตรงกับของเดิม";
                 $_SESSION['StatusAlert'] = "error";
                 if (isset($_SESSION['PathPage']) && $_SESSION['PathPage'] !== '') {
-                  header("Location: ".$_SESSION['PathPage']);
-                  unset($_SESSION['PathPage']);
+                    header("Location: ".$_SESSION['PathPage']);
+                    unset($_SESSION['PathPage']);
                 }
                 exit;
             }
@@ -105,8 +116,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $_SESSION['StatusMessage'] = "เนื่องจาก Old Password ไม่ถูกต้อง";
             $_SESSION['StatusAlert'] = "error";
             if (isset($_SESSION['PathPage']) && $_SESSION['PathPage'] !== '') {
-              header("Location: ".$_SESSION['PathPage']);
-              unset($_SESSION['PathPage']);
+                header("Location: ".$_SESSION['PathPage']);
+                unset($_SESSION['PathPage']);
             }
             exit;
         }
