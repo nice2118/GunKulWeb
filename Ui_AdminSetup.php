@@ -20,7 +20,7 @@ $US_Prefix = "";
     $result = $conn->query($sql);
     if ($result->num_rows > 0) {
         while ($row = $result->fetch_assoc()) {
-            if (CheckStatus($currentUser, $row["PM_Code"])) {
+            if (CheckStatus($globalCurrentUser, $row["PM_Code"])) {
                 $CheckPage = true;
             }
         }
@@ -117,7 +117,7 @@ $US_Prefix = "";
                         </div> -->
                         <div class="row">
                             <div class="col-md-6">
-                                <?php if (CheckAdmin($currentUser)){ ?>
+                                <?php if (CheckAdmin($globalCurrentUser)){ ?>
                                 <div class="card card-primary">
                                     <div class="card-header">
                                         <h3 class="card-title text-white">Activities</h3>
@@ -217,11 +217,11 @@ $US_Prefix = "";
                                             <ul class="todo-list" data-widget="todo-list">
                                             <?php
                                                 function renderRow($row,$multiplier) {
-                                                    global $conn, $currentUser;
+                                                    global $conn, $globalCurrentUser;
                                             ?>
                                                     <span class="text"><?=$row["CG_Name"]?></span>
                                                     <div class="tools">
-                                                        <?php if (CheckAdmin($currentUser)){ ?>
+                                                        <?php if (CheckAdmin($globalCurrentUser)){ ?>
                                                         <a class="btn btn-link py-1 px-2 text-end" onclick="deleteAlertCategory(<?php echo $row["CG_Entity No."];?>, '<?php echo $row["CG_Name"];?>')"><i class="fas fa-trash"></i></a>
                                                         <?php } ?>
                                                         <button type="button" class="btn btn-link py-1 px-2 text-end text-warning" data-bs-toggle="modal" data-bs-target="#Category" data-entityno="<?= $row["CG_Entity No."] ?>" data-isfile="<?= $row["CG_IsFile"] ?>" data-entityrelationno="<?= $row["CG_Entity Relation No."] ?>" data-name="<?= $row["CG_Name"]; ?>" data-descriptionth="<?= $row["CG_DescriptionTH"] ?>" data-descriptionen="<?= $row["CG_DescriptionEN"] ?>" data-ecimage="<?= $row["CG_DefaultImage"]; ?>"><i class="fas fa-edit"></i> </button>
@@ -378,7 +378,7 @@ $US_Prefix = "";
                                                 <li class="my-2">
                                                     <span class="text"><?=$row["HC_Text"]?></span>
                                                     <div class="tools">
-                                                        <?php if (CheckAdmin($currentUser)){ ?>
+                                                        <?php if (CheckAdmin($globalCurrentUser)){ ?>
                                                         <a class="btn btn-link py-1 px-2 text-end" onclick="deleteAlertMenuCategory(<?php echo $row["HC_Code"];?>, '<?php echo $row["HC_Text"];?>', 'headingcategories')"><i class="fas fa-trash"></i></a>
                                                         <?php } ?>
                                                         <button type="button" class="btn btn-link py-1 px-2 text-end text-warning" data-bs-toggle="modal" data-bs-target="#MenuCategory" data-hcCode="<?= $row["HC_Code"] ?>" data-hcText="<?= $row["HC_Text"] ?>" data-hcdescriptionth="<?= $row["HC_DescriptionTH"] ?>" data-hcdescriptionen="<?= $row["HC_DescriptionEN"] ?>" data-hcimage="<?= $row["HC_DefaultImage"] ?>"><i class="fas fa-edit"></i> </button>
@@ -418,7 +418,7 @@ $US_Prefix = "";
                                                 <li class="my-2">
                                                     <span class="text"><?=$row["EC_Name"]?></span>
                                                     <div class="tools">
-                                                        <?php if (CheckAdmin($currentUser)){ ?>
+                                                        <?php if (CheckAdmin($globalCurrentUser)){ ?>
                                                         <a class="btn btn-link py-1 px-2 text-end" onclick="deleteAlertEngravedCategory(<?php echo $row["EC_Code"];?>, '<?php echo $row["EC_Name"];?>')"><i class="fas fa-trash"></i></a>
                                                         <?php } ?>
                                                         <button type="button" class="btn btn-link py-1 px-2 text-end text-warning" data-bs-toggle="modal" data-bs-target="#engravedcategory" data-eccode="<?= $row["EC_Code"] ?>" data-ecname="<?= $row["EC_Name"] ?>" data-ecdescriptionth="<?= $row["EC_DescriptionTH"] ?>" data-ecdescriptionen="<?= $row["EC_DescriptionEN"] ?>"><i class="fas fa-edit"></i></button>
@@ -438,7 +438,7 @@ $US_Prefix = "";
                                     <!-- /.card-body -->
                                 </div>
                                 <!-- /.card -->
-                                <?php if (CheckAdmin($currentUser)){ ?>
+                                <?php if (CheckAdmin($globalCurrentUser)){ ?>
                                 <div class="card card-navy collapsed-card">
                                     <div class="card-header">
                                         <h3 class="card-title text-white">User Setup</h3>
@@ -749,7 +749,7 @@ $US_Prefix = "";
                                                 <li class="my-2">
                                                     <span class="text"><?=$row["MN_Name"]?></span>
                                                     <div class="tools">
-                                                        <?php if (CheckAdmin($currentUser)){ ?>
+                                                        <?php if (CheckAdmin($globalCurrentUser)){ ?>
                                                         <a class="btn btn-link py-1 px-2 text-end" onclick="deleteAlertMenu(<?php echo $row["MN_Code"];?>, '<?php echo $row["MN_Name"];?>')"><i class="fas fa-trash"></i></a>
                                                         <?php } ?>
                                                         <button type="button" class="btn btn-link py-1 px-2 text-end text-warning" data-bs-toggle="modal" data-bs-target="#modalmenu" data-mncode="<?= $row["MN_Code"] ?>" data-mnname="<?= $row["MN_Name"] ?>"><i class="fas fa-edit"></i></button>
@@ -2577,7 +2577,7 @@ $(document).ready(function() {
                             contentHTML += '<button type="button" class="btn btn-link py-1 px-2 text-end text-warning" data-bs-toggle="modal" data-bs-target="#modalpermissionposition" data-sendpmcode="' + response[i].PM_Code + '"><i class="fa fa-address-book"></i></button>';
                         }
                     contentHTML += 
-                    <?php if (CheckAdmin($currentUser)){ ?>
+                    <?php if (CheckAdmin($globalCurrentUser)){ ?>
                         '<a class="btn btn-link py-1 px-2 text-end" onclick="deleteAlertMenuSub(' + response[i].PM_Code + ', \'' + response[i].PM_Name + '\')"><i class="fas fa-trash"></i></a>' +
                     <?php } ?>
                         '</div>' +
@@ -2684,7 +2684,7 @@ $(document).ready(function() {
                             contentHTML += '<button type="button" class="btn btn-link py-1 px-2 text-end text-warning" data-bs-toggle="modal" data-bs-target="#modalpermissionposition" data-sendpmcode="' + response[i].PM_Code + '"><i class="fa fa-address-book"></i></button>';
                         }
                     contentHTML += 
-                        <?php if (CheckAdmin($currentUser)){ ?>
+                        <?php if (CheckAdmin($globalCurrentUser)){ ?>
                         '<a class="btn btn-link py-1 px-2 text-end" onclick="deleteAlertMenuSub(' + response[i].PM_Code + ', \'' + response[i].PM_Name + '\')"><i class="fas fa-trash"></i></a>' +
                         <?php } ?>
                         '</div>' +

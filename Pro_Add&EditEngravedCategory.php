@@ -20,7 +20,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 
   if ($EC_Code == 0 || $EC_Code == '') {
-      $sql = "INSERT INTO `engravedcategory` (`EC_Code`, `EC_Name`, `EC_DescriptionTH`, `EC_DescriptionEN`, `EC_UserCreate`, `EC_CreateDate`, `EC_ModifyDate`) VALUES (NULL, '$EC_Name', '$EC_descriptionth', '$EC_descriptionen', '$currentUser', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);";
+      $sql = "INSERT INTO `engravedcategory` (`EC_Code`, `EC_Name`, `EC_DescriptionTH`, `EC_DescriptionEN`, `EC_UserCreate`, `EC_CreateDate`, `EC_ModifyDate`) VALUES (NULL, '$EC_Name', '$EC_descriptionth', '$EC_descriptionen', '$globalCurrentUser', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);";
   } else {    
       $sql = "UPDATE `engravedcategory` SET `EC_Name` = '$EC_Name', `EC_DescriptionTH` = '$EC_descriptionth', `EC_DescriptionEN` = '$EC_descriptionen', `EC_ModifyDate` = CURRENT_TIMESTAMP WHERE `engravedcategory`.`EC_Code` = $EC_Code;";
   }

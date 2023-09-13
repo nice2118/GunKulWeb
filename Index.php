@@ -555,7 +555,7 @@ document.addEventListener("DOMContentLoaded", function() {
                     '</div>';
             }
             
-            <?php if(!isset($currentUser) || $currentUser === '') : ?>
+            <?php if(!isset($globalCurrentUser) || $globalCurrentUser === '') : ?>
                 PopupModal.innerHTML = modalContent;
 
                 // Triggering the modals

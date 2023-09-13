@@ -29,7 +29,7 @@ echo '<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script
             for ($i = 0; $i < count($inputNames); $i++) {
                 if ($inputNames[$i] != '' && $inputValues[$i] != '') {
                     if ($inputcode[$i] == 0 || $inputcode[$i] == '') {
-                        $sql = "INSERT INTO `engravedactivities` (`EA_Code`, `EC_Code`, `EA_Name`, `EA_Path`, `EC_UserCreate`, `EA_CreateDate`, `EA_ModifyDate`) VALUES (NULL, '$inputMastercode', '$inputNames[$i]', '$inputValues[$i]', '$currentUser', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);";
+                        $sql = "INSERT INTO `engravedactivities` (`EA_Code`, `EC_Code`, `EA_Name`, `EA_Path`, `EC_UserCreate`, `EA_CreateDate`, `EA_ModifyDate`) VALUES (NULL, '$inputMastercode', '$inputNames[$i]', '$inputValues[$i]', '$globalCurrentUser', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);";
                     } else {    
                         $sql = "UPDATE `engravedactivities` SET `EA_Name` = '$inputNames[$i]', `EA_Path` = '$inputValues[$i]', `EA_ModifyDate` = CURRENT_TIMESTAMP WHERE `engravedactivities`.`EA_Code` = $inputcode[$i];";
                     }

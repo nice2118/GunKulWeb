@@ -79,7 +79,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     if ($AP_Code == 0 || $AP_Code == '') {
-        $sql = "INSERT INTO `alertpopup` (`AP_Code`, `AP_Name`, `AP_Image`, `AP_DateStart`, `AP_DateEnd`, `AP_UserCreate`, `AP_Active`, `AP_CreateDate`, `AP_ModifyDate`) VALUES (NULL, '$AP_Name', '$FullNameImage', '$AP_DateStart', '$AP_DateEnd', '$currentUser', '1', current_timestamp(), current_timestamp());";
+        $sql = "INSERT INTO `alertpopup` (`AP_Code`, `AP_Name`, `AP_Image`, `AP_DateStart`, `AP_DateEnd`, `AP_UserCreate`, `AP_Active`, `AP_CreateDate`, `AP_ModifyDate`) VALUES (NULL, '$AP_Name', '$FullNameImage', '$AP_DateStart', '$AP_DateEnd', '$globalCurrentUser', '1', current_timestamp(), current_timestamp());";
     } else {    
         if ($FullNameImage == '') {
             $sql = "UPDATE `alertpopup` SET `AP_Name` = '$AP_Name', `AP_DateStart` = '$AP_DateStart', `AP_DateEnd` = '$AP_DateEnd', `AP_ModifyDate` = current_timestamp() WHERE `alertpopup`.`AP_Code` = '$AP_Code';";

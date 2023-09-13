@@ -44,7 +44,7 @@
                         if ($resultSub->num_rows > 0) {
                             echo '<div class="dropdown-menu bg-light m-0">';
                             while ($rowSub = $resultSub->fetch_assoc()) {
-                                if (CheckStatus($currentUser,$rowSub["PM_Code"])) {
+                                if (CheckStatus($globalCurrentUser,$rowSub["PM_Code"])) {
                                     $typeLower = strtolower($rowSub["PM_RelationType"]);
                                     if ($typeLower === 'category') {
                                         $sql = "SELECT * FROM `category` WHERE `CG_Entity No.` =" . $rowSub["PM_RelationCode"];
@@ -52,7 +52,7 @@
                                         if ($resultcategory->num_rows > 0) {
                                             $rowcategory = $resultcategory->fetch_assoc();
                                             if ($rowSub["PM_Setup"] == 1) {
-                                                if(isset($currentUser) && $currentUser != '') {
+                                                if(isset($globalCurrentUser) && $globalCurrentUser != '') {
                                                     if ($rowSub["PM_Draw"] == 1) { echo '<li><hr class="dropdown-divider"></li>'; }
                                                     echo '<a href="ListAdmin?Send_Category=' . $rowSub["PM_RelationCode"] . '" class="dropdown-item">' . $rowSub["PM_Name"] . '</a>';
                                                 }
@@ -68,7 +68,7 @@
                                         }
                                     } elseif ($typeLower === 'headingcategories') {
                                         if ($rowSub["PM_Setup"] == 1) {
-                                            if(isset($currentUser) && $currentUser != '') {
+                                            if(isset($globalCurrentUser) && $globalCurrentUser != '') {
                                                 if ($rowSub["PM_Draw"] == 1) { echo '<li><hr class="dropdown-divider"></li>'; }
                                                 echo '<a href="ListAdminMenuCategories?Send_MenuCategory=' . $rowSub["PM_RelationCode"] . '" class="dropdown-item">' . $rowSub["PM_Name"] . '</a>';
                                             }
@@ -81,7 +81,7 @@
                                         $resultengravedactivities = $conn->query($sql);
                                         if ($resultengravedactivities->num_rows > 0) {
                                             if ($rowSub["PM_Setup"] == 1) {
-                                                if(isset($currentUser) && $currentUser != '') {
+                                                if(isset($globalCurrentUser) && $globalCurrentUser != '') {
                                                     if ($rowSub["PM_Draw"] == 1) { echo '<li><hr class="dropdown-divider"></li>'; }
                                                     if ($resultengravedactivities->num_rows > 1) {
                                                         echo '<nav>';
@@ -120,7 +120,7 @@
                                         }
                                     } elseif ($typeLower === 'setupgames') {
                                         if ($rowSub["PM_Setup"] == 1) {
-                                            if(isset($currentUser) && $currentUser != '') {
+                                            if(isset($globalCurrentUser) && $globalCurrentUser != '') {
                                                 if ($rowSub["PM_Draw"] == 1) { echo '<li><hr class="dropdown-divider"></li>'; }
                                                 echo "<a href=\"Activity\" class=\"dropdown-item\">{$rowSub['PM_Name']}</a>";
                                             }
@@ -130,7 +130,7 @@
                                         }
                                     } elseif ($typeLower === 'setup') {
                                         if ($rowSub["PM_Setup"] == 1) {
-                                            if(isset($currentUser) && $currentUser != '') {
+                                            if(isset($globalCurrentUser) && $globalCurrentUser != '') {
                                                 if ($rowSub["PM_Draw"] == 1) { echo '<li><hr class="dropdown-divider"></li>'; }
                                                 echo "<a href=\"AdminSetup\" class=\"dropdown-item\">{$rowSub['PM_Name']}</a>";
                                             }
@@ -140,7 +140,7 @@
                                         }
                                     } elseif ($typeLower === 'notype') {
                                         if ($rowSub["PM_Setup"] == 1) {
-                                            if(isset($currentUser) && $currentUser != '') {
+                                            if(isset($globalCurrentUser) && $globalCurrentUser != '') {
                                                 generateSubMenu($rowSub);
                                             }
                                         } elseif ($rowSub["PM_Setup"] == 0) {  
@@ -159,7 +159,7 @@
                     }
                 ?>
             </div>
-            <?php if(!isset($currentUser) || $currentUser === '') : ?>
+            <?php if(!isset($globalCurrentUser) || $globalCurrentUser === '') : ?>
                 <div data-bs-toggle="tooltip" data-bs-placement="bottom" title="Log In">
                     <button type="button" class="btn btn-white rounded-0 py-4 px-lg-3 d-none d-lg-block" data-bs-toggle="modal" data-bs-target="#LoginModal"><i class="fa fa-user-circle ms-auto fs-4"></i></button>
                 </div>
@@ -179,7 +179,7 @@
                             $Profile_Image = '';
                             $ImageProfile = 'Default/DefaultUser/0.png';
                             $Profile_Position = '';
-                            $sql = "SELECT * FROM `user` WHERE `user`.`US_Username` = '{$currentUser}'";
+                            $sql = "SELECT * FROM `user` WHERE `user`.`US_Username` = '{$globalCurrentUser}'";
                             $result = $conn->query($sql);
                             if ($result->num_rows > 0) {
                                 $row = $result->fetch_assoc();
@@ -192,7 +192,7 @@
                                     $Profile_Image = 'img/User/'.$row["US_Image"];
                                     $ImageProfile = 'img/User/'.$row["US_Image"];
                                 }
-                                $sqlPosition = "SELECT `PT_Name` FROM `setposition` LEFT JOIN `position` ON `setposition`.`PT_Code` = `position`.`PT_Code` WHERE `setposition`.`US_Username` = '{$currentUser}'";
+                                $sqlPosition = "SELECT `PT_Name` FROM `setposition` LEFT JOIN `position` ON `setposition`.`PT_Code` = `position`.`PT_Code` WHERE `setposition`.`US_Username` = '{$globalCurrentUser}'";
                                 $resultPosition = $conn->query($sqlPosition);
                                 if ($resultPosition->num_rows > 0) {
                                     while ($rowPosition = $resultPosition->fetch_assoc()) {
@@ -209,7 +209,7 @@
                     </button>
                     <ul class="dropdown-menu dropdown-menu-lg-end my-0">
                         <li><button type="button" class="btn btn-white rounded-0 py-3 px-lg-3 d-none d-lg-block" data-bs-toggle="modal" data-bs-target="#ProfileModal"><i class="fa fa-user-circle ms-auto fs-5"></i>&nbsp;จัดการโปรไฟล์</button></li>
-                        <li><button type="button" class="btn btn-white rounded-0 py-3 px-lg-3 d-none d-lg-block" onclick="logoutAlert('<?=$currentUser?>')"><i class="fas fa-sign-out-alt ms-auto fs-5"></i>&nbsp;ออกจากระบบ</button></li>
+                        <li><button type="button" class="btn btn-white rounded-0 py-3 px-lg-3 d-none d-lg-block" onclick="logoutAlert('<?=$globalCurrentUser?>')"><i class="fas fa-sign-out-alt ms-auto fs-5"></i>&nbsp;ออกจากระบบ</button></li>
                     </ul>
                 </div>
             <?php endif; ?>
@@ -380,7 +380,7 @@
 
 <?php
 function generateSubMenu($rowSub) {
-    global $conn,$currentUser;
+    global $conn,$globalCurrentUser;
     $firstTime = true;
     $finishTime = false;
 
@@ -388,7 +388,7 @@ function generateSubMenu($rowSub) {
     $resultSub2 = $conn->query($sql);
     if ($resultSub2->num_rows > 0) {
         while ($rowSub2 = $resultSub2->fetch_assoc()){
-            if (CheckStatus($currentUser,$rowSub2["PM_Code"])) {
+            if (CheckStatus($globalCurrentUser,$rowSub2["PM_Code"])) {
                 if ($firstTime) {
                     if ($rowSub["PM_Draw"] == 1) { echo '<li><hr class="dropdown-divider"></li>'; }
                     echo '<nav>';
@@ -404,7 +404,7 @@ function generateSubMenu($rowSub) {
                     if ($resultcategorySub2->num_rows > 0) {
                         $rowcategorySub2 = $resultcategorySub2->fetch_assoc();
                         if ($rowSub2["PM_Setup"] == 1) {
-                            if(isset($currentUser) && $currentUser != '') {
+                            if(isset($globalCurrentUser) && $globalCurrentUser != '') {
                                 if ($rowSub2["PM_Draw"] == 1) { echo '<li><hr class="dropdown-divider"></li>'; }
                                 echo '<a href="ListAdmin?Send_Category=' . $rowSub2["PM_RelationCode"] . '" class="dropdown-item">' . $rowSub2["PM_Name"] . '</a>';
                             }
@@ -420,7 +420,7 @@ function generateSubMenu($rowSub) {
                     }
                 } elseif ($typeLowerSub2 === 'headingcategories') {
                     if ($rowSub2["PM_Setup"] == 1) {
-                        if(isset($currentUser) && $currentUser != '') {
+                        if(isset($globalCurrentUser) && $globalCurrentUser != '') {
                             if ($rowSub2["PM_Draw"] == 1) { echo '<li><hr class="dropdown-divider"></li>'; }
                             echo '<a href="ListAdminMenuCategories?Send_MenuCategory=' . $rowSub2["PM_RelationCode"] . '" class="dropdown-item">' . $rowSub2["PM_Name"] . '</a>';
                         }
@@ -430,7 +430,7 @@ function generateSubMenu($rowSub) {
                     }
                 } elseif ($typeLowerSub2 === 'setupgames') {
                     if ($rowSub2["PM_Setup"] == 1) {
-                        if(isset($currentUser) && $currentUser != '') {
+                        if(isset($globalCurrentUser) && $globalCurrentUser != '') {
                             if ($rowSub2["PM_Draw"] == 1) { echo '<li><hr class="dropdown-divider"></li>'; }
                             echo "<a href=\"Activity\" class=\"dropdown-item\">{$rowSub2['PM_Name']}</a>";
                         }
@@ -440,7 +440,7 @@ function generateSubMenu($rowSub) {
                     }
                 } elseif ($typeLowerSub2 === 'setup') {
                     if ($rowSub2["PM_Setup"] == 1) {
-                        if(isset($currentUser) && $currentUser != '') {
+                        if(isset($globalCurrentUser) && $globalCurrentUser != '') {
                             if ($rowSub2["PM_Draw"] == 1) { echo '<li><hr class="dropdown-divider"></li>'; }
                             echo "<a href=\"AdminSetup\" class=\"dropdown-item\">{$rowSub2['PM_Name']}</a>";
                         }
