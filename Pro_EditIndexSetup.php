@@ -4,6 +4,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   // เก็บข้อมูลจากฟอร์ม
   $IS_GroupCategory1 = !empty($_POST['IS_GroupCategory1']) ? $_POST['IS_GroupCategory1'] : 0;
   $IS_GroupCategory2 = !empty($_POST['IS_GroupCategory2']) ? $_POST['IS_GroupCategory2'] : 0;
+  $IS_GroupCategory3 = !empty($_POST['IS_GroupCategory3']) ? $_POST['IS_GroupCategory3'] : 0;
+  $IS_GroupCategory4 = !empty($_POST['IS_GroupCategory4']) ? $_POST['IS_GroupCategory4'] : 0;
+  $IS_GroupCategory5 = !empty($_POST['IS_GroupCategory5']) ? $_POST['IS_GroupCategory5'] : 0;
+  $IS_GroupCategory6 = !empty($_POST['IS_GroupCategory6']) ? $_POST['IS_GroupCategory6'] : 0;
   $IS_GroupMenu1 = !empty($_POST['IS_GroupMenu1']) ? $_POST['IS_GroupMenu1'] : '';
   $IS_GroupMenu1_Box1 = !empty($_POST['IS_GroupMenu1_Box1']) ? $_POST['IS_GroupMenu1_Box1'] : 0;
   $IS_GroupMenu2 = !empty($_POST['IS_GroupMenu2']) ? $_POST['IS_GroupMenu2'] : '';
@@ -29,6 +33,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   $sql = "UPDATE `indexsetup` SET
     `IS_GroupCategory1` = '$IS_GroupCategory1',
     `IS_GroupCategory2` = '$IS_GroupCategory2',
+    `IS_GroupCategory3` = '$IS_GroupCategory3',
+    `IS_GroupCategory4` = '$IS_GroupCategory4',
+    `IS_GroupCategory5` = '$IS_GroupCategory5',
+    `IS_GroupCategory6` = '$IS_GroupCategory6',
     `IS_GroupMenu1` = '$IS_GroupMenu1',
     `IS_GroupMenu1_Box1` = '$IS_GroupMenu1_Box1',
     `IS_GroupMenu2` = '$IS_GroupMenu2',

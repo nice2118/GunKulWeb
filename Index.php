@@ -42,11 +42,15 @@ if ($result->num_rows > 0) {
 <?php  include("Ma_Carousel.php"); ?>
     <div id="popupModal"></div>
     <!-- Content -->
-    <?php if ($MainCategory1_id !== 0 && $MainCategory1_id !== '') { ?>
+    <?php
+        for ($i = 1; $i <= 6; $i++) {
+            $variableID = ${"MainCategory{$i}_id"};
+            if ($variableID != 0 && $variableID != '') {
+    ?>
     <div class="container-xxl2 py-5">
         <div class="container2">
                 <?php
-                $sql = "SELECT * FROM `Category` WHERE `Category`.`CG_Entity No.` = $MainCategory1_id;";
+                $sql = "SELECT * FROM `Category` WHERE `Category`.`CG_Entity No.` = $variableID;";
                 $result = $conn->query($sql);
                 if ($result->num_rows > 0) {
                     $row = $result->fetch_assoc();
@@ -54,7 +58,7 @@ if ($result->num_rows > 0) {
                     $DescriptionENGroup1 = $row["CG_DescriptionEN"];
                     $IsTypeGroup1 = $row["CG_IsFile"];
                 }
-                $SelectFilterCategoryEntityNoTotal1 = SearchCategory($MainCategory1_id);
+                $SelectFilterCategoryEntityNoTotal1 = SearchCategory($variableID);
                 if ($IsTypeGroup1 == 0):
                     $sql = "SELECT * FROM `Activities` WHERE `Activities`.`AT_Entity No.` IN ($SelectFilterCategoryEntityNoTotal1) ORDER BY `Activities`.`AT_Date` DESC , `Activities`.`AT_Time` DESC LIMIT 0,5";
                 elseif ($IsTypeGroup1 == 1):
@@ -85,7 +89,7 @@ if ($result->num_rows > 0) {
                         if ($index1Image !== '') {
                             $AT_Image = $PathFolderNews.$index1Image;
                         } else {
-                            $sql = "SELECT * FROM `category` WHERE `CG_Entity No.` = $MainCategory1_id;";
+                            $sql = "SELECT * FROM `category` WHERE `CG_Entity No.` = $variableID;";
                             $resultcategory1 = $conn->query($sql);
                             if ($resultcategory1->num_rows > 0) {
                                 $rowcategory1 = $resultcategory1->fetch_assoc();
@@ -172,9 +176,9 @@ if ($result->num_rows > 0) {
                 <div class="wow fadeInUp portfolio-item first my-4" data-wow-delay="0.6s">
                     <div align="right">
                         <?php if ($IsTypeGroup1 == 0): ?>
-                            <a class="small fw-medium" href="ShowPage?Send_Category=<?= $MainCategory1_id ?>&Multiplier=1&Search="><?= $DescriptionTHGroup1 ?>ทั้งหมด<i class="fa fa-arrow-right ms-2"></i></a>
+                            <a class="small fw-medium" href="ShowPage?Send_Category=<?= $variableID ?>&Multiplier=1&Search="><?= $DescriptionTHGroup1 ?>ทั้งหมด<i class="fa fa-arrow-right ms-2"></i></a>
                         <?php elseif ($IsTypeGroup1 == 1): ?>
-                            <a class="small fw-medium" href="List?Send_Category=<?= $MainCategory1_id ?>"><?= $DescriptionTHGroup1 ?>ทั้งหมด<i class="fa fa-arrow-right ms-2"></i></a>
+                            <a class="small fw-medium" href="List?Send_Category=<?= $variableID ?>"><?= $DescriptionTHGroup1 ?>ทั้งหมด<i class="fa fa-arrow-right ms-2"></i></a>
                         <?php endif; ?>  
                     </div>
                 </div>
@@ -187,159 +191,11 @@ if ($result->num_rows > 0) {
             ?>
         </div>
     </div>
-    <?php } ?>
+    <?php
+            }
+        }
+    ?>
     <!-- Content -->
-    
-    <!-- Content 2 -->
-    <?php if ($MainCategory2_id !== 0 && $MainCategory2_id !== '') { ?>
-    <div class="container-xxl2 py-2">
-        <div class="container2">
-            <?php
-                $sql = "SELECT * FROM `Category` WHERE `Category`.`CG_Entity No.` = $MainCategory2_id;";
-                $result = $conn->query($sql);
-                if ($result->num_rows > 0) {
-                    $row = $result->fetch_assoc();
-                    $DescriptionTHGroup2 = $row["CG_DescriptionTH"];
-                    $DescriptionENGroup2 = $row["CG_DescriptionEN"];
-                    $IsTypeGroup2 = $row["CG_IsFile"];
-                }
-                $SelectFilterCategoryEntityNoTotal2 = SearchCategory($MainCategory2_id);
-                if ($IsTypeGroup2 == 0):
-                    $sql = "SELECT * FROM `Activities` WHERE `Activities`.`AT_Entity No.` IN ($SelectFilterCategoryEntityNoTotal2) ORDER BY `Activities`.`AT_Date` DESC , `Activities`.`AT_Time` DESC LIMIT 0,5";
-                elseif ($IsTypeGroup2 == 1):
-                    $sql = "SELECT * FROM `FileActivities` WHERE `FileActivities`.`FA_Entity No.` IN ($SelectFilterCategoryEntityNoTotal2) ORDER BY `FileActivities`.`FA_Date` DESC , `FileActivities`.`FA_Time` DESC LIMIT 0,5";
-                endif;
-                $result = $conn->query($sql);
-                $isFirstRow = true;
-                $isTwoRow = false;
-                $isLastRow = false;
-                $counter = 0;
-                $row_count = $result->num_rows;
-                if ($result->num_rows > 0) {
-                    while ($row = $result->fetch_assoc()) {
-                        if ($IsTypeGroup2 == 0) {
-                            $index2Code = $row["AT_Code"];
-                            $index2Image = $row["AT_Image"];
-                            $Title2 = $row['AT_Title'];
-                            $Description2 = $row['AT_Description'];
-                            $Status2 = 0;
-                        } elseif ($IsTypeGroup2 == 1) {
-                            $index2Code = $PathDefaultFile.$row["FA_File"];
-                            $index2Image = '';
-                            $Title2 = $row['FA_Title'];
-                            $Description2 = $row['FA_Description'];
-                            $Status2 = 1;
-                        } else {
-                            $index2Code = "";
-                            $index2Image = "";
-                        }
-                        if ($index2Image !== '') {
-                            $AT_Image = $PathFolderNews.$index2Image;
-                        } else {
-                            $sql = "SELECT * FROM `category` WHERE `CG_Entity No.` = $MainCategory2_id;";
-                            $resultcategory2 = $conn->query($sql);
-                            if ($resultcategory2->num_rows > 0) {
-                                $rowcategory2 = $resultcategory2->fetch_assoc();
-                                if ($rowcategory2['CG_DefaultImage'] !== '') {
-                                    $AT_Image = 'img/DefaultImageCategory/'.$rowcategory2['CG_DefaultImage'];
-                                } else {
-                                    $AT_Image = $PathFolderNews.$DefaultImageNews;
-                                }
-                            }
-                        }
-                        $counter++;
-                        if ($isFirstRow) {
-            ?>
-            <div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 600px;">
-                <h3 class="text-primary"><?= $DescriptionENGroup2 ?></h3>
-                <h2 class="mb-4"><?= $DescriptionTHGroup2 ?></h2>
-            </div>
-            <div class="container-fluid2 bg-light overflow-hidden my-5 px-lg-0">
-                <div class="container2 about px-lg-0">
-                    <div class="row g-0 mx-lg-0">
-                        <div class="col-lg-4 ps-lg-0 wow fadeIn" data-wow-delay="0.1s" style="min-height: 300px;">
-                            <div class="position-relative h-100">
-                                <a href="<?= $AT_Image;?>" data-lightbox="portfolio"> 
-                                <img class="position-absolute img-fluid2 w-100 h-100" src="<?= $AT_Image;?>"
-                                    style="object-fit: cover;" alt="">
-                                </a>
-                            </div>
-                        </div>
-                        <div class="col-lg-8 about-text py-5 wow fadeIn" data-wow-delay="0.5s">
-                            <div class="p-lg-5 pe-lg-0">
-                                <h6 class="text-primary">NEWS</h6>
-                                <h3 class="mb-4"><?= $Title2;?></h3>
-                                <p><?= $Description2;?></p>
-                                <?php if ($IsTypeGroup2 == 0): ?>
-                                    <a href="ShowDetail?Send_IDNews=<?= $index2Code;?>" class="btn btn-primary rounded-pill py-3 px-5 mt-3">อ่านเพิ่มเติม</a>
-                                <?php elseif ($IsTypeGroup2 == 1): ?>
-                                    <a href="<?= $index2Code;?>" target="_blank" class="btn btn-primary rounded-pill py-3 px-5 mt-3">อ่านเพิ่มเติม</a>
-                                <?php endif; ?>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <?php 
-                            $isFirstRow = false;
-                            $isTwoRow = true;
-                            } else {
-                                if ($isTwoRow) {
-                                    $isTwoRow = false;
-            ?>
-            <div class="row g-4">
-            <?php
-                                }
-            ?>
-                <!-- Loop -->
-                <div class="col-lg-3 col-md-6 wow fadeInUp portfolio-item first" data-wow-delay="0.1s">
-                    <div class="service-item3 rounded overflow-hidden">
-                        <div class="portfolio-img rounded overflow-hidden">
-                            <img class="img-fluid w-100" src="<?= $AT_Image;?>" style="height:280px;" alt="">
-                            <div class="portfolio-btn">
-                                <a class="btn btn-lg-square btn-outline-light rounded-circle mx-1" href="<?= $AT_Image;?>"
-                                    data-lightbox="portfolio"><i class="fa fa-eye"></i></a>
-                                <a class="btn btn-lg-square btn-outline-light rounded-circle mx-1" href="<?= ($IsTypeGroup2 == 0) ? "ShowDetail?Send_IDNews=" . $index2Code : $index2Code; ?>"><i
-                                        class="fa fa-link"></i></a>
-                            </div>
-                        </div>
-                        <div class="position-relative p-4 pt-0">
-                            <div class="service-icon">
-                                <i class="fa fa-newspaper fa-3x"></i>
-                            </div>
-                            <h4 class="mb-3"><?= $Title2 ?></h4>
-                            <p class=""><?= $Description2 ?></p>
-                            <a class="small fw-medium" href="<?= ($IsTypeGroup2 == 0) ? "ShowDetail?Send_IDNews=" . $index2Code : $index2Code; ?>">อ่านเพิ่มเติม<i class="fa fa-arrow-right ms-2"></i></a>
-                        </div>
-                    </div>
-                </div>
-                <!-- Loop -->
-            <?php
-                                    // $counter++;
-                                if ($counter == $row_count) {
-            ?>
-            </div>
-            <div class="row g-1">
-                <div class="wow fadeInUp portfolio-item first my-4" data-wow-delay="0.6s">
-                    <div align="right">
-                        <?php if ($IsTypeGroup1 == 0): ?>
-                            <a class="small fw-medium" href="ShowPage?Send_Category=<?= $MainCategory2_id ?>&Multiplier=1&Search="><?= $DescriptionTHGroup2 ?>ทั้งหมด<i class="fa fa-arrow-right ms-2"></i></a>
-                        <?php elseif ($IsTypeGroup1 == 1): ?>
-                            <a class="small fw-medium" href="List?Send_Category=<?= $MainCategory2_id ?>"><?= $DescriptionTHGroup2 ?>ทั้งหมด<i class="fa fa-arrow-right ms-2"></i></a>
-                        <?php endif; ?> 
-                    </div>
-                </div>
-            </div>
-            <?php
-                                }     
-                            }
-                        }
-                    }
-            ?>
-        </div>
-    </div>
-    <?php } ?>
-    <!-- Content 2 -->
 
     <!-- Team Start -->
     <?php if ($Category1_id !== 0 && $Category2_id !== 0 && $Category3_id !== 0 && $Category4_id !== 0) { ?>

@@ -298,7 +298,7 @@ $US_Prefix = "";
                                                             }
                                                         ?>
                                                             <a class="btn btn-link py-1 px-2 text-end" onclick="deleteAlertPopup(<?php echo $row["AP_Code"];?>, '<?php echo $row["AP_Image"];?>')"><i class="fas fa-trash"></i></a>  	 
-                                                            <button type="button" class="btn btn-link py-1 px-2 text-end text-warning" data-bs-toggle="modal" data-bs-target="#modalpopup" data-apcode="<?= $row["AP_Code"] ?>" data-apname="<?= $row["AP_Name"] ?>" data-apimage="<?= $row["AP_Image"] ?>" data-apdatestart="<?= $row["AP_DateStart"] ?>" data-apdateend="<?= $row["AP_DateEnd"] ?>"><i class="fas fa-edit"></i></button>
+                                                            <button type="button" class="btn btn-link py-1 px-2 text-end text-warning" data-bs-toggle="modal" data-bs-target="#modalpopup" data-apcode="<?= $row["AP_Code"] ?>" data-apname="<?= htmlspecialchars($row["AP_Name"], ENT_QUOTES); ?>" data-apimage="<?= $row["AP_Image"] ?>" data-apdatestart="<?= $row["AP_DateStart"] ?>" data-apdateend="<?= $row["AP_DateEnd"] ?>"><i class="fas fa-edit"></i></button>
                                                         </div>
                                                     </li>
                                                 <?PHP
@@ -609,7 +609,7 @@ $US_Prefix = "";
                                             </div>
                                             <div class="form-group my-3">
                                                 <label for="PathFolderNews">กลุ่มที่ 3</label>
-                                                <select class="form-select border-1" id="IS_GroupCategory2" name="IS_GroupCategory2">
+                                                <select class="form-select border-1" id="IS_GroupCategory3" name="IS_GroupCategory3">
                                                     <option></option>
                                                     <?php
                                                         // $sql = "SELECT * FROM `category` WHERE `CG_Entity Relation No.` = 0;";
@@ -628,7 +628,7 @@ $US_Prefix = "";
                                             </div>
                                             <div class="form-group my-3">
                                                 <label for="PathFolderNews">กลุ่มที่ 4</label>
-                                                <select class="form-select border-1" id="IS_GroupCategory2" name="IS_GroupCategory2">
+                                                <select class="form-select border-1" id="IS_GroupCategory4" name="IS_GroupCategory4">
                                                     <option></option>
                                                     <?php
                                                         // $sql = "SELECT * FROM `category` WHERE `CG_Entity Relation No.` = 0;";
@@ -647,7 +647,7 @@ $US_Prefix = "";
                                             </div>
                                             <div class="form-group my-3">
                                                 <label for="PathFolderNews">กลุ่มที่ 5</label>
-                                                <select class="form-select border-1" id="IS_GroupCategory2" name="IS_GroupCategory2">
+                                                <select class="form-select border-1" id="IS_GroupCategory5" name="IS_GroupCategory5">
                                                     <option></option>
                                                     <?php
                                                         // $sql = "SELECT * FROM `category` WHERE `CG_Entity Relation No.` = 0;";
@@ -666,7 +666,7 @@ $US_Prefix = "";
                                             </div>
                                             <div class="form-group my-3">
                                                 <label for="PathFolderNews">กลุ่มที่ 6</label>
-                                                <select class="form-select border-1" id="IS_GroupCategory2" name="IS_GroupCategory2">
+                                                <select class="form-select border-1" id="IS_GroupCategory6" name="IS_GroupCategory6">
                                                     <option></option>
                                                     <?php
                                                         // $sql = "SELECT * FROM `category` WHERE `CG_Entity Relation No.` = 0;";
@@ -2007,7 +2007,7 @@ $(document).ready(function() {
     function deleteAlertPopup(PopupID,PopupName) {
         swal({
             title: "คุณต้องการที่จะลบหรือไม่?",
-            text: `${PopupID}\nเมื่อกดลบไปแล้วจะไม่สามารถนำข้อมูลกลับมาได้!`,
+            text: `เมื่อกดลบไปแล้วจะไม่สามารถนำข้อมูลกลับมาได้!`,
             icon: "warning",
             buttons: {
                 cancel: {
@@ -2830,6 +2830,7 @@ $(document).ready(function() {
         if (apName === undefined) {
             document.getElementById("AP_Name").value = '';
         } else {
+            // document.getElementById("AP_Name").value = apName;
             document.getElementById("AP_Name").value = apName;
         }
         document.getElementById("AP_OldImage").value = apOldImage;

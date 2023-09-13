@@ -21,10 +21,7 @@ $conn->query($sql1);
 if ($conn->query($sql1) === TRUE) {
   $PathFolderPopup = 'img/Popup/';
   $filePath = $PathFolderPopup . $Popup_Img;
-  if (file_exists($filePath)) {
-      if (unlink($filePath)) {
-      }
-  }
+  if (file_exists($filePath)) { if (unlink($filePath)) {} }
   $_SESSION['StatusTitle'] = "ดำเนินการเรียบร้อยแล้ว";
   $_SESSION['StatusMessage'] = "ทำการลบเอกสารให้หัวข้อ ".$Popup_id." เรียบร้อบแล้ว";
   $_SESSION['StatusAlert'] = "success";
