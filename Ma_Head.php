@@ -160,7 +160,7 @@
                 ?>
             </div>
             <?php if(!isset($currentUser) || $currentUser === '') : ?>
-                <div data-bs-toggle="tooltip" data-bs-placement="bottom" title="Log Out">
+                <div data-bs-toggle="tooltip" data-bs-placement="bottom" title="Log In">
                     <button type="button" class="btn btn-white rounded-0 py-4 px-lg-3 d-none d-lg-block" data-bs-toggle="modal" data-bs-target="#LoginModal"><i class="fa fa-user-circle ms-auto fs-4"></i></button>
                 </div>
                 <!-- <div data-bs-toggle="tooltip" data-bs-placement="left" title="Sign Up">

@@ -62,6 +62,10 @@ $US_Prefix = "";
         $ISCode = $row["IS_Code"];
         $ISGroupCategory1 = $row["IS_GroupCategory1"];
         $ISGroupCategory2 = $row["IS_GroupCategory2"];
+        $ISGroupCategory3 = $row["IS_GroupCategory3"];
+        $ISGroupCategory4 = $row["IS_GroupCategory4"];
+        $ISGroupCategory5 = $row["IS_GroupCategory5"];
+        $ISGroupCategory6 = $row["IS_GroupCategory6"];
         $ISGroupMenu1 = $row["IS_GroupMenu1"];
         $ISGroupMenu1_Box1 = $row["IS_GroupMenu1_Box1"];
         $ISGroupMenu2 = $row["IS_GroupMenu2"];
@@ -77,6 +81,10 @@ $US_Prefix = "";
             $ISCode = 1;
             $ISGroupCategory1 = "";
             $ISGroupCategory2 = "";
+            $ISGroupCategory3 = "";
+            $ISGroupCategory4 = "";
+            $ISGroupCategory5 = "";
+            $ISGroupCategory6 = "";
             $ISGroupMenu1 = "";
             $ISGroupMenu1_Box1 = "";
             $ISGroupMenu2 = "";
@@ -591,6 +599,82 @@ $US_Prefix = "";
                                                         if ($result->num_rows > 0) {
                                                             while ($row = $result->fetch_assoc()) {
                                                                 $selected = ($row["CG_Entity No."] == $ISGroupCategory2) ? 'selected' : '';
+                                                    ?>
+                                                        <option value="<?= $row["CG_Entity No."] ?>" <?= $selected ?>><?= $row["CG_Name"] ?></option>
+                                                    <?php
+                                                            }
+                                                        }
+                                                    ?>
+                                                </select>
+                                            </div>
+                                            <div class="form-group my-3">
+                                                <label for="PathFolderNews">กลุ่มที่ 3</label>
+                                                <select class="form-select border-1" id="IS_GroupCategory2" name="IS_GroupCategory2">
+                                                    <option></option>
+                                                    <?php
+                                                        // $sql = "SELECT * FROM `category` WHERE `CG_Entity Relation No.` = 0;";
+                                                        $sql = "SELECT * FROM `category`;";
+                                                        $result = $conn->query($sql);
+                                                        if ($result->num_rows > 0) {
+                                                            while ($row = $result->fetch_assoc()) {
+                                                                $selected = ($row["CG_Entity No."] == $ISGroupCategory3) ? 'selected' : '';
+                                                    ?>
+                                                        <option value="<?= $row["CG_Entity No."] ?>" <?= $selected ?>><?= $row["CG_Name"] ?></option>
+                                                    <?php
+                                                            }
+                                                        }
+                                                    ?>
+                                                </select>
+                                            </div>
+                                            <div class="form-group my-3">
+                                                <label for="PathFolderNews">กลุ่มที่ 4</label>
+                                                <select class="form-select border-1" id="IS_GroupCategory2" name="IS_GroupCategory2">
+                                                    <option></option>
+                                                    <?php
+                                                        // $sql = "SELECT * FROM `category` WHERE `CG_Entity Relation No.` = 0;";
+                                                        $sql = "SELECT * FROM `category`;";
+                                                        $result = $conn->query($sql);
+                                                        if ($result->num_rows > 0) {
+                                                            while ($row = $result->fetch_assoc()) {
+                                                                $selected = ($row["CG_Entity No."] == $ISGroupCategory4) ? 'selected' : '';
+                                                    ?>
+                                                        <option value="<?= $row["CG_Entity No."] ?>" <?= $selected ?>><?= $row["CG_Name"] ?></option>
+                                                    <?php
+                                                            }
+                                                        }
+                                                    ?>
+                                                </select>
+                                            </div>
+                                            <div class="form-group my-3">
+                                                <label for="PathFolderNews">กลุ่มที่ 5</label>
+                                                <select class="form-select border-1" id="IS_GroupCategory2" name="IS_GroupCategory2">
+                                                    <option></option>
+                                                    <?php
+                                                        // $sql = "SELECT * FROM `category` WHERE `CG_Entity Relation No.` = 0;";
+                                                        $sql = "SELECT * FROM `category`;";
+                                                        $result = $conn->query($sql);
+                                                        if ($result->num_rows > 0) {
+                                                            while ($row = $result->fetch_assoc()) {
+                                                                $selected = ($row["CG_Entity No."] == $ISGroupCategory5) ? 'selected' : '';
+                                                    ?>
+                                                        <option value="<?= $row["CG_Entity No."] ?>" <?= $selected ?>><?= $row["CG_Name"] ?></option>
+                                                    <?php
+                                                            }
+                                                        }
+                                                    ?>
+                                                </select>
+                                            </div>
+                                            <div class="form-group my-3">
+                                                <label for="PathFolderNews">กลุ่มที่ 6</label>
+                                                <select class="form-select border-1" id="IS_GroupCategory2" name="IS_GroupCategory2">
+                                                    <option></option>
+                                                    <?php
+                                                        // $sql = "SELECT * FROM `category` WHERE `CG_Entity Relation No.` = 0;";
+                                                        $sql = "SELECT * FROM `category`;";
+                                                        $result = $conn->query($sql);
+                                                        if ($result->num_rows > 0) {
+                                                            while ($row = $result->fetch_assoc()) {
+                                                                $selected = ($row["CG_Entity No."] == $ISGroupCategory6) ? 'selected' : '';
                                                     ?>
                                                         <option value="<?= $row["CG_Entity No."] ?>" <?= $selected ?>><?= $row["CG_Name"] ?></option>
                                                     <?php

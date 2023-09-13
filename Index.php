@@ -3,30 +3,38 @@ include("DB_Include.php");
 $_SESSION['PathPage'] = "Index";
 include("DB_Setup.php");
 include("Fn_RecursiveCategory.php");
+$MainCategory1_id = 0;
+$MainCategory2_id = 0;
+$MainCategory3_id = 0;
+$MainCategory4_id = 0;
+$MainCategory5_id = 0;
+$MainCategory6_id = 0;
 $Category1_id = 0;
+$Category1 = '';
 $Category2_id = 0;
+$Category2 = '';
 $Category3_id = 0;
 $Category3 = '';
 $Category4_id = 0;
 $Category4 = '';
-$Category5_id = 0;
-$Category5 = '';
-$Category6_id = 0;
-$Category6 = '';
 $sql = "SELECT * FROM `indexsetup`";
 $result = $conn->query($sql);
 if ($result->num_rows > 0) {
     $row = $result->fetch_assoc();
-    $Category1_id = $row["IS_GroupCategory1"];
-    $Category2_id = $row["IS_GroupCategory2"];
-    $Category3_id = $row["IS_GroupMenu1_Box1"];
-    $Category3 = $row["IS_GroupMenu1"];
-    $Category4_id = $row["IS_GroupMenu2_Box2"];
-    $Category4 = $row["IS_GroupMenu2"];
-    $Category5_id = $row["IS_GroupMenu3_Box3"];
-    $Category5 = $row["IS_GroupMenu3"];
-    $Category6_id = $row["IS_GroupMenu4_Box4"];
-    $Category6 = $row["IS_GroupMenu4"];
+    $MainCategory1_id = $row["IS_GroupCategory1"];
+    $MainCategory2_id = $row["IS_GroupCategory2"];
+    $MainCategory3_id = $row["IS_GroupCategory3"];
+    $MainCategory4_id = $row["IS_GroupCategory4"];
+    $MainCategory5_id = $row["IS_GroupCategory5"];
+    $MainCategory6_id = $row["IS_GroupCategory6"];
+    $Category1_id = $row["IS_GroupMenu1_Box1"];
+    $Category1 = $row["IS_GroupMenu1"];
+    $Category2_id = $row["IS_GroupMenu2_Box2"];
+    $Category2 = $row["IS_GroupMenu2"];
+    $Category3_id = $row["IS_GroupMenu3_Box3"];
+    $Category3 = $row["IS_GroupMenu3"];
+    $Category4_id = $row["IS_GroupMenu4_Box4"];
+    $Category4 = $row["IS_GroupMenu4"];
 }
 ?>
 <?php  include("Ma_Head_Link.php"); ?>
@@ -34,11 +42,11 @@ if ($result->num_rows > 0) {
 <?php  include("Ma_Carousel.php"); ?>
     <div id="popupModal"></div>
     <!-- Content -->
-    <?php if ($Category1_id !== 0 && $Category1_id !== '') { ?>
+    <?php if ($MainCategory1_id !== 0 && $MainCategory1_id !== '') { ?>
     <div class="container-xxl2 py-5">
         <div class="container2">
                 <?php
-                $sql = "SELECT * FROM `Category` WHERE `Category`.`CG_Entity No.` = $Category1_id;";
+                $sql = "SELECT * FROM `Category` WHERE `Category`.`CG_Entity No.` = $MainCategory1_id;";
                 $result = $conn->query($sql);
                 if ($result->num_rows > 0) {
                     $row = $result->fetch_assoc();
@@ -46,7 +54,7 @@ if ($result->num_rows > 0) {
                     $DescriptionENGroup1 = $row["CG_DescriptionEN"];
                     $IsTypeGroup1 = $row["CG_IsFile"];
                 }
-                $SelectFilterCategoryEntityNoTotal1 = SearchCategory($Category1_id);
+                $SelectFilterCategoryEntityNoTotal1 = SearchCategory($MainCategory1_id);
                 if ($IsTypeGroup1 == 0):
                     $sql = "SELECT * FROM `Activities` WHERE `Activities`.`AT_Entity No.` IN ($SelectFilterCategoryEntityNoTotal1) ORDER BY `Activities`.`AT_Date` DESC , `Activities`.`AT_Time` DESC LIMIT 0,5";
                 elseif ($IsTypeGroup1 == 1):
@@ -77,7 +85,7 @@ if ($result->num_rows > 0) {
                         if ($index1Image !== '') {
                             $AT_Image = $PathFolderNews.$index1Image;
                         } else {
-                            $sql = "SELECT * FROM `category` WHERE `CG_Entity No.` = $Category1_id;";
+                            $sql = "SELECT * FROM `category` WHERE `CG_Entity No.` = $MainCategory1_id;";
                             $resultcategory1 = $conn->query($sql);
                             if ($resultcategory1->num_rows > 0) {
                                 $rowcategory1 = $resultcategory1->fetch_assoc();
@@ -164,9 +172,9 @@ if ($result->num_rows > 0) {
                 <div class="wow fadeInUp portfolio-item first my-4" data-wow-delay="0.6s">
                     <div align="right">
                         <?php if ($IsTypeGroup1 == 0): ?>
-                            <a class="small fw-medium" href="ShowPage?Send_Category=<?= $Category1_id ?>&Multiplier=1&Search="><?= $DescriptionTHGroup1 ?>ทั้งหมด<i class="fa fa-arrow-right ms-2"></i></a>
+                            <a class="small fw-medium" href="ShowPage?Send_Category=<?= $MainCategory1_id ?>&Multiplier=1&Search="><?= $DescriptionTHGroup1 ?>ทั้งหมด<i class="fa fa-arrow-right ms-2"></i></a>
                         <?php elseif ($IsTypeGroup1 == 1): ?>
-                            <a class="small fw-medium" href="List?Send_Category=<?= $Category1_id ?>"><?= $DescriptionTHGroup1 ?>ทั้งหมด<i class="fa fa-arrow-right ms-2"></i></a>
+                            <a class="small fw-medium" href="List?Send_Category=<?= $MainCategory1_id ?>"><?= $DescriptionTHGroup1 ?>ทั้งหมด<i class="fa fa-arrow-right ms-2"></i></a>
                         <?php endif; ?>  
                     </div>
                 </div>
@@ -183,11 +191,11 @@ if ($result->num_rows > 0) {
     <!-- Content -->
     
     <!-- Content 2 -->
-    <?php if ($Category2_id !== 0 && $Category2_id !== '') { ?>
+    <?php if ($MainCategory2_id !== 0 && $MainCategory2_id !== '') { ?>
     <div class="container-xxl2 py-2">
         <div class="container2">
             <?php
-                $sql = "SELECT * FROM `Category` WHERE `Category`.`CG_Entity No.` = $Category2_id;";
+                $sql = "SELECT * FROM `Category` WHERE `Category`.`CG_Entity No.` = $MainCategory2_id;";
                 $result = $conn->query($sql);
                 if ($result->num_rows > 0) {
                     $row = $result->fetch_assoc();
@@ -195,7 +203,7 @@ if ($result->num_rows > 0) {
                     $DescriptionENGroup2 = $row["CG_DescriptionEN"];
                     $IsTypeGroup2 = $row["CG_IsFile"];
                 }
-                $SelectFilterCategoryEntityNoTotal2 = SearchCategory($Category2_id);
+                $SelectFilterCategoryEntityNoTotal2 = SearchCategory($MainCategory2_id);
                 if ($IsTypeGroup2 == 0):
                     $sql = "SELECT * FROM `Activities` WHERE `Activities`.`AT_Entity No.` IN ($SelectFilterCategoryEntityNoTotal2) ORDER BY `Activities`.`AT_Date` DESC , `Activities`.`AT_Time` DESC LIMIT 0,5";
                 elseif ($IsTypeGroup2 == 1):
@@ -228,7 +236,7 @@ if ($result->num_rows > 0) {
                         if ($index2Image !== '') {
                             $AT_Image = $PathFolderNews.$index2Image;
                         } else {
-                            $sql = "SELECT * FROM `category` WHERE `CG_Entity No.` = $Category2_id;";
+                            $sql = "SELECT * FROM `category` WHERE `CG_Entity No.` = $MainCategory2_id;";
                             $resultcategory2 = $conn->query($sql);
                             if ($resultcategory2->num_rows > 0) {
                                 $rowcategory2 = $resultcategory2->fetch_assoc();
@@ -315,9 +323,9 @@ if ($result->num_rows > 0) {
                 <div class="wow fadeInUp portfolio-item first my-4" data-wow-delay="0.6s">
                     <div align="right">
                         <?php if ($IsTypeGroup1 == 0): ?>
-                            <a class="small fw-medium" href="ShowPage?Send_Category=<?= $Category2_id ?>&Multiplier=1&Search="><?= $DescriptionTHGroup2 ?>ทั้งหมด<i class="fa fa-arrow-right ms-2"></i></a>
+                            <a class="small fw-medium" href="ShowPage?Send_Category=<?= $MainCategory2_id ?>&Multiplier=1&Search="><?= $DescriptionTHGroup2 ?>ทั้งหมด<i class="fa fa-arrow-right ms-2"></i></a>
                         <?php elseif ($IsTypeGroup1 == 1): ?>
-                            <a class="small fw-medium" href="List?Send_Category=<?= $Category2_id ?>"><?= $DescriptionTHGroup2 ?>ทั้งหมด<i class="fa fa-arrow-right ms-2"></i></a>
+                            <a class="small fw-medium" href="List?Send_Category=<?= $MainCategory2_id ?>"><?= $DescriptionTHGroup2 ?>ทั้งหมด<i class="fa fa-arrow-right ms-2"></i></a>
                         <?php endif; ?> 
                     </div>
                 </div>
@@ -334,7 +342,7 @@ if ($result->num_rows > 0) {
     <!-- Content 2 -->
 
     <!-- Team Start -->
-    <?php if ($Category3_id !== 0 && $Category4_id !== 0 && $Category5_id !== 0 && $Category6_id !== 0) { ?>
+    <?php if ($Category1_id !== 0 && $Category2_id !== 0 && $Category3_id !== 0 && $Category4_id !== 0) { ?>
     <div class="container-xxl py-5">
         <div class="container">
             <div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 600px;">
@@ -342,20 +350,20 @@ if ($result->num_rows > 0) {
                 <h1 class="mb-4">เมนูทั่วไป</h1>
             </div>
             <div class="row g-4">
-            <?php if ($Category3_id != 0) { ?>
+            <?php if ($Category1_id != 0) { ?>
                 <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
                     <div class="team-item2 rounded overflow-hidden">
                     
                     <?php 
-                        if ($Category3 === 'category') {
-                            $sql = "SELECT * FROM `category` WHERE `CG_Entity No.` = '$Category3_id';";
-                        } elseif ($Category3 === 'headingcategories') {
-                            $sql = "SELECT * FROM `HeadingCategories` WHERE `HC_Code` = '$Category3_id';";
+                        if ($Category1 === 'category') {
+                            $sql = "SELECT * FROM `category` WHERE `CG_Entity No.` = '$Category1_id';";
+                        } elseif ($Category1 === 'headingcategories') {
+                            $sql = "SELECT * FROM `HeadingCategories` WHERE `HC_Code` = '$Category1_id';";
                         }
                             $result = $conn->query($sql);
                             if ($result->num_rows > 0) {
                                 $row = $result->fetch_assoc();
-                                if ($Category3 === 'category') {
+                                if ($Category1 === 'category') {
                                     $Name01 = $row['CG_DescriptionTH'];
                                     $Designation01 = $row['CG_DescriptionEN'];
                                     if ($row['CG_DefaultImage'] !== '') {
@@ -364,11 +372,11 @@ if ($result->num_rows > 0) {
                                         $Image01 = 'Default/DefaultImage/DefaultImage.png'; 
                                     }
                                     if ($row['CG_IsFile'] == 0) {
-                                        $Href01 = 'ShowPage?Send_Category='. $Category3_id.'&Multiplier=1&Search=';
+                                        $Href01 = 'ShowPage?Send_Category='. $Category1_id.'&Multiplier=1&Search=';
                                     } else if ($row['CG_IsFile'] == 1){
-                                        $Href01 = 'List?Send_Category=' . $Category3_id;
+                                        $Href01 = 'List?Send_Category=' . $Category1_id;
                                     }
-                                } elseif ($Category3 === 'headingcategories'){
+                                } elseif ($Category1 === 'headingcategories'){
                                     $Name01 = $row['HC_DescriptionTH'];
                                     $Designation01 = $row['HC_DescriptionEN'];
                                     if ($row['HC_DefaultImage'] !== '') {
@@ -376,7 +384,7 @@ if ($result->num_rows > 0) {
                                     } else {
                                         $Image01 = 'Default/DefaultImage/DefaultImage.png'; 
                                     }
-                                    $Href01 = 'ShowPageMenu?Send_MoreMenu='. $Category3_id;
+                                    $Href01 = 'ShowPageMenu?Send_MoreMenu='. $Category1_id;
                                 } else { 
                                     $Name01 = '';
                                     $Designation01 = '';
@@ -399,19 +407,19 @@ if ($result->num_rows > 0) {
                     <?php } ?>
                     </div>
                 </div>
-                <?php } if ($Category4_id != 0) {?>
+                <?php } if ($Category2_id != 0) {?>
                 <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
                     <div class="team-item2 rounded overflow-hidden">
                     <?php 
-                    if ($Category4 === 'category') {
-                        $sql = "SELECT * FROM `category` WHERE `CG_Entity No.` = '$Category4_id';";
-                    } elseif ($Category4 === 'headingcategories'){
-                        $sql = "SELECT * FROM `HeadingCategories` WHERE `HC_Code` = '$Category4_id';";
+                    if ($Category2 === 'category') {
+                        $sql = "SELECT * FROM `category` WHERE `CG_Entity No.` = '$Category2_id';";
+                    } elseif ($Category2 === 'headingcategories'){
+                        $sql = "SELECT * FROM `HeadingCategories` WHERE `HC_Code` = '$Category2_id';";
                     }
                         $result = $conn->query($sql);
                         if ($result->num_rows > 0) {
                            $row = $result->fetch_assoc();
-                            if ($Category4 === 'category') {
+                            if ($Category2 === 'category') {
                                 $Name02 = $row['CG_DescriptionTH'];
                                 $Designation02 = $row['CG_DescriptionEN'];
                                 if ($row['CG_DefaultImage'] !== '') {
@@ -420,11 +428,11 @@ if ($result->num_rows > 0) {
                                     $Image02 = 'Default/DefaultImage/DefaultImage.png'; 
                                 }
                                 if ($row['CG_IsFile'] == 0) {
-                                    $Href02 = 'ShowPage?Send_Category='. $Category4_id.'&Multiplier=1&Search=';
+                                    $Href02 = 'ShowPage?Send_Category='. $Category2_id.'&Multiplier=1&Search=';
                                 } else if ($row['CG_IsFile'] == 1){
-                                    $Href02 = 'List?Send_Category=' . $Category4_id;
+                                    $Href02 = 'List?Send_Category=' . $Category2_id;
                                 }
-                            } elseif ($Category4 === 'headingcategories'){
+                            } elseif ($Category2 === 'headingcategories'){
                                 $Name02 = $row['HC_DescriptionTH'];
                                 $Designation02 = $row['HC_DescriptionEN'];
                                 if ($row['HC_DefaultImage'] !== '') {
@@ -432,7 +440,7 @@ if ($result->num_rows > 0) {
                                 } else {
                                     $Image02 = 'Default/DefaultImage/DefaultImage.png'; 
                                 }
-                                $Href02 = 'ShowPageMenu?Send_MoreMenu='. $Category4_id;
+                                $Href02 = 'ShowPageMenu?Send_MoreMenu='. $Category2_id;
                             } else { 
                                 $Name02 = '';
                                 $Designation02 = '';
@@ -455,19 +463,19 @@ if ($result->num_rows > 0) {
                     <?php } ?>
                     </div>
                 </div>
-            <?php } if ($Category5_id != 0) {?>
+            <?php } if ($Category3_id != 0) {?>
                 <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
                     <div class="team-item2 rounded overflow-hidden">
                     <?php 
-                    if ($Category5 === 'category') {
-                        $sql = "SELECT * FROM `category` WHERE `CG_Entity No.` = '$Category5_id';";
-                    } elseif ($Category5 === 'headingcategories'){
-                        $sql = "SELECT * FROM `HeadingCategories` WHERE `HC_Code` = '$Category5_id';";
+                    if ($Category3 === 'category') {
+                        $sql = "SELECT * FROM `category` WHERE `CG_Entity No.` = '$Category3_id';";
+                    } elseif ($Category3 === 'headingcategories'){
+                        $sql = "SELECT * FROM `HeadingCategories` WHERE `HC_Code` = '$Category3_id';";
                     }
                         $result = $conn->query($sql);
                         if ($result->num_rows > 0) {
                            $row = $result->fetch_assoc();
-                            if ($Category5 === 'category') {
+                            if ($Category3 === 'category') {
                                 $Name03 = $row['CG_DescriptionTH'];
                                 $Designation03 = $row['CG_DescriptionEN'];
                                 if ($row['CG_DefaultImage'] !== '') {
@@ -476,11 +484,11 @@ if ($result->num_rows > 0) {
                                     $Image03 = 'Default/DefaultImage/DefaultImage.png'; 
                                 }
                                 if ($row['CG_IsFile'] == 0) {
-                                    $Href03 = 'ShowPage?Send_Category='. $Category5_id.'&Multiplier=1&Search=';
+                                    $Href03 = 'ShowPage?Send_Category='. $Category3_id.'&Multiplier=1&Search=';
                                 } else if ($row['CG_IsFile'] == 1){
-                                    $Href03 = 'List?Send_Category=' . $Category5_id;
+                                    $Href03 = 'List?Send_Category=' . $Category3_id;
                                 }
-                            } elseif ($Category5 === 'headingcategories'){
+                            } elseif ($Category3 === 'headingcategories'){
                                 $Name03 = $row['HC_DescriptionTH'];
                                 $Designation03 = $row['HC_DescriptionEN'];
                                 if ($row['HC_DefaultImage'] !== '') {
@@ -488,7 +496,7 @@ if ($result->num_rows > 0) {
                                 } else {
                                     $Image03 = 'Default/DefaultImage/DefaultImage.png'; 
                                 }
-                                $Href03 = 'ShowPageMenu?Send_MoreMenu='. $Category5_id;
+                                $Href03 = 'ShowPageMenu?Send_MoreMenu='. $Category3_id;
                             } else { 
                                 $Name03 = '';
                                 $Designation03 = '';
@@ -511,19 +519,19 @@ if ($result->num_rows > 0) {
                     <?php } ?>
                     </div>
                 </div>
-            <?php } if ($Category6_id != 0) {?>
+            <?php } if ($Category4_id != 0) {?>
                 <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
                     <div class="team-item2 rounded overflow-hidden">
                     <?php 
-                    if ($Category6 === 'category') {
-                        $sql = "SELECT * FROM `category` WHERE `CG_Entity No.` = '$Category6_id';";
-                    } elseif ($Category6 === 'headingcategories'){
-                        $sql = "SELECT * FROM `HeadingCategories` WHERE `HC_Code` = '$Category6_id';";
+                    if ($Category4 === 'category') {
+                        $sql = "SELECT * FROM `category` WHERE `CG_Entity No.` = '$Category4_id';";
+                    } elseif ($Category4 === 'headingcategories'){
+                        $sql = "SELECT * FROM `HeadingCategories` WHERE `HC_Code` = '$Category4_id';";
                     }
                         $result = $conn->query($sql);
                         if ($result->num_rows > 0) {
                            $row = $result->fetch_assoc();
-                            if ($Category6 === 'category') {
+                            if ($Category4 === 'category') {
                                 $Name04 = $row['CG_DescriptionTH'];
                                 $Designation04 = $row['CG_DescriptionEN'];
                                 if ($row['CG_DefaultImage'] !== '') {
@@ -532,11 +540,11 @@ if ($result->num_rows > 0) {
                                     $Image04 = 'Default/DefaultImage/DefaultImage.png'; 
                                 }
                                 if ($row['CG_IsFile'] == 0) {
-                                    $Href04 = 'ShowPage?Send_Category='. $Category6_id.'&Multiplier=1&Search=';
+                                    $Href04 = 'ShowPage?Send_Category='. $Category4_id.'&Multiplier=1&Search=';
                                 } else if ($row['CG_IsFile'] == 1){
-                                    $Href04 = 'List?Send_Category=' . $Category6_id;
+                                    $Href04 = 'List?Send_Category=' . $Category4_id;
                                 }
-                            } elseif ($Category6 === 'headingcategories'){
+                            } elseif ($Category4 === 'headingcategories'){
                                 $Name04 = $row['HC_DescriptionTH'];
                                 $Designation04 = $row['HC_DescriptionEN'];
                                 if ($row['HC_DefaultImage'] !== '') {
@@ -544,7 +552,7 @@ if ($result->num_rows > 0) {
                                 } else {
                                     $Image04 = 'Default/DefaultImage/DefaultImage.png'; 
                                 }
-                                $Href04 = 'ShowPageMenu?Send_MoreMenu='. $Category6_id;
+                                $Href04 = 'ShowPageMenu?Send_MoreMenu='. $Category4_id;
                             } else { 
                                 $Name04 = '';
                                 $Designation04 = '';
