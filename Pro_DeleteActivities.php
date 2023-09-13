@@ -15,7 +15,15 @@ if (isset($_GET['Send_IDNews']) && $_GET['Send_IDNews'] !== '') {
     exit();
   }
 
-echo '<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>';
+$sql = "SELECT * FROM `Gallery` LEFT JOIN `Setup` ON `Setup`.`SU_Code` = '1' WHERE `Gallery`.`GR_Activities Code` = '$t_id';";
+$result = $conn->query($sql);
+if ($result->num_rows > 0) {
+  while ($row = $result->fetch_assoc()) {
+    $destination = $row["SU_PathDefaultImageGallery"] . $row["GR_Name"];
+    if (file_exists($destination)) { if (unlink($destination)) { } }
+  }
+}
+
 $sql = "DELETE FROM `Activities` WHERE `Activities`.`AT_Code` = $t_id;";
 $sql2 = "DELETE FROM `gallery` WHERE `gallery`.`GR_Activities Code` = $t_id;";
 $conn->query($sql2);

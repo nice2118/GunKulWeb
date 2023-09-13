@@ -1,7 +1,7 @@
 <?php
 /// ฟังก์ชันเพิ่มรูปลงGallery
 function generateGallery($fileArray,$idActivities) {
-    global $conn;
+    global $conn, $PathFolderGallery;
     
     // เช็คว่ามีไฟล์ถูกส่งมาหรือไม่
     if (isset($fileArray['name'])) {
@@ -15,7 +15,7 @@ function generateGallery($fileArray,$idActivities) {
           
           // สร้างชื่อไฟล์ใหม่
           $newFileName = generateNewFileName($fileName);
-          $destination = 'img/UploadAddGallery/' . $newFileName;
+          $destination = $PathFolderGallery . $newFileName;
           
           // บันทึกไฟล์
           move_uploaded_file($fileTmp, $destination);

@@ -13,16 +13,25 @@
         }
         if (isset($row["SU_PathDefaultImageNews"]) && $row["SU_PathDefaultImageNews"] !== '') {
             $PathFolderNews = $row["SU_PathDefaultImageNews"];
+            if (substr($PathFolderNews, -1) !== '/') {
+                $PathFolderNews .= '/';
+            }
         } else {
             ReturnPage('กรุณากลับไป Setup ที่อยู่รูปภาพของข่าวก่อน');
         }
         if (isset($row["SU_PathDefaultImageGallery"]) && $row["SU_PathDefaultImageGallery"] !== '') {
             $PathFolderGallery = $row["SU_PathDefaultImageGallery"];
+            if (substr($PathFolderGallery, -1) !== '/') {
+                $PathFolderGallery .= '/';
+            }
         } else {
             ReturnPage('กรุณากลับไป Setup ที่อยู่รูปภาพของข่าวก่อน');
         }
         if (isset($row["SU_PathDefaultFile"]) && $row["SU_PathDefaultFile"] !== '') {
             $PathDefaultFile = $row["SU_PathDefaultFile"];
+            if (substr($PathDefaultFile, -1) !== '/') {
+                $PathDefaultFile .= '/';
+            }
         } else {
             ReturnPage('กรุณากลับไป Setup ที่ไฟล์ก่อน');
         }
@@ -37,7 +46,7 @@
         $row = $result->fetch_assoc();
         handleSetupData($row);
     } else {
-        $sql = "INSERT INTO `Setup` (`CG_Entity No.`,`CG_CreateDate`) VALUES (1, CURRENT_TIMESTAMP)";
+        $sql = "INSERT INTO `Setup` (`SU_Code`,`SU_CreateDate`) VALUES (1, CURRENT_TIMESTAMP)";
         if ($conn->query($sql) === true) {
             handleSetupData($row);
         } else {

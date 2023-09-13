@@ -77,7 +77,8 @@ try {
     $conn->commit();
 
     $_SESSION['StatusTitle'] = "ดำเนินการเรียบร้อยแล้ว";
-    $_SESSION['StatusMessage'] = "ทำการลบเอกสารให้หัวข้อ " . $heading_category_Text . " เรียบร้อบแล้ว";
+    // $_SESSION['StatusMessage'] = "ทำการลบเอกสารให้หัวข้อ " . $heading_category_Text . " เรียบร้อบแล้ว";
+    $_SESSION['StatusMessage'] = "ทำการลบเอกสารให้เรียบร้อบแล้ว";
     $_SESSION['StatusAlert'] = "success";
 } catch (Exception $e) {
     // หากเกิดข้อผิดพลาดในการลบข้อมูลในตาราง จะทำการยกเลิกการลบข้อมูลทั้งหมดและทำการ rollback

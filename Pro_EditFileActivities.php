@@ -39,30 +39,32 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $fileType = strtolower(pathinfo($fileName, PATHINFO_EXTENSION));
     $allowedExtensions = ['pdf', 'doc', 'docx', 'ppt', 'pptx', 'xls', 'xlsx'];
 
-    $filePath = $PathDefaultFile . $OldNameFile;
+    if ($OldNameFile != "") {
+      $filePath = $PathDefaultFile . $OldNameFile;
 
-    if (file_exists($filePath)) {
-        if (unlink($filePath)) {
-            // echo 'File deleted successfully.';
-        } else {
-            $_SESSION['StatusTitle'] = "Error!";
-            $_SESSION['StatusMessage'] = "Unable to delete the file.";
-            $_SESSION['StatusAlert'] = "error";
-            if (isset($_SESSION['PathPage']) && $_SESSION['PathPage'] !== '') {
-              header("Location: ".$_SESSION['PathPage']);
-              unset($_SESSION['PathPage']);
-            }
-            exit;
-        }
-    } else {
-        $_SESSION['StatusTitle'] = "Error!";
-        $_SESSION['StatusMessage'] = "File not found.";
-        $_SESSION['StatusAlert'] = "error";
-        if (isset($_SESSION['PathPage']) && $_SESSION['PathPage'] !== '') {
-          header("Location: ".$_SESSION['PathPage']);
-          unset($_SESSION['PathPage']);
-        }
-        exit;
+      if (file_exists($filePath)) {
+          if (unlink($filePath)) {
+              // echo 'File deleted successfully.';
+          } else {
+              $_SESSION['StatusTitle'] = "Error!";
+              $_SESSION['StatusMessage'] = "Unable to delete the file.";
+              $_SESSION['StatusAlert'] = "error";
+              if (isset($_SESSION['PathPage']) && $_SESSION['PathPage'] !== '') {
+                header("Location: ".$_SESSION['PathPage']);
+                unset($_SESSION['PathPage']);
+              }
+              exit;
+          }
+      } else {
+          $_SESSION['StatusTitle'] = "Error!";
+          $_SESSION['StatusMessage'] = "File not found.";
+          $_SESSION['StatusAlert'] = "error";
+          if (isset($_SESSION['PathPage']) && $_SESSION['PathPage'] !== '') {
+            header("Location: ".$_SESSION['PathPage']);
+            unset($_SESSION['PathPage']);
+          }
+          exit;
+      }
     }
 
     if (in_array($fileType, $allowedExtensions)) {
@@ -94,7 +96,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   // ทำอย่างอื่นๆ เช่นบันทึกข้อมูลลงฐานข้อมูล
   $Title = mysqli_real_escape_string($conn, $Title);
   $Summary = mysqli_real_escape_string($conn, $Summary);
-  $sql = "UPDATE `fileactivities` SET `FA_Title` = '$Title', `FA_Description` = '$Summary', `FA_ModifyDate` = CURRENT_TIMESTAMP";
+
+  $sql = "UPDATE `fileactivities` SET `FA_Entity No.` = $CategoryID, `FA_Date` = '$DateAddNewsFormatted', `FA_Title` = '$Title', `FA_Description` = '$Summary', `FA_ModifyDate` = CURRENT_TIMESTAMP";
   if (!empty($OldNameFile) && $OldNameFile !== '') {
     $sql .= ", `FA_File` = '$OldNameFile'";
   } 
@@ -127,7 +130,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
           }
       } else {
           $_SESSION['StatusTitle'] = "Error!";
-          $_SESSION['StatusMessage'] = "File not found.";
+          $_SESSION['StatusMessage'] = "File not found2.";
           $_SESSION['StatusAlert'] = "error";
           if (isset($_SESSION['PathPage']) && $_SESSION['PathPage'] !== '') {
             header("Location: ".$_SESSION['PathPage']);

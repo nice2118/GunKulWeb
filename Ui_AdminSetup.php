@@ -43,7 +43,7 @@ $US_Prefix = "";
         $HeaderDescriptionEN = $row["SU_HeaderDescriptionEN"];
     } else {
         unset($sql);
-        $sql = "INSERT INTO `Setup` (`CG_Entity No.`,`CG_CreateDate`) VALUES (1, CURRENT_TIMESTAMP)";
+        $sql = "INSERT INTO `Setup` (`SU_Code`,`SU_CreateDate`) VALUES (1, CURRENT_TIMESTAMP)";
         if ($conn->query($sql) === true) {
             $CodeSetup = 1;
             $DefaultImageNews = "";
@@ -566,7 +566,8 @@ $US_Prefix = "";
                                                 <select class="form-select border-1" id="IS_GroupCategory1" name="IS_GroupCategory1">
                                                     <option></option>
                                                     <?php
-                                                        $sql = "SELECT * FROM `category` WHERE `CG_Entity Relation No.` = 0;";
+                                                        // $sql = "SELECT * FROM `category` WHERE `CG_Entity Relation No.` = 0;";
+                                                        $sql = "SELECT * FROM `category`;";
                                                         $result = $conn->query($sql);
                                                         if ($result->num_rows > 0) {
                                                             while ($row = $result->fetch_assoc()) {
@@ -584,7 +585,8 @@ $US_Prefix = "";
                                                 <select class="form-select border-1" id="IS_GroupCategory2" name="IS_GroupCategory2">
                                                     <option></option>
                                                     <?php
-                                                        $sql = "SELECT * FROM `category` WHERE `CG_Entity Relation No.` = 0;";
+                                                        // $sql = "SELECT * FROM `category` WHERE `CG_Entity Relation No.` = 0;";
+                                                        $sql = "SELECT * FROM `category`;";
                                                         $result = $conn->query($sql);
                                                         if ($result->num_rows > 0) {
                                                             while ($row = $result->fetch_assoc()) {

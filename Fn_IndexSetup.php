@@ -50,7 +50,8 @@ function addOptionsToBoxDiv(selectedValue, ISBox, ISGroupMenuBox, ISName) {
         case 'IS_Box1':
                     if (selectedValue === 'category') {
                     <?php
-                        $sql = "SELECT * FROM `category` WHERE `CG_Entity Relation No.` = 0;";
+                        // $sql = "SELECT * FROM `category` WHERE `CG_Entity Relation No.` = 0;";
+                        $sql = "SELECT * FROM `category`;";
                         $result = $conn->query($sql);
                         if ($result->num_rows > 0) {
                             while ($row = $result->fetch_assoc()) {
@@ -89,7 +90,8 @@ function addOptionsToBoxDiv(selectedValue, ISBox, ISGroupMenuBox, ISName) {
         case 'IS_Box2':
             if (selectedValue === 'category') {
                     <?php
-                        $sql = "SELECT * FROM `category` WHERE `CG_Entity Relation No.` = 0;";
+                        // $sql = "SELECT * FROM `category` WHERE `CG_Entity Relation No.` = 0;";
+                        $sql = "SELECT * FROM `category`;";
                         $result = $conn->query($sql);
                         if ($result->num_rows > 0) {
                             while ($row = $result->fetch_assoc()) {
@@ -129,7 +131,8 @@ function addOptionsToBoxDiv(selectedValue, ISBox, ISGroupMenuBox, ISName) {
         case 'IS_Box3':
             if (selectedValue === 'category') {
                     <?php
-                        $sql = "SELECT * FROM `category` WHERE `CG_Entity Relation No.` = 0;";
+                        // $sql = "SELECT * FROM `category` WHERE `CG_Entity Relation No.` = 0;";
+                        $sql = "SELECT * FROM `category`;";
                         $result = $conn->query($sql);
                         if ($result->num_rows > 0) {
                             while ($row = $result->fetch_assoc()) {
@@ -169,7 +172,8 @@ function addOptionsToBoxDiv(selectedValue, ISBox, ISGroupMenuBox, ISName) {
         case 'IS_Box4':
             if (selectedValue === 'category') {
                     <?php
-                        $sql = "SELECT * FROM `category` WHERE `CG_Entity Relation No.` = 0;";
+                        // $sql = "SELECT * FROM `category` WHERE `CG_Entity Relation No.` = 0;";
+                        $sql = "SELECT * FROM `category`;";
                         $result = $conn->query($sql);
                         if ($result->num_rows > 0) {
                             while ($row = $result->fetch_assoc()) {

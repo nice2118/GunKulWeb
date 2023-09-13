@@ -15,7 +15,14 @@ if (isset($_GET['Send_IDNews']) && $_GET['Send_IDNews'] !== '') {
     exit();
   }
 
-echo '<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>';
+  $sql = "SELECT * FROM `FileActivities` LEFT JOIN `Setup` ON `Setup`.`SU_Code` = '1' WHERE `FileActivities`.`FA_Code` = '$t_id';";
+  $result = $conn->query($sql);
+  if ($result->num_rows > 0) {
+      $row = $result->fetch_assoc();
+      $destination = $row["SU_PathDefaultFile"] . $row["FA_File"];
+      if (file_exists($destination)) { if (unlink($destination)) { } }
+  }
+
 $sql = "DELETE FROM `FileActivities` WHERE `FileActivities`.`FA_Code` = $t_id";
 if ($conn->query($sql) === true) {
   $_SESSION['StatusTitle'] = "ดำเนินการเรียบร้อยแล้ว";

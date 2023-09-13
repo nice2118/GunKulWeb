@@ -94,7 +94,7 @@ if (isset($_GET['Send_Category']) && $_GET['Send_Category'] !== '') {
                             </div>
                             <div class="col-12">
                                 <h6 class="text-primary">ไฟล์ที่ต้องการจะจัดเก็บ</h6>
-                                <input type="file" class="form-control border-1" name="file" id="file" accept=".pdf, .doc, .docx, .ppt, .pptx, .xls, .xlsx" require>
+                                <input type="file" class="form-control border-1" name="file" id="file" accept=".pdf, .doc, .docx, .ppt, .pptx, .xls, .xlsx" required>
                             </div>
                             <div class="text-center col-12">
                                 <button class="btn btn-danger rounded-pill py-2 px-5" type="button" onclick="window.history.back();">ยกเลิก</button>

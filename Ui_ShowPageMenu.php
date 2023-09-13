@@ -105,7 +105,7 @@
                             // ตรวจสอบข้อมูล
                             if ($result2->num_rows > 0) {
                         ?>
-                        <div id="collapse<?php echo $row1["HG_Code"]; ?>" class="collapse <?php echo ($firstRow ? 'show' : ''); ?>" data-parent="#accordion">
+                        <div id="collapse<?php echo $row1["HG_Code"]; ?>" class="collapse <?php //echo ($firstRow ? 'show' : ''); ?>" data-parent="#accordion">
                             <div class="card-body">
                             <?php
                                 while ($row2 = $result2->fetch_assoc()) {

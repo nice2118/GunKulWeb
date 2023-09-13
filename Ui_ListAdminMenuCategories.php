@@ -117,7 +117,7 @@ th {
                                                                     echo '<a class="btn btn-link py-0 px-1 text-end text-secondary toggleButton" id="toggleButton0" data-sendHiddenStatus="1" data-sendHiddenID="' . $rowHeadingGroup['HG_Code'] . '" data-sendHiddenType="headinggroup"><i class="fa fa-eye-slash"></i></a>';
                                                                 }
                                                         ?>
-                                                            <a class="btn btn-link py-1 px-2 text-end" onclick="deleteAlertMenuCategory(<?php echo $rowHeadingGroup["HG_Code"];?>, '<?php echo $rowHeadingGroup["HG_Text"];?>', 'headinggroup')"><i class="fas fa-trash"></i></a>
+                                                            <a class="btn btn-link py-1 px-2 text-end" onclick="deleteAlertMenuCategory(<?= $rowHeadingGroup["HG_Code"] ?>, '<?= $rowHeadingGroup["HG_Text"] ?>', 'headinggroup')"><i class="fas fa-trash"></i></a>
                                                             <button type="button" class="btn btn-link py-0 px-1 text-end text-warning" data-bs-toggle="modal" data-bs-target="#AddEditHeading" data-sendCode="<?= $rowHeadingGroup["HG_Code"] ?>" data-sendText="<?= $rowHeadingGroup["HG_Text"] ?>" data-sendType="headinggroup" data-sendRelation="" data-sendsort="<?= $rowHeadingGroup["HG_Sort"] ?>"><i class="fa fa-pencil-alt"></i></button>
                                                             <button type="button" class="btn btn-link py-0 px-1 text-end text-primary" data-bs-toggle="modal" data-bs-target="#AddEditHeading" data-sendCode="" data-sendText="" data-sendType="heading" data-sendRelation="<?= $rowHeadingGroup["HG_Code"] ?>" data-sendsort="0"><i class="fa fa-plus"></i></button>
                                                         <?php } ?>
@@ -159,8 +159,8 @@ th {
                                                                                             echo '<a class="btn btn-link py-0 px-1 text-end text-secondary toggleButton" id="toggleButton0" data-sendHiddenStatus="1" data-sendHiddenID="' . $Heading['HD_Code'] . '" data-sendHiddenType="heading"><i class="fa fa-eye-slash"></i></a>';
                                                                                         }
                                                                                 ?>
-                                                                                <a class="btn btn-link py-1 px-2 text-end" onclick="deleteAlertMenuCategory(<?php echo $Heading["HD_Code"];?>, '<?php echo $Heading["HD_Text"];?>', 'heading')"><i class="fas fa-trash"></i></a>
-                                                                                <button type="button" class="btn btn-link py-0 px-1 text-end text-warning" data-bs-toggle="modal" data-bs-target="#AddEditHeading" data-sendCode="<?= $Heading["HD_Code"] ?>" data-sendText="<?= $Heading["HD_Text"] ?>" data-sendType="heading" data-sendRelation="" data-sendsort="<?= $Heading["HD_Sort"] ?>"><i class="fa fa-pencil-alt"></i></button>
+                                                                                <a class="btn btn-link py-1 px-2 text-end" onclick="deleteAlertMenuCategory(<?= $Heading["HD_Code"] ?>, '<?= htmlspecialchars($Heading["HD_Text"], ENT_QUOTES) ?>', 'heading')"><i class="fas fa-trash"></i></a>
+                                                                                <button type="button" class="btn btn-link py-0 px-1 text-end text-warning" data-bs-toggle="modal" data-bs-target="#AddEditHeading" data-sendCode="<?= $Heading["HD_Code"] ?>" data-sendText="<?= htmlspecialchars($Heading["HD_Text"], ENT_QUOTES) ?>" data-sendType="heading" data-sendRelation="" data-sendsort="<?= $Heading["HD_Sort"] ?>"><i class="fa fa-pencil-alt"></i></button>
                                                                                 <button type="button" class="btn btn-link py-0 px-1 text-end text-primary" data-bs-toggle="modal" data-bs-target="#AddEditHeading" data-sendCode="" data-sendText="" data-sendType="details" data-sendRelation="<?= $Heading["HD_Code"] ?>" data-sendsort="0"><i class="fa fa-plus"></i></button>
                                                                                 <?php } ?>
                                                                             </div>
@@ -190,8 +190,8 @@ th {
                                                                                                             echo '<a class="btn btn-link py-0 px-1 text-end text-secondary toggleButton" id="toggleButton0" data-sendHiddenStatus="1" data-sendHiddenID="' . $Details['DT_Code'] . '" data-sendHiddenType="details"><i class="fa fa-eye-slash"></i></a>';
                                                                                                         }
                                                                                                 ?>
-                                                                                                    <a class="btn btn-link py-1 px-2 text-end" onclick="deleteAlertMenuCategory(<?php echo $Details["DT_Code"];?>, '<?php echo $Details["DT_Text"];?>', 'details')"><i class="fas fa-trash"></i></a>
-                                                                                                    <button type="button" class="btn btn-link py-0 px-1 text-end text-warning" data-bs-toggle="modal" data-bs-target="#AddEditHeading" data-sendCode="<?= $Details["DT_Code"] ?>" data-sendText="<?= $Details["DT_Text"] ?>" data-sendType="details" data-sendRelation="<?= $Heading["HD_Code"] ?>" data-sendsort="<?= $Details["DT_Sort"] ?>"><i class="fa fa-pencil-alt"></i></button>
+                                                                                                    <a class="btn btn-link py-1 px-2 text-end" onclick="deleteAlertMenuCategory(<?= $Details["DT_Code"]?>, '<?= htmlspecialchars($Details["DT_Text"], ENT_QUOTES) ?>', 'details')"><i class="fas fa-trash"></i></a>
+                                                                                                    <button type="button" class="btn btn-link py-0 px-1 text-end text-warning" data-bs-toggle="modal" data-bs-target="#AddEditHeading" data-sendCode="<?= $Details["DT_Code"] ?>" data-sendText="<?= htmlspecialchars($Details["DT_Text"], ENT_QUOTES) ?>" data-sendType="details" data-sendRelation="<?= $Heading["HD_Code"] ?>" data-sendsort="<?= $Details["DT_Sort"] ?>"><i class="fa fa-pencil-alt"></i></button>
                                                                                                 <?php } ?>
                                                                                                 </div>
                                                                                             </div>
@@ -275,7 +275,7 @@ th {
 function deleteAlertMenuCategory(SendID, SendsTitle,SendType) {
     swal({
             title: "คุณต้องการที่จะลบหรือไม่?",
-            text: `${SendsTitle}\nเมื่อกดลบไปแล้วจะไม่สามารถนำข้อมูลกลับมาได้!`,
+            text: `เมื่อกดลบไปแล้วจะไม่สามารถนำข้อมูลกลับมาได้!`,
             icon: "warning",
             buttons: {
                 cancel: {

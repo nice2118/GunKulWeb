@@ -63,9 +63,13 @@ if ($result->num_rows > 0) {
                         if ($IsTypeGroup1 == 0) {
                             $index1Code = $row["AT_Code"];
                             $index1Image = $row["AT_Image"];
+                            $Title1 = $row['AT_Title'];
+                            $Description1 = $row['AT_Description'];
                         } elseif ($IsTypeGroup1 == 1) {
-                            $index1Code = $row["FA_Code"];
-                            $index1Image = $row["FA_Image"];
+                            $index1Code = $PathDefaultFile.$row["FA_File"];
+                            $index1Image = '';
+                            $Title1 = $row['FA_Title'];
+                            $Description1 = $row['FA_Description'];
                         } else {
                             $index1Code = "";
                             $index1Image = "";
@@ -74,11 +78,11 @@ if ($result->num_rows > 0) {
                             $AT_Image = $PathFolderNews.$index1Image;
                         } else {
                             $sql = "SELECT * FROM `category` WHERE `CG_Entity No.` = $Category1_id;";
-                            $result = $conn->query($sql);
-                            if ($result->num_rows > 0) {
-                                $row = $result->fetch_assoc();
-                                if ($row['CG_DefaultImage'] !== '') {
-                                    $AT_Image = 'img/DefaultImageCategory/'.$row['CG_DefaultImage'];
+                            $resultcategory1 = $conn->query($sql);
+                            if ($resultcategory1->num_rows > 0) {
+                                $rowcategory1 = $resultcategory1->fetch_assoc();
+                                if ($rowcategory1['CG_DefaultImage'] !== '') {
+                                    $AT_Image = 'img/DefaultImageCategory/'.$rowcategory1['CG_DefaultImage'];
                                 } else {
                                     $AT_Image = $PathFolderNews.$DefaultImageNews;
                                 }
@@ -105,9 +109,13 @@ if ($result->num_rows > 0) {
                         <div class="col-lg-8 about-text py-5 wow fadeIn" data-wow-delay="0.5s">
                             <div class="p-lg-5 pe-lg-0">
                                 <h6 class="text-primary">NEWS</h6>
-                                <h3 class="mb-4"><?= $row['AT_Title'];?></h3>
-                                <p><?= $row['AT_Description'];?></p>
-                                <a href="ShowDetail?Send_IDNews=<?= $index1Code;?>" class="btn btn-primary rounded-pill py-3 px-5 mt-3">อ่านเพิ่มเติม</a>
+                                <h3 class="mb-4"><?= $Title1;?></h3>
+                                <p><?= $Description1;?></p>
+                                <?php if ($IsTypeGroup1 == 0): ?>
+                                    <a href="ShowDetail?Send_IDNews=<?= $index1Code;?>" class="btn btn-primary rounded-pill py-3 px-5 mt-3">อ่านเพิ่มเติม</a>
+                                <?php elseif ($IsTypeGroup1 == 1): ?>
+                                    <a href="<?= $index1Code;?>" target="_blank" class="btn btn-primary rounded-pill py-3 px-5 mt-3">อ่านเพิ่มเติม</a>
+                                <?php endif; ?>
                             </div>
                         </div>
                     </div>
@@ -132,7 +140,7 @@ if ($result->num_rows > 0) {
                             <div class="portfolio-btn">
                                 <a class="btn btn-lg-square btn-outline-light rounded-circle mx-1" href="<?= $AT_Image;?>"
                                     data-lightbox="portfolio"><i class="fa fa-eye"></i></a>
-                                <a class="btn btn-lg-square btn-outline-light rounded-circle mx-1" href="ShowDetail?Send_IDNews=<?= $row["AT_Code"];?>"><i
+                                <a class="btn btn-lg-square btn-outline-light rounded-circle mx-1" href="<?= ($IsTypeGroup1 == 0) ? "ShowDetail?Send_IDNews=" . $index1Code : $index1Code; ?>"><i
                                         class="fa fa-link"></i></a>
                             </div>
                         </div>
@@ -140,10 +148,9 @@ if ($result->num_rows > 0) {
                             <div class="service-icon">
                                 <i class="fa fa-newspaper fa-3x"></i>
                             </div>
-                            <h4 class="mb-3"><?= $row['AT_Title'] ?></h4>
-                            <p class=""><?= $row['AT_Description'] ?></p>
-
-                            <a class="small fw-medium" href="ShowDetail?Send_IDNews=<?= $row["AT_Code"];?>">อ่านเพิ่มเติม<i class="fa fa-arrow-right ms-2"></i></a>
+                            <h4 class="mb-3"><?= $Title1 ?></h4>
+                            <p class=""><?= $Description1 ?></p> 
+                            <a class="small fw-medium" href="<?= ($IsTypeGroup1 == 0) ? "ShowDetail?Send_IDNews=" . $index1Code : $index1Code; ?>">อ่านเพิ่มเติม<i class="fa fa-arrow-right ms-2"></i></a>
                         </div>
                     </div>
                 </div>
@@ -205,9 +212,15 @@ if ($result->num_rows > 0) {
                         if ($IsTypeGroup2 == 0) {
                             $index2Code = $row["AT_Code"];
                             $index2Image = $row["AT_Image"];
+                            $Title2 = $row['AT_Title'];
+                            $Description2 = $row['AT_Description'];
+                            $Status2 = 0;
                         } elseif ($IsTypeGroup2 == 1) {
-                            $index2Code = $row["FA_Code"];
-                            $index2Image = $row["FA_Image"];
+                            $index2Code = $PathDefaultFile.$row["FA_File"];
+                            $index2Image = '';
+                            $Title2 = $row['FA_Title'];
+                            $Description2 = $row['FA_Description'];
+                            $Status2 = 1;
                         } else {
                             $index2Code = "";
                             $index2Image = "";
@@ -216,11 +229,11 @@ if ($result->num_rows > 0) {
                             $AT_Image = $PathFolderNews.$index2Image;
                         } else {
                             $sql = "SELECT * FROM `category` WHERE `CG_Entity No.` = $Category2_id;";
-                            $result = $conn->query($sql);
-                            if ($result->num_rows > 0) {
-                                $row = $result->fetch_assoc();
-                                if ($row['CG_DefaultImage'] !== '') {
-                                    $AT_Image = 'img/DefaultImageCategory/'.$row['CG_DefaultImage'];
+                            $resultcategory2 = $conn->query($sql);
+                            if ($resultcategory2->num_rows > 0) {
+                                $rowcategory2 = $resultcategory2->fetch_assoc();
+                                if ($rowcategory2['CG_DefaultImage'] !== '') {
+                                    $AT_Image = 'img/DefaultImageCategory/'.$rowcategory2['CG_DefaultImage'];
                                 } else {
                                     $AT_Image = $PathFolderNews.$DefaultImageNews;
                                 }
@@ -247,9 +260,13 @@ if ($result->num_rows > 0) {
                         <div class="col-lg-8 about-text py-5 wow fadeIn" data-wow-delay="0.5s">
                             <div class="p-lg-5 pe-lg-0">
                                 <h6 class="text-primary">NEWS</h6>
-                                <h3 class="mb-4"><?= $row['AT_Title'];?></h3>
-                                <p><?= $row['AT_Description'];?></p>
-                                <a href="ShowDetail?Send_IDNews=<?= $index2Code;?>" class="btn btn-primary rounded-pill py-3 px-5 mt-3">อ่านเพิ่มเติม</a>
+                                <h3 class="mb-4"><?= $Title2;?></h3>
+                                <p><?= $Description2;?></p>
+                                <?php if ($IsTypeGroup2 == 0): ?>
+                                    <a href="ShowDetail?Send_IDNews=<?= $index2Code;?>" class="btn btn-primary rounded-pill py-3 px-5 mt-3">อ่านเพิ่มเติม</a>
+                                <?php elseif ($IsTypeGroup2 == 1): ?>
+                                    <a href="<?= $index2Code;?>" target="_blank" class="btn btn-primary rounded-pill py-3 px-5 mt-3">อ่านเพิ่มเติม</a>
+                                <?php endif; ?>
                             </div>
                         </div>
                     </div>
@@ -274,7 +291,7 @@ if ($result->num_rows > 0) {
                             <div class="portfolio-btn">
                                 <a class="btn btn-lg-square btn-outline-light rounded-circle mx-1" href="<?= $AT_Image;?>"
                                     data-lightbox="portfolio"><i class="fa fa-eye"></i></a>
-                                <a class="btn btn-lg-square btn-outline-light rounded-circle mx-1" href="ShowDetail?Send_IDNews=<?= $row["AT_Code"];?>"><i
+                                <a class="btn btn-lg-square btn-outline-light rounded-circle mx-1" href="<?= ($IsTypeGroup2 == 0) ? "ShowDetail?Send_IDNews=" . $index2Code : $index2Code; ?>"><i
                                         class="fa fa-link"></i></a>
                             </div>
                         </div>
@@ -282,10 +299,9 @@ if ($result->num_rows > 0) {
                             <div class="service-icon">
                                 <i class="fa fa-newspaper fa-3x"></i>
                             </div>
-                            <h4 class="mb-3"><?= $row['AT_Title'] ?></h4>
-                            <p class=""><?= $row['AT_Description'] ?></p>
-
-                            <a class="small fw-medium" href="ShowDetail?Send_IDNews=<?= $row["AT_Code"];?>">อ่านเพิ่มเติม<i class="fa fa-arrow-right ms-2"></i></a>
+                            <h4 class="mb-3"><?= $Title2 ?></h4>
+                            <p class=""><?= $Description2 ?></p>
+                            <a class="small fw-medium" href="<?= ($IsTypeGroup2 == 0) ? "ShowDetail?Send_IDNews=" . $index2Code : $index2Code; ?>">อ่านเพิ่มเติม<i class="fa fa-arrow-right ms-2"></i></a>
                         </div>
                     </div>
                 </div>

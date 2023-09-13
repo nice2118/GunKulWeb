@@ -5,7 +5,8 @@ include("DB_Setup.php");
 if (isset($_GET['Send_IDNews']) && $_GET['Send_IDNews'] !== '') {
     $t_id = $_GET['Send_IDNews'];
     $Category_id = $_GET['Send_Category'];
-    $_SESSION['PathPage'] = "EditFile?Send_IDNews=".$Category_id;
+    $Category_Title = $_GET['Send_Title'];
+    $_SESSION['PathPage'] = "EditFile?Send_IDNews=".$Category_id."&Send_Title=".$Category_Title."&Send_Category=".$Category_id;
 } else {
     $_SESSION['StatusTitle'] = "Error!";
     $_SESSION['StatusMessage'] = 'ไม่พบเลขที่เอกสารนี้';
