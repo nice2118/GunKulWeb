@@ -27,8 +27,8 @@
         // Handle image selection
         imageGallery.addEventListener('change', () => {
             // Edit Add Images
-            // imageGallery.files = mergeFileLists(imageGallery.files, tempImageGallery.files);
-            // tempImageGallery.files = imageGallery.files;
+            imageGallery.files = mergeFileLists(imageGallery.files, tempImageGallery.files);
+            tempImageGallery.files = imageGallery.files;
             const imagePreviews = imageContainer.querySelectorAll('.image-preview');
             imagePreviews.forEach((imagePreview) => {
                 imagePreview.remove();

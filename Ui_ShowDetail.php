@@ -76,14 +76,14 @@
                     if ($result->num_rows > 0) {
                 ?>
                 <div class="col-md-12">
-                    <div class="card card-primary collapsed-card">
-                    <!-- <div class="card card-primary"> -->
+                    <!-- <div class="card card-primary collapsed-card"> -->
+                    <div class="card card-primary">
                         <div class="card-header">
                             <h3 class="card-title text-white">แกลลอรี่</h3>
 
                             <div class="card-tools">
                                 <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
-                                <i class="fas fa-plus"></i>
+                                <i class="fas fa-minus"></i>
                                 </button>
                             </div>
                         </div>
@@ -97,7 +97,8 @@
                                         <?php if (strpos($row["GR_Name"], '.mp4') !== false || strpos($row["GR_Name"], '.avi') !== false || strpos($row["GR_Name"], '.wmv') !== false): ?>
                                             <!-- ถ้าเป็นไฟล์วิดีโอ (.mp4) -->
                                             <video class="img-fluid img-size w-100" style="height: 150px;" autoplay muted>
-                                                <source src="<?= $PathFolderGallery . $row["GR_Name"] ?>" type="video/mp4">
+                                            <!-- $PathFolderGallery . $row["GR_Name"] -->
+                                                <source src="<?= $PathFolderGallery . $t_id . "/" . $row["GR_Name"] ?>" type="video/mp4">
                                             </video>
                                             <div class="portfolio-btn">
                                                 <button class="btn btn-lg-square btn-outline-light rounded-circle mx-1" data-bs-toggle="modal" data-bs-target="#videoModal"><i class="fas fa-eye"></i></button>
@@ -110,6 +111,7 @@
                                                             <div class="embed-responsive embed-responsive-16by9">
                                                                 <div class="embed-responsive-item">
                                                                     <div class="video-container text-center">
+                                                                        <!-- $PathFolderGallery . $t_id . "/" . $row["GR_Name"] -->
                                                                         <iframe src="<?= $PathFolderGallery . $row["GR_Name"] ?>" allowfullscreen autoplay muted></iframe>
                                                                     </div>
                                                                 </div>
@@ -120,9 +122,10 @@
                                             </div>
                                         <?php else: ?>
                                             <!-- ถ้าเป็นไฟล์รูปภาพ -->
-                                            <img class="img-fluid img-size w-100" src="<?= $PathFolderGallery . $row["GR_Name"] ?>" style="height: 150px;" alt="">
-                                            <div class="portfolio-btn">
-                                                <a class="btn btn-lg-square btn-outline-light rounded-circle mx-1" href="<?= $PathFolderGallery.$row["GR_Name"];?>" data-lightbox="portfolio"><i class="fa fa-eye"></i></a>
+                                                                            <!-- $PathFolderGallery . $row["GR_Name"] -->
+                                            <img class="img-fluid img-size w-100" src="<?= $PathFolderGallery . $t_id . "/" . $row["GR_Name"] ?>" style="height: 150px;" alt="">
+                                            <div class="portfolio-btn">                                                 <!-- $PathFolderGallery.$row["GR_Name"] -->
+                                                <a class="btn btn-lg-square btn-outline-light rounded-circle mx-1" href="<?=  $PathFolderGallery . $t_id . "/" . $row["GR_Name"];?>" data-lightbox="portfolio"><i class="fa fa-eye"></i></a>
                                             </div>
                                         <?php endif; ?>
                                     </div>

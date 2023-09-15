@@ -15,12 +15,32 @@ if (isset($_GET['Send_IDNews']) && $_GET['Send_IDNews'] !== '') {
     exit();
   }
 
-$sql = "SELECT * FROM `Gallery` LEFT JOIN `Setup` ON `Setup`.`SU_Code` = '1' WHERE `Gallery`.`GR_Activities Code` = '$t_id';";
+// $sql = "SELECT * FROM `Gallery` LEFT JOIN `Setup` ON `Setup`.`SU_Code` = '1' WHERE `Gallery`.`GR_Activities Code` = '$t_id';";
+// $result = $conn->query($sql);
+// if ($result->num_rows > 0) {
+//   while ($row = $result->fetch_assoc()) {
+//     $destination = $row["SU_PathDefaultImageGallery"] . $row["GR_Name"];
+//     if (file_exists($destination)) { if (unlink($destination)) { } }
+//   }
+// }
+
+$sql = "SELECT * FROM `Setup` WHERE `Setup`.`SU_Code` = '1';";
 $result = $conn->query($sql);
 if ($result->num_rows > 0) {
-  while ($row = $result->fetch_assoc()) {
-    $destination = $row["SU_PathDefaultImageGallery"] . $row["GR_Name"];
-    if (file_exists($destination)) { if (unlink($destination)) { } }
+  $row = $result->fetch_assoc();
+  $folderPath = $row["SU_PathDefaultImageGallery"] . $t_id;
+
+  // ลบไฟล์ในโฟลเดอร์ก่อน
+  $files = glob($folderPath . '/*'); // ดึงรายชื่อไฟล์ในโฟลเดอร์
+  foreach ($files as $file) {
+      if (is_file($file)) {
+          unlink($file); // ลบไฟล์
+      }
+  }
+
+  // ลบโฟลเดอร์
+  if (is_dir($folderPath)) {
+      rmdir($folderPath);
   }
 }
 

@@ -257,6 +257,8 @@ if (isset($_GET['Send_IDNews']) && $_GET['Send_IDNews'] !== '') {
 <?php include("Ma_ScriptGallery.php"); ?>
 <?php
 // สร้างคำสั่ง SQL สำหรับดึงข้อมูลจากฐานข้อมูล
+$FolderPathGallery = $PathFolderGallery . $t_id . "/";
+// $FolderPathGallery = $PathFolderGallery;
 $sql = "SELECT `GR_Entity No.` AS `name`, CONCAT(
     CASE
         WHEN SUBSTRING_INDEX(`GR_Name`, '.', -1) IN ('jpg', 'jpeg', 'png', 'gif') THEN 'image/'
@@ -264,7 +266,7 @@ $sql = "SELECT `GR_Entity No.` AS `name`, CONCAT(
         ELSE ''
     END,
     SUBSTRING_INDEX(`GR_Name`, '.', -1)
-) AS `type`, CONCAT('$PathFolderGallery', `GR_Name`) AS `source` FROM `Gallery` WHERE `Gallery`.`GR_Activities Code` = $t_id";
+) AS `type`, CONCAT('$FolderPathGallery', `GR_Name`) AS `source` FROM `Gallery` WHERE `Gallery`.`GR_Activities Code` = $t_id";
 
 $result = $conn->query($sql);
 $imageData = array();
@@ -341,7 +343,7 @@ function displayImagesFromDatabase() {
                     // เช่น รีเฟรชหน้าเว็บ โหลดข้อมูลใหม่ เป็นต้น
                     }
                 };
-                xhr.send("imageID=" + name);
+                xhr.send("imageID=" + name + "&source=" + source);
                 imagePreview.remove();
             }
         });

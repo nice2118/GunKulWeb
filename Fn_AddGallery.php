@@ -15,8 +15,11 @@ function generateGallery($fileArray,$idActivities) {
           
           // สร้างชื่อไฟล์ใหม่
           $newFileName = generateNewFileName($fileName);
-          $destination = $PathFolderGallery . $newFileName;
-          
+          $destination = $PathFolderGallery . $idActivities . "/";
+          if (!file_exists($destination)) {
+            mkdir($destination, 0777, true); // สร้างโฟลเดอร์ถ้ายังไม่มี
+          }
+          $destination = $destination . $newFileName;
           // บันทึกไฟล์
           move_uploaded_file($fileTmp, $destination);
           

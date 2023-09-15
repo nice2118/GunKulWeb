@@ -313,251 +313,7 @@ $US_Prefix = "";
                                     </div>
                                     <!-- /.card-body -->
                                 </div>
-                                <!-- /.card -->                         
-                            </div>
-
-                            <div class="col-md-6">
-                                <div class="card card-danger collapsed-card">
-                                    <div class="card-header">
-                                        <h3 class="card-title text-white">Games and recreational activities</h3>
-                                        <div class="card-tools">
-                                            <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
-                                            <i class="fas fa-plus"></i>
-                                            </button>
-                                        </div>
-                                    </div>
-                                    <div class="card-body">
-                                        <form action="Pro_EditSetup.php" method="post" enctype="multipart/form-data">
-                                            <div id="form-container">
-                                            <?PHP
-                                                $sql = "SELECT * FROM SetupGames;";
-                                                $result = $conn->query($sql);
-                                                
-                                                if ($result->num_rows > 0) {
-                                                    while ($row = $result->fetch_assoc()) {
-                                            ?>
-                                                <div class="form-group">
-                                                    <textarea name="Games[]" class="form-control border-1 my-2" placeholder="iframe" style="height: 110px;"><?php echo htmlspecialchars($row['GA_Iframe'], ENT_QUOTES); ?></textarea>
-                                                </div>
-                                            <?PHP
-                                                    }
-                                                }
-                                            ?>
-                                            </div>
-                                            <div class="form-group text-center text-md-end">
-                                                <button type="button" class="btn btn-danger rounded-pill py-2 px-3 add-image-btn text-end" id="deleteButton"><i class="fas fa-trash"></i></button>
-                                                <button type="button" class="btn btn-primary rounded-pill py-2 px-3 add-image-btn text-end" id="addButton"><i class="fa fa-plus"></i></button>
-                                            </div>
-                                            <div class="row my-3">
-                                                <div class="col-12 text-center text-md-end">
-                                                    <button type="submit" class="btn btn-success rounded-pill py-2 px-5 add-image-btn text-end"><i class="fa fa-save"></i></button>
-                                                </div>
-                                            </div>
-                                        </form>
-                                    </div>
-                                    <!-- /.card-body -->
-                                </div>
                                 <!-- /.card -->
-                                <div class="card card-secondary collapsed-card">
-                                    <div class="card-header">
-                                        <h3 class="card-title text-white">Menu Categories</h3>
-                                        <div class="card-tools">
-                                            <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
-                                            <i class="fas fa-plus"></i>
-                                            </button>
-                                        </div>
-                                    </div>
-                                    <div class="card-body">
-                                        <ul class="todo-list" data-widget="todo-list">
-                                            <?PHP
-                                                    $sql = "SELECT * FROM `headingcategories` ORDER BY `HC_Code`;";
-                                                    $result = $conn->query($sql);
-                                                    if ($result->num_rows > 0) {
-                                                        while ($row = $result->fetch_assoc()) {
-                                                ?>
-                                                <li class="my-2">
-                                                    <span class="text"><?=$row["HC_Text"]?></span>
-                                                    <div class="tools">
-                                                        <?php if (CheckAdmin($globalCurrentUser)){ ?>
-                                                        <a class="btn btn-link py-1 px-2 text-end" onclick="deleteAlertMenuCategory(<?php echo $row["HC_Code"];?>, '<?php echo $row["HC_Text"];?>', 'headingcategories')"><i class="fas fa-trash"></i></a>
-                                                        <?php } ?>
-                                                        <button type="button" class="btn btn-link py-1 px-2 text-end text-warning" data-bs-toggle="modal" data-bs-target="#MenuCategory" data-hcCode="<?= $row["HC_Code"] ?>" data-hcText="<?= $row["HC_Text"] ?>" data-hcdescriptionth="<?= $row["HC_DescriptionTH"] ?>" data-hcdescriptionen="<?= $row["HC_DescriptionEN"] ?>" data-hcimage="<?= $row["HC_DefaultImage"] ?>"><i class="fas fa-edit"></i> </button>
-                                                        <button type="button" class="btn btn-link py-0 px-1 text-end text-primary" data-bs-toggle="modal" data-bs-target="#MasterMenuCategory" data-hccode="<?= $row["HC_Code"] ?>"><i class="fas fa-graduation-cap"></i></button>
-                                                    </div>
-                                                </li>
-                                            <?PHP
-                                                    }
-                                                }
-                                                unset($sql);
-                                            ?>
-                                        </ui>
-                                        <div class="form-group text-center text-md-end">
-                                            <button type="button" class="btn btn-primary rounded-pill py-1 px-4 add-image-btn text-end" data-bs-toggle="modal" data-bs-target="#MenuCategory" data-hcCode="0" data-hcText="" data-hcdescriptionth="" data-hcdescriptionen="" data-hcimage=""><i class="fa fa-plus"></i></button>
-                                        </div>
-                                    </div>
-                                    <!-- /.card-body -->
-                                </div>
-                                <!-- /.card -->
-                                <div class="card card-warning">
-                                    <div class="card-header">
-                                        <h3 class="card-title text-white">General</h3>
-                                        <div class="card-tools">
-                                            <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
-                                            <i class="fas fa-minus"></i>
-                                            </button>
-                                        </div>
-                                    </div>
-                                    <div class="card-body">
-                                        <ul class="todo-list" data-widget="todo-list">
-                                            <?PHP
-                                                    $sql = "SELECT * FROM `engravedcategory` ORDER BY `EC_Code`;";
-                                                    $result = $conn->query($sql);
-                                                    if ($result->num_rows > 0) {
-                                                        while ($row = $result->fetch_assoc()) {
-                                                ?>
-                                                <li class="my-2">
-                                                    <span class="text"><?=$row["EC_Name"]?></span>
-                                                    <div class="tools">
-                                                        <?php if (CheckAdmin($globalCurrentUser)){ ?>
-                                                        <a class="btn btn-link py-1 px-2 text-end" onclick="deleteAlertEngravedCategory(<?php echo $row["EC_Code"];?>, '<?php echo $row["EC_Name"];?>')"><i class="fas fa-trash"></i></a>
-                                                        <?php } ?>
-                                                        <button type="button" class="btn btn-link py-1 px-2 text-end text-warning" data-bs-toggle="modal" data-bs-target="#engravedcategory" data-eccode="<?= $row["EC_Code"] ?>" data-ecname="<?= $row["EC_Name"] ?>" data-ecdescriptionth="<?= $row["EC_DescriptionTH"] ?>" data-ecdescriptionen="<?= $row["EC_DescriptionEN"] ?>"><i class="fas fa-edit"></i></button>
-                                                        <button type="button" class="btn btn-link py-0 px-1 text-end text-primary" data-bs-toggle="modal" data-bs-target="#EngravedActivities" data-eccode="<?= $row["EC_Code"] ?>"><i class="fa fa-plus"></i></button>
-                                                    </div>
-                                                </li>
-                                            <?PHP
-                                                    }
-                                                }
-                                                unset($sql);
-                                            ?>
-                                        </ui>
-                                        <div class="form-group text-center text-md-end">
-                                            <button type="button" class="btn btn-primary rounded-pill py-1 px-4 add-image-btn text-end" data-bs-toggle="modal" data-bs-target="#engravedcategory" data-eccode="0" data-hcname="" data-ecdescriptionth="" data-ecdescriptionen=""><i class="fa fa-plus"></i></button>
-                                        </div>
-                                    </div>
-                                    <!-- /.card-body -->
-                                </div>
-                                <!-- /.card -->
-                                <?php if (CheckAdmin($globalCurrentUser)){ ?>
-                                <div class="card card-navy collapsed-card">
-                                    <div class="card-header">
-                                        <h3 class="card-title text-white">User Setup</h3>
-                                        <div class="card-tools">
-                                            <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
-                                            <i class="fas fa-plus"></i>
-                                            </button>
-                                        </div>
-                                    </div>
-                                    <div class="card-body">
-                                        <ul class="todo-list" data-widget="todo-list">
-                                                <?PHP
-                                                        $sql = "SELECT * FROM `User` ORDER BY `US_Username`;";
-                                                        $result = $conn->query($sql);
-                                                        if ($result->num_rows > 0) {
-                                                            while ($row = $result->fetch_assoc()) {
-                                                    ?>
-                                                    <li class="my-2">
-                                                        <span class="text"><?=$row["US_Username"]?> / <?=$row["US_Fname"]?></span>
-                                                        <div class="tools">
-                                                        <?php
-                                                            if ($row["US_Active"] == 1) {
-                                                                echo '<a class="btn btn-link py-0 px-1 text-end text-secondary toggleButton" id="toggleButton1" data-sendHiddenID="' . $row['US_Username'] . '"><i class="fa fa-eye"></i></a>';
-                                                            } else {
-                                                                echo '<a class="btn btn-link py-0 px-1 text-end text-secondary toggleButton" id="toggleButton0" data-sendHiddenID="' . $row['US_Username'] . '"><i class="fa fa-eye-slash"></i></a>';
-                                                            }
-                                                        ?>
-                                                            <a class="btn btn-link py-1 px-2 text-end" onclick="deleteAlertUser('<?php echo $row["US_Username"];?>','<?php echo $row["US_Image"];?>')"><i class="fas fa-trash"></i></a>
-                                                            <button type="button" class="btn btn-link py-1 px-2 text-end text-warning" data-bs-toggle="modal" data-bs-target="#modaluser" data-ustype="edit" data-ususername="<?= $row["US_Username"] ?>" data-uspassword="<?= $row["US_Password"] ?>" data-usprefix="<?= $row["US_Prefix"] ?>" data-ptcode="<?= $row["PT_Code"] ?>" data-usfname="<?= $row["US_Fname"] ?>" data-uslname="<?= $row["US_Lname"] ?>" data-usimage="<?= $row["US_Image"] ?>"><i class="fas fa-edit"></i></button>
-                                                        </div>
-                                                    </li>
-                                                <?PHP
-                                                        }
-                                                    }
-                                                    unset($sql);
-                                                ?>
-                                            </ui>
-                                            <div class="form-group text-center text-md-end">
-                                                <button type="button" class="btn btn-primary rounded-pill py-1 px-4 add-image-btn text-end" data-bs-toggle="modal" data-bs-target="#modaluser" data-ustype="add" data-ususername="" data-uspassword="" data-usprefix="" data-ptcode="" data-usfname="" data-uslname="" data-usimage=""><i class="fa fa-plus"></i></button>
-                                            </div>
-                                    </div>
-                                    <!-- /.card-body -->
-                                </div>
-                                 <!-- /.card -->
-                                <div class="card card-olive collapsed-card">
-                                    <div class="card-header">
-                                        <h3 class="card-title text-white">Position Setup</h3>
-                                        <div class="card-tools">
-                                            <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
-                                            <i class="fas fa-plus"></i>
-                                            </button>
-                                        </div>
-                                    </div>
-                                    <div class="card-body">
-                                        <ul class="todo-list" data-widget="todo-list">
-                                            <?PHP
-                                                $sql = "SELECT * FROM `Position` ORDER BY `PT_Code`;";
-                                                $result = $conn->query($sql);
-                                                if ($result->num_rows > 0) {
-                                                    while ($row = $result->fetch_assoc()) {
-                                            ?>
-                                                <li class="my-2">
-                                                    <span class="text"><?=$row["PT_Name"]?></span>
-                                                    <div class="tools">
-                                                        <a class="btn btn-link py-1 px-2 text-end" onclick="deleteAlertPosition(<?php echo $row["PT_Code"];?>, '<?php echo $row["PT_Name"];?>')"><i class="fas fa-trash"></i></a>
-                                                        <button type="button" class="btn btn-link py-1 px-2 text-end text-warning" data-bs-toggle="modal" data-bs-target="#modalposition" data-ptcode="<?= $row["PT_Code"] ?>" data-ptdefault="<?= $row["PT_Default"] ?>" data-ptadmin="<?= $row["PT_Admin"] ?>"  data-ptname="<?= $row["PT_Name"] ?>"><i class="fas fa-edit"></i></button>
-                                                    </div>
-                                                </li>
-                                            <?PHP
-                                                    }
-                                                }
-                                                unset($sql);
-                                            ?>
-                                        </ui>
-                                        <div class="form-group text-center text-md-end">
-                                            <button type="button" class="btn btn-primary rounded-pill py-1 px-4 add-image-btn text-end" data-bs-toggle="modal" data-bs-target="#modalposition" data-ptcode="0" data-ptdefault="" data-ptadmin="" data-ptname=""><i class="fa fa-plus"></i></button>
-                                        </div>
-                                    </div>
-                                    <!-- /.card-body -->
-                                </div>
-                                 <!-- /.card -->
-                                 <div class="card card-orange collapsed-card">
-                                    <div class="card-header">
-                                        <h3 class="card-title text-white">Position Group</h3>
-                                        <div class="card-tools">
-                                            <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
-                                            <i class="fas fa-plus"></i>
-                                            </button>
-                                        </div>
-                                    </div>
-                                    <div class="card-body">
-                                        <ul class="todo-list" data-widget="todo-list">
-                                            <?PHP
-                                                $sql = "SELECT * FROM `grouppositionheader` ORDER BY `GH_Code`;";
-                                                $result = $conn->query($sql);
-                                                if ($result->num_rows > 0) {
-                                                    while ($row = $result->fetch_assoc()) {
-                                            ?>
-                                                <li class="my-2">
-                                                    <span class="text"><?=$row["GH_Name"]?></span>
-                                                    <div class="tools">
-                                                        <a class="btn btn-link py-1 px-2 text-end" onclick="deleteAlertGroupPosition(<?php echo $row["GH_Code"];?>, '<?php echo $row["GH_Name"];?>')"><i class="fas fa-trash"></i></a>
-                                                        <button type="button" class="btn btn-link py-1 px-2 text-end text-warning" data-bs-toggle="modal" data-bs-target="#modalpositiongroup" data-ghcode="<?= $row["GH_Code"] ?>" data-ghname="<?= $row["GH_Name"] ?>"><i class="fas fa-edit"></i></button>
-                                                    </div>
-                                                </li>
-                                            <?PHP
-                                                    }
-                                                }
-                                                unset($sql);
-                                            ?>
-                                        </ui>
-                                        <div class="form-group text-center text-md-end">
-                                            <button type="button" class="btn btn-primary rounded-pill py-1 px-4 add-image-btn text-end" data-bs-toggle="modal" data-bs-target="#modalpositiongroup" data-ghcode="0" data-ghname=""><i class="fa fa-plus"></i></button>
-                                        </div>
-                                    </div>
-                                    <!-- /.card-body -->
-                                </div>
-                                <?php } ?>
-                                 <!-- /.card -->
                                 <div class="card card-maroon collapsed-card">
                                     <div class="card-header">
                                         <h3 class="card-title text-white">Index Setup</h3>
@@ -768,7 +524,251 @@ $US_Prefix = "";
                                     </div>
                                     <!-- /.card-body -->
                                 </div>
+                                <!-- /.card -->                         
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="card card-danger collapsed-card">
+                                    <div class="card-header">
+                                        <h3 class="card-title text-white">Games and recreational activities</h3>
+                                        <div class="card-tools">
+                                            <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+                                            <i class="fas fa-plus"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="card-body">
+                                        <form action="Pro_EditSetup.php" method="post" enctype="multipart/form-data">
+                                            <div id="form-container">
+                                            <?PHP
+                                                $sql = "SELECT * FROM SetupGames;";
+                                                $result = $conn->query($sql);
+                                                
+                                                if ($result->num_rows > 0) {
+                                                    while ($row = $result->fetch_assoc()) {
+                                            ?>
+                                                <div class="form-group">
+                                                    <textarea name="Games[]" class="form-control border-1 my-2" placeholder="iframe" style="height: 110px;"><?php echo htmlspecialchars($row['GA_Iframe'], ENT_QUOTES); ?></textarea>
+                                                </div>
+                                            <?PHP
+                                                    }
+                                                }
+                                            ?>
+                                            </div>
+                                            <div class="form-group text-center text-md-end">
+                                                <button type="button" class="btn btn-danger rounded-pill py-2 px-3 add-image-btn text-end" id="deleteButton"><i class="fas fa-trash"></i></button>
+                                                <button type="button" class="btn btn-primary rounded-pill py-2 px-3 add-image-btn text-end" id="addButton"><i class="fa fa-plus"></i></button>
+                                            </div>
+                                            <div class="row my-3">
+                                                <div class="col-12 text-center text-md-end">
+                                                    <button type="submit" class="btn btn-success rounded-pill py-2 px-5 add-image-btn text-end"><i class="fa fa-save"></i></button>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <!-- /.card-body -->
+                                </div>
                                 <!-- /.card -->
+                                <div class="card card-secondary collapsed-card">
+                                    <div class="card-header">
+                                        <h3 class="card-title text-white">Menu Categories</h3>
+                                        <div class="card-tools">
+                                            <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+                                            <i class="fas fa-plus"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="card-body">
+                                        <ul class="todo-list" data-widget="todo-list">
+                                            <?PHP
+                                                    $sql = "SELECT * FROM `headingcategories` ORDER BY `HC_Code`;";
+                                                    $result = $conn->query($sql);
+                                                    if ($result->num_rows > 0) {
+                                                        while ($row = $result->fetch_assoc()) {
+                                                ?>
+                                                <li class="my-2">
+                                                    <span class="text"><?=$row["HC_Text"]?></span>
+                                                    <div class="tools">
+                                                        <?php if (CheckAdmin($globalCurrentUser)){ ?>
+                                                        <a class="btn btn-link py-1 px-2 text-end" onclick="deleteAlertMenuCategory(<?php echo $row["HC_Code"];?>, '<?php echo $row["HC_Text"];?>', 'headingcategories')"><i class="fas fa-trash"></i></a>
+                                                        <?php } ?>
+                                                        <button type="button" class="btn btn-link py-1 px-2 text-end text-warning" data-bs-toggle="modal" data-bs-target="#MenuCategory" data-hcCode="<?= $row["HC_Code"] ?>" data-hcText="<?= $row["HC_Text"] ?>" data-hcdescriptionth="<?= $row["HC_DescriptionTH"] ?>" data-hcdescriptionen="<?= $row["HC_DescriptionEN"] ?>" data-hcimage="<?= $row["HC_DefaultImage"] ?>"><i class="fas fa-edit"></i> </button>
+                                                        <button type="button" class="btn btn-link py-0 px-1 text-end text-primary" data-bs-toggle="modal" data-bs-target="#MasterMenuCategory" data-hccode="<?= $row["HC_Code"] ?>"><i class="fas fa-graduation-cap"></i></button>
+                                                    </div>
+                                                </li>
+                                            <?PHP
+                                                    }
+                                                }
+                                                unset($sql);
+                                            ?>
+                                        </ui>
+                                        <div class="form-group text-center text-md-end">
+                                            <button type="button" class="btn btn-primary rounded-pill py-1 px-4 add-image-btn text-end" data-bs-toggle="modal" data-bs-target="#MenuCategory" data-hcCode="0" data-hcText="" data-hcdescriptionth="" data-hcdescriptionen="" data-hcimage=""><i class="fa fa-plus"></i></button>
+                                        </div>
+                                    </div>
+                                    <!-- /.card-body -->
+                                </div>
+                                <!-- /.card -->
+                                <div class="card card-warning">
+                                    <div class="card-header">
+                                        <h3 class="card-title text-white">General</h3>
+                                        <div class="card-tools">
+                                            <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+                                            <i class="fas fa-minus"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="card-body">
+                                        <ul class="todo-list" data-widget="todo-list">
+                                            <?PHP
+                                                    $sql = "SELECT * FROM `engravedcategory` ORDER BY `EC_Code`;";
+                                                    $result = $conn->query($sql);
+                                                    if ($result->num_rows > 0) {
+                                                        while ($row = $result->fetch_assoc()) {
+                                                ?>
+                                                <li class="my-2">
+                                                    <span class="text"><?=$row["EC_Name"]?></span>
+                                                    <div class="tools">
+                                                        <?php if (CheckAdmin($globalCurrentUser)){ ?>
+                                                        <a class="btn btn-link py-1 px-2 text-end" onclick="deleteAlertEngravedCategory(<?php echo $row["EC_Code"];?>, '<?php echo $row["EC_Name"];?>')"><i class="fas fa-trash"></i></a>
+                                                        <?php } ?>
+                                                        <button type="button" class="btn btn-link py-1 px-2 text-end text-warning" data-bs-toggle="modal" data-bs-target="#engravedcategory" data-eccode="<?= $row["EC_Code"] ?>" data-ecname="<?= $row["EC_Name"] ?>" data-ecdescriptionth="<?= $row["EC_DescriptionTH"] ?>" data-ecdescriptionen="<?= $row["EC_DescriptionEN"] ?>"><i class="fas fa-edit"></i></button>
+                                                        <button type="button" class="btn btn-link py-0 px-1 text-end text-primary" data-bs-toggle="modal" data-bs-target="#EngravedActivities" data-eccode="<?= $row["EC_Code"] ?>"><i class="fa fa-plus"></i></button>
+                                                    </div>
+                                                </li>
+                                            <?PHP
+                                                    }
+                                                }
+                                                unset($sql);
+                                            ?>
+                                        </ui>
+                                        <div class="form-group text-center text-md-end">
+                                            <button type="button" class="btn btn-primary rounded-pill py-1 px-4 add-image-btn text-end" data-bs-toggle="modal" data-bs-target="#engravedcategory" data-eccode="0" data-hcname="" data-ecdescriptionth="" data-ecdescriptionen=""><i class="fa fa-plus"></i></button>
+                                        </div>
+                                    </div>
+                                    <!-- /.card-body -->
+                                </div>
+                                <!-- /.card -->
+                                <?php if (CheckAdmin($globalCurrentUser)){ ?>
+                                <div class="card card-olive collapsed-card">
+                                    <div class="card-header">
+                                        <h3 class="card-title text-white">Position Setup</h3>
+                                        <div class="card-tools">
+                                            <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+                                            <i class="fas fa-plus"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="card-body">
+                                        <ul class="todo-list" data-widget="todo-list">
+                                            <?PHP
+                                                $sql = "SELECT * FROM `Position` ORDER BY `PT_Code`;";
+                                                $result = $conn->query($sql);
+                                                if ($result->num_rows > 0) {
+                                                    while ($row = $result->fetch_assoc()) {
+                                            ?>
+                                                <li class="my-2">
+                                                    <span class="text"><?=$row["PT_Name"]?></span>
+                                                    <div class="tools">
+                                                        <a class="btn btn-link py-1 px-2 text-end" onclick="deleteAlertPosition(<?php echo $row["PT_Code"];?>, '<?php echo $row["PT_Name"];?>')"><i class="fas fa-trash"></i></a>
+                                                        <button type="button" class="btn btn-link py-1 px-2 text-end text-warning" data-bs-toggle="modal" data-bs-target="#modalposition" data-ptcode="<?= $row["PT_Code"] ?>" data-ptdefault="<?= $row["PT_Default"] ?>" data-ptadmin="<?= $row["PT_Admin"] ?>"  data-ptname="<?= $row["PT_Name"] ?>"><i class="fas fa-edit"></i></button>
+                                                    </div>
+                                                </li>
+                                            <?PHP
+                                                    }
+                                                }
+                                                unset($sql);
+                                            ?>
+                                        </ui>
+                                        <div class="form-group text-center text-md-end">
+                                            <button type="button" class="btn btn-primary rounded-pill py-1 px-4 add-image-btn text-end" data-bs-toggle="modal" data-bs-target="#modalposition" data-ptcode="0" data-ptdefault="" data-ptadmin="" data-ptname=""><i class="fa fa-plus"></i></button>
+                                        </div>
+                                    </div>
+                                    <!-- /.card-body -->
+                                </div>
+                                 <!-- /.card -->
+                                 <div class="card card-orange collapsed-card">
+                                    <div class="card-header">
+                                        <h3 class="card-title text-white">Position Group</h3>
+                                        <div class="card-tools">
+                                            <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+                                            <i class="fas fa-plus"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="card-body">
+                                        <ul class="todo-list" data-widget="todo-list">
+                                            <?PHP
+                                                $sql = "SELECT * FROM `grouppositionheader` ORDER BY `GH_Code`;";
+                                                $result = $conn->query($sql);
+                                                if ($result->num_rows > 0) {
+                                                    while ($row = $result->fetch_assoc()) {
+                                            ?>
+                                                <li class="my-2">
+                                                    <span class="text"><?=$row["GH_Name"]?></span>
+                                                    <div class="tools">
+                                                        <a class="btn btn-link py-1 px-2 text-end" onclick="deleteAlertGroupPosition(<?php echo $row["GH_Code"];?>, '<?php echo $row["GH_Name"];?>')"><i class="fas fa-trash"></i></a>
+                                                        <button type="button" class="btn btn-link py-1 px-2 text-end text-warning" data-bs-toggle="modal" data-bs-target="#modalpositiongroup" data-ghcode="<?= $row["GH_Code"] ?>" data-ghname="<?= $row["GH_Name"] ?>"><i class="fas fa-edit"></i></button>
+                                                    </div>
+                                                </li>
+                                            <?PHP
+                                                    }
+                                                }
+                                                unset($sql);
+                                            ?>
+                                        </ui>
+                                        <div class="form-group text-center text-md-end">
+                                            <button type="button" class="btn btn-primary rounded-pill py-1 px-4 add-image-btn text-end" data-bs-toggle="modal" data-bs-target="#modalpositiongroup" data-ghcode="0" data-ghname=""><i class="fa fa-plus"></i></button>
+                                        </div>
+                                    </div>
+                                    <!-- /.card-body -->
+                                </div>
+                                <!-- /.card -->
+                                <div class="card card-navy collapsed-card">
+                                    <div class="card-header">
+                                        <h3 class="card-title text-white">User Setup</h3>
+                                        <div class="card-tools">
+                                            <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+                                            <i class="fas fa-plus"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="card-body">
+                                        <ul class="todo-list" data-widget="todo-list">
+                                                <?PHP
+                                                        $sql = "SELECT * FROM `User` ORDER BY `US_Username`;";
+                                                        $result = $conn->query($sql);
+                                                        if ($result->num_rows > 0) {
+                                                            while ($row = $result->fetch_assoc()) {
+                                                    ?>
+                                                    <li class="my-2">
+                                                        <span class="text"><?=$row["US_Username"]?> / <?=$row["US_Fname"]?></span>
+                                                        <div class="tools">
+                                                        <?php
+                                                            if ($row["US_Active"] == 1) {
+                                                                echo '<a class="btn btn-link py-0 px-1 text-end text-secondary toggleButton" id="toggleButton1" data-sendHiddenID="' . $row['US_Username'] . '"><i class="fa fa-eye"></i></a>';
+                                                            } else {
+                                                                echo '<a class="btn btn-link py-0 px-1 text-end text-secondary toggleButton" id="toggleButton0" data-sendHiddenID="' . $row['US_Username'] . '"><i class="fa fa-eye-slash"></i></a>';
+                                                            }
+                                                        ?>
+                                                            <a class="btn btn-link py-1 px-2 text-end" onclick="deleteAlertUser('<?php echo $row["US_Username"];?>','<?php echo $row["US_Image"];?>')"><i class="fas fa-trash"></i></a>
+                                                            <button type="button" class="btn btn-link py-1 px-2 text-end text-warning" data-bs-toggle="modal" data-bs-target="#modaluser" data-ustype="edit" data-ususername="<?= $row["US_Username"] ?>" data-uspassword="<?= $row["US_Password"] ?>" data-usprefix="<?= $row["US_Prefix"] ?>" data-ptcode="<?= $row["PT_Code"] ?>" data-usfname="<?= $row["US_Fname"] ?>" data-uslname="<?= $row["US_Lname"] ?>" data-usimage="<?= $row["US_Image"] ?>"><i class="fas fa-edit"></i></button>
+                                                        </div>
+                                                    </li>
+                                                <?PHP
+                                                        }
+                                                    }
+                                                    unset($sql);
+                                                ?>
+                                            </ui>
+                                            <div class="form-group text-center text-md-end">
+                                                <button type="button" class="btn btn-primary rounded-pill py-1 px-4 add-image-btn text-end" data-bs-toggle="modal" data-bs-target="#modaluser" data-ustype="add" data-ususername="" data-uspassword="" data-usprefix="" data-ptcode="" data-usfname="" data-uslname="" data-usimage=""><i class="fa fa-plus"></i></button>
+                                            </div>
+                                    </div>
+                                    <!-- /.card-body -->
+                                </div>
+                                 <!-- /.card -->
+                                <?php } ?>
                             </div>
                         </div>
                         <!-- <div class="row">
