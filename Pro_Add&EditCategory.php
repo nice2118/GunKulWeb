@@ -44,7 +44,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if ($result->num_rows > 0) {
             $row = $result->fetch_assoc();
             $maxCode = $row['Auto_increment'];
-
             if (!empty($maxCode)) {
                 $newnNameImage = $maxCode;
             } else {
@@ -53,6 +52,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         } else {
             $newnNameImage = 1;
         }
+        // ย่อโค้ด
+        // $sql = "SHOW TABLE STATUS LIKE 'category'";
+        // $result = $conn->query($sql);
+        // $row = $result->fetch_assoc() ?: array(); // ดึงข้อมูลแถวแรกหากมีหรือใช้ array() ถ้าไม่มี
+
+        // $maxCode = !empty($row['Auto_increment']) ? $row['Auto_increment'] : 1;
+        // $newnNameImage = $maxCode;
       } else {
         $newnNameImage = $CG_EntityNo;
       }
@@ -62,11 +68,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
       if ($CG_OldImage != ''){
         $filePath = $PathFolderCategory . $CG_OldImage;
-        if (file_exists($filePath)) {
-          if (unlink($filePath)) {
-          }
-        }
-      }
+        if (file_exists($filePath)) { if (unlink($filePath)) { } } }
 
       $destination = $PathFolderCategory . $FullNameImage;
       if (!file_exists($PathFolderCategory)) {
