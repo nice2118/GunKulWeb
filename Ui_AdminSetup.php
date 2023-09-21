@@ -224,7 +224,7 @@ $US_Prefix = "";
                                                         <?php if (CheckAdmin($globalCurrentUser)){ ?>
                                                         <a class="btn btn-link py-1 px-2 text-end" onclick="deleteAlertCategory(<?php echo $row["CG_Entity No."];?>, '<?php echo $row["CG_Name"];?>')"><i class="fas fa-trash"></i></a>
                                                         <?php } ?>
-                                                        <button type="button" class="btn btn-link py-1 px-2 text-end text-warning" data-bs-toggle="modal" data-bs-target="#Category" data-entityno="<?= $row["CG_Entity No."] ?>" data-isfile="<?= $row["CG_IsFile"] ?>" data-entityrelationno="<?= $row["CG_Entity Relation No."] ?>" data-name="<?= $row["CG_Name"]; ?>" data-descriptionth="<?= $row["CG_DescriptionTH"] ?>" data-descriptionen="<?= $row["CG_DescriptionEN"] ?>" data-ecimage="<?= $row["CG_DefaultImage"]; ?>"><i class="fas fa-edit"></i> </button>
+                                                        <button type="button" class="btn btn-link py-1 px-2 text-end text-warning" data-bs-toggle="modal" data-bs-target="#Category" data-entityno="<?= $row["CG_Entity No."] ?>" data-isfile="<?= $row["CG_IsFile"] ?>" data-defaultactive="<?= $row["CG_DefaultActive"] ?>" data-entityrelationno="<?= $row["CG_Entity Relation No."] ?>" data-name="<?= $row["CG_Name"]; ?>" data-descriptionth="<?= $row["CG_DescriptionTH"] ?>" data-descriptionen="<?= $row["CG_DescriptionEN"] ?>" data-ecimage="<?= $row["CG_DefaultImage"]; ?>"><i class="fas fa-edit"></i> </button>
                                                     </div>
                                                 <?php
                                                     $sql = "SELECT *
@@ -264,7 +264,7 @@ $US_Prefix = "";
                                             </ul>
                                         </div>
                                         <div class="form-group text-center text-md-end">
-                                            <button type="button" class="btn btn-primary rounded-pill py-1 px-4 add-image-btn text-end" data-bs-toggle="modal" data-bs-target="#Category" data-entityno="0" data-isfile="0" data-entityrelationno="0" data-name="" data-descriptionth="" data-descriptionen="" data-ecimage=""><i class="fa fa-plus"></i></button>
+                                            <button type="button" class="btn btn-primary rounded-pill py-1 px-4 add-image-btn text-end" data-bs-toggle="modal" data-bs-target="#Category" data-entityno="0" data-isfile="0" data-defaultactive="1" data-entityrelationno="0" data-name="" data-descriptionth="" data-descriptionen="" data-ecimage=""><i class="fa fa-plus"></i></button>
                                         </div>
                                     </div>
                                     <!-- /.card-body -->
@@ -298,7 +298,7 @@ $US_Prefix = "";
                                                             }
                                                         ?>
                                                             <a class="btn btn-link py-1 px-2 text-end" onclick="deleteAlertPopup(<?php echo $row["AP_Code"];?>, '<?php echo $row["AP_Image"];?>')"><i class="fas fa-trash"></i></a>  	 
-                                                            <button type="button" class="btn btn-link py-1 px-2 text-end text-warning" data-bs-toggle="modal" data-bs-target="#modalpopup" data-apcode="<?= $row["AP_Code"] ?>" data-apname="<?= htmlspecialchars($row["AP_Name"], ENT_QUOTES); ?>" data-apimage="<?= $row["AP_Image"] ?>" data-apdatestart="<?= $row["AP_DateStart"] ?>" data-apdateend="<?= $row["AP_DateEnd"] ?>"><i class="fas fa-edit"></i></button>
+                                                            <button type="button" class="btn btn-link py-1 px-2 text-end text-warning" data-bs-toggle="modal" data-bs-target="#modalpopup" data-apcode="<?= $row["AP_Code"] ?>" data-apname="<?= htmlspecialchars($row["AP_Name"], ENT_QUOTES); ?>" data-apimage="<?= $row["AP_Image"] ?>" data-apdatestart="<?= $row["AP_DateStart"] ?>" data-apdateend="<?= $row["AP_DateEnd"] ?>" data-sort="<?= $row["AP_Sort"] ?>"><i class="fas fa-edit"></i></button>
                                                         </div>
                                                     </li>
                                                 <?PHP
@@ -308,7 +308,7 @@ $US_Prefix = "";
                                                 ?>
                                             </ui>
                                             <div class="form-group text-center text-md-end">
-                                                <button type="button" class="btn btn-primary rounded-pill py-1 px-4 add-image-btn text-end" data-bs-toggle="modal" data-bs-target="#modalpopup" data-apcode="" data-apname="" data-apimage="" data-apdatestart="" data-apdateend=""><i class="fa fa-plus"></i></button>
+                                                <button type="button" class="btn btn-primary rounded-pill py-1 px-4 add-image-btn text-end" data-bs-toggle="modal" data-bs-target="#modalpopup" data-apcode="" data-apname="" data-apimage="" data-apdatestart="" data-apdateend="" data-sort="0"><i class="fa fa-plus"></i></button>
                                             </div>
                                     </div>
                                     <!-- /.card-body -->
@@ -671,7 +671,7 @@ $US_Prefix = "";
                                                     <span class="text"><?=$row["PT_Name"]?></span>
                                                     <div class="tools">
                                                         <a class="btn btn-link py-1 px-2 text-end" onclick="deleteAlertPosition(<?php echo $row["PT_Code"];?>, '<?php echo $row["PT_Name"];?>')"><i class="fas fa-trash"></i></a>
-                                                        <button type="button" class="btn btn-link py-1 px-2 text-end text-warning" data-bs-toggle="modal" data-bs-target="#modalposition" data-ptcode="<?= $row["PT_Code"] ?>" data-ptdefault="<?= $row["PT_Default"] ?>" data-ptadmin="<?= $row["PT_Admin"] ?>"  data-ptname="<?= $row["PT_Name"] ?>"><i class="fas fa-edit"></i></button>
+                                                        <button type="button" class="btn btn-link py-1 px-2 text-end text-warning" data-bs-toggle="modal" data-bs-target="#modalposition" data-ptcode="<?= $row["PT_Code"] ?>" data-ptdefault="<?= $row["PT_Default"] ?>" data-ptadmin="<?= $row["PT_Admin"] ?>" data-ptmanage="<?= $row["PT_Manage"] ?>" data-ptname="<?= $row["PT_Name"] ?>"><i class="fas fa-edit"></i></button>
                                                     </div>
                                                 </li>
                                             <?PHP
@@ -681,7 +681,7 @@ $US_Prefix = "";
                                             ?>
                                         </ui>
                                         <div class="form-group text-center text-md-end">
-                                            <button type="button" class="btn btn-primary rounded-pill py-1 px-4 add-image-btn text-end" data-bs-toggle="modal" data-bs-target="#modalposition" data-ptcode="0" data-ptdefault="" data-ptadmin="" data-ptname=""><i class="fa fa-plus"></i></button>
+                                            <button type="button" class="btn btn-primary rounded-pill py-1 px-4 add-image-btn text-end" data-bs-toggle="modal" data-bs-target="#modalposition" data-ptcode="0" data-ptdefault="" data-ptadmin="" data-ptmanage="" data-ptname=""><i class="fa fa-plus"></i></button>
                                         </div>
                                     </div>
                                     <!-- /.card-body -->
@@ -831,15 +831,20 @@ $US_Prefix = "";
                                     <h6 class="text-primary my-05">ไฟล์</h6>
                                     <input class="form-check-input py-3 px-3" type="checkbox" id="CG_IsFile" name="CG_IsFile">
                                 </div>
-                                
                             </div>
-                            <div class="col-6 col-sm-6">
+                            <div class="col-5 col-sm-5">
                                 <h6 class="text-primary">ชื่อภาษาไทย</h6>
                                 <input type="Text" id="CG_DescriptionTH" name="CG_DescriptionTH" class="form-control border-1" placeholder="ชื่อภาษาไทย" required>
                             </div>
                             <div class="col-6 col-sm-6">
                                 <h6 class="text-primary">ชื่อภาษาอังกฤษ</h6>
                                 <input type="Text" id="CG_DescriptionEN" name="CG_DescriptionEN" class="form-control border-1" placeholder="ชื่อภาษาอังกฤษ" required>
+                            </div>
+                            <div class="col-1 col-sm-1">
+                                <div class="form-group text-center">
+                                    <h6 class="text-primary my-05">แสดง</h6>
+                                    <input class="form-check-input py-3 px-3" type="checkbox" id="CG_DefaultActive" name="CG_DefaultActive">
+                                </div>
                             </div>
                             <div class="col-12 col-sm-12">
                                 <h6 class="text-primary">ภาพเริ่มต้น</h6>
@@ -1110,7 +1115,7 @@ $US_Prefix = "";
                     <form id="modalFormmodalposition" action="Pro_Add&EditPosition.php" method="post" enctype="multipart/form-data">
                         <div class="row g-2 my-2">
                             <input type="hidden" id="PT_code" name="PT_code" class="form-control border-1" placeholder="Code" required>
-                            <div class="col-10 col-sm-10">
+                            <div class="col-9 col-sm-9">
                                 <h6 class="text-primary">ชื่อ</h6>
                                 <input type="Text" id="PT_name" name="PT_name" class="form-control border-1" placeholder="ชื่อ" required>
                             </div>
@@ -1121,6 +1126,10 @@ $US_Prefix = "";
                             <div class="col-1 col-sm-1 text-center my-2">
                                 <h6 class="text-primary">ผู้ดูแล</h6>
                                 <input class="form-check-input py-2-5 px-2-5" type="checkbox" id="PT_Admin" name="PT_Admin" value="1">
+                            </div>
+                            <div class="col-1 col-sm-1 text-center my-2">
+                                <h6 class="text-primary">จัดการ</h6>
+                                <input class="form-check-input py-2-5 px-2-5" type="checkbox" id="PT_Manage" name="PT_Manage" value="1">
                             </div>
                         </div>
                         <div class="row justify-content-end my-2">
@@ -1288,13 +1297,17 @@ $US_Prefix = "";
                                 <h6 class="text-primary">วันที่สิ้นสุดแสดง</h6>
                                 <input type="Date" id="AP_DateEnd" name="AP_DateEnd" class="form-control border-1" placeholder="วันที่สิ้นสุดแสดง" required>
                             </div>
-                            <div class="col-12 col-sm-12">
+                            <div class="col-10 col-sm-10">
                                 <h6 class="text-primary">ภาพที่ให้แสดง</h6>
                                 <input type="file" class="form-control border-1" name="imagePopup" id="imagePopup" accept="image/*">
                                 <label for="imagePopup" style="cursor: pointer;">
                                     <div id="modalPreviewImagePopup"></div>
                                 </label>
                             </div>
+                            <div class="col-2 col-sm2">
+                                <h6 class="text-primary">ลำดับ</h6>
+                                <input type="number" class="form-control border-1" id="AP_Sort" name="AP_Sort" min="0" max="99">                        
+                            </div> 
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">ยกเลิก</button>
@@ -2140,6 +2153,7 @@ $(document).ready(function() {
         const entityNo = button.data('entityno');
         const entityRelationNo = button.data('entityrelationno');
         const isfile = button.data('isfile');
+        const defaultactive = button.data('defaultactive');
         const name = button.data('name');
         const descriptionTH = button.data('descriptionth');
         const descriptionEN = button.data('descriptionen');
@@ -2151,6 +2165,7 @@ $(document).ready(function() {
         document.getElementById("CG_EntityNo").value = entityNo;
         document.getElementById("CG_EntityRelationNo").value = entityRelationNo;
         document.getElementById("CG_IsFile").checked = (isfile == 1);
+        document.getElementById("CG_DefaultActive").checked = (defaultactive == 1);
         document.getElementById("CG_Name").value = name;
         document.getElementById("CG_DescriptionTH").value = descriptionTH;
         document.getElementById("CG_DescriptionEN").value = descriptionEN;
@@ -2401,6 +2416,7 @@ $(document).ready(function() {
         const ptName = button.data('ptname');
         const ptDefault = button.data('ptdefault');
         const ptAdmin = button.data('ptadmin');
+        const ptManage = button.data('ptmanage');
 
         // กำหนดค่าให้กับช่อง input ใน Modal
         document.getElementById("PT_code").value = ptCode;
@@ -2411,6 +2427,7 @@ $(document).ready(function() {
         }
         document.getElementById("PT_Default").checked = ptDefault === 1;
         document.getElementById("PT_Admin").checked = ptAdmin === 1;
+        document.getElementById("PT_Manage").checked = ptManage === 1;
 
         var edituser = document.getElementById("edituser");
         var contentHTMLedituser = '';
@@ -2822,6 +2839,8 @@ $(document).ready(function() {
         const apOldImage = button.data('apimage');
         const apDateStart = button.data('apdatestart');
         const apDateEnd = button.data('apdateend');
+        const apSort = button.data('sort');
+        
 
         // console.log(apImage);
 
@@ -2836,6 +2855,7 @@ $(document).ready(function() {
         document.getElementById("AP_OldImage").value = apOldImage;
         document.getElementById("AP_DateStart").value = apDateStart;
         document.getElementById("AP_DateEnd").value = apDateEnd;
+        document.getElementById("AP_Sort").value = apSort;
 
         var modalContentMasterMenuPopup = document.getElementById("modalPreviewImagePopup");
         var contentHTML = '<img id="previewImagePopup" class="img-fluid rounded" src="' + apImage + '" alt="image" style="width: 200px; height: 200px;">';

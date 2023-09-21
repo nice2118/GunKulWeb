@@ -111,6 +111,7 @@ if (isset($_GET['Send_Category']) && $_GET['Send_Category'] !== '') {
                                                 $imgShow = '';
                                                 $reqType = '';
                                                 $UserCreate = '';
+                                                $Active = 0;
                                                 if ($IsFile == 0){
                                                     $reqCode = $row['AT_Code'];
                                                     $reqDate = $row['AT_Date'];
@@ -119,6 +120,7 @@ if (isset($_GET['Send_Category']) && $_GET['Send_Category'] !== '') {
                                                     $fullName = $row['US_Fname'];
                                                     $reqType= $row['CG_DescriptionTH'];
                                                     $UserCreate = $row['AT_UserCreate'];
+                                                    $Active = $row['AT_Active'];
                                                 } elseif ($IsFile == 1) {
                                                     $reqCode = $row['FA_Code'];
                                                     $reqDate = $row['FA_Date'];
@@ -127,6 +129,7 @@ if (isset($_GET['Send_Category']) && $_GET['Send_Category'] !== '') {
                                                     $fullName = $row['US_Fname'];
                                                     $reqType= $row['CG_DescriptionTH'];
                                                     $UserCreate = $row['FA_UserCreate'];
+                                                    $Active = $row['FA_Active'];
                                                     
                                                     $sqlSetup = "SELECT * FROM Setup";
                                                     $resultSetup = $conn->query($sqlSetup);
@@ -164,14 +167,23 @@ if (isset($_GET['Send_Category']) && $_GET['Send_Category'] !== '') {
                                             </td>
                                             <td class="project-actions text-right">
                                                 <?php if ($IsFile == 0): ?>
+                                                    <?php
+                                                        if (CheckAdmin($globalCurrentUser) || CheckManage($globalCurrentUser)){
+                                                            if ($Active == 1) {
+                                                                echo '<a class="btn btn-secondary btn-sm toggleButton" id="toggleButton1" data-sendHiddenID="' . $reqCode . '" data-sendIsFile="' . $IsFile . '"><i class="fas fa-eye"></i></a>';
+                                                            } else {
+                                                                echo '<a class="btn btn-secondary btn-sm toggleButton" id="toggleButton0" data-sendHiddenID="' . $reqCode . '" data-sendIsFile="' . $IsFile . '"><i class="fas fa-eye-slash"></i></a>';
+                                                            }
+                                                        }
+                                                    ?>
                                                     <a class="btn btn-primary2 btn-sm" href="ShowDetail?Send_IDNews=<?= $reqCode;?>"><i class="fas fa-folder"></i></a>
-                                                    <?php if ($UserCreate == $globalCurrentUser || CheckAdmin($globalCurrentUser)){ ?>
+                                                    <?php if ($UserCreate == $globalCurrentUser || CheckAdmin($globalCurrentUser) || CheckManage($globalCurrentUser)){ ?>
                                                         <a class="btn btn-warning btn-sm" href="Edit?Send_IDNews=<?= urlencode($reqCode); ?>&Send_Title=<?= urlencode($reqTitle); ?>&Send_Category=<?= $Category_id ; ?>"><i class="fas fa-pencil-alt"></i></a>
                                                         <a class="btn btn-danger btn-sm" onclick="deleteAlert(<?php echo $reqCode;?>, '<?= addslashes(htmlspecialchars_decode($reqTitle, ENT_QUOTES)) ?>',<?php echo $Category_id;?>)"><i class="fas fa-trash"></i></a>
                                                     <?php }  ?>
                                                 <?php elseif ($IsFile == 1): ?>
                                                     <a class="btn btn-primary2 btn-sm" id="btnShowFile" href="<?= $reqFile ?>" data-code="<?= urlencode($reqCode) ?>"><i class="fas fa-folder"></i></a>
-                                                    <?php if ($UserCreate == $globalCurrentUser || CheckAdmin($globalCurrentUser)){ ?>
+                                                    <?php if ($UserCreate == $globalCurrentUser || CheckAdmin($globalCurrentUser) || CheckManage($globalCurrentUser)){ ?>
                                                         <a class="btn btn-warning btn-sm" href="EditFile?Send_IDNews=<?= urlencode($reqCode); ?>&Send_Title=<?= urlencode($reqTitle); ?>&Send_Category=<?= $Category_id ; ?>"><i class="fas fa-pencil-alt"></i></a>
                                                         <a class="btn btn-danger btn-sm" onclick="deleteAlertFile(<?php echo $reqCode;?>, '<?php echo addslashes(htmlspecialchars_decode($reqTitle, ENT_QUOTES));?>',<?php echo $Category_id;?>)"><i class="fas fa-trash"></i></a>
                                                     <?php }  ?>
@@ -315,6 +327,45 @@ $(document).ready(function() {
             }
         });
     });
+});
+</script>
+<script>
+// ดักจับเหตุการณ์คลิกที่ปุ่มที่มีคลาส toggleButton
+const toggleButtons = document.querySelectorAll(".toggleButton");
+toggleButtons.forEach(button => {
+  button.addEventListener("click", function() {
+    const icon = this.querySelector("i");
+    let sendStatus; // ประกาศตัวแปร sendStatus ที่เห้นใช้ได้ทั่วกับทุกส่วนของฟังก์ชัน
+    if (icon.classList.contains("fa-eye")) {
+      icon.classList.remove("fa-eye");
+      icon.classList.add("fa-eye-slash");
+      sendStatus = 0; // กำหนดค่าให้กับตัวแปร sendStatus
+    } else if (icon.classList.contains("fa-eye-slash")){
+      icon.classList.remove("fa-eye-slash");
+      icon.classList.add("fa-eye");
+      sendStatus = 1; // กำหนดค่าให้กับตัวแปร sendStatus
+    }
+    const sendID = this.getAttribute("data-sendHiddenID");
+    const sendIsFile = this.getAttribute("data-sendIsFile");
+    
+    sendDataToPHP(sendStatus, sendID, sendIsFile); // ส่งค่าไปยัง PHP
+    });
+    function sendDataToPHP(status, id, isFile) {
+    // ส่งข้อมูลไปยัง PHP โดยใช้ AJAX
+    const xhr = new XMLHttpRequest();
+    const url = "DB_ActivitiesHidden.php"; // เปลี่ยนเป็นชื่อไฟล์ PHP ที่คุณต้องการใช้งาน
+    const params = "status=" + status + "&id=" + id + "&isFile=" + isFile; // ส่งค่าตัวแปรไปยัง PHP
+    console.log(params);
+    xhr.open("POST", url, true);
+    xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xhr.onreadystatechange = function() {
+        if (xhr.readyState == 4 && xhr.status == 200) {
+        // ทำสิ่งที่คุณต้องการหลังจากที่ส่งข้อมูลเสร็จสิ้น (หากต้องการ)
+        console.log(xhr.responseText); // ตัวอย่างการแสดงผล response ที่ได้จาก PHP
+        }
+    };
+    xhr.send(params);
+    }
 });
 </script>
 <!-- <script>

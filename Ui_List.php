@@ -73,9 +73,9 @@ if (isset($_GET['Send_Category']) && $_GET['Send_Category'] !== '') {
                                         <?php
                                         $SelectFilterCategoryEntityNo = SearchCategory($Category_id);
                                         if ($IsFile == 0):
-                                            $sql = "SELECT * FROM `Activities` LEFT JOIN `user` ON `Activities`.`AT_UserCreate` = `User`.`US_Username` LEFT JOIN `Category` ON `Activities`.`AT_Entity No.` = `Category`.`CG_Entity No.` WHERE (`Activities`.`AT_Entity No.` IN ($SelectFilterCategoryEntityNo)) ORDER BY `Activities`.`AT_Date` DESC , `Activities`.`AT_Time` DESC;";
+                                            $sql = "SELECT * FROM `Activities` LEFT JOIN `user` ON `Activities`.`AT_UserCreate` = `User`.`US_Username` LEFT JOIN `Category` ON `Activities`.`AT_Entity No.` = `Category`.`CG_Entity No.` WHERE (`Activities`.`AT_Entity No.` IN ($SelectFilterCategoryEntityNo)) AND `Activities`.`AT_Active` = 1 ORDER BY `Activities`.`AT_Date` DESC , `Activities`.`AT_Time` DESC;";
                                         elseif ($IsFile == 1):
-                                            $sql = "SELECT * FROM `FileActivities` LEFT JOIN `user` ON `FileActivities`.`FA_UserCreate` = `User`.`US_Username` LEFT JOIN `Category` ON `FileActivities`.`FA_Entity No.` = `Category`.`CG_Entity No.` WHERE (`FileActivities`.`FA_Entity No.` IN ($SelectFilterCategoryEntityNo)) ORDER BY `FileActivities`.`FA_Date` DESC , `FileActivities`.`FA_Time` DESC;";
+                                            $sql = "SELECT * FROM `FileActivities` LEFT JOIN `user` ON `FileActivities`.`FA_UserCreate` = `User`.`US_Username` LEFT JOIN `Category` ON `FileActivities`.`FA_Entity No.` = `Category`.`CG_Entity No.` WHERE (`FileActivities`.`FA_Entity No.` IN ($SelectFilterCategoryEntityNo)) AND `FileActivities`.`FA_Active` = 1 ORDER BY `FileActivities`.`FA_Date` DESC , `FileActivities`.`FA_Time` DESC;";
                                         endif;
                                         $result = $conn->query($sql);
                                         

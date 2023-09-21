@@ -53,6 +53,7 @@ if (isset($_GET['Send_Category']) && $_GET['Send_Category'] !== '') {
                         $row = $result->fetch_assoc();
                         $DescriptionTH = $row["CG_DescriptionTH"];
                         $DescriptionEN = $row["CG_DescriptionEN"];
+                        $DefaultActive = $row["CG_DefaultActive"];
                     }
                 ?>
                 <!-- <h3 class="small text-primary mb-0 mt-0"></h3> -->
@@ -68,6 +69,7 @@ if (isset($_GET['Send_Category']) && $_GET['Send_Category'] !== '') {
                     <!-- <form action="Pro_Test2.php" method="post" enctype="multipart/form-data"> -->
                         <div class="row g-3">
                             <input type="hidden" id="CategoryBegin_id" name="CategoryBegin_id" class="form-control border-1" value="<?= $Send_Category; ?>">
+                            <input type="hidden" id="DefaultActive" name="DefaultActive" class="form-control border-1" value="<?= $DefaultActive; ?>">
                             <div class="col-6 col-sm-3">
                                 <h6 class="text-primary">วันที่ลงข่าวและกิจกรรม</h6>
                                 <input type="Date" id="DateAddNews" name="DateAddNews" class="form-control border-1" onload="getDate()" placeholder="วันที่ลงข่าวและกิจกรรม" required>

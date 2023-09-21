@@ -22,6 +22,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   $DateAddFormatted = date('Y-m-d', strtotime(str_replace('/', '-', $DateAdd)));
   $Title = $_POST['Title'];
   $Summary = $_POST['Summary'];
+  $DefaultActive = $_POST['DefaultActive'];
 
   // เก็บข้อมูลไฟล์
   $file = $_FILES['file'];
@@ -78,7 +79,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   $Title = mysqli_real_escape_string($conn, $Title);
   $Summary = mysqli_real_escape_string($conn, $Summary);
   // ทำอย่างอื่นๆ เช่นบันทึกข้อมูลลงฐานข้อมูล
-  $sql = "INSERT INTO `fileactivities` (`FA_Code`, `FA_Entity No.`, `FA_UserCreate`, `FA_Date`, `FA_Time`, `FA_Title`, `FA_Description`, `FA_File`, `FA_CreateDate`, `FA_ModifyDate`) VALUES (NULL, $CategoryID, '$globalCurrentUser', '$DateAddFormatted', CURRENT_TIME(), '$Title', '$Summary', '$newnFullNameFile', CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP());";
+  $sql = "INSERT INTO `fileactivities` (`FA_Code`, `FA_Entity No.`, `FA_UserCreate`, `FA_Date`, `FA_Time`, `FA_Title`, `FA_Description`, `FA_File`,`FA_Active`, `FA_CreateDate`, `FA_ModifyDate`) VALUES (NULL, $CategoryID, '$globalCurrentUser', '$DateAddFormatted', CURRENT_TIME(), '$Title', '$Summary', '$newnFullNameFile', '$DefaultActive', CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP());";
   // ดำเนินการ INSERT ข้อมูล
   if ($conn->query($sql) === true) {
     $_SESSION['StatusTitle'] = "ดำเนินการเรียบร้อยแล้ว";

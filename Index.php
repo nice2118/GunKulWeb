@@ -60,9 +60,9 @@ if ($result->num_rows > 0) {
                 }
                 $SelectFilterCategoryEntityNoTotal1 = SearchCategory($variableID);
                 if ($IsTypeGroup1 == 0):
-                    $sql = "SELECT * FROM `Activities` WHERE `Activities`.`AT_Entity No.` IN ($SelectFilterCategoryEntityNoTotal1) ORDER BY `Activities`.`AT_Date` DESC , `Activities`.`AT_Time` DESC LIMIT 0,5";
+                    $sql = "SELECT * FROM `Activities` WHERE `Activities`.`AT_Entity No.` IN ($SelectFilterCategoryEntityNoTotal1)  AND `Activities`.`AT_Active` = 1 ORDER BY `Activities`.`AT_Date` DESC , `Activities`.`AT_Time` DESC LIMIT 0,5";
                 elseif ($IsTypeGroup1 == 1):
-                    $sql = "SELECT * FROM `FileActivities` WHERE `FileActivities`.`FA_Entity No.` IN ($SelectFilterCategoryEntityNoTotal1) ORDER BY `FileActivities`.`FA_Date` DESC , `FileActivities`.`FA_Time` DESC LIMIT 0,5";
+                    $sql = "SELECT * FROM `FileActivities` WHERE `FileActivities`.`FA_Entity No.` IN ($SelectFilterCategoryEntityNoTotal1)  AND `FileActivities`.`FA_Active` = 1 ORDER BY `FileActivities`.`FA_Date` DESC , `FileActivities`.`FA_Time` DESC LIMIT 0,5";
                 endif;
                 $result = $conn->query($sql);
                 $isFirstRow = true;

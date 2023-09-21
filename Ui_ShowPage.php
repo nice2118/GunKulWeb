@@ -113,6 +113,7 @@
             LEFT JOIN `Category` ON `Activities`.`AT_Entity No.` = `Category`.`CG_Entity No.` 
             WHERE (`Activities`.`AT_Entity No.` IN ($SelectFilterCategoryEntityNoTotal)) 
             AND (`Activities`.`AT_Title` LIKE '%$Search%') -- เพิ่มเงื่อนไขการค้นหาใน AT_Title
+            AND `Activities`.`AT_Active` = 1
             ORDER BY `Activities`.`AT_Date` DESC, `Activities`.`AT_Time` DESC";
             $result = $conn->query($sql);
             $countSql = $result->num_rows;

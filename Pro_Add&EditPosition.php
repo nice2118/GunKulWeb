@@ -17,12 +17,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   $PT_name = $_POST['PT_name'];
   $PT_Default = isset($_POST['PT_Default']) ? $_POST['PT_Default'] : 0;
   $PT_Admin = isset($_POST['PT_Admin']) ? $_POST['PT_Admin'] : 0;
+  $PT_Manage = isset($_POST['PT_Manage']) ? $_POST['PT_Manage'] : 0;
 
 
   if ($EC_Code == 0 || $EC_Code == '') {
-      $sql = "INSERT INTO `position` (`PT_Code`, `PT_Name`, `PT_Default`, `PT_Admin`, `PT_CreateDate`, `PT_ModifyDate`) VALUES (NULL, '$PT_name', '$PT_Default', '$PT_Admin', current_timestamp(), current_timestamp());";
+      $sql = "INSERT INTO `position` (`PT_Code`, `PT_Name`, `PT_Default`, `PT_Admin`, `PT_Manage`, `PT_CreateDate`, `PT_ModifyDate`) VALUES (NULL, '$PT_name', '$PT_Default', '$PT_Admin', '$PT_Manage', current_timestamp(), current_timestamp());";
   } else {    
-      $sql = "UPDATE `position` SET `PT_Name` = '$PT_name', `PT_Default` = '$PT_Default', `PT_Admin` = '$PT_Admin', `PT_ModifyDate` = current_timestamp() WHERE `position`.`PT_Code` = $EC_Code;";
+      $sql = "UPDATE `position` SET `PT_Name` = '$PT_name', `PT_Default` = '$PT_Default', `PT_Admin` = '$PT_Admin', `PT_Manage` = '$PT_Manage', `PT_ModifyDate` = current_timestamp() WHERE `position`.`PT_Code` = $EC_Code;";
   }
 
   if ($conn->query($sql) === true) {

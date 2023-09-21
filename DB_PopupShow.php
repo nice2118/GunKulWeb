@@ -6,7 +6,7 @@
         $currentDate = date('Y-m-d', strtotime(str_replace('/', '-', $_POST['currentDate'])));
         $data = array();
 
-        $sql = "SELECT * FROM `alertpopup` WHERE `alertpopup`.`AP_Active` = 1 AND '$currentDate' BETWEEN `alertpopup`.`AP_DateStart` AND `alertpopup`.`AP_DateEnd`;";
+        $sql = "SELECT * FROM `alertpopup` WHERE `alertpopup`.`AP_Active` = 1 AND '$currentDate' BETWEEN `alertpopup`.`AP_DateStart` AND `alertpopup`.`AP_DateEnd` ORDER BY `alertpopup`.`AP_Sort` DESC;";
         $result = $conn->query($sql);
         if ($result->num_rows > 0) {
             while ($row = $result->fetch_assoc()) {
