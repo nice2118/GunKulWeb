@@ -210,7 +210,8 @@ function logoutAlert(name) {
 </script>
     <!-- JavaScript Libraries -->
     <!-- <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script> -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script> -->
+    <script src="js/bootstrapbundle.min.js"></script>
     <script src="lib/wow/wow.min.js"></script>
     <script src="lib/easing/easing.min.js"></script>
     <script src="lib/waypoints/waypoints.min.js"></script>
@@ -223,7 +224,8 @@ function logoutAlert(name) {
     <script src="js/main.js"></script>
 
     <!-- Template sweetalert -->
-    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <!-- <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script> -->
+    <script src="js/sweetalert.min.js"></script>
 </body>
 
 </html>
