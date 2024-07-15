@@ -16,6 +16,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $AP_Name = $_POST['AP_Name'];
     $AP_DateStart = date('Y-m-d', strtotime(str_replace('/', '-', $_POST['AP_DateStart'])));
     $AP_DateEnd = date('Y-m-d', strtotime(str_replace('/', '-', $_POST['AP_DateEnd'])));
+    $AP_Link = $_POST['AP_Link'];
     $AP_Sort = $_POST['AP_Sort'];
 
     $FullNameImage = '';
@@ -80,12 +81,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     if ($AP_Code == 0 || $AP_Code == '') {
-        $sql = "INSERT INTO `alertpopup` (`AP_Code`, `AP_Name`, `AP_Image`, `AP_DateStart`, `AP_DateEnd`, `AP_UserCreate`, `AP_Active`, `AP_Sort`, `AP_CreateDate`, `AP_ModifyDate`) VALUES (NULL, '$AP_Name', '$FullNameImage', '$AP_DateStart', '$AP_DateEnd', '$globalCurrentUser', '1', $AP_Sort, current_timestamp(), current_timestamp());";
+        $sql = "INSERT INTO `alertpopup` (`AP_Code`, `AP_Name`, `AP_Image`, `AP_Link`, `AP_DateStart`, `AP_DateEnd`, `AP_UserCreate`, `AP_Active`, `AP_Sort`, `AP_CreateDate`, `AP_ModifyDate`) VALUES (NULL, '$AP_Name', '$FullNameImage', '$AP_Link', '$AP_DateStart', '$AP_DateEnd', '$globalCurrentUser', '1', $AP_Sort, current_timestamp(), current_timestamp());";
     } else {    
         if ($FullNameImage == '') {
-            $sql = "UPDATE `alertpopup` SET `AP_Name` = '$AP_Name', `AP_DateStart` = '$AP_DateStart', `AP_DateEnd` = '$AP_DateEnd', `AP_Sort` = '$AP_Sort', `AP_ModifyDate` = current_timestamp() WHERE `alertpopup`.`AP_Code` = '$AP_Code';";
+            $sql = "UPDATE `alertpopup` SET `AP_Name` = '$AP_Name', `AP_Link` = '$AP_Link', `AP_DateStart` = '$AP_DateStart', `AP_DateEnd` = '$AP_DateEnd', `AP_Sort` = '$AP_Sort', `AP_ModifyDate` = current_timestamp() WHERE `alertpopup`.`AP_Code` = '$AP_Code';";
         } else {
-            $sql = "UPDATE `alertpopup` SET `AP_Name` = '$AP_Name', `AP_Image` = '$FullNameImage', `AP_DateStart` = '$AP_DateStart', `AP_DateEnd` = '$AP_DateEnd', `AP_Sort` = '$AP_Sort', `AP_ModifyDate` = current_timestamp() WHERE `alertpopup`.`AP_Code` = '$AP_Code';";
+            $sql = "UPDATE `alertpopup` SET `AP_Name` = '$AP_Name', `AP_Image` = '$FullNameImage', `AP_Link` = '$AP_Link', `AP_DateStart` = '$AP_DateStart', `AP_DateEnd` = '$AP_DateEnd', `AP_Sort` = '$AP_Sort', `AP_ModifyDate` = current_timestamp() WHERE `alertpopup`.`AP_Code` = '$AP_Code';";
         }
     }
 

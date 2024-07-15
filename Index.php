@@ -46,10 +46,6 @@ if ($result->num_rows > 0) {
         for ($i = 1; $i <= 6; $i++) {
             $variableID = ${"MainCategory{$i}_id"};
             if ($variableID != 0 && $variableID != '') {
-    ?>
-    <div class="container-xxl2 py-5">
-        <div class="container2">
-                <?php
                 $sql = "SELECT * FROM `Category` WHERE `Category`.`CG_Entity No.` = $variableID;";
                 $result = $conn->query($sql);
                 if ($result->num_rows > 0) {
@@ -102,7 +98,9 @@ if ($result->num_rows > 0) {
                         }
                         $counter++;
                         if ($isFirstRow) {
-            ?>
+    ?>
+    <div class="container-xxl2 py-5">
+        <div class="container2">
             <div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 600px;">
                 <h3 class="text-primary"><?= $DescriptionENGroup1 ?></h3>
                 <h2 class="mb-4"><?= $DescriptionTHGroup1 ?></h2>
@@ -134,8 +132,14 @@ if ($result->num_rows > 0) {
                 </div>
             </div>
             <?php 
-                            $isFirstRow = false;
-                            $isTwoRow = true;
+                                $isFirstRow = false;
+                                $isTwoRow = true;
+                                if ($counter == $row_count) {
+                                    ?>
+        </div>
+    </div>
+                                    <?php
+                                }
                             } else {
                                 if ($isTwoRow) {
                                     $isTwoRow = false;
@@ -168,8 +172,8 @@ if ($result->num_rows > 0) {
                 </div>
                 <!-- Loop -->
             <?php
-                                    // $counter++;
-                                if ($counter == $row_count) {
+                            // $counter++;
+                            if ($counter == $row_count) {
             ?>
             </div>
             <div class="row g-1">
@@ -183,15 +187,13 @@ if ($result->num_rows > 0) {
                     </div>
                 </div>
             </div>
-            <?php
-                                }     
-                            }
-                        }
-                    }
-            ?>
         </div>
     </div>
     <?php
+                            }     
+                        }
+                    }
+                }
             }
         }
     ?>
@@ -546,8 +548,13 @@ document.addEventListener("DOMContentLoaded", function() {
                     '<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>' +
                     '</div>' +
                     '<div class="modal-body">' +
-                    '<div class="row no-gutters">' +
-                    '<div class="col-12"><img src="' + response[i].image + '" alt="Image" class="img-fluid w-100" style="height:550px;"></div>' +
+                    '<div class="row no-gutters">';
+                    if (response[i].link === '') {
+                        modalContent += '<div class="col-12"><img src="' + response[i].image + '" alt="Image" class="img-fluid w-100" style="height:550px;"></div>';
+                    } else {
+                        modalContent += '<div class="col-12"><a href="' + response[i].link + '"><img src="' + response[i].image + '" alt="Image" class="img-fluid w-100" style="height:550px;"></a></div>';
+                    }
+                    modalContent +=
                     '</div>' +
                     '</div>' +
                     '</div>' +

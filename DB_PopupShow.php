@@ -10,7 +10,7 @@
         $result = $conn->query($sql);
         if ($result->num_rows > 0) {
             while ($row = $result->fetch_assoc()) {
-                $data[] = array('id' => $row["AP_Code"], 'name' => $row["AP_Name"], 'image' => 'img/Popup/'.$row["AP_Image"]);
+                $data[] = array('id' => $row["AP_Code"], 'name' => $row["AP_Name"], 'image' => 'img/Popup/'.$row["AP_Image"], 'link' => $row["AP_Link"]);
             }
         }
 

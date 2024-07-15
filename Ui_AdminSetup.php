@@ -298,7 +298,7 @@ $US_Prefix = "";
                                                             }
                                                         ?>
                                                             <a class="btn btn-link py-1 px-2 text-end" onclick="deleteAlertPopup(<?php echo $row["AP_Code"];?>, '<?php echo $row["AP_Image"];?>')"><i class="fas fa-trash"></i></a>  	 
-                                                            <button type="button" class="btn btn-link py-1 px-2 text-end text-warning" data-bs-toggle="modal" data-bs-target="#modalpopup" data-apcode="<?= $row["AP_Code"] ?>" data-apname="<?= htmlspecialchars($row["AP_Name"], ENT_QUOTES); ?>" data-apimage="<?= $row["AP_Image"] ?>" data-apdatestart="<?= $row["AP_DateStart"] ?>" data-apdateend="<?= $row["AP_DateEnd"] ?>" data-sort="<?= $row["AP_Sort"] ?>"><i class="fas fa-edit"></i></button>
+                                                            <button type="button" class="btn btn-link py-1 px-2 text-end text-warning" data-bs-toggle="modal" data-bs-target="#modalpopup" data-apcode="<?= $row["AP_Code"] ?>" data-apname="<?= htmlspecialchars($row["AP_Name"], ENT_QUOTES); ?>" data-apimage="<?= $row["AP_Image"] ?>" data-apdatestart="<?= $row["AP_DateStart"] ?>" data-apdateend="<?= $row["AP_DateEnd"] ?>" data-aplink="<?= $row["AP_Link"] ?>" data-sort="<?= $row["AP_Sort"] ?>"><i class="fas fa-edit"></i></button>
                                                         </div>
                                                     </li>
                                                 <?PHP
@@ -308,7 +308,7 @@ $US_Prefix = "";
                                                 ?>
                                             </ui>
                                             <div class="form-group text-center text-md-end">
-                                                <button type="button" class="btn btn-primary rounded-pill py-1 px-4 add-image-btn text-end" data-bs-toggle="modal" data-bs-target="#modalpopup" data-apcode="" data-apname="" data-apimage="" data-apdatestart="" data-apdateend="" data-sort="0"><i class="fa fa-plus"></i></button>
+                                                <button type="button" class="btn btn-primary rounded-pill py-1 px-4 add-image-btn text-end" data-bs-toggle="modal" data-bs-target="#modalpopup" data-apcode="" data-apname="" data-apimage="" data-apdatestart="" data-apdateend="" data-aplink="" data-sort="0"><i class="fa fa-plus"></i></button>
                                             </div>
                                     </div>
                                     <!-- /.card-body -->
@@ -1296,6 +1296,10 @@ $US_Prefix = "";
                             <div class="col-6 col-sm-6">
                                 <h6 class="text-primary">วันที่สิ้นสุดแสดง</h6>
                                 <input type="Date" id="AP_DateEnd" name="AP_DateEnd" class="form-control border-1" placeholder="วันที่สิ้นสุดแสดง" required>
+                            </div>
+                            <div class="col-12 col-sm-12">
+                                <h6 class="text-primary">ลิ้งที่ต้องการแสดง</h6>
+                                <input type="Text" id="AP_Link" name="AP_Link" class="form-control border-1" placeholder="ลิ้งที่ต้องการแสดง">
                             </div>
                             <div class="col-10 col-sm-10">
                                 <h6 class="text-primary">ภาพที่ให้แสดง</h6>
@@ -2839,6 +2843,7 @@ $(document).ready(function() {
         const apOldImage = button.data('apimage');
         const apDateStart = button.data('apdatestart');
         const apDateEnd = button.data('apdateend');
+        const apLink = button.data('aplink');
         const apSort = button.data('sort');
         
 
@@ -2855,7 +2860,9 @@ $(document).ready(function() {
         document.getElementById("AP_OldImage").value = apOldImage;
         document.getElementById("AP_DateStart").value = apDateStart;
         document.getElementById("AP_DateEnd").value = apDateEnd;
+        document.getElementById("AP_Link").value = apLink;
         document.getElementById("AP_Sort").value = apSort;
+        
 
         var modalContentMasterMenuPopup = document.getElementById("modalPreviewImagePopup");
         var contentHTML = '<img id="previewImagePopup" class="img-fluid rounded" src="' + apImage + '" alt="image" style="width: 200px; height: 200px;">';
