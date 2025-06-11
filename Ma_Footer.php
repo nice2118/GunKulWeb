@@ -4,9 +4,8 @@
             <div class="row g-3">
                 <div class="col-lg-12 col-md-24">
                     <h5 class="text-white mb-4">Gunkul Engineering Public Company Limited</h5>
-                    <p class="mb-2"><i class="fa fa-map-marker-alt me-3"></i>1177, 8th Floor , Pearl Bangkok Building,
-                        Phahonyothin Road, Phayathai, Phayathai, Bangkok 10400</p>
-                    <p class="mb-2"><i class="fa fa-phone-alt me-3"></i>0-2242-5800 (Auto)</p>
+                    <p class="mb-2"><i class="fa fa-map-marker-alt me-3"></i>548 อาคาร วัน ซิตี้ เซ็นเตอร์ (โอซีซี) ชั้นที่ 44 ถนนเพลินจิต แขวงลุมพินี เขตปทุมวัน กรุงเทพมหานคร 10330</p>
+                    <p class="mb-2"><i class="fa fa-phone-alt me-3"></i>0-2242-5800 (อัตโนมัติ)</p>
                     <p class="mb-2"><i class="fa fa-envelope me-3"></i>gunkul@gunkul.co.th</p>
                     <div class="d-flex pt-2">
                         <!-- <a class="btn btn-square btn-outline-light btn-social" href=""><i

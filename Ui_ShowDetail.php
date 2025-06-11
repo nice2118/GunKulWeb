@@ -112,7 +112,8 @@
                                                                 <div class="embed-responsive-item">
                                                                     <div class="video-container text-center">
                                                                         <!-- $PathFolderGallery . $t_id . "/" . $row["GR_Name"] -->
-                                                                        <iframe src="<?= $PathFolderGallery . $row["GR_Name"] ?>" allowfullscreen autoplay muted></iframe>
+                                                                        <!-- $PathFolderGallery . $row["GR_Name"] -->
+                                                                        <iframe style="height:800px; width:500px;" src="<?= $PathFolderGallery . $t_id . "/" . $row["GR_Name"] ?>" allowfullscreen autoplay muted></iframe>
                                                                     </div>
                                                                 </div>
                                                             </div>
